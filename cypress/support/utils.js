@@ -1,8 +1,8 @@
 export const basicAuthCreds = () => {
   return {
     auth: {
-      username: Cypress.env('basicAuthUser'),
-      password: Cypress.env('basicAuthPass')
+      username: Cypress.env('BASIC_AUTH_USER'),
+      password: Cypress.env('BASIC_AUTH_PASS')
     }
   }
 }

@@ -1,0 +1,24 @@
+{
+  "name": "ukmcab-qa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cypress.config.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@azure/cosmos": "^3.17.1",
+    "cypress": "^10.11.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OfficeForProductSafetyAndStandards/ukmcab-qa.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OfficeForProductSafetyAndStandards/ukmcab-qa/issues"
+  },
+  "homepage": "https://github.com/OfficeForProductSafetyAndStandards/ukmcab-qa#readme"
+}
