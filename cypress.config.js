@@ -3,7 +3,8 @@ const { CosmosClient } = require("@azure/cosmos");
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: 'https://app-opss-ukmcab-dev.azurewebsites.net/',
+    baseUrl: 'https://app-opss-ukmcab-dev.azurewebsites.net',
+    chromeWebSecurity: false,
     setupNodeEvents(on, config) {
       const endpoint = config.env.DB_URL;
       const key = config.env.DB_KEY;
