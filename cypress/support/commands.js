@@ -12,11 +12,23 @@ import { basicAuthCreds } from './utils'
 //
 // -- This is a parent command --
 Cypress.Commands.add('ensureOn', (urlPath) => {
-  if(cy.location('pathname') === urlPath) {
+  if (cy.location('pathname') === urlPath) {
   } else {
     cy.visit(urlPath, basicAuthCreds())
   }
- })
+})
+
+Cypress.Commands.add('login', (username, password) => {
+  cy.ensureOn('/Admin')
+  cy.get('#Input_Email').invoke('val', username)
+  cy.get('#Input_Password').invoke('val', password)
+  cy.contains('Log in').click()
+})
+
+Cypress.Commands.add('loginAsAdmin', () => {
+  cy.login(Cypress.env('ADMIN_USER'), Cypress.env('ADMIN_PASS'))
+})
+
 //
 //
 // -- This is a child command --
