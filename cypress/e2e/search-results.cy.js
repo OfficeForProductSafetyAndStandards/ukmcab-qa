@@ -1,9 +1,7 @@
-import { basicAuthCreds } from '../support/utils'
-
 describe('CAB search results page', () => {
   
   const searchCab = (searchInput) => {
-    cy.visit('/find-a-cab', basicAuthCreds())
+    cy.ensureOn('/find-a-cab')
     cy.get('#Keywords').type(searchInput)
     cy.contains('Continue').click()
   }

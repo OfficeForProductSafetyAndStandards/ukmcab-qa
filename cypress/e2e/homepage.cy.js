@@ -1,8 +1,7 @@
-import { basicAuthCreds } from '../support/utils'
 describe('UKMCAB Homepage', () => {
   
   beforeEach(() => {
-    cy.visit('/', basicAuthCreds())
+    cy.ensureOn('/')
   })
 
   it('displays link to Find a CAB', () => {

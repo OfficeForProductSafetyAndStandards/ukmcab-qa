@@ -1,9 +1,7 @@
-import { basicAuthCreds } from '../support/utils'
-
 describe('Find a CAB', () => {
   
   beforeEach(() => {
-    cy.visit('/find-a-cab', basicAuthCreds())
+    cy.ensureOn('/find-a-cab')
   })
 
   it('displays a list of fields that a CAB can be searched with', () => {

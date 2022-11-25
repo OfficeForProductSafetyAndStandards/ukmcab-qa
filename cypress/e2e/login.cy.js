@@ -1,4 +1,4 @@
-import { basicAuthCreds } from '../support/utils'
+import { hasFieldError } from '../support/helpers/validation-helpers'
 
 describe('Logging in', () => {
   
@@ -8,12 +8,8 @@ describe('Logging in', () => {
     cy.contains('Log in').click()
   }
 
-  const hasFieldError = (fieldLabel,error) => {
-    cy.contains('label', fieldLabel).prev().contains(error)
-  }
-
   beforeEach(() => {
-    cy.visit('/admin', basicAuthCreds())
+    cy.ensureOn('/admin')
   })
 
   context('as an Admin user', () => {

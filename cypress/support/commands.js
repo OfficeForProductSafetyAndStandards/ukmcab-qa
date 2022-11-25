@@ -1,3 +1,4 @@
+import { basicAuthCreds } from './utils'
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -10,7 +11,12 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
+Cypress.Commands.add('ensureOn', (urlPath) => {
+  if(cy.location('pathname') === urlPath) {
+  } else {
+    cy.visit(urlPath, basicAuthCreds())
+  }
+ })
 //
 //
 // -- This is a child command --
