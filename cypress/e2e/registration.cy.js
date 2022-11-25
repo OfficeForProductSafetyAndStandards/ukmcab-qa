@@ -1,29 +1,9 @@
 import { hasFieldError, hasFormError } from '../support/helpers/validation-helpers'
+import { register, enterPasswords, submitForm } from '../support/helpers/registration-helpers'
 import OGDUser from '../support/domain/ogd-user'
 
 describe('Registration', () => {
   
-  const register = (user) => {
-    cy.ensureOn('/Identity/Account/RegisterOGDUser')
-    cy.get('#Input_Email').invoke('val', user.email)
-    enterPasswords(user.password)
-    user.legislativeAreas.forEach(area => {
-      cy.get(`input[value='${area}']`).check()
-    })
-    cy.get('#Input_RequestReason').invoke('val', user.requestReason)
-    submitForm()
-  }
-
-  const enterPasswords = (password, confirmPassword=null) => {
-    cy.get('#Input_Password').invoke('val', password)
-    const confirmPasswordValue = confirmPassword ? confirmPassword : password
-    cy.get('#Input_ConfirmPassword').invoke('val', confirmPasswordValue)
-  }
-
-  const submitForm = () => {
-    cy.contains('button', 'Request account').click()
-  }
-
   context('as an OGD user', () => {
 
     beforeEach(() => {
