@@ -1,5 +1,5 @@
 import { hasFieldError, hasFormError } from '../support/helpers/validation-helpers'
-import { register, enterPasswords, submitForm } from '../support/helpers/registration-helpers'
+import { register, enterPasswords, submitForm, verifyEmail } from '../support/helpers/registration-helpers'
 import OGDUser from '../support/domain/ogd-user'
 
 describe('Registration', () => {
@@ -17,7 +17,7 @@ describe('Registration', () => {
 
     it('when successful triggers email confirmation to the user', () => {
       register(new OGDUser())
-      cy.get('#confirm-link').contains('Click here to confirm your account').click()
+      verifyEmail()
       cy.contains('Thank you for confirming your email. Your registration request will be reviewed and you will receive notification once approved.')
     })
 

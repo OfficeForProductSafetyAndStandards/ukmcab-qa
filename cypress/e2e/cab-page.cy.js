@@ -1,4 +1,4 @@
-  import {basicAuthCreds} from '../support/utils'
+  import {basicAuthCreds} from '../support/helpers/common-helpers'
 
 describe('CAB profile page', () => {
   

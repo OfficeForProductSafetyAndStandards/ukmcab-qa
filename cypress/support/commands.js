@@ -1,4 +1,5 @@
-import { basicAuthCreds } from './utils'
+import { basicAuthCreds } from '../support/helpers/common-helpers'
+import { header } from './helpers/common-helpers'
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -19,7 +20,7 @@ Cypress.Commands.add('ensureOn', (urlPath) => {
 })
 
 Cypress.Commands.add('login', (username, password) => {
-  cy.ensureOn('/Admin')
+  cy.ensureOn('/Identity/Account/Login')
   cy.get('#Input_Email').invoke('val', username)
   cy.get('#Input_Password').invoke('val', password)
   cy.contains('Log in').click()
@@ -27,6 +28,14 @@ Cypress.Commands.add('login', (username, password) => {
 
 Cypress.Commands.add('loginAsAdmin', () => {
   cy.login(Cypress.env('ADMIN_USER'), Cypress.env('ADMIN_PASS'))
+})
+
+Cypress.Commands.add('logout', () => {
+  header().contains('Logout').click()
+})
+
+Cypress.Commands.add('hasKeyValueDetail', (key, value) => {
+  cy.get('.govuk-summary-list__row').contains(key).next().contains(value)
 })
 
 //

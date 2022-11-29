@@ -18,3 +18,7 @@ export const enterPasswords = (password, confirmPassword=null) => {
 export const submitForm = () => {
   cy.contains('button', 'Request account').click()
 }
+
+export const verifyEmail = () => {
+  cy.get('#confirm-link').contains('Click here to confirm your account').click()
+}

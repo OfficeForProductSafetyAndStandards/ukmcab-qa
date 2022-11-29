@@ -2,10 +2,6 @@ import { hasFieldError } from '../support/helpers/validation-helpers'
 
 describe('Logging in', () => {
 
-  beforeEach(() => {
-    cy.ensureOn('/admin')
-  })
-
   context('as an Admin user', () => {
 
     it('displays error when using unknown credentials', () => {
@@ -13,7 +9,7 @@ describe('Logging in', () => {
       hasFieldError('Email', 'Invalid login attempt.')
     })
 
-    it('displays CAB list upon successful login', () => {
+    xit('displays CAB list upon successful login', () => {
       cy.loginAsAdmin()
       cy.contains('CAB list')
     })

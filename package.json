@@ -10,7 +10,9 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cypressOpen": "cypress open"
+    "cypressOpen": "cypress open",
+    "cypressRunHeaded": "cypress run --browser chrome --headed",
+    "cypressRunHeadless": "cypress run --browser chrome"
   },
   "repository": {
     "type": "git",
