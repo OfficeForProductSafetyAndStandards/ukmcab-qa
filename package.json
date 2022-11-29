@@ -9,10 +9,9 @@
     "cypress": "^10.11.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "cypressOpen": "cypress open",
     "cypressRunHeaded": "cypress run --browser chrome --headed",
-    "cypressRunHeadless": "cypress run --browser chrome"
+    "cypressRunHeadless": "cypress run --browser chrome --config video=false"
   },
   "repository": {
     "type": "git",

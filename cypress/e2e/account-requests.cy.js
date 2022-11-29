@@ -1,4 +1,4 @@
-import { register, verifyEmail } from '../support/helpers/registration-helpers'
+import { registerAsOgdUser, verifyEmail } from '../support/helpers/registration-helpers'
 import { viewAccountRequests, accountRequest, reviewRequest, approveRequest, rejectRequest } from '../support/helpers/account-request-helpers'
 import { shouldBeLoggedIn, shouldBeLoggedOut } from '../support/helpers/common-helpers'
 import { hasFormError } from '../support/helpers/validation-helpers'
@@ -9,7 +9,7 @@ describe('Account requests', () => {
   beforeEach(() => {
     const user = new OGDUser()
     cy.wrap(user).as('user')
-    register(user)
+    registerAsOgdUser(user)
   })
 
   context('for users who have not verified their email', function() {

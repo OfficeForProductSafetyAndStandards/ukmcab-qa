@@ -1,11 +1,21 @@
-export const register = (user) => {
-  cy.ensureOn('/Identity/Account/RegisterOGDUser')
+export const registerOgdUserPath = () => { return '/Identity/Account/RegisterOGDUser' }
+export const registerUkasUserPath = () => { return '/Identity/Account/RegisterUKASUser' }
+
+export const registerAsOgdUser = (user) => {
+  cy.ensureOn(registerOgdUserPath())
   cy.get('#Input_Email').invoke('val', user.email)
   enterPasswords(user.password)
   user.legislativeAreas.forEach(area => {
     cy.get(`input[value='${area}']`).check()
   })
   cy.get('#Input_RequestReason').invoke('val', user.requestReason)
+  submitForm()
+}
+
+export const registerAsUkasUser = (user) => {
+  cy.ensureOn(registerUkasUserPath())
+  cy.get('#Input_Email').invoke('val', user.email)
+  enterPasswords(user.password)
   submitForm()
 }
 
