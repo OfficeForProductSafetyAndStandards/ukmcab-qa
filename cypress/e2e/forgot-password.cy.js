@@ -1,0 +1,139 @@
+import * as Registration from '../support/helpers/registration-helpers'
+import * as ForgotPassword from '../support/helpers/forgot-password-helpers'
+import * as DbHelpers from '../support/helpers/db-helpers'
+import { path as loginPath } from '../support/helpers/login-helpers'
+import OGDUser from '../support/domain/ogd-user'
+import { hasFieldError, hasFormError } from '../support/helpers/validation-helpers'
+import { shouldBeLoggedIn } from '../support/helpers/common-helpers'
+
+describe('Forgot password', () => {
+
+  beforeEach(() => {
+    cy.ensureOn(ForgotPassword.path())
+  })
+
+  it('user must enter email address to proceed', () => {
+    cy.contains('button', 'Password reset').click()
+    hasFieldError('Email', 'The Email field is required.')
+  })
+  
+  it('user must enter whitelisted email address to proceed', () => {
+    const error = 'Only ukas.com or .gov.uk email addresses are valid'
+    ForgotPassword.requestPasswordReset('xx@dept.gov.sco')
+    hasFieldError('Email', error)
+    ForgotPassword.requestPasswordReset('xx@ukas.co')
+    hasFieldError('Email', error)
+  })
+
+  it('password reset confirmation is displayed and reset email is sent upon entering valid email', () => {
+    const user = new OGDUser()
+    Registration.registerAsOgdUser(user)
+    Registration.verifyEmail(user.email)
+    ForgotPassword.requestPasswordReset(user.email)
+    cy.contains('Forgot password confirmation')
+    cy.contains('Please check your email to reset your password.')
+    ForgotPassword.getPasswordResetEmail(user.email).then(email => {
+      expect(new Date(email.sent_at)).to.be.closeToTime(new Date(), 3)
+    })
+  })
+
+  it('password reset emails are not sent for unregistered emails', () => {
+    const email = 'SomeMadeUpEmail@ukmcab.gov.uk'
+    ForgotPassword.requestPasswordReset(email)
+    cy.contains('Forgot password confirmation')
+    cy.contains('Please check your email to reset your password.')
+    ForgotPassword.getPasswordResetEmail(email).then(email => {
+      expect(email).to.be.null
+    })
+  })
+
+  it('password reset emails are not sent for unverified emails', () => {
+    const user = new OGDUser()
+    Registration.registerAsOgdUser(user)
+    ForgotPassword.requestPasswordReset(user.email)
+    cy.contains('Forgot password confirmation')
+    cy.contains('Please check your email to reset your password.')
+    ForgotPassword.getPasswordResetEmail(user.email).then(email => {
+      expect(email).to.be.null
+    })
+  })
+
+  it('password reset confirmation is displayed upon successful reset', () => {
+    const user = new OGDUser()
+    Registration.registerAsOgdUser(user)
+    Registration.verifyEmail(user.email)
+    ForgotPassword.requestPasswordReset(user.email)
+    ForgotPassword.getPasswordResetLink(user.email).then(link => {
+      cy.ensureOn(link)
+      ForgotPassword.resetPassword(user.email, 'Som3NewP@55w0rd')
+    })
+    cy.contains('Reset password confirmation Your password has been reset. Please click here to log in.')
+    cy.contains('a', 'click here to log in').should('have.attr', 'href', loginPath())
+  })
+
+  it('user can login with new password after reset and old password stops working', () => {
+    const user = new OGDUser()
+    const oldPassword = user.password
+    const newPassword = 'Som3NewP@55w0rd'
+    Registration.registerAsOgdUser(user)
+    Registration.verifyEmail(user.email)
+    ForgotPassword.requestPasswordReset(user.email)
+    ForgotPassword.getPasswordResetLink(user.email).then(link => {
+      cy.ensureOn(link)
+      ForgotPassword.resetPassword(user.email, newPassword)
+    })
+    DbHelpers.setUserRequestAsApproved(user)
+    cy.login(user.email, oldPassword)
+    hasFormError('Invalid login attempt.')
+    cy.login(user.email, newPassword)
+    shouldBeLoggedIn()
+  })
+
+  it('passwords must match and meet valition when resetting', () => {
+    const user = new OGDUser()
+    Registration.registerAsOgdUser(user)
+    Registration.verifyEmail(user.email)
+    ForgotPassword.requestPasswordReset(user.email)
+    ForgotPassword.getPasswordResetLink(user.email).then(link => {
+      cy.ensureOn(link)
+      ForgotPassword.resetPassword(user.email, 'Som3NewP@55w0rd','Som3DifferentP@55w0rd')
+      hasFormError('The password and confirmation password do not match.')
+      ForgotPassword.resetPassword(user.email, 'Pass!')
+      hasFormError("The Password must be at least 8 and at max 100 characters long.")
+      ForgotPassword.resetPassword(user.email, 'Pass!Pass@')
+      hasFormError("Passwords must have at least one digit ('0'-'9').")
+      ForgotPassword.resetPassword(user.email, 'password3@')
+      hasFormError("Passwords must have at least one uppercase ('A'-'Z').")
+      ForgotPassword.resetPassword(user.email, 'Password3')
+      hasFormError("Passwords must have at least one non alphanumeric character.")
+    })
+  })
+
+  it('password reset link can only be used once', () => {
+    const user = new OGDUser()
+    Registration.registerAsOgdUser(user)
+    Registration.verifyEmail(user.email)
+    ForgotPassword.requestPasswordReset(user.email)
+    ForgotPassword.getPasswordResetLink(user.email).then(link => {
+      cy.ensureOn(link)
+      ForgotPassword.resetPassword(user.email, 'Som3NewP@55w0rd')
+      cy.ensureOn(link)
+      ForgotPassword.resetPassword(user.email, 'Som3NewP@55w0rd')
+      cy.location('pathname').should('equal', ForgotPassword.resetPasswordPath())
+      cy.contains('Invalid token.')
+    })
+  })
+
+  it('password reset link only works for email address that trigerred the reset', () => {
+    const user = new OGDUser()
+    Registration.registerAsOgdUser(user)
+    Registration.verifyEmail(user.email)
+    ForgotPassword.requestPasswordReset(user.email)
+    ForgotPassword.getPasswordResetLink(user.email).then(link => {
+      cy.ensureOn(link)
+      ForgotPassword.resetPassword("SomeOtherEmail@ukmcab.gov.uk", 'Som3NewP@55w0rd')
+      cy.location('pathname').should('equal', ForgotPassword.resetPasswordPath())
+      cy.contains('Invalid token.')
+    })
+  })
+})

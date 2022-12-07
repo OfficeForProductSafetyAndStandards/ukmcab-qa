@@ -1,44 +1,65 @@
 import { hasFieldError } from '../support/helpers/validation-helpers'
+import { path as forgotPasswordPath } from '../support/helpers/forgot-password-helpers'
+import { path as registerPath } from '../support/helpers/registration-helpers'
+import OGDUser from '../support/domain/ogd-user'
+import * as Registration from '../support/helpers/registration-helpers'
+import * as DbHelpers from '../support/helpers/db-helpers'
 
 describe('Logging in', () => {
 
+  it('displays error when using unknown credentials', () => {
+    cy.login(`Unknown${Date.now()}@ukmcab.gov.uk`, 'Som3P255W0rd!')
+    hasFieldError('Email', 'Invalid login attempt.')
+  })
+
+  it('displays email/password validation errors', () => {
+    cy.login('', 'adminP@ssw0rd!')
+    hasFieldError('Email', 'The Email field is required.')
+
+    cy.login('admin@ukmcab.gov.uk', '')
+    hasFieldError('Password', 'The Password field is required.')
+
+    cy.login('', '')
+    hasFieldError('Email', 'The Email field is required.')
+    hasFieldError('Password', 'The Password field is required.')
+  })
+
+  it('displays link to reset password', () => {
+    cy.contains('a', 'Forgot your password?').should('have.attr', 'href', forgotPasswordPath())
+  })
+
+  it('displays link to register as a new user', () => {
+    cy.contains('a', 'Register as a new user').should('have.attr', 'href', registerPath())
+  })
+
+  it('locks account after 5 unsuccessful attempts', () => {
+    const user = new OGDUser()
+    Registration.registerAsOgdUser(user)
+    Registration.verifyEmail(user.email)
+    DbHelpers.setUserRequestAsApproved(user)
+    for(var i = 0; i < 5; i++){
+      cy.login(user.email, 'IncorrectPassword')
+    }
+    cy.contains('Account locked This account has been locked out, please try again later.')
+  })
+
   context('as an Admin user', () => {
 
-    it('displays error when using unknown credentials', () => {
-      cy.login(`Unknown${Date.now()}@ukmcab.gov.uk`, 'Som3P255W0rd!')
-      hasFieldError('Email', 'Invalid login attempt.')
-    })
-
-    xit('displays CAB list upon successful login', () => {
+    it('displays CAB list upon successful login', () => {
       cy.loginAsAdmin()
       cy.contains('CAB list')
+      cy.location('pathname').should('eq', '/admin')
     })
 
-    it('displays email/password validation errors', () => {
-      cy.login('', 'adminP@ssw0rd!')
-      hasFieldError('Email', 'The Email field is required.')
+  })
 
-      cy.login('admin@ukmcab.gov.uk', '')
-      hasFieldError('Password', 'The Password field is required.')
+  context('as non-Admin user', () => {
 
-      
-      cy.login('', '')
-      hasFieldError('Email', 'The Email field is required.')
-      hasFieldError('Password', 'The Password field is required.')
+    it('displays Homepage upon successful login', () => {
+      // using admin creds to login to avoid registering a new user
+      cy.login(Cypress.env('ADMIN_USER'), Cypress.env('ADMIN_PASS'))
+      cy.location('pathname').should('eq', '/')
     })
-
-    it('displays link to reset password', () => {
-      cy.contains('a', 'Forgot your password')
-    })
-
-    it('displays link to register as a new user', () => {
-      cy.contains('a', 'Register as a new user')
-    })
-
-    // TODO: Once behaviour is confirmed. Only existing accounts are locked at present
-    // Test will require an account to be created first and then test the locking
-    // it.only('locks account after 5 unsuccessful attempts', () => {
-    // })
   })
 
 })

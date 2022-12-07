@@ -1,5 +1,5 @@
 import { registerAsOgdUser, verifyEmail } from '../support/helpers/registration-helpers'
-import { viewAccountRequests, accountRequest, reviewRequest, approveRequest, rejectRequest } from '../support/helpers/account-request-helpers'
+import * as AccountRequests from '../support/helpers/account-request-helpers'
 import { shouldBeLoggedIn, shouldBeLoggedOut } from '../support/helpers/common-helpers'
 import { hasFormError } from '../support/helpers/validation-helpers'
 import OGDUser from '../support/domain/ogd-user'
@@ -15,24 +15,24 @@ describe('Account requests', () => {
   context('for users who have not verified their email', function() {
     beforeEach(() => {
       cy.loginAsAdmin()
-      viewAccountRequests()
+      AccountRequests.viewAccountRequests()
     })
 
     it('are not displayed to the admin user', function() {
-      accountRequest(this.user).should('not.exist')
+      AccountRequests.accountRequest(this.user).should('not.exist')
     })
   })
 
   context('for users with verified email but pending review', function() {
-    beforeEach(() => {
-      verifyEmail()
+    beforeEach(function() {
+      verifyEmail(this.user.email)
       cy.loginAsAdmin()
-      viewAccountRequests()
+      AccountRequests.viewAccountRequests()
     })
 
     it('are displayed to the admin user', function() {
       cy.contains('Pending account requests')
-      accountRequest(this.user).should('exist')
+      AccountRequests.accountRequest(this.user).should('exist')
     })
 
     it('stop users from login with an error', function() {
@@ -43,7 +43,7 @@ describe('Account requests', () => {
     })
   
     it('display request details upon review', function() {
-      reviewRequest(this.user)
+      AccountRequests.reviewRequest(this.user)
       cy.contains('Pending account review')
       cy.hasKeyValueDetail('Email', this.user.email)
       cy.hasKeyValueDetail('Legislative areas', this.user.legislativeAreas.join(', '))
@@ -51,22 +51,22 @@ describe('Account requests', () => {
     })
   
     it('can be rejected without supplying the optional rejection reason', function() {
-      reviewRequest(this.user)
-      rejectRequest()
+      AccountRequests.reviewRequest(this.user)
+      AccountRequests.rejectRequest()
       cy.contains('Pending account requests')
-      accountRequest(this.user).should('not.exist')
+      AccountRequests.accountRequest(this.user).should('not.exist')
     })
 
     context('when approved', function() {
       
       beforeEach(function() {
-        reviewRequest(this.user)
-        approveRequest()
+        AccountRequests.reviewRequest(this.user)
+        AccountRequests.approveRequest()
       })
 
       it('removes request from requests page', function() {
         cy.contains('Pending account requests')
-        accountRequest(this.user).should('not.exist')
+        AccountRequests.accountRequest(this.user).should('not.exist')
       })
       
       it('enables user to login', function() {
@@ -79,13 +79,13 @@ describe('Account requests', () => {
     context('when rejected', function() {
       
       beforeEach(function() {
-        reviewRequest(this.user)
-        rejectRequest()
+        AccountRequests.reviewRequest(this.user)
+        AccountRequests.rejectRequest()
       })
       
       it('removes request from requests page', function() {
         cy.contains('Pending account requests')
-        accountRequest(this.user).should('not.exist')
+        AccountRequests.accountRequest(this.user).should('not.exist')
       })
       
       it('stops user from login with an error', function() {

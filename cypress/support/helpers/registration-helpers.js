@@ -1,34 +1,40 @@
-export const registerOgdUserPath = () => { return '/Identity/Account/RegisterOGDUser' }
-export const registerUkasUserPath = () => { return '/Identity/Account/RegisterUKASUser' }
+export const path = () => { return '/account/Register?returnUrl=%2F' }
+export const registerOgdUserPath = () => { return '/account/Register/request/OGDUser' }
+export const registerUkasUserPath = () => { return '/account/Register/request/UKASUser' }
+export const registerOpssAdminUserPath = () => { return '/account/Register/request/OPSSAdmin' }
 
 export const registerAsOgdUser = (user) => {
   cy.ensureOn(registerOgdUserPath())
-  cy.get('#Input_Email').invoke('val', user.email)
+  cy.get('#Email').invoke('val', user.email)
   enterPasswords(user.password)
   user.legislativeAreas.forEach(area => {
     cy.get(`input[value='${area}']`).check()
   })
-  cy.get('#Input_RequestReason').invoke('val', user.requestReason)
+  cy.get('#RequestReason').invoke('val', user.requestReason)
   submitForm()
 }
 
 export const registerAsUkasUser = (user) => {
   cy.ensureOn(registerUkasUserPath())
-  cy.get('#Input_Email').invoke('val', user.email)
+  cy.get('#Email').invoke('val', user.email)
   enterPasswords(user.password)
   submitForm()
 }
 
 export const enterPasswords = (password, confirmPassword=null) => {
-  cy.get('#Input_Password').invoke('val', password)
+  cy.get('#Password').invoke('val', password)
   const confirmPasswordValue = confirmPassword ? confirmPassword : password
-  cy.get('#Input_ConfirmPassword').invoke('val', confirmPasswordValue)
+  cy.get('#ConfirmPassword').invoke('val', confirmPasswordValue)
 }
 
 export const submitForm = () => {
   cy.contains('button', 'Request account').click()
 }
 
-export const verifyEmail = () => {
-  cy.get('#confirm-link').contains('Click here to confirm your account').click()
+export const verifyEmail = (email) => {
+  cy.task('getLastEmail', email).then(email => {
+    const verificationLink = email.body.match(/^https(.*)$/gm)[0]
+    cy.ensureOn(verificationLink)
+    cy.contains('Registration confirmation')
+  })
 }
