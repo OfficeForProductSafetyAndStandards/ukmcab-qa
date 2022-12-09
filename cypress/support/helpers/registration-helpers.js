@@ -12,7 +12,7 @@ export const errors = {
   passwordAtleastOneDigit: "Passwords must have at least one digit ('0'-'9').",
   passwordAtleastOneUppercase: "Passwords must have at least one uppercase ('A'-'Z').",
   passwordAtleastOneNonAlphanum: "Passwords must have at least one non alphanumeric character.",
-  passwordsDontMatch: "Passwords must have at least one non alphanumeric character.",
+  passwordsDontMatch: "The password and confirmation password do not match.",
   onlyUkasEmailAllowed: "Only ukas.com email addresses can register for an UKAS user account",
   onlyGovUkEmailAllowedForOGD: "Only GOV UK email addresses can register for an OGD user account",
   onlyGovUkEmailAllowedForOPSS: "Only GOV UK email addresses can register for an OPSS admin account",

@@ -1,11 +1,16 @@
 import { hasFieldError } from '../support/helpers/validation-helpers'
 import { path as forgotPasswordPath } from '../support/helpers/forgot-password-helpers'
 import { path as registerPath } from '../support/helpers/registration-helpers'
+import { path as loginPath } from '../support/helpers/login-helpers'
 import OGDUser from '../support/domain/ogd-user'
 import * as Registration from '../support/helpers/registration-helpers'
 import * as DbHelpers from '../support/helpers/db-helpers'
 
 describe('Logging in', () => {
+
+  beforeEach(() => {
+    cy.ensureOn(loginPath())
+  })
 
   it('displays error when using unknown credentials', () => {
     cy.login(`Unknown${Date.now()}@ukmcab.gov.uk`, 'Som3P255W0rd!')

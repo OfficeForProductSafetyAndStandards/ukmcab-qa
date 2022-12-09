@@ -30,8 +30,7 @@ describe('Forgot password', () => {
     Registration.registerAsOgdUser(user)
     Registration.verifyEmail(user.email)
     ForgotPassword.requestPasswordReset(user.email)
-    cy.contains('Forgot password confirmation')
-    cy.contains('Please check your email to reset your password.')
+    ForgotPassword.hasPasswordResetRequestedConfirmation()
     ForgotPassword.getPasswordResetEmail(user.email).then(email => {
       expect(new Date(email.sent_at)).to.be.closeToTime(new Date(), 3)
     })
@@ -40,20 +39,17 @@ describe('Forgot password', () => {
   it('password reset emails are not sent for unregistered emails', () => {
     const email = 'SomeMadeUpEmail@ukmcab.gov.uk'
     ForgotPassword.requestPasswordReset(email)
-    cy.contains('Forgot password confirmation')
-    cy.contains('Please check your email to reset your password.')
+    ForgotPassword.hasPasswordResetRequestedConfirmation()
     ForgotPassword.getPasswordResetEmail(email).then(email => {
       expect(email).to.be.null
     })
   })
 
-  it('password reset emails are not sent for unverified emails', () => {
-    const user = new OGDUser()
-    Registration.registerAsOgdUser(user)
-    ForgotPassword.requestPasswordReset(user.email)
-    cy.contains('Forgot password confirmation')
-    cy.contains('Please check your email to reset your password.')
-    ForgotPassword.getPasswordResetEmail(user.email).then(email => {
+  it('password reset emails are not sent for acounts that are not already registered', () => {
+    const email = 'SomeNoExistentEmail@ukmcab.gov.uk'
+    ForgotPassword.requestPasswordReset(email)
+    ForgotPassword.hasPasswordResetRequestedConfirmation()
+    ForgotPassword.getPasswordResetEmail(email).then(email => {
       expect(email).to.be.null
     })
   })
@@ -119,7 +115,7 @@ describe('Forgot password', () => {
       ForgotPassword.resetPassword(user.email, 'Som3NewP@55w0rd')
       cy.ensureOn(link)
       ForgotPassword.resetPassword(user.email, 'Som3NewP@55w0rd')
-      cy.location('pathname').should('equal', ForgotPassword.resetPasswordPath())
+      cy.location('pathname').should('equal', ForgotPassword.passwordResetPath())
       cy.contains('Invalid token.')
     })
   })
@@ -131,8 +127,8 @@ describe('Forgot password', () => {
     ForgotPassword.requestPasswordReset(user.email)
     ForgotPassword.getPasswordResetLink(user.email).then(link => {
       cy.ensureOn(link)
-      ForgotPassword.resetPassword("SomeOtherEmail@ukmcab.gov.uk", 'Som3NewP@55w0rd')
-      cy.location('pathname').should('equal', ForgotPassword.resetPasswordPath())
+      ForgotPassword.resetPassword("admin@ukmcab.gov.uk", 'Som3NewP@55w0rd')
+      cy.location('pathname').should('equal', ForgotPassword.passwordResetPath())
       cy.contains('Invalid token.')
     })
   })
