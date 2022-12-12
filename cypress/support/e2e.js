@@ -18,12 +18,3 @@ import './commands'
 
 var chaiDatetime = require('chai-datetime');
 chai.use(chaiDatetime);
-
-// Cypress tests start on the same page as previous tests unless cy.visit is used at the start of each test
-// This is not a requirement in each test hence can lead to stale page at the start of test
-// Below hook ensures that each test starts at a blank page.
-// beforeEach(() => {
-//   cy.window().then((win) => {
-//     win.location.href = 'about:blank'
-//   })
-// })
