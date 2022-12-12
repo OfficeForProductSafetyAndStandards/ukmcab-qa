@@ -27,8 +27,15 @@ Cypress.Commands.add('login', (username, password) => {
 })
 
 Cypress.Commands.add('loginAsAdmin', () => {
-  cy.ensureOn(Login.adminPath())
-  Login.login(Cypress.env('ADMIN_USER'), Cypress.env('ADMIN_PASS'))
+  Login.loginAsAdmin()
+})
+
+Cypress.Commands.add('loginAsOgdUser', () => {
+  Login.loginAsOgdUser()
+})
+
+Cypress.Commands.add('loginAsUkasUser', () => {
+  Login.loginAsUkasUser()
 })
 
 Cypress.Commands.add('logout', () => {

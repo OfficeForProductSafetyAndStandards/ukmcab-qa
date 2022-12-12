@@ -6,3 +6,18 @@ export const login = (username, password) => {
   cy.get('#Password').invoke('val', password)
   cy.contains('Log in').click()
 }
+
+export const loginAsAdmin = () => { 
+  cy.ensureOn(adminPath())
+  login(Cypress.env('ADMIN_USER'), Cypress.env('ADMIN_PASS'))
+}
+
+export const loginAsOgdUser = () => { 
+  cy.ensureOn(path())
+  login(Cypress.env('OGD_USER'), Cypress.env('OGD_PASS'))
+}
+
+export const loginAsUkasUser = () => { 
+  cy.ensureOn(path())
+  login(Cypress.env('UKAS_USER'), Cypress.env('UKAS_PASS'))
+}
