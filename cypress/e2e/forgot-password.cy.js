@@ -1,5 +1,5 @@
 import * as Registration from '../support/helpers/registration-helpers'
-import * as ForgotPassword from '../support/helpers/forgot-password-helpers'
+import * as PasswordHelpers from '../support/helpers/password-helpers'
 import * as DbHelpers from '../support/helpers/db-helpers'
 import { path as loginPath } from '../support/helpers/login-helpers'
 import OGDUser from '../support/domain/ogd-user'
@@ -9,7 +9,7 @@ import { shouldBeLoggedIn } from '../support/helpers/common-helpers'
 describe('Forgot password', () => {
 
   beforeEach(() => {
-    cy.ensureOn(ForgotPassword.path())
+    cy.ensureOn(PasswordHelpers.forgotPasswordPath())
   })
 
   it('user must enter email address to proceed', () => {
@@ -19,9 +19,9 @@ describe('Forgot password', () => {
   
   it('user must enter whitelisted email address to proceed', () => {
     const error = 'Only ukas.com or .gov.uk email addresses are valid'
-    ForgotPassword.requestPasswordReset('xx@dept.gov.sco')
+    PasswordHelpers.requestPasswordReset('xx@dept.gov.sco')
     hasFieldError('Email', error)
-    ForgotPassword.requestPasswordReset('xx@ukas.co')
+    PasswordHelpers.requestPasswordReset('xx@ukas.co')
     hasFieldError('Email', error)
   })
 
@@ -29,27 +29,27 @@ describe('Forgot password', () => {
     const user = new OGDUser()
     Registration.registerAsOgdUser(user)
     Registration.verifyEmail(user.email)
-    ForgotPassword.requestPasswordReset(user.email)
-    ForgotPassword.hasPasswordResetRequestedConfirmation()
-    ForgotPassword.getPasswordResetEmail(user.email).then(email => {
+    PasswordHelpers.requestPasswordReset(user.email)
+    PasswordHelpers.hasPasswordResetRequestedConfirmation()
+    PasswordHelpers.getPasswordResetEmail(user.email).then(email => {
       expect(new Date(email.sent_at)).to.be.closeToTime(new Date(), 3)
     })
   })
 
   it('password reset emails are not sent for unregistered emails', () => {
     const email = 'SomeMadeUpEmail@ukmcab.gov.uk'
-    ForgotPassword.requestPasswordReset(email)
-    ForgotPassword.hasPasswordResetRequestedConfirmation()
-    ForgotPassword.getPasswordResetEmail(email).then(email => {
+    PasswordHelpers.requestPasswordReset(email)
+    PasswordHelpers.hasPasswordResetRequestedConfirmation()
+    PasswordHelpers.getPasswordResetEmail(email).then(email => {
       expect(email).to.be.null
     })
   })
 
   it('password reset emails are not sent for acounts that are not already registered', () => {
     const email = 'SomeNoExistentEmail@ukmcab.gov.uk'
-    ForgotPassword.requestPasswordReset(email)
-    ForgotPassword.hasPasswordResetRequestedConfirmation()
-    ForgotPassword.getPasswordResetEmail(email).then(email => {
+    PasswordHelpers.requestPasswordReset(email)
+    PasswordHelpers.hasPasswordResetRequestedConfirmation()
+    PasswordHelpers.getPasswordResetEmail(email).then(email => {
       expect(email).to.be.null
     })
   })
@@ -58,10 +58,10 @@ describe('Forgot password', () => {
     const user = new OGDUser()
     Registration.registerAsOgdUser(user)
     Registration.verifyEmail(user.email)
-    ForgotPassword.requestPasswordReset(user.email)
-    ForgotPassword.getPasswordResetLink(user.email).then(link => {
+    PasswordHelpers.requestPasswordReset(user.email)
+    PasswordHelpers.getPasswordResetLink(user.email).then(link => {
       cy.ensureOn(link)
-      ForgotPassword.resetPassword(user.email, 'Som3NewP@55w0rd')
+      PasswordHelpers.resetPassword(user.email, 'Som3NewP@55w0rd')
     })
     cy.contains('Reset password confirmation Your password has been reset. Please click here to log in.')
     cy.contains('a', 'click here to log in').should('have.attr', 'href', loginPath())
@@ -73,10 +73,10 @@ describe('Forgot password', () => {
     const newPassword = 'Som3NewP@55w0rd'
     Registration.registerAsOgdUser(user)
     Registration.verifyEmail(user.email)
-    ForgotPassword.requestPasswordReset(user.email)
-    ForgotPassword.getPasswordResetLink(user.email).then(link => {
+    PasswordHelpers.requestPasswordReset(user.email)
+    PasswordHelpers.getPasswordResetLink(user.email).then(link => {
       cy.ensureOn(link)
-      ForgotPassword.resetPassword(user.email, newPassword)
+      PasswordHelpers.resetPassword(user.email, newPassword)
     })
     DbHelpers.setUserRequestAsApproved(user)
     cy.login(user.email, oldPassword)
@@ -89,18 +89,18 @@ describe('Forgot password', () => {
     const user = new OGDUser()
     Registration.registerAsOgdUser(user)
     Registration.verifyEmail(user.email)
-    ForgotPassword.requestPasswordReset(user.email)
-    ForgotPassword.getPasswordResetLink(user.email).then(link => {
+    PasswordHelpers.requestPasswordReset(user.email)
+    PasswordHelpers.getPasswordResetLink(user.email).then(link => {
       cy.ensureOn(link)
-      ForgotPassword.resetPassword(user.email, 'Som3NewP@55w0rd','Som3DifferentP@55w0rd')
+      PasswordHelpers.resetPassword(user.email, 'Som3NewP@55w0rd','Som3DifferentP@55w0rd')
       hasFormError('The password and confirmation password do not match.')
-      ForgotPassword.resetPassword(user.email, 'Pass!')
+      PasswordHelpers.resetPassword(user.email, 'Pass!')
       hasFormError("The Password must be at least 8 and at max 100 characters long.")
-      ForgotPassword.resetPassword(user.email, 'Pass!Pass@')
+      PasswordHelpers.resetPassword(user.email, 'Pass!Pass@')
       hasFormError("Passwords must have at least one digit ('0'-'9').")
-      ForgotPassword.resetPassword(user.email, 'password3@')
+      PasswordHelpers.resetPassword(user.email, 'password3@')
       hasFormError("Passwords must have at least one uppercase ('A'-'Z').")
-      ForgotPassword.resetPassword(user.email, 'Password3')
+      PasswordHelpers.resetPassword(user.email, 'Password3')
       hasFormError("Passwords must have at least one non alphanumeric character.")
     })
   })
@@ -109,13 +109,13 @@ describe('Forgot password', () => {
     const user = new OGDUser()
     Registration.registerAsOgdUser(user)
     Registration.verifyEmail(user.email)
-    ForgotPassword.requestPasswordReset(user.email)
-    ForgotPassword.getPasswordResetLink(user.email).then(link => {
+    PasswordHelpers.requestPasswordReset(user.email)
+    PasswordHelpers.getPasswordResetLink(user.email).then(link => {
       cy.ensureOn(link)
-      ForgotPassword.resetPassword(user.email, 'Som3NewP@55w0rd')
+      PasswordHelpers.resetPassword(user.email, 'Som3NewP@55w0rd')
       cy.ensureOn(link)
-      ForgotPassword.resetPassword(user.email, 'Som3NewP@55w0rd')
-      cy.location('pathname').should('equal', ForgotPassword.passwordResetPath())
+      PasswordHelpers.resetPassword(user.email, 'Som3NewP@55w0rd')
+      cy.location('pathname').should('equal', PasswordHelpers.passwordResetPath())
       cy.contains('Invalid token.')
     })
   })
@@ -124,11 +124,11 @@ describe('Forgot password', () => {
     const user = new OGDUser()
     Registration.registerAsOgdUser(user)
     Registration.verifyEmail(user.email)
-    ForgotPassword.requestPasswordReset(user.email)
-    ForgotPassword.getPasswordResetLink(user.email).then(link => {
+    PasswordHelpers.requestPasswordReset(user.email)
+    PasswordHelpers.getPasswordResetLink(user.email).then(link => {
       cy.ensureOn(link)
-      ForgotPassword.resetPassword("admin@ukmcab.gov.uk", 'Som3NewP@55w0rd')
-      cy.location('pathname').should('equal', ForgotPassword.passwordResetPath())
+      PasswordHelpers.resetPassword("admin@ukmcab.gov.uk", 'Som3NewP@55w0rd')
+      cy.location('pathname').should('equal', PasswordHelpers.passwordResetPath())
       cy.contains('Invalid token.')
     })
   })

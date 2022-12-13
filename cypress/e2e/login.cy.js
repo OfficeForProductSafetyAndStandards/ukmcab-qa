@@ -1,5 +1,5 @@
 import { hasFieldError } from '../support/helpers/validation-helpers'
-import { path as forgotPasswordPath } from '../support/helpers/forgot-password-helpers'
+import { forgotPasswordPath } from '../support/helpers/password-helpers'
 import { path as registerPath } from '../support/helpers/registration-helpers'
 import { path as loginPath } from '../support/helpers/login-helpers'
 import OGDUser from '../support/domain/ogd-user'
