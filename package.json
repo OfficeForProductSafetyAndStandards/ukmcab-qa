@@ -12,8 +12,8 @@
   },
   "scripts": {
     "cypressOpen": "cypress open",
-    "cypressRunHeaded": "cypress run --browser chrome --headed",
-    "cypressRunHeadless": "cypress run --browser chrome --config video=false"
+    "cypressHeaded": "cypress run --browser chrome --headed",
+    "cypressHeadless": "cypress run --browser chrome"
   },
   "repository": {
     "type": "git",
