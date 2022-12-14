@@ -11,7 +11,7 @@ export const header = () => {
   return cy.get('header')
 }
 export const shouldBeLoggedIn = () => {
-  header().contains('#logout', 'Logout')
+  header().contains('#logoutLink', 'Logout')
 }
 
 export const shouldBeLoggedOut = () => {
