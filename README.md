@@ -1,5 +1,6 @@
-*Introduction -* This repository contains e2e tests for the UKMCAB service.
-*Tech -* NodeJS, Cypress
+**Introduction -** This repository contains e2e tests for the UKMCAB service.
+
+**Tooling -** NodeJS, Cypress
 
 Tests by default are configured to run against the DEV environment but can be configured to run on any other environment. To run tests steps are as follows
 
