@@ -13,10 +13,10 @@ import * as Login from './helpers/login-helpers'
 //
 //
 // -- This is a parent command --
-Cypress.Commands.add('ensureOn', (urlPath) => {
+Cypress.Commands.add('ensureOn', (urlPath, options={}) => {
   cy.location().then(loc => {
     if(loc.toString().replace(loc.origin, '') !== urlPath) {
-      cy.visit(urlPath, basicAuthCreds())
+      cy.visit(urlPath, {...basicAuthCreds(), ...options})
     }
   })
 })
