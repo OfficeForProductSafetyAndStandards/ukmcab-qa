@@ -1,9 +1,11 @@
+export const accountRequestsPath = () => { return '/account/manage/pending-requests'}
+
 export const viewAccountRequests = () => {
-  cy.ensureOn('/Identity/Account/PendingAccountRequests')
+  cy.ensureOn(accountRequestsPath())
 }
 
 export const accountRequest = (user) => {
-  cy.ensureOn('/Identity/Account/PendingAccountRequests')
+  cy.ensureOn(accountRequestsPath())
   return cy.contains('.govuk-summary-list__row', user.email)
 }
 

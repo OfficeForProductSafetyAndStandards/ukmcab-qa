@@ -51,17 +51,3 @@ export const hasPasswordResetRequestedConfirmation = () => {
 export const hasPasswordChangeConfirmation = () => {
   cy.contains('Password changed You password has been successfully changed.')
 }
-
-export const getPasswordResetEmail = (email) => {
-  return cy.task('getLastEmail', email)
-}
-
-export const getPasswordChangeEmail = (email) => {
-  return cy.task('getLastEmail', email)
-}
-
-export const getPasswordResetLink = (email) => {
-  return getPasswordResetEmail(email).then(email => {
-    return email.body.match(/^https(.*)$/gm)[0]
-  })
-}

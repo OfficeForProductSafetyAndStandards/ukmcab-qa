@@ -1,4 +1,5 @@
 import { hasFieldError, hasFormError } from '../support/helpers/validation-helpers'
+import * as EmailHelpers from '../support/helpers/email-helpers'
 import * as PasswordHelpers from '../support/helpers/password-helpers'
 import * as Registration from '../support/helpers/registration-helpers'
 import { shouldBeLoggedIn, shouldBeLoggedOut } from '../support/helpers/common-helpers'
@@ -63,9 +64,9 @@ describe('Change of password', () => {
 
     it('displays confirmatiom and notification is emailed to user', function() {
       PasswordHelpers.hasPasswordChangeConfirmation()
-      PasswordHelpers.getPasswordChangeEmail(this.user.email).then(email => {
-        expect(email.body).to.include('Your password has been successfully changed')
-        expect(new Date(email.sent_at)).to.be.closeToTime(new Date(), 3)
+      EmailHelpers.getLastUserEmail(this.user.email).then(email => {
+        expect(email.isRecent).to.be.true
+        expect(email.isPasswordChangedConfirmationEmail).to.be.true
       })
     })
 

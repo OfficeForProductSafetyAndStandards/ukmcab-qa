@@ -30,9 +30,9 @@ module.exports = defineConfig({
           const updatedUser = await c.items.upsert(user)
           return updatedUser.resource
         },
-        async getLastEmail(email) {
+        async getEmails(email) {
           const recentEmails = (await notifyClient.getNotifications()).data.notifications
-          return recentEmails.find(x => x.email_address === email) ?? null
+          return recentEmails
         }
       })
     },

@@ -1,5 +1,6 @@
 import { registerAsOgdUser, verifyEmail } from '../support/helpers/registration-helpers'
 import * as AccountRequests from '../support/helpers/account-request-helpers'
+import * as EmailHelpers from '../support/helpers/email-helpers'
 import { shouldBeLoggedIn, shouldBeLoggedOut } from '../support/helpers/common-helpers'
 import { hasFormError } from '../support/helpers/validation-helpers'
 import OGDUser from '../support/domain/ogd-user'
@@ -35,6 +36,13 @@ describe('Account requests', () => {
       AccountRequests.accountRequest(this.user).should('exist')
     })
 
+    it('users are informed via email notification that request is pending approval', function() {
+      EmailHelpers.getLastUserEmail(this.user.email).then(email => {
+        expect(email.isRecent).to.be.true
+        expect(email.isRequestPendingEmail).to.be.true
+      })
+    })
+
     it('stop users from login with an error', function() {
       cy.logout()
       cy.login(this.user.email, this.user.password)
@@ -64,6 +72,13 @@ describe('Account requests', () => {
         AccountRequests.approveRequest()
       })
 
+      it('users are informed via email notification that request has been approved', function() {
+        EmailHelpers.getLastUserEmail(this.user.email).then(email => {
+          expect(email.isRecent).to.be.true
+          expect(email.isRequestApprovedEmail).to.be.true
+        })
+      })
+
       it('removes request from requests page', function() {
         cy.contains('Pending account requests')
         AccountRequests.accountRequest(this.user).should('not.exist')
@@ -81,6 +96,13 @@ describe('Account requests', () => {
       beforeEach(function() {
         AccountRequests.reviewRequest(this.user)
         AccountRequests.rejectRequest()
+      })
+
+      it('users are informed via email notification that request has been rejected', function() {
+        EmailHelpers.getLastUserEmail(this.user.email).then(email => {
+          expect(email.isRecent).to.be.true
+          expect(email.isRequestRejectedEmail).to.be.true
+        })
       })
       
       it('removes request from requests page', function() {

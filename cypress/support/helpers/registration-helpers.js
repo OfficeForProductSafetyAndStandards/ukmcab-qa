@@ -1,3 +1,4 @@
+import * as EmailHelpers from './email-helpers'
 export const path = () => { return '/account/Register?returnUrl=%2F' }
 export const registerOgdUserPath = () => { return '/account/Register/request/OGDUser' }
 export const registerUkasUserPath = () => { return '/account/Register/request/UKASUser' }
@@ -71,8 +72,7 @@ export const hasConfirmation = () => {
 }
 
 export const verifyEmail = (email) => {
-  cy.task('getLastEmail', email).then(email => {
-    const verificationLink = email.body.match(/^https(.*)$/gm)[0]
-    cy.ensureOn(verificationLink)
+  EmailHelpers.getLastUserEmail(email).then(email => {
+    cy.ensureOn(email.link)
   })
 }
