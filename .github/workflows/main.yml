@@ -6,6 +6,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5.0.2
+        uses: actions/checkout@v3
       - name: Cypress Run
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v@v5.0.2
