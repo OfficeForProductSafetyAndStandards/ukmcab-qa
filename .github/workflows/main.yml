@@ -7,5 +7,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Create cypress.env.json with secret config values stored in Github
+        run: |
+          echo '${{ secrets.E2E_ENV_VARS }}' > cypress.env.json
       - name: Cypress Run
         uses: cypress-io/github-action@v5.0.2
