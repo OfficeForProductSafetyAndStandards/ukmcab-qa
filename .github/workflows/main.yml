@@ -12,3 +12,5 @@ jobs:
           echo '${{ secrets.E2E_ENV_VARS }}' > cypress.env.json
       - name: Cypress Run
         uses: cypress-io/github-action@v5.0.2
+        with:
+          browser: chrome
