@@ -1,0 +1,11 @@
+name: UKMCAB E2E TESTS
+run-name: ${{ github.actor }} is running GitHub Actions for UKMCAB e2e tests 🚀
+on: [push]
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5.0.2
+      - name: Cypress Run
+        uses: cypress-io/github-action@v2
