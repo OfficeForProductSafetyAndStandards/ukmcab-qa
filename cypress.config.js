@@ -6,7 +6,7 @@ const NotifyClient = require('notifications-node-client').NotifyClient
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: 'https://app-opss-ukmcab-dev.azurewebsites.net',
+    baseUrl: 'https://ukmcab-dev.beis.gov.uk',
     chromeWebSecurity: false,
     experimentalRunAllSpecs: true,
     setupNodeEvents(on, config) {
