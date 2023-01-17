@@ -1,6 +1,7 @@
 export const findCabPath = () => { return '/find-a-cab'}
 export const addCabPath = () => { return '/admin/cab/create'}
 export const editCabPath = (cabId) => { return '/Admin/edit'}
+export const cabRequestsPath = () => { return '/admin/review/list'}
 
 export const errors = {
   nameRequired: 'The Name field is required.',
