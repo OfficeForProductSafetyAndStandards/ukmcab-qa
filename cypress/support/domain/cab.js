@@ -9,7 +9,8 @@ export default class Cab {
     location = 'United Kingdom',
     bodyTypes = ['Approved body', 'NI Notified body'],
     regulations = ['Cableway Installation', 'Ecodesign'],
-    ukasRefNo = 'REF/UKAS123'
+    ukasRefNo = 'REF/UKAS123',
+    accreditationSchedules = ['dummy.pdf']
   } = {}) {
     this.name = name
     this.address = address
@@ -20,5 +21,6 @@ export default class Cab {
     this.bodyTypes = bodyTypes
     this.regulations = regulations
     this.ukasRefNo = ukasRefNo
+    this.accreditationSchedules = accreditationSchedules
   }
 }

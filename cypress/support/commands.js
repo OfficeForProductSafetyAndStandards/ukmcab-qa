@@ -46,6 +46,12 @@ Cypress.Commands.add('hasKeyValueDetail', (key, value) => {
   cy.get('.govuk-summary-list__row').contains(key).next().contains(value)
 })
 
+// checks error is present both at field level and form level
+Cypress.Commands.add('hasError', (fieldLabel, error) => {
+  cy.contains('label,legend', fieldLabel).prev().contains(error)
+  cy.get('.govuk-error-summary__list').contains(error)
+})
+
 //
 //
 // -- This is a child command --

@@ -25,7 +25,8 @@ export const addACabButton = () => {
   return cy.contains('a', 'Add a new CAB')
 }
 
-const enterCommonCabDetails = (cab) => {
+export const enterCommonCabDetails = (cab) => {
+  cy.ensureOn(addCabPath())
   cy.get('#Name').invoke('val', cab.name)
   cy.get('#Address').invoke('val', cab.address)
   cy.get('#Website').invoke('val', cab.website)
@@ -38,18 +39,46 @@ const enterCommonCabDetails = (cab) => {
   cab.regulations.forEach(regulation => {
     cy.get(`input[value='${regulation}']`).check()
   })
-  // TODO upload schedule
+}
+
+// expects files in fixtures folder
+export const uploadSchedules = (files) => {
+  files.forEach((file, index) => {
+    cy.get('input[type=file]').selectFile(`cypress/fixtures/${file}`)
+    upload()
+    if(index < files.length - 1) { cy.contains('Upload another file').click() }
+  })
+}
+
+export const hasUploadedFileNames = (files) => {
+  files.forEach((file, index) => {
+    cy.contains(new RegExp(`${index+1}.\\s+\\d+-${file}`))
+  })
 }
 
 export const addCabAsOpssUser = (cab) => {
   enterCommonCabDetails(cab)
-  saveAsDraft()
+  saveAndContinue()
+  uploadSchedules(cab.accreditationSchedules)
+  saveAndContinue()
+  //TODO assert cab creation
 }
 
 export const addCabAsUkasUser = (cab) => {
   enterCommonCabDetails(cab)
   cy.get('#UKASReference').invoke('val', cab.ukasRefNo)
-  submitForApproval()
+  saveAndContinue()
+  uploadSchedules(cab.accreditationSchedules)
+  saveAndContinue()
+  //TODO assert cab creation
+}
+
+export const upload = () => {
+  cy.contains('button', 'Upload').click()
+}
+
+export const saveAndContinue = () => {
+  cy.contains('button,a', 'Save and continue').click()
 }
 
 export const saveAsDraft = () => {
@@ -58,6 +87,11 @@ export const saveAsDraft = () => {
 
 export const submitForApproval = () => {
   cy.contains('button', 'Submit for approval').click()
+}
+
+export const onUploadSchedulePage = (cab) => {
+  enterCommonCabDetails(cab)
+  saveAndContinue()
 }
 
 export const hasAddCabPermission = () => {
