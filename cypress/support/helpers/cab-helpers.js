@@ -42,7 +42,7 @@ export const enterCommonCabDetails = (cab) => {
 }
 
 // expects files in fixtures folder
-export const uploadSchedules = (files) => {
+export const uploadFiles = (files) => {
   files.forEach((file, index) => {
     cy.get('input[type=file]').selectFile(`cypress/fixtures/${file}`)
     upload()
@@ -59,7 +59,7 @@ export const hasUploadedFileNames = (files) => {
 export const addCabAsOpssUser = (cab) => {
   enterCommonCabDetails(cab)
   saveAndContinue()
-  uploadSchedules(cab.accreditationSchedules)
+  uploadFiles(cab.accreditationSchedules)
   saveAndContinue()
   //TODO assert cab creation
 }
@@ -68,7 +68,7 @@ export const addCabAsUkasUser = (cab) => {
   enterCommonCabDetails(cab)
   cy.get('#UKASReference').invoke('val', cab.ukasRefNo)
   saveAndContinue()
-  uploadSchedules(cab.accreditationSchedules)
+  uploadFiles(cab.accreditationSchedules)
   saveAndContinue()
   //TODO assert cab creation
 }
@@ -91,6 +91,13 @@ export const submitForApproval = () => {
 
 export const onUploadSchedulePage = (cab) => {
   enterCommonCabDetails(cab)
+  saveAndContinue()
+}
+
+export const onUploadSupportingDocsPage = (cab) => {
+  enterCommonCabDetails(cab)
+  saveAndContinue()
+  uploadFiles(cab.accreditationSchedules)
   saveAndContinue()
 }
 

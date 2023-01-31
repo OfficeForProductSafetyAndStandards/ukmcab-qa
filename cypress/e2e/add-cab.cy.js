@@ -14,6 +14,13 @@ describe('New CAB creation', () => {
       CabHelpers.onUploadSchedulePage(this.cab)
     })
 
+    it('displays correct heading and other relevant copy', function() {
+      cy.contains('h1', 'Upload the Schedule of Accreditation')
+      cy.contains('You can upload up to 5 PDF documents.')
+      cy.contains('Files you have uploaded')
+      cy.contains('0 file uploaded')
+    })
+
     it('displays error upon continuing without uploading schedule of accreditation', function() {
       CabHelpers.upload()
       cy.hasError('Select a PDF file', 'Please select a file for upload')
@@ -22,25 +29,25 @@ describe('New CAB creation', () => {
     it('displays error if schedule of accreditation is not a PDF file', function() {
       const files = ['dummy.docx', 'dummy.xlsx', 'dummy.txt']
       files.forEach(file => {
-        CabHelpers.uploadSchedules([file])
+        CabHelpers.uploadFiles([file])
         cy.hasError('Select a PDF file', 'Files must be in PDF format to be uploaded.')
       })
     })
 
-    it.only('displays error if schedule of accreditation file size is greater than 10MB', function() {
-      CabHelpers.uploadSchedules(['dummy-pdf-10mb-plus.pdf'])
+    it('displays error if schedule of accreditation file size is greater than 10MB', function() {
+      CabHelpers.uploadFiles(['dummy-pdf-10mb-plus.pdf'])
       cy.hasError('Select a PDF file', 'Files must be no more that 10Mb in size.')
     })
 
     it('only allows upto 5 files to be uploaded', function() {
       const files = ['dummy.pdf', 'dummy.pdf', 'dummy.pdf', 'dummy.pdf', 'dummy.pdf']
-      CabHelpers.uploadSchedules(files)
+      CabHelpers.uploadFiles(files)
       cy.contains('Upload another file').should('not.exist')
     })
     
     it('displays uploaded file names', function() {
       const files = ['dummy.pdf', 'dummy.pdf', 'dummy.pdf', 'dummy.pdf', 'dummy.pdf']
-      CabHelpers.uploadSchedules(files)
+      CabHelpers.uploadFiles(files)
       CabHelpers.hasUploadedFileNames(files)
     })
 
@@ -50,26 +57,92 @@ describe('New CAB creation', () => {
     })
 
     it('user can remove uploaded file', function() {
-      CabHelpers.uploadSchedules(['dummy.pdf'])
+      CabHelpers.uploadFiles(['dummy.pdf'])
       cy.contains('Remove').click()
       cy.contains('0 file uploaded')
     })
 
     it('redirects back to upload files page if only one file is uploaded and then removed', function() {
-      CabHelpers.uploadSchedules(['dummy.pdf'])
+      CabHelpers.uploadFiles(['dummy.pdf'])
       cy.contains('Remove').click()
       cy.contains('Upload the Schedule of Accreditation')
     })
 
-    it('virus infected files are detected')
+  })
+
+  context('when uploading supporting documents', function() {
+
+    beforeEach(function(){
+      cy.loginAsAdmin()
+      CabHelpers.onUploadSupportingDocsPage(this.cab)
+    })
+
+    it('displays correct heading and other relevant copy', function() {
+      cy.contains('h1', 'Upload the supporting documents')
+      cy.contains('You can upload up to 10 Word, Excel, or PDF documents.')
+      cy.contains('Files you have uploaded')
+      cy.contains('0 file uploaded')
+    })
+
+    it('displays error upon continuing without uploading schedule of accreditation', function() {
+      CabHelpers.upload()
+      cy.hasError('Select a PDF file', 'Please select a file for upload')
+    })
+    
+    it('displays error is uploading file is not a DOC, XLSX or PDF', function() {
+      const files = ['dummy.txt', 'dummy.json']
+      files.forEach(file => {
+        CabHelpers.uploadFiles([file])
+        cy.hasError('Select a PDF file', 'Files must be in Word, Excel or PDF format to be uploaded.')
+      })
+    })
+
+    it('displays error if document file size is greater than 10MB', function() {
+      CabHelpers.uploadFiles(['dummy-pdf-10mb-plus.pdf'])
+      cy.hasError('Select a PDF file', 'Files must be no more that 10Mb in size.')
+    })
+
+    it('only allows upto 10 files to be uploaded', function() {
+      const files = ['dummy.pdf', 'dummy.pdf', 'dummy.pdf', 'dummy.pdf', 'dummy.pdf', 'dummy.docx', 'dummy.docx', 'dummy.xlsx', 'dummy.xlsx', 'dummy.xlsx']
+      CabHelpers.uploadFiles(files)
+      cy.contains('Upload another file').should('not.exist')
+    })
+    
+    it('displays uploaded file names', function() {
+      const files = ['dummy.pdf', 'dummy.pdf', 'dummy.doc', 'dummy.docx', 'dummy.xls', 'dummy.xlsx', 'dummy.pdf', 'dummy.pdf']
+      CabHelpers.uploadFiles(files)
+      CabHelpers.hasUploadedFileNames(files)
+    })
+
+    it('canceling file upload returns user back to Add cab journey', function() {
+      cy.contains('Cancel').click()
+      cy.location('pathname').should('equal', '/')
+    })
+
+    it('user can remove uploaded file', function() {
+      CabHelpers.uploadFiles(['dummy.pdf'])
+      cy.contains('Remove').click()
+      cy.contains('0 file uploaded')
+    })
+
+    it('redirects back to upload files page if only one file is uploaded and then removed', function() {
+      CabHelpers.uploadFiles(['dummy.pdf'])
+      cy.contains('Remove').click()
+      cy.contains('Upload the supporting documents')
+    })
+
+    it('allows skipping uploading of supporting docs', function() {
+      cy.contains('Skip this step').click()
+      // TODO cy.contains('Check your answers')
+    })
   })
 
   context('when logged in as OGD user', () => {
     
-    it('is not allowed', () => {
+    it('is allowed', () => {
       cy.loginAsOgdUser()
       cy.ensureOn(CabHelpers.findCabPath()) 
-      CabHelpers.hasNoAddCabPermission()    
+      CabHelpers.hasAddCabPermission()    
     })
   })
   
