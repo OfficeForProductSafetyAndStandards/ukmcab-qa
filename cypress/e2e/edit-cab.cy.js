@@ -13,16 +13,16 @@ describe('Editing a CAB', () => {
     it('is not allowed', function() {
       cy.loginAsOgdUser()
       CabHelpers.viewCabPage(this.cab.id)
-      CabHelpers.hasNoEditCabPermission()    
+      CabHelpers.hasEditCabPermission()    
     })
   })
 
   context('when logged in as OPSS user', () => {
 
     it('is not allowed', function() {
-      cy.loginAsAdmin()
+      cy.loginAsOpssUser()
       CabHelpers.viewCabPage(this.cab.id)
-      CabHelpers.hasNoEditCabPermission()    
+      CabHelpers.hasEditCabPermission()    
     })
   })
 

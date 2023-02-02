@@ -70,6 +70,8 @@ export const addCabAsUkasUser = (cab) => {
   saveAndContinue()
   uploadFiles(cab.accreditationSchedules)
   saveAndContinue()
+  uploadFiles(cab.supportingDocs)
+  saveAndContinue()
   //TODO assert cab creation
 }
 

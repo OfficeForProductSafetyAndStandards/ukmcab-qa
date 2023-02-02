@@ -51,20 +51,11 @@ describe('Logging in', () => {
   context('as an Admin user', () => {
 
     it('displays CAB list upon successful login', () => {
-      cy.loginAsAdmin()
+      cy.loginAsOpssUser()
       cy.contains('CAB list')
       cy.location('pathname').should('eq', '/admin')
     })
 
-  })
-
-  context('as non-Admin user', () => {
-
-    it('displays Homepage upon successful login', () => {
-      // using admin creds to login to avoid registering a new user
-      cy.login(Cypress.env('ADMIN_USER'), Cypress.env('ADMIN_PASS'))
-      cy.location('pathname').should('eq', '/')
-    })
   })
 
 })

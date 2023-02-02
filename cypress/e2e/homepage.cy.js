@@ -21,7 +21,7 @@ describe('UKMCAB Homepage', () => {
   context('when logged in', () => {
 
     beforeEach(() => {
-      cy.loginAsAdmin()
+      cy.loginAsOpssUser()
     })
 
     it('displays link to Change password', () => {

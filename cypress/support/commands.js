@@ -26,8 +26,8 @@ Cypress.Commands.add('login', (username, password) => {
   Login.login(username, password)
 })
 
-Cypress.Commands.add('loginAsAdmin', () => {
-  Login.loginAsAdmin()
+Cypress.Commands.add('loginAsOpssUser', () => {
+  Login.loginAsOpssUser()
 })
 
 Cypress.Commands.add('loginAsOgdUser', () => {

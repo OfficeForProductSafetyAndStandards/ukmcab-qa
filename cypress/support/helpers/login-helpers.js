@@ -7,9 +7,9 @@ export const login = (username, password) => {
   cy.contains('Log in').click()
 }
 
-export const loginAsAdmin = () => { 
+export const loginAsOpssUser = () => { 
   cy.ensureOn(adminPath())
-  login(Cypress.env('ADMIN_USER'), Cypress.env('ADMIN_PASS'))
+  login(Cypress.env('OPSS_USER'), Cypress.env('OPSS_PASS'))
 }
 
 export const loginAsOgdUser = () => { 

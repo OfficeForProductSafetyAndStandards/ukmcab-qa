@@ -15,7 +15,7 @@ describe('Account requests', () => {
 
   context('for users who have not verified their email', function() {
     beforeEach(() => {
-      cy.loginAsAdmin()
+      cy.loginAsOpssUser()
       AccountRequests.viewAccountRequests()
     })
 
@@ -27,7 +27,7 @@ describe('Account requests', () => {
   context('for users with verified email but pending review', function() {
     beforeEach(function() {
       verifyEmail(this.user.email)
-      cy.loginAsAdmin()
+      cy.loginAsOpssUser()
       AccountRequests.viewAccountRequests()
     })
 

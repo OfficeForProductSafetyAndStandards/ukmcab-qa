@@ -10,7 +10,7 @@ describe('New CAB creation', () => {
   context('when uploading schedule of accreditation', function() {
 
     beforeEach(function(){
-      cy.loginAsAdmin()
+      cy.loginAsOpssUser()
       CabHelpers.onUploadSchedulePage(this.cab)
     })
 
@@ -73,7 +73,7 @@ describe('New CAB creation', () => {
   context('when uploading supporting documents', function() {
 
     beforeEach(function(){
-      cy.loginAsAdmin()
+      cy.loginAsOpssUser()
       CabHelpers.onUploadSupportingDocsPage(this.cab)
     })
 
@@ -149,7 +149,7 @@ describe('New CAB creation', () => {
   context('when logged in as OPSS user', () => {
     
     beforeEach(() => {
-      cy.loginAsAdmin()
+      cy.loginAsOpssUser()
       cy.ensureOn(CabHelpers.addCabPath())
     })
 
