@@ -39,6 +39,11 @@ export class EmailNotification {
     && this.body === "Your password has been successfully changed.\r\nIf you did not request this please contact an administrator."
   }
 
+  get isFeedbackEmail() {
+    return this.subject === "UKMCAB user feedback"
+    && this.body.includes("Request details")
+  }
+
   get link() {
     return this.body.match(/^https(.*)$/gm)[0]
   }
