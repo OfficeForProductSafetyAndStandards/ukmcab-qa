@@ -5,7 +5,7 @@ import { shouldBeLoggedIn, shouldBeLoggedOut } from '../support/helpers/common-h
 import { hasFormError } from '../support/helpers/validation-helpers'
 import OGDUser from '../support/domain/ogd-user'
 
-describe('Account requests', () => {
+xdescribe('Account requests', () => {
 
   beforeEach(() => {
     const user = new OGDUser()

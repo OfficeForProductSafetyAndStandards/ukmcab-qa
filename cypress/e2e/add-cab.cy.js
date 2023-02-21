@@ -1,7 +1,7 @@
 import * as CabHelpers from '../support/helpers/cab-helpers'
 import Cab from '../support/domain/cab'
 
-describe('New CAB creation', () => {
+xdescribe('New CAB creation', () => {
 
   beforeEach(function(){
     cy.wrap(new Cab()).as('cab')

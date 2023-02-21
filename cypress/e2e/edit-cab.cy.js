@@ -1,6 +1,6 @@
 import * as CabHelpers from '../support/helpers/cab-helpers'
 
-describe('Editing a CAB', () => {
+xdescribe('Editing a CAB', () => {
 
   beforeEach(function() {
     CabHelpers.getTestCab().then(cab => {

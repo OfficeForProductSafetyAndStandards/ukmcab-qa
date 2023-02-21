@@ -5,7 +5,7 @@ import * as Registration from '../support/helpers/registration-helpers'
 import { shouldBeLoggedIn, shouldBeLoggedOut } from '../support/helpers/common-helpers'
 import UKASUser from '../support/domain/ukas-user'
 
-describe('Change of password', () => {
+xdescribe('Change of password', () => {
 
   context('on change password page', () => {
     

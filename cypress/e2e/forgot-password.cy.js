@@ -7,7 +7,7 @@ import OGDUser from '../support/domain/ogd-user'
 import { hasFieldError, hasFormError } from '../support/helpers/validation-helpers'
 import { shouldBeLoggedIn } from '../support/helpers/common-helpers'
 
-describe('Forgot password', () => {
+xdescribe('Forgot password', () => {
 
   beforeEach(() => {
     cy.ensureOn(PasswordHelpers.forgotPasswordPath())

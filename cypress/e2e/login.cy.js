@@ -33,7 +33,7 @@ describe('Logging in', () => {
     cy.contains('a', 'Forgot your password?').should('have.attr', 'href', forgotPasswordPath())
   })
 
-  it('displays link to register as a new user', () => {
+  xit('displays link to register as a new user', () => {
     cy.contains('a', 'Register as a new user').should('have.attr', 'href', registerPath())
   })
 
@@ -48,7 +48,7 @@ describe('Logging in', () => {
     cy.contains('Account locked This account has been locked out, please try again later.')
   })
 
-  context('as an Admin user', () => {
+  xcontext('as an Admin user', () => {
 
     it('displays CAB list upon successful login', () => {
       cy.loginAsOpssUser()

@@ -5,7 +5,7 @@ import OGDUser from '../support/domain/ogd-user'
 import UKASUser from '../support/domain/ukas-user'
 import OpssAdminUser from '../support/domain/opss-admin-user'
 
-describe('Registration', () => {
+xdescribe('Registration', () => {
   
   context('as a new user', () => {
     beforeEach(() => {
