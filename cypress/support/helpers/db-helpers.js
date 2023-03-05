@@ -8,7 +8,7 @@ export const findUserByEmail = (email) => {
       }
     ]
   };
-  return cy.task('executeQuery', querySpec).then(result => {
+  return cy.task('executeQuery', {db: 'UKMCABIdentity', container: 'AppIdentity', querySpec: querySpec}).then(result => {
     return result.resources[0]
   })
 }
@@ -18,4 +18,8 @@ export const setUserRequestAsApproved = (user) => {
     user.RequestApproved = true
     cy.task('upsertUser', user)
   })
+}
+
+export const getAllCabs = () => {
+  return cy.task('getItems')
 }
