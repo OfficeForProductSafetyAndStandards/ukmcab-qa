@@ -55,9 +55,32 @@ describe('CAB Search', () => {
         cy.get('li').eq(6).find('a').should('have.attr', 'href', '/search?&pagenumber=6').and('have.text', 'Next')
       })
     })
-    it('displays randomly sorted results by default')
-    it('displays expected information for each result')
-    it('displays expected filter options')
+
+    it('displays randomly sorted results by default', function() {
+      SearchHelpers.azureSearchResults('', {orderBy: ['RandomSort asc']}).then(expectedResults => {
+        const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
+        SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
+          const actualCabs = Cypress._.map(actualResults, 'innerText')
+          SearchHelpers.topPagination().contains(`Showing 1 - ${expectedCabs.length} of ${expectedResults.length} bodies`)
+          expect(actualCabs).to.eql(expectedCabs)
+        })
+      })
+    })
+
+    it('displays expected information for each result', function() {
+      SearchHelpers.azureSearchResults('', {orderBy: ['RandomSort asc']}).then(expectedResults => {
+        SearchHelpers.displayedSearchResults().then(displayedResults => {
+          Cypress._.zip(displayedResults.slice(0,20), expectedResults.slice(0,20)).forEach(([$displayedResult, expectedResult]) => {
+            cy.wrap($displayedResult).contains('h3 a', expectedResult.name).and('have.attr', 'href', `/search/cab-profile/${expectedResult.id}`)
+            cy.wrap($displayedResult).contains(expectedResult.address)
+            cy.wrap($displayedResult).contains('Body type: ' + expectedResult.bodyTypesFormatted)
+            cy.wrap($displayedResult).contains('Registered office location: ' + expectedResult.registeredOfficeLocation)
+            cy.wrap($displayedResult).contains('Testing location: ' + expectedResult.testingLocationsFormatted)
+            cy.wrap($displayedResult).contains('Legislative ares: ' + expectedResult.legislativeAreasFormatted)
+          })
+        })
+      })
+    })
   })
 
   context('when searching', function() {
@@ -101,6 +124,7 @@ describe('CAB Search', () => {
   })
 
   context('when filtering search results', function() {
+    it('displays expected filter options')
     it('displays correct results for Body type filters')
     it('displays correct results for Registered office location filters')
     it('displays correct results for Testing location filters')

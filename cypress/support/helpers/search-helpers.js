@@ -13,8 +13,8 @@ export const displayedSearchResults = () => {
   return cy.get('ul#search-results-list > li')
 }
 
-export const azureSearchResults = (keyword) => {
-  return cy.task('azureSearch', keyword).then(results => {
+export const azureSearchResults = (keyword, options={}) => {
+  return cy.task('azureSearch', {keyword: keyword, options: options}).then(results => {
     return results.map(result => new AzureCabResult(result))
   })
 }

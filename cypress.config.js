@@ -17,7 +17,7 @@ module.exports = defineConfig({
       const azureSearchClient = new SearchClient(
         "https://acs-ukmcab-dev.search.windows.net",
         "ukmcab-search-index",
-        new AzureKeyCredential("kRnVt9ZQVmkhRdxl6u6v0foMzb8V3sp2eIZNJKE8KXAzSeAfQAB3")
+        new AzureKeyCredential(config.env.AZURE_SEARCH_API_KEY)
       );
       const notifyClient = new NotifyClient(config.env.NOTIFY_API_KEY)
       on('task', {
@@ -40,9 +40,9 @@ module.exports = defineConfig({
           const recentEmails = (await notifyClient.getNotifications()).data.notifications
           return recentEmails
         },
-        async azureSearch(value) {
+        async azureSearch({keyword, options}) {
           const searchResults = []
-          const x = await azureSearchClient.search(value)
+          const x = await azureSearchClient.search(keyword, options)
           for await (const result of x.results) {
             searchResults.push(result)
           }
