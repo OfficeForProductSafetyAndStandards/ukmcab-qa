@@ -17,6 +17,24 @@ export const getTestCab = () => {
   })
 }
 
+export const getAllCabs = () => {
+  return cy.task('getItems')
+}
+
+export const getDistinctBodyTypes = () => {
+  const querySpec = 'SELECT DISTINCT c.BodyTypes FROM c'
+  return cy.task('executeQuery', {db: 'main', container: 'cab-data', querySpec: querySpec}).then(results => {
+    return Cypress._.uniq(results.resources.flatMap(r => r.BodyTypes)).sort()
+  })
+}
+
+export const getDistinctRegisteredOfficeLocations = () => {
+  const querySpec = 'SELECT DISTINCT c.RegisteredOfficeLocation FROM c'
+  return cy.task('executeQuery', {db: 'main', container: 'cab-data', querySpec: querySpec}).then(results => {
+    return Cypress._.uniq(results.resources.map(r => r.RegisteredOfficeLocation)).sort()
+  })
+}
+
 export const viewCabPage = (cabId) => {
   cy.ensureOn(`/find-a-cab/profile?id=${cabId}`)
 }

@@ -1,6 +1,6 @@
 import { header } from "../support/helpers/common-helpers"
 import * as SearchHelpers from '../support/helpers/search-helpers'
-import * as DbHelpers from "../support/helpers/db-helpers"
+import * as CabHelpers from "../support/helpers/cab-helpers"
 import Cab from '../support/domain/cab'
 
 describe('CAB Search', () => {
@@ -15,7 +15,7 @@ describe('CAB Search', () => {
 
   context('when viewing search results', function() {
     it('displays pagination top and bottom', function() {
-      DbHelpers.getAllCabs().then(cabs => {
+      CabHelpers.getAllCabs().then(cabs => {
         SearchHelpers.topPagination().contains(`Showing 1 - 20 of ${cabs.length} bodies`)
         SearchHelpers.bottomPagination().contains(`Showing 1 - 20 of ${cabs.length} bodies`)
       })
@@ -134,8 +134,66 @@ describe('CAB Search', () => {
   })
 
   context('when sorting search results', function() {
-    it('displays correct sort order for - Last updated')
-    it('displays correct sort order for - A to Z')
-    it('displays correct sort order for - Z to A')
+    it('displays correct sort order for - Last updated', function() {
+      SearchHelpers.sortView('Last updated')
+      SearchHelpers.azureSearchResults('', {orderBy: ['LastUpdatedDate']}).then(expectedResults => {
+        const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
+        SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
+          const actualCabs = Cypress._.map(actualResults, 'innerText')
+          SearchHelpers.topPagination().contains(`Showing 1 - ${expectedCabs.length} of ${expectedResults.length} bodies`)
+          expect(actualCabs).to.eql(expectedCabs)
+        })
+      })
+    })
+
+    it('displays correct sort order for - A to Z', function() {
+      SearchHelpers.sortView('A to Z')
+      SearchHelpers.azureSearchResults('', {orderBy: ['Name']}).then(expectedResults => {
+        const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
+        SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
+          const actualCabs = Cypress._.map(actualResults, 'innerText')
+          SearchHelpers.topPagination().contains(`Showing 1 - ${expectedCabs.length} of ${expectedResults.length} bodies`)
+          expect(actualCabs).to.eql(expectedCabs)
+        })
+      })
+    })
+
+    it('displays correct sort order for - Z to A', function() {
+      SearchHelpers.sortView('Z to A')
+      SearchHelpers.azureSearchResults('', {orderBy: ['Name desc']}).then(expectedResults => {
+        const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
+        SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
+          const actualCabs = Cypress._.map(actualResults, 'innerText')
+          SearchHelpers.topPagination().contains(`Showing 1 - ${expectedCabs.length} of ${expectedResults.length} bodies`)
+          expect(actualCabs).to.eql(expectedCabs)
+        })
+      })
+    })
+
+    it('mainatains sort order when paginating', function() {
+      SearchHelpers.sortView('Z to A')
+      SearchHelpers.topPagination().contains('a', '2').click({force: true})
+      SearchHelpers.azureSearchResults('', {orderBy: ['Name desc']}).then(expectedResults => {
+        const expectedCabs = expectedResults.slice(20,40).map(r => r.name)
+        SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
+          const actualCabs = Cypress._.map(actualResults, 'innerText')
+          expect(actualCabs).to.eql(expectedCabs)
+        })
+      })
+    })
+
+    it('resets to page 1 if sort order is changed', function() {
+      SearchHelpers.sortView('Z to A')
+      SearchHelpers.topPagination().contains('a', '2').click({force: true})
+      SearchHelpers.sortView('A to Z')
+      SearchHelpers.azureSearchResults('', {orderBy: ['Name asc']}).then(expectedResults => {
+        const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
+        SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
+          const actualCabs = Cypress._.map(actualResults, 'innerText')
+          expect(actualCabs).to.eql(expectedCabs)
+          SearchHelpers.topPagination().contains(`Showing 1 - ${expectedCabs.length} of ${expectedResults.length} bodies`)
+        })
+      })
+    })
   })
 })

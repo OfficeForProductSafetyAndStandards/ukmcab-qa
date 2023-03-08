@@ -19,7 +19,3 @@ export const setUserRequestAsApproved = (user) => {
     cy.task('upsertUser', user)
   })
 }
-
-export const getAllCabs = () => {
-  return cy.task('getItems')
-}

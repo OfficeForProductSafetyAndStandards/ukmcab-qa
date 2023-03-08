@@ -13,6 +13,10 @@ export const displayedSearchResults = () => {
   return cy.get('ul#search-results-list > li')
 }
 
+export const sortView = (choice) => {
+  cy.get('#search-results-sort-container a').contains(choice).click()
+}
+
 export const azureSearchResults = (keyword, options={}) => {
   return cy.task('azureSearch', {keyword: keyword, options: options}).then(results => {
     return results.map(result => new AzureCabResult(result))
