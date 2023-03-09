@@ -31,7 +31,27 @@ export const getDistinctBodyTypes = () => {
 export const getDistinctRegisteredOfficeLocations = () => {
   const querySpec = 'SELECT DISTINCT c.RegisteredOfficeLocation FROM c'
   return cy.task('executeQuery', {db: 'main', container: 'cab-data', querySpec: querySpec}).then(results => {
-    return Cypress._.uniq(results.resources.map(r => r.RegisteredOfficeLocation)).sort()
+    const _locations = Cypress._.uniq(results.resources.map(r => r.RegisteredOfficeLocation))
+    const locations = Cypress._.without(_locations, "United Kingdom") // Move UK to top
+    locations.unshift("United Kingdom")
+    return locations
+  })
+}
+
+export const getDistinctTestingLocations = () => {
+  const querySpec = 'SELECT DISTINCT c.TestingLocations FROM c'
+  return cy.task('executeQuery', {db: 'main', container: 'cab-data', querySpec: querySpec}).then(results => {
+    const _locations = Cypress._.uniq(results.resources.flatMap(r => r.TestingLocations)).sort().filter(Boolean)
+    const locations = Cypress._.without(_locations, "United Kingdom") // Move UK to top
+    locations.unshift("United Kingdom")
+    return locations
+  })
+}
+
+export const getDistinctLegislativeAreas = () => {
+  const querySpec = 'SELECT DISTINCT c.LegislativeAreas FROM c'
+  return cy.task('executeQuery', {db: 'main', container: 'cab-data', querySpec: querySpec}).then(results => {
+    return Cypress._.uniq(results.resources.flatMap(r => r.LegislativeAreas)).sort()
   })
 }
 
