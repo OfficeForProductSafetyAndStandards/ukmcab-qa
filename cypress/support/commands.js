@@ -39,7 +39,23 @@ Cypress.Commands.add('loginAsUkasUser', () => {
 })
 
 Cypress.Commands.add('logout', () => {
-  header().contains('Logout').click()
+  header().find('button').contains('Sign out').click()
+})
+
+Cypress.Commands.add('registerViaApi', (email, password) => {
+  cy.request({
+    method: 'POST',
+    url: '/api/user',
+    body: {
+      Email: email,
+      Password: password,
+      ApiPassword: Cypress.env('BASIC_AUTH_PASS')
+    },
+    ...basicAuthCreds()
+    // headers: {
+    //   authorization: 'Basic aW50ZXJuYWw6c2F3LXdpa2ktbG9jaw==',
+    // }
+  })
 })
 
 Cypress.Commands.add('hasKeyValueDetail', (key, value) => {
@@ -48,7 +64,7 @@ Cypress.Commands.add('hasKeyValueDetail', (key, value) => {
 
 // checks error is present both at field level and form level
 Cypress.Commands.add('hasError', (fieldLabel, error) => {
-  cy.contains('label,legend', fieldLabel).prev().contains(error)
+  cy.contains('label,legend', fieldLabel).next().contains(error)
   cy.get('.govuk-error-summary__list').contains(error)
 })
 
