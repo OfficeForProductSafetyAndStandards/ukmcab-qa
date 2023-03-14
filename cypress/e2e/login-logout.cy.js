@@ -1,5 +1,5 @@
 import { forgotPasswordPath } from '../support/helpers/password-helpers'
-import { path as loginPath } from '../support/helpers/login-helpers'
+import { loginPath } from '../support/helpers/login-helpers'
 import OpssAdminUser from '../support/domain/opss-admin-user'
 
 describe('Login/Logout', () => {

@@ -22,7 +22,7 @@ Cypress.Commands.add('ensureOn', (urlPath, options={}) => {
 })
 
 Cypress.Commands.add('login', (username, password) => {
-  cy.ensureOn(Login.path())
+  cy.ensureOn(Login.loginPath())
   Login.login(username, password)
 })
 

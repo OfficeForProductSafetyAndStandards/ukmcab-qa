@@ -9,7 +9,7 @@ describe('UKMCAB Homepage', () => {
   context('when logged out', () => {
 
     it('displays link to Find a CAB', () => {
-      cy.get('main').contains('a', 'Find a CAB').should('have.attr', 'href', '/find-a-cab')
+      cy.get('main').contains('a', 'Find a CAB').should('have.attr', 'href', '/Home/FindACAB/Index')
     })
 
     it('does not display link to Change password', () => {
