@@ -1,3 +1,5 @@
+import Cab from '../domain/cab'
+export const cabProfilePage = (id) => { return `search/cab-profile/${id}`}
 export const addCabPath = () => { return '/admin/cab/create'}
 export const editCabPath = (cabId) => { return '/Admin/edit'}
 export const cabRequestsPath = () => { return '/admin/review/list'}
@@ -12,7 +14,7 @@ export const errors = {
 
 export const getTestCab = () => {
   return cy.task('getItems').then(cabs => {
-    return cabs[0]
+    return new Cab(cabs[0])
   })
 }
 

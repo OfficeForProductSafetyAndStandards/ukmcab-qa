@@ -1,46 +1,51 @@
-  import {basicAuthCreds} from '../support/helpers/common-helpers'
+  import * as CabHelpers from '../support/helpers/cab-helpers'
 
 describe('CAB profile page', () => {
   
-  beforeEach(() => {
-    // cy.task('getItems').then(items => {
-    //   cy.wrap(items[0]).as('cab')
-    //   cy.visit('/find-a-cab/profile', {...{qs: {id: items[0].id}}, ...basicAuthCreds()})
-    // })
-    // Use the only Test CAB available right now. To be read from DB later om after DEV work complete
-    cy.ensureOn('/find-a-cab/cab-profile/9e521c41-e511-4099-9c8e-07891cc23f4d')
+  const DEFAULT_VALUE = "Not provided"
+  const formattedDate = (date) => {
+    return new Date(date).toLocaleDateString("en-GB", {day: "numeric", month: "short", year: "numeric"})
+  }
+
+  const spacedFormatted = (values) => {
+    return values ? values.join(' ') : DEFAULT_VALUE
+  }
+
+  beforeEach(function() {
+    CabHelpers.getTestCab().then(cab => {
+      cy.wrap(cab).as('cab')
+      cy.ensureOn(CabHelpers.cabProfilePage(cab.id))
+    })
   })
 
-  
-  // TODO - TEST below have hardcoded assertions as BackEnd Data Model isn't Dev ready yet
   it('displays CAB name heading', function() {
-    cy.contains('.govuk-heading-l', 'CATG Ltd')
+    cy.get('.govuk-heading-l').contains(this.cab.name)
   })
 
   it('displays published and updated date', function() {
-    cy.contains('Published: 3 Dec 2020')
-    cy.contains('Last updated: 31 Oct 2019')
+    cy.contains(`Published: ${formattedDate(this.cab.publishedDate) ?? DEFAULT_VALUE}`)
+    cy.contains(`Last updated: ${formattedDate(this.cab.lastUpdatedDate)}`)
   })
 
   context('when viewing Details', function() {
 
     it('displays all expected CAB details', function() {
       cy.contains('.cab-detail-section', 'About').within(() => {
-        cy.hasKeyValueDetail('CAB name', 'CATG Ltd')
-        cy.hasKeyValueDetail('UKAS reference number', '12345-6789')
+        cy.hasKeyValueDetail('CAB name', this.cab.name)
+        cy.hasKeyValueDetail('UKAS reference number', DEFAULT_VALUE)
       })
       cy.contains('.cab-detail-section', 'Contact details').within(() => {
-        cy.hasKeyValueDetail('Address', '29a Prince CrescentMorecambeLA4 6BYUnited Kingdom')
-        cy.hasKeyValueDetail('Website', 'catg.co.uk').and('have.attr', 'href', 'https://catg.co.uk')
-        cy.hasKeyValueDetail('Email', 'info@catg.co.uk').and('have.attr', 'href', 'mailto: info@catg.co.uk')
-        cy.hasKeyValueDetail('Phone', '+44 (0) 1542 400632')
-        cy.hasKeyValueDetail('Registered office location', 'France Italy United Kingdom')
+        cy.hasKeyValueDetail('Address', this.cab.address ?? DEFAULT_VALUE)
+        cy.hasKeyValueDetail('Website', this.cab.website).and('have.attr', 'href', 'https://' + this.cab.website)
+        cy.hasKeyValueDetail('Email', this.cab.email).and('have.attr', 'href', `mailto: ${this.cab.email}`)
+        cy.hasKeyValueDetail('Phone', this.cab.phone ?? DEFAULT_VALUE)
+        cy.hasKeyValueDetail('Registered office location', this.cab.registeredOfficeLocation ?? DEFAULT_VALUE)
       })
       cy.contains('.cab-detail-section', 'Body details').within(() => {
-        cy.hasKeyValueDetail('Registered test location', 'France Italy United Kingdom')
-        cy.hasKeyValueDetail('Body number', '1245')
-        cy.hasKeyValueDetail('Body type', 'Approved body NI Notified body')
-        cy.hasKeyValueDetail('Legislative area', 'Construction products')
+        cy.hasKeyValueDetail('Registered test location', spacedFormatted(this.cab.testingLocations))
+        cy.hasKeyValueDetail('Body number', this.cab.bodyNumber ?? DEFAULT_VALUE)
+        cy.hasKeyValueDetail('Body type', spacedFormatted(this.cab.bodyTypes))
+        cy.hasKeyValueDetail('Legislative area', spacedFormatted(this.cab.legislativeAreas))
       })
     })
   })
@@ -53,10 +58,12 @@ describe('CAB profile page', () => {
 
     it('displays downloadable list of uploaded schedules', function() {
       cy.contains('.cab-detail-section', 'Product schedules').within(() => {
-        // Known cypress issue with dowbload links timeout  - https://github.com/cypress-io/cypress/issues/14857
-        cy.window().then((win) => { setTimeout(() => { win.location.reload() },5000) }) 
-        cy.contains('a', '20230125111150-css-cheat-sheet-v1.pdf').click()
-        cy.readFile('cypress/downloads/20230125111150-css-cheat-sheet-v1.pdf')
+        this.cab.pdfs.forEach((pdf,index) => {
+          // Known cypress issue with dowbload links timeout  - https://github.com/cypress-io/cypress/issues/14857
+          cy.window().then((win) => { setTimeout(() => { win.location.reload() },5000) }) 
+          cy.get('.cab-profile-file-list-item a').eq(index).click()
+          cy.readFile(`cypress/downloads/${pdf.fileName}`)
+        })
       })
     })
   })

@@ -52,9 +52,6 @@ Cypress.Commands.add('registerViaApi', (email, password) => {
       ApiPassword: Cypress.env('BASIC_AUTH_PASS')
     },
     ...basicAuthCreds()
-    // headers: {
-    //   authorization: 'Basic aW50ZXJuYWw6c2F3LXdpa2ktbG9jaw==',
-    // }
   })
 })
 
