@@ -10,6 +10,11 @@ export const basicAuthCreds = () => {
 export const header = () => {
   return cy.get('header')
 }
+
+export const footer = () => {
+  return cy.get('footer')
+}
+
 export const shouldBeLoggedIn = () => {
   header().contains('#logoutLink', 'Logout')
 }
