@@ -1,12 +1,9 @@
 import { footer } from '../support/helpers/common-helpers'
 
 describe('Footer', function() {
-
-  beforeEach(() => {
-    cy.ensureOn('/')
-  })
-
+  
   it('displays all expected links', function() {
+    cy.ensureOn('/')
     footer().contains('a', 'Privacy').should('have.attr', 'href', '/privacy-notice')
     footer().contains('a', 'Cookies').should('have.attr', 'href', '/cookies-policy')
     footer().contains('a', 'Accessibility statement').should('have.attr', 'href', '/Home/Footer/AccessibilityStatement')
@@ -20,4 +17,8 @@ describe('Footer', function() {
     .and('have.class', 'govuk-footer__copyright-logo')
   })
 
+  it('displays Privacy page as expected', () => {
+    cy.ensureOn('/privacy-notice')
+    cy.contains('Privacy Notice - UKMCAB') //just check that page is not 404
+  })
 })
