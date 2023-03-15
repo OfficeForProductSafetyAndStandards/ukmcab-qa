@@ -21,4 +21,9 @@ describe('Footer', function() {
     cy.ensureOn('/privacy-notice')
     cy.contains('Privacy Notice - UKMCAB') //just check that page is not 404
   })
+
+  it('displays Cookies page as expected', () => {
+    cy.ensureOn('/cookies-policy')
+    cy.contains('Cookies policy') //just check that page is not 404
+  })
 })
