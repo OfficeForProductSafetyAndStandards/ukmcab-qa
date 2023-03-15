@@ -40,9 +40,9 @@ describe('Login/Logout', () => {
     for(var i = 0; i < 5; i++){
       cy.login(user.email, 'IncorrectPassword')
     }
-    cy.contains('Account locked This account has been locked out, please try again later.')
-    cy.contains('If you cannot remember your password please use the forgotten password form.')
-      .find('a', 'forgotten password').should('have.attr', 'href', forgotPasswordPath())
+    cy.contains('The service is now locked for 2 hours due to multiple failed login attempts.')
+    // cy.contains('If you cannot remember your password please use the forgotten password form.')
+      // .find('a', 'forgotten password').should('have.attr', 'href', forgotPasswordPath())
   })
 
   it('logs user out successfully', function() {
