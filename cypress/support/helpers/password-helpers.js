@@ -4,15 +4,16 @@ export const passwordResetPath = () => { return forgotPasswordPath() + '/reset' 
 export const changePasswordPath = () => { return '/account/manage/change-password' }
 
 export const errors = {
-  currentPasswordRequired: 'The Current password field is required.',
-  newPasswordRequired: 'The New password field is required.',
-  confirmNewPasswordRequired: 'The Confirm new password field is required.',
+  currentPasswordRequired: 'Enter the current password',
+  newPasswordRequired: 'Enter the new password',
+  confirmNewPasswordRequired: 'Re-enter the new password',
   passwordLength: 'The New password must be at least 8 and at max 100 characters long.',
   passwordAtleastOneDigit: "Passwords must have at least one digit ('0'-'9').",
   passwordAtleastOneUppercase: "Passwords must have at least one uppercase ('A'-'Z').",
   passwordAtleastOneNonAlphanum: "Passwords must have at least one non alphanumeric character.",
-  passwordsDontMatch: "The new password and confirmation password do not match.",
-  invalidLoginAttempt: "Invalid login attempt.",
+  passwordsDontMatch: "New password does not match, try again.",
+  invalidLoginAttempt: "The information provided is not right, try again",
+  incorrectPassword: "Incorrect password.",
 }
 export const enterEmail = (email) => { 
   cy.get('#Email').invoke('val', email)
@@ -49,5 +50,5 @@ export const hasPasswordResetRequestedConfirmation = () => {
 }
 
 export const hasPasswordChangeConfirmation = () => {
-  cy.contains('Password changed You password has been successfully changed.')
+  cy.contains('You have successfully changed your password.')
 }

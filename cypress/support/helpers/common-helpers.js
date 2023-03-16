@@ -16,9 +16,9 @@ export const footer = () => {
 }
 
 export const shouldBeLoggedIn = () => {
-  header().contains('#logoutLink', 'Logout')
+  header().contains('button', 'Sign out')
 }
 
 export const shouldBeLoggedOut = () => {
-  header().contains('#login', 'Login')
+  header().contains('a', 'Sign in')
 }
