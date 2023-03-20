@@ -11,7 +11,7 @@ describe('Login/Logout', () => {
     cy.get('h1').contains('UK Market Conformity Assessment Bodies Sign In')
     cy.get('#Email').siblings('label').contains('Email address')
     cy.get('#Password').siblings('label').contains('Password').siblings('a.show-password-button').contains('Show')
-    cy.contains('By signing in you accept our terms and conditions.').find('a').contains('terms and conditions').should('have.attr', 'href', '/Home/Footer/TermsAndConditions')
+    cy.contains('By signing in you accept our terms and conditions.').find('a').contains('terms and conditions').should('have.attr', 'href', '/terms-and-conditions')
     cy.get('button').contains('Sign in')
     cy.contains('If you are inactive for 20 minutes, your session will timeout.')
   })
