@@ -42,7 +42,7 @@ const _applyFilter = (filterGroup, filters) => {
 }
 
 export const azureSearchResults = (keyword, options={}) => {
-  return cy.task('azureSearch', {keyword: `'${keyword}~'`, options: {...options, ...{queryType: 'full'}}}).then(results => {
+  return cy.task('azureSearch', {keyword: keyword === '' ? keyword : `'${keyword}~'`, options: {...options, ...{queryType: 'full'}}}).then(results => {
     return results.map(result => new AzureCabResult(result))
   })
 }
