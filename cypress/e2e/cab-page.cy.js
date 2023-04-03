@@ -14,7 +14,7 @@ describe('CAB profile page', () => {
   beforeEach(function() {
     CabHelpers.getTestCab().then(cab => {
       cy.wrap(cab).as('cab')
-      cy.ensureOn(CabHelpers.cabProfilePage(cab.id))
+      cy.ensureOn(CabHelpers.cabProfilePage(cab.cabId))
     })
   })
 
@@ -58,11 +58,11 @@ describe('CAB profile page', () => {
 
     it('displays downloadable list of uploaded schedules', function() {
       cy.contains('.cab-detail-section', 'Product schedules').within(() => {
-        this.cab.pdfs.forEach((pdf,index) => {
+        this.cab.schedules.forEach((schedule,index) => {
           // Known cypress issue with dowbload links timeout  - https://github.com/cypress-io/cypress/issues/14857
           cy.window().then((win) => { setTimeout(() => { win.location.reload() },5000) }) 
           cy.get('.cab-profile-file-list-item a').eq(index).click()
-          cy.readFile(`cypress/downloads/${pdf.fileName}`)
+          cy.readFile(`cypress/downloads/${schedule.fileName}`)
         })
       })
     })

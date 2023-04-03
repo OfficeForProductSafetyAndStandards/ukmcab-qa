@@ -2,9 +2,10 @@ export default class Cab {
 
   constructor(cabData) {
     this.id = cabData.id
+    this.cabId = cabData.CABId
     this.address = cabData.Address
     this.accreditationSchedules = cabData.accreditationSchedules
-    this.bodyNumber = cabData.BodyNumber
+    this.bodyNumber = cabData.CABNumber
     this.bodyTypes = cabData.BodyTypes
     this.email = cabData.Email
     this.legislativeAreas = cabData.LegislativeAreas
@@ -14,17 +15,18 @@ export default class Cab {
     this.publishedDate = cabData.PublishedDate
     this.registeredOfficeLocation = cabData.RegisteredOfficeLocation
     this.testingLocations = cabData.TestingLocations
-    this._pdfs = cabData.PDFs
+    this._schedules = cabData.Schedules
     this.ukasRefNo = cabData.ukasRefNo
     this.website = cabData.Website
+    this.isPublished = cabData.IsPublished
   }
 
-  get pdfs() {
-    return this._pdfs.map(pdf => {
+  get schedules() {
+    return this._schedules.map(schedule => {
       return {
-        blobName: pdf.BlobName,
-        name: pdf.Label,
-        fileName: pdf.ClientFileName
+        fileName: schedule.FileName,
+        blobName: schedule.BlobName,
+        uploadDateTime: schedule.UploadDateTime
       }
     })
   }

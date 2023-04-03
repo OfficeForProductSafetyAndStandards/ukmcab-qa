@@ -1,6 +1,6 @@
 import Cab from '../domain/cab'
-export const cabProfilePage = (id) => { return `search/cab-profile/${id}`}
-export const addCabPath = () => { return '/admin/cab/create'}
+export const cabProfilePage = (id) => { return `/search/cab-profile/${id}`}
+export const addCabPath = () => { return '/admin/cab/details/create'}
 export const editCabPath = (cabId) => { return '/Admin/edit'}
 export const cabRequestsPath = () => { return '/admin/review/list'}
 
@@ -19,16 +19,40 @@ export const getTestCab = () => {
 }
 
 export const getAllCabs = () => {
-  return cy.task('getItems')
+  return cy.task('getItems').then(items => {
+    return items.map(item => new Cab(item))
+  })
+}
+
+export const getAllPublishedCabs = () => {
+  return getAllCabs().then(cabs => {
+    return cabs.filter(cab => cab.isPublished)
+  })
+}
+
+export const getAllDraftOrArchivedCabs = () => {
+  return getAllCabs().then(cabs => {
+    return cabs.filter(cab => cab.isPublished || cab.isArchived)
+  })
 }
 
 export const sanitiseLabel = (label) => {
-  return Cypress._.upperFirst(label.replaceAll('-', ' '))
+  // return Cypress._.upperFirst(label.replaceAll('-', ' '))
+  switch (label) {
+    case 'third-country-body':
+      return 'Third country body'
+      break;
+    case 'Overseas Body':
+      return 'Overseas body'
+      break;
+    default:
+      return label
+  }
 }
 
 export const getDistinctBodyTypes = () => {
-  const querySpec = 'SELECT DISTINCT c.BodyTypes FROM c'
-  return cy.task('executeQuery', {db: 'main', container: 'cab-data', querySpec: querySpec}).then(results => {
+  const querySpec = 'SELECT DISTINCT c.BodyTypes FROM c WHERE c.IsPublished = true'
+  return cy.task('executeQuery', {db: 'main', container: 'cab-documents', querySpec: querySpec}).then(results => {
     const bodyTypes = results.resources.flatMap(r => r.BodyTypes)
     const sanitised = bodyTypes.map(bt => sanitiseLabel(bt))
     return Cypress._.uniq(sanitised).sort()
@@ -36,30 +60,30 @@ export const getDistinctBodyTypes = () => {
 }
 
 export const getDistinctRegisteredOfficeLocations = () => {
-  const querySpec = 'SELECT DISTINCT c.RegisteredOfficeLocation FROM c'
-  return cy.task('executeQuery', {db: 'main', container: 'cab-data', querySpec: querySpec}).then(results => {
+  const querySpec = 'SELECT DISTINCT c.RegisteredOfficeLocation FROM c WHERE c.IsPublished = true'
+  return cy.task('executeQuery', {db: 'main', container: 'cab-documents', querySpec: querySpec}).then(results => {
     const _locations = Cypress._.uniq(results.resources.map(r => r.RegisteredOfficeLocation))
     const sanitised = _locations.map(l => sanitiseLabel(l))
-    const locations = Cypress._.without(sanitised, "United Kingdom") // Move UK to top
-    locations.unshift("United Kingdom")
+    const locations = Cypress._.without(sanitised, "United Kingdom").sort() // Move UK to top
+    locations.sort().unshift("United Kingdom")
     return locations
   })
 }
 
 export const getDistinctTestingLocations = () => {
-  const querySpec = 'SELECT DISTINCT c.TestingLocations FROM c'
-  return cy.task('executeQuery', {db: 'main', container: 'cab-data', querySpec: querySpec}).then(results => {
+  const querySpec = 'SELECT DISTINCT c.TestingLocations FROM c WHERE c.IsPublished = true'
+  return cy.task('executeQuery', {db: 'main', container: 'cab-documents', querySpec: querySpec}).then(results => {
     const _locations = results.resources.flatMap(r => r.TestingLocations).filter(Boolean)
     const sanitised = _locations.map(l => sanitiseLabel(l))
-    const locations = Cypress._.without(sanitised, "United Kingdom") // Move UK to top
+    const locations = Cypress._.without(sanitised, "United Kingdom").sort() // Move UK to top
     locations.unshift("United Kingdom")
     return locations
   })
 }
 
 export const getDistinctLegislativeAreas = () => {
-  const querySpec = 'SELECT DISTINCT c.LegislativeAreas FROM c'
-  return cy.task('executeQuery', {db: 'main', container: 'cab-data', querySpec: querySpec}).then(results => {
+  const querySpec = 'SELECT DISTINCT c.LegislativeAreas FROM c WHERE c.IsPublished = true'
+  return cy.task('executeQuery', {db: 'main', container: 'cab-documents', querySpec: querySpec}).then(results => {
     const areas =  results.resources.flatMap(r => r.LegislativeAreas)
     const sanitised = areas.map(a => sanitiseLabel(a))
     return Cypress._.uniq(sanitised).sort()

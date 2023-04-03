@@ -4,6 +4,7 @@ export default class AzureCabResult {
     const _doc = result.document
     this.document = _doc
     this.id = _doc.id
+    this.cabId = _doc.CABId
     this.name = _doc.Name
     this.address = _doc.Address
     this.bodyTypes = _doc.BodyTypes

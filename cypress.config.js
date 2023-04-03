@@ -22,7 +22,7 @@ module.exports = defineConfig({
       const notifyClient = new NotifyClient(config.env.NOTIFY_API_KEY)
       on('task', {
         async getItems() {
-          return await (await client.database('main').container('cab-data').items.readAll().fetchAll()).resources
+          return await (await client.database('main').container('cab-documents').items.readAll().fetchAll()).resources
         },
         async executeQuery({db, container, querySpec}) {
           const d = await client.database(db)

@@ -12,7 +12,7 @@ xdescribe('Editing a CAB', () => {
 
     it('is not allowed', function() {
       cy.loginAsOgdUser()
-      CabHelpers.viewCabPage(this.cab.id)
+      CabHelpers.viewCabPage(this.cab.cabId)
       CabHelpers.hasEditCabPermission()    
     })
   })
@@ -21,7 +21,7 @@ xdescribe('Editing a CAB', () => {
 
     it('is not allowed', function() {
       cy.loginAsOpssUser()
-      CabHelpers.viewCabPage(this.cab.id)
+      CabHelpers.viewCabPage(this.cab.cabId)
       CabHelpers.hasEditCabPermission()    
     })
   })
@@ -30,7 +30,7 @@ xdescribe('Editing a CAB', () => {
 
     it('is allowed', function() {
       cy.loginAsUkasUser()
-      CabHelpers.viewCabPage(this.cab.id)
+      CabHelpers.viewCabPage(this.cab.cabId)
       CabHelpers.hasEditCabPermission()    
     })
   })

@@ -14,7 +14,7 @@ describe('CAB Search', () => {
 
   context('when viewing search results', function() {
     it('displays pagination top and bottom', function() {
-      CabHelpers.getAllCabs().then(cabs => {
+      CabHelpers.getAllPublishedCabs().then(cabs => {
         SearchHelpers.topPagination().contains(`Showing 1 - 20 of ${cabs.length} bodies`)
         SearchHelpers.bottomPagination().contains(`Showing 1 - 20 of ${cabs.length} bodies`)
       })
@@ -70,7 +70,7 @@ describe('CAB Search', () => {
       SearchHelpers.azureSearchResults('', {orderBy: ['RandomSort asc']}).then(expectedResults => {
         SearchHelpers.displayedSearchResults().then(displayedResults => {
           Cypress._.zip(displayedResults.slice(0,20), expectedResults.slice(0,20)).forEach(([$displayedResult, expectedResult]) => {
-            cy.wrap($displayedResult).contains('h3 a', expectedResult.name).and('have.attr', 'href', `/search/cab-profile/${expectedResult.id}`)
+            cy.wrap($displayedResult).contains('h3 a', expectedResult.name).and('have.attr', 'href', CabHelpers.cabProfilePage(expectedResult.cabId))
             cy.wrap($displayedResult).contains(expectedResult.address)
             cy.wrap($displayedResult).contains('Body type: ' + expectedResult.bodyTypesFormatted)
             cy.wrap($displayedResult).contains('Registered office location: ' + expectedResult.registeredOfficeLocation)
@@ -128,7 +128,7 @@ describe('CAB Search', () => {
         cy.get('.search-filter-option h3').contains('Body type').next().find('.search-filter-option-item label')
         .then(($els) => {
           const filterOptions = Cypress._.map($els, 'innerText')
-          expect(filterOptions).to.have.members(bodyTypes) // TODO change to .eql when filter text normalised
+          expect(filterOptions).to.eql(bodyTypes)
         })
       })
       CabHelpers.getDistinctRegisteredOfficeLocations().then(registeredOfficeLocations => {
@@ -139,7 +139,6 @@ describe('CAB Search', () => {
         })
       })
       CabHelpers.getDistinctTestingLocations().then(testingLocations => {
-        (testingLocations)
         cy.get('.search-filter-option h3').contains('Testing location').next().find('.search-filter-option-item label')
         .then(($els) => {
           const filterOptions = Cypress._.map($els, 'innerText')
@@ -156,8 +155,8 @@ describe('CAB Search', () => {
     })
 
     it('displays correct results for Body type filters', function() {
-      const filterOptions = {"BodyTypes": ['Approved body', 'Overseas Body']}
-      SearchHelpers.filterByBodyType(['Approved body', 'Overseas Body'])
+      const filterOptions = {"BodyTypes": ['Approved body', 'Overseas body']}
+      SearchHelpers.filterByBodyType(['Approved body', 'Overseas body'])
       SearchHelpers.azureSearchResults('', {orderBy: ['RandomSort asc'], filter: SearchHelpers.buildFilterQuery(filterOptions)}).then(expectedResults => {
         const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
         SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
@@ -208,8 +207,8 @@ describe('CAB Search', () => {
     })
 
     it('displays correct results for filters on multiple categories', function() {
-      const filterOptions = {"BodyTypes": ['Approved body', 'Overseas Body'], "LegislativeAreas": ['Construction products', 'Electromagnetic compatibility']}
-      SearchHelpers.filterByBodyType(['Approved body', 'Overseas Body'])
+      const filterOptions = {"BodyTypes": ['Approved body', 'Overseas body'], "LegislativeAreas": ['Construction products', 'Electromagnetic compatibility']}
+      SearchHelpers.filterByBodyType(['Approved body', 'Overseas body'])
       SearchHelpers.filterByLegislativeArea(['Construction products', 'Electromagnetic compatibility'])
       SearchHelpers.azureSearchResults('', {orderBy: ['RandomSort asc'], filter: SearchHelpers.buildFilterQuery(filterOptions)}).then(expectedResults => {
         const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
