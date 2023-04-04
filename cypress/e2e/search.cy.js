@@ -102,12 +102,12 @@ describe('CAB Search', () => {
     it('displays correct results by searching across all CAB metadata', function() {
       let name = 'Limited'
       let address = 'Rusholme'
-      let bodyNumber = '8508'
+      let cabNumber = '8508'
       let bodyType = 'overseas body'
       let legislativeArea = 'equipment'
       let registeredOfficeLocation = 'United Kingdom'
       let email = 'www.RNelectronics.com'
-      const keywords = [name, address, bodyNumber, bodyType, legislativeArea, registeredOfficeLocation, email]
+      const keywords = [name, address, cabNumber, bodyType, legislativeArea, registeredOfficeLocation, email]
       keywords.forEach(keyword => {
         SearchHelpers.searchCab(keyword)
         SearchHelpers.azureSearchResults(keyword).then(expectedResults => {

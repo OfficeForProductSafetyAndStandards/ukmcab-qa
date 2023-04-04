@@ -43,7 +43,7 @@ describe('CAB profile page', () => {
       })
       cy.contains('.cab-detail-section', 'Body details').within(() => {
         cy.hasKeyValueDetail('Registered test location', spacedFormatted(this.cab.testingLocations))
-        cy.hasKeyValueDetail('Body number', this.cab.bodyNumber ?? DEFAULT_VALUE)
+        cy.hasKeyValueDetail('Body number', this.cab.cabNumber ?? DEFAULT_VALUE)
         cy.hasKeyValueDetail('Body type', spacedFormatted(this.cab.bodyTypes))
         cy.hasKeyValueDetail('Legislative area', spacedFormatted(this.cab.legislativeAreas))
       })

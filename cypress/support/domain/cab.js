@@ -5,8 +5,9 @@ export default class Cab {
     this.cabId = cabData.CABId
     this.address = cabData.Address
     this.accreditationSchedules = cabData.accreditationSchedules
-    this.bodyNumber = cabData.CABNumber
+    this.cabNumber = cabData.CABNumber
     this.bodyTypes = cabData.BodyTypes
+    this.createdDate = new Date(cabData.CreatedDate)
     this.email = cabData.Email
     this.legislativeAreas = cabData.LegislativeAreas
     this.lastUpdatedDate = cabData.LastUpdatedDate
@@ -29,6 +30,14 @@ export default class Cab {
         uploadDateTime: schedule.UploadDateTime
       }
     })
+  }
+
+  get status() {
+    if (!this.isPublished) {
+      return 'Draft'
+    } else {
+      return 'Archived' // TODO Archive not yet developed
+    }
   }
 
   // constructor({

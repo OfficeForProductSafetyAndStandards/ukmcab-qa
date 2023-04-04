@@ -1,5 +1,6 @@
 import Cab from '../domain/cab'
 export const cabProfilePage = (id) => { return `/search/cab-profile/${id}`}
+export const cabSummaryPage = (id) => { return `/admin/cab/summary/${id}`}
 export const addCabPath = () => { return '/admin/cab/details/create'}
 export const editCabPath = (cabId) => { return '/Admin/edit'}
 export const cabRequestsPath = () => { return '/admin/review/list'}
@@ -30,9 +31,16 @@ export const getAllPublishedCabs = () => {
   })
 }
 
-export const getAllDraftOrArchivedCabs = () => {
+export const getAllDraftCabs = () => {
   return getAllCabs().then(cabs => {
-    return cabs.filter(cab => cab.isPublished || cab.isArchived)
+    return cabs.filter(cab => !cab.isPublished)
+  })
+}
+
+export const getAllDraftOrArchivedCabs = () => {
+  // TODO - Archive not yet developed
+  return getAllCabs().then(cabs => {
+    return cabs.filter(cab => !cab.isPublished)
   })
 }
 
