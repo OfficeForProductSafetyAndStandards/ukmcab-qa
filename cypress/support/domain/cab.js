@@ -2,9 +2,15 @@ export default class Cab {
 
   constructor(cabData) {
     this.id = cabData.id
-    this.cabId = cabData.CABId
-    this.address = cabData.Address
     this.accreditationSchedules = cabData.accreditationSchedules
+    this._address = cabData.Address
+    this.addressLine1 = cabData.AddressLine1
+    this.addressLine2 = cabData.AddressLine2
+    this.townCity = cabData.TownCity
+    this.postcode = cabData.Postcode
+    this.country = cabData.Country
+    this.appointmentDate = cabData.AppointmentDate
+    this.cabId = cabData.CABId
     this.cabNumber = cabData.CABNumber
     this.bodyTypes = cabData.BodyTypes
     this.createdDate = new Date(cabData.CreatedDate)
@@ -14,12 +20,18 @@ export default class Cab {
     this.name = cabData.Name
     this.phone = cabData.Phone
     this.publishedDate = cabData.PublishedDate
+    this.pointOfContactName = cabData.PointOfContactName
+    this.pointOfContactEmail = cabData.PointOfContactEmail
+    this.pointOfContactPhone = cabData.PointOfContactPhone
     this.registeredOfficeLocation = cabData.RegisteredOfficeLocation
+    this.renewalDate = cabData.RenewalDate
     this.testingLocations = cabData.TestingLocations
     this._schedules = cabData.Schedules
-    this.ukasRefNo = cabData.ukasRefNo
+    this._documents = cabData.Documents
+    this.ukasRef = cabData.UKASReference
     this.website = cabData.Website
     this.isPublished = cabData.IsPublished
+    this.isPointOfContactPublicDisplay = cabData.IsPointOfContactPublicDisplay
   }
 
   get schedules() {
@@ -32,6 +44,16 @@ export default class Cab {
     })
   }
 
+  get documents() {
+    return this._documents.map(document => {
+      return {
+        fileName: document.FileName,
+        blobName: document.BlobName,
+        uploadDateTime: document.UploadDateTime
+      }
+    })
+  }
+
   get status() {
     if (!this.isPublished) {
       return 'Draft'
@@ -40,31 +62,44 @@ export default class Cab {
     }
   }
 
-  // constructor({
-  //   id = 'SSFDFGDVXCVXBCVCB',
-  //   name = `Test Cab ${Date.now()}`,
-  //   address = '1 Victoria St, London SW1H 0NE',
-  //   website = 'https://testcab.com',
-  //   email = 'email@testcab.com',
-  //   phone = '0123456789',
-  //   location = 'United Kingdom',
-  //   bodyTypes = ['Approved body', 'NI Notified body'],
-  //   regulations = ['Cableway Installation', 'Ecodesign'],
-  //   ukasRefNo = 'REF/UKAS123',
-  //   accreditationSchedules = ['dummy.pdf'],
-  //   supportingDocs = ['dummy.pdf', 'dummy.doc', 'dummy.docx', 'dummy.xls', 'dummy.xlsx']
-  // } = {}) {
-  //   this.id = id
-  //   this.name = name
-  //   this.address = address
-  //   this.website = website
-  //   this.email = email
-  //   this.phone = phone
-  //   this.location = location
-  //   this.bodyTypes = bodyTypes
-  //   this.regulations = regulations
-  //   this.ukasRefNo = ukasRefNo
-  //   this.accreditationSchedules = accreditationSchedules
-  //   this.supportingDocs = supportingDocs
-  // }
+  get address() {
+    if(this._address) {
+      return this._address
+    } else {
+      return [this.addressLine1, this.addressLine2, this.townCity, this.postcode, this.country].filter(Boolean).join('')
+    }
+  }
+
+  pointOfContactDetailsDisplayStatus() {
+    return this.isPointOfContactPublicDisplay ? 'Public' : 'Restricted'
+  }
+
+  static build() {
+    const uniqueId = Date.now()
+    return new this({
+      Name: `Test Cab ${uniqueId}`,
+      AddressLine1: 'Cannon House',
+      AddressLine2: 'The Priory Queensway',
+      TownCity: 'Birmingham',
+      Postcode: 'B4 7LR',
+      Country: 'United Kingdom',
+      Website: 'www.gov.uk',
+      Email: 'email@gov.uk',
+      Phone: '+44 (0) 121 345 1200',
+      PointOfContactName: 'John Smith',
+      PointOfContactEmail: 'email@gov.uk',
+      PointOfContactPhone: '+44 (0) 121 345 1200',
+      IsPointOfContactPublicDisplay: false,
+      RegisteredOfficeLocation: 'United Kingdom',
+      TestingLocations: ['United Kingdom', 'Belgium'],
+      BodyTypes: ['Approved body', 'Overseas Body'],
+      LegislativeAreas: ['Cableway installation', 'Ecodesign'],
+      Schedules: [{ FileName: 'dummy.pdf' }, { FileName: 'dummy1.pdf' }],
+      Documents: [{ FileName: 'dummy2.pdf' }, { FileName: 'dummy.docx' }, { FileName: 'dummy.xlsx' }],
+      CABNumber: uniqueId,
+      AppointmentDate: new Date(),
+      RenewalDate: new Date(),
+      UKASReference: uniqueId,
+    })
+  }
 }

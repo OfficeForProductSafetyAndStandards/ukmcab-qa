@@ -18,3 +18,6 @@ import './commands'
 
 var chaiDatetime = require('chai-datetime');
 chai.use(chaiDatetime);
+
+const dayjs = require('dayjs')
+Cypress.dayjs = dayjs

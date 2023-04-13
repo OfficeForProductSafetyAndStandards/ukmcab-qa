@@ -42,6 +42,10 @@ Cypress.Commands.add('logout', () => {
   header().find('button').contains('Sign out').click()
 })
 
+Cypress.Commands.add('continue', () => {
+  cy.contains('button,a', 'Continue').click()
+})
+
 Cypress.Commands.add('registerViaApi', (email, password) => {
   cy.request({
     method: 'POST',
@@ -61,7 +65,7 @@ Cypress.Commands.add('hasKeyValueDetail', (key, value) => {
 
 // checks error is present both at field level and form level
 Cypress.Commands.add('hasError', (fieldLabel, error) => {
-  cy.contains('label,legend', fieldLabel).next().contains(error)
+  cy.contains('.govuk-form-group', fieldLabel).contains(error)
   cy.get('.govuk-error-summary__list').contains(error)
 })
 

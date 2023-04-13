@@ -21,7 +21,7 @@ describe('Work Queue', function() {
 
   beforeEach(function() {
     cy.loginAsOpssUser()
-    cy.ensureOn('/admin/work-queue')
+    cy.ensureOn(CabHelpers.workQueuePath())
     CabHelpers.getAllDraftOrArchivedCabs().then(cabs => {
       cy.wrap(cabs).as('cabs')
     })
