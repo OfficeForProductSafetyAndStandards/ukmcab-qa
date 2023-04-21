@@ -3,7 +3,6 @@ export default class Cab {
   constructor(cabData) {
     this.id = cabData.id
     this.accreditationSchedules = cabData.accreditationSchedules
-    this._address = cabData.Address
     this.addressLine1 = cabData.AddressLine1
     this.addressLine2 = cabData.AddressLine2
     this.townCity = cabData.TownCity
@@ -63,11 +62,7 @@ export default class Cab {
   }
 
   get address() {
-    if(this._address) {
-      return this._address
-    } else {
-      return [this.addressLine1, this.addressLine2, this.townCity, this.postcode, this.country].filter(Boolean).join('')
-    }
+    return [this.addressLine1, this.addressLine2, this.townCity, this.postcode, this.country].filter(Boolean).join('')
   }
 
   pointOfContactDetailsDisplayStatus() {
