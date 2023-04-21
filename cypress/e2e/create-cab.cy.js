@@ -256,7 +256,7 @@ describe('Creating a new CAB', () => {
 
       // Edit body details
       editSection('Body details')
-      cloneCab.bodyTypes.push('NI Notified body')
+      cloneCab.bodyTypes.push('Overseas body')
       cloneCab.legislativeAreas.push('Lifts')
       cloneCab.testingLocations.push('France')
       CabHelpers.enterBodyDetails(cloneCab)

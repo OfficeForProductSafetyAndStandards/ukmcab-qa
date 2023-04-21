@@ -15,6 +15,7 @@ export default class AzureCabResult {
     this.registeredOfficeLocation = _doc.RegisteredOfficeLocation
     this.testingLocations = _doc.TestingLocations
     this.legislativeAreas = _doc.LegislativeAreas
+    this.lastUpdatedDate = new Date(_doc.LastUpdatedDate)
   }
 
   get address() {

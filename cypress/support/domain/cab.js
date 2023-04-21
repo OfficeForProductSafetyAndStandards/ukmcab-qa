@@ -15,7 +15,7 @@ export default class Cab {
     this.createdDate = new Date(cabData.CreatedDate)
     this.email = cabData.Email
     this.legislativeAreas = cabData.LegislativeAreas
-    this.lastUpdatedDate = cabData.LastUpdatedDate
+    this.lastUpdatedDate = new Date(cabData.LastUpdatedDate)
     this.name = cabData.Name
     this.phone = cabData.Phone
     this.publishedDate = cabData.PublishedDate
@@ -87,7 +87,7 @@ export default class Cab {
       IsPointOfContactPublicDisplay: false,
       RegisteredOfficeLocation: 'United Kingdom',
       TestingLocations: ['United Kingdom', 'Belgium'],
-      BodyTypes: ['Approved body', 'Overseas Body'],
+      BodyTypes: ['Approved body', 'NI Notified body'],
       LegislativeAreas: ['Cableway installation', 'Ecodesign'],
       Schedules: [{ FileName: 'dummy.pdf' }, { FileName: 'dummy1.pdf' }],
       Documents: [{ FileName: 'dummy2.pdf' }, { FileName: 'dummy.docx' }, { FileName: 'dummy.xlsx' }],
