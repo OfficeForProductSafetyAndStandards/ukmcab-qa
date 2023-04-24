@@ -18,8 +18,8 @@ export default class AzureCabResult {
     this.lastUpdatedDate = new Date(_doc.LastUpdatedDate)
   }
 
-  get address() {
-    return [this.addressLine1, this.addressLine2, this.townCity, this.postcode, this.country].filter(Boolean).join('')
+  get addressLines() {
+    return [this.addressLine1, this.addressLine2, this.townCity, this.postcode, this.country].filter(Boolean)
   }
 
   get bodyTypesFormatted() {

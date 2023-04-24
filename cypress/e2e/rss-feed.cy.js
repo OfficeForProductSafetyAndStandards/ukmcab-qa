@@ -23,7 +23,7 @@ describe('UKMCAB RSS Feed', function() {
         feed.entry.forEach((entry, index) => {
           expect(entry.id).to.eq(`tag:ukmcab-dev.beis.gov.uk:${cabProfilePage(results[index].cabId)}`)
           expect(entry.title.toString()).to.eq(results[index].name)
-          expect(entry.summary.toString()).to.eq(results[index].address)
+          expect(entry.summary.toString()).to.eq(results[index].addressLines.join(', '))
           expect(entry.updated).to.eq(results[index].lastUpdatedDate.toISOString().replace(/.\d+Z$/g, "Z"))
           expect(entry.link._href).to.eq(Cypress.config().baseUrl + cabProfilePage(results[index].cabId))
         })

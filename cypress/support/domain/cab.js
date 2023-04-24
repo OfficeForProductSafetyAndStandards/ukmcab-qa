@@ -61,8 +61,8 @@ export default class Cab {
     }
   }
 
-  get address() {
-    return [this.addressLine1, this.addressLine2, this.townCity, this.postcode, this.country].filter(Boolean).join('')
+  get addressLines() {
+    return [this.addressLine1, this.addressLine2, this.townCity, this.postcode, this.country].filter(Boolean)
   }
 
   pointOfContactDetailsDisplayStatus() {

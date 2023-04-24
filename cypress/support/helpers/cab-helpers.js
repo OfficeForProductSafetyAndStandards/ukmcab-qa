@@ -99,7 +99,7 @@ export const hasDetailsConfirmation = (cab) => {
   cy.hasKeyValueDetail('Renewal date (optional)', date(cab.renewalDate).DDMMYYYY)
   cy.hasKeyValueDetail('UKAS reference number', valueOrNotProvided(cab.ukasRef))
 
-  cy.hasKeyValueDetail('Address', valueOrNotProvided(cab.address))
+  cy.hasKeyValueDetail('Address', valueOrNotProvided(cab.addressLines.join('')))
   cy.hasKeyValueDetail('Website', valueOrNotProvided(cab.website))
   cy.hasKeyValueDetail('Email', valueOrNotProvided(cab.email))
   cy.hasKeyValueDetail('Phone', valueOrNotProvided(cab.phone))

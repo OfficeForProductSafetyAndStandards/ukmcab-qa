@@ -35,7 +35,7 @@ describe('CAB profile page', () => {
         cy.hasKeyValueDetail('UKAS reference number', DEFAULT_VALUE)
       })
       cy.contains('.cab-detail-section', 'Contact details').within(() => {
-        cy.hasKeyValueDetail('Address', this.cab.address ?? DEFAULT_VALUE)
+        cy.hasKeyValueDetail('Address', this.cab.addressLines.join(', ') ?? DEFAULT_VALUE)
         cy.hasKeyValueDetail('Website', this.cab.website).and('have.attr', 'href', 'https://' + this.cab.website)
         cy.hasKeyValueDetail('Email', this.cab.email).and('have.attr', 'href', `mailto: ${this.cab.email}`)
         cy.hasKeyValueDetail('Phone', this.cab.phone ?? DEFAULT_VALUE)
