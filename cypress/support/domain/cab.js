@@ -29,7 +29,7 @@ export default class Cab {
     this._documents = cabData.Documents
     this.ukasRef = cabData.UKASReference
     this.website = cabData.Website
-    this.isPublished = cabData.IsPublished
+    this.status = cabData.Status
     this.isPointOfContactPublicDisplay = cabData.IsPointOfContactPublicDisplay
   }
 
@@ -51,14 +51,6 @@ export default class Cab {
         uploadDateTime: document.UploadDateTime
       }
     })
-  }
-
-  get status() {
-    if (!this.isPublished) {
-      return 'Draft'
-    } else {
-      return 'Archived' // TODO Archive not yet developed
-    }
   }
 
   get addressLines() {

@@ -9,11 +9,6 @@ describe('Creating a new CAB', () => {
     cy.wrap(Cab.build()).as('cab')
   })
 
-  it('is successful with valid data entry', function() {
-    CabHelpers.createCab(this.cab)
-    CabHelpers.hasCabPublishedConfirmation()
-  })
-
   context('when entering cab details', function() {
 
     it('displays error if mandatory details are not entered', function() {
@@ -204,7 +199,7 @@ describe('Creating a new CAB', () => {
   })
 
   context('when saving as Draft', function() {
-    it('displays Work Queye and draft saved message', function() {
+    it('displays Work Queue and draft saved message', function() {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.saveAsDraft()
       cy.location('pathname').should('equal', CabHelpers.workQueuePath())
@@ -221,7 +216,26 @@ describe('Creating a new CAB', () => {
       cy.contains('Provide all mandatory information before you are able to publish this record.')
       cy.get('button').contains('Publish').should('be.disabled')
     })
+
+    it('is successful with valid data entry', function() {
+      CabHelpers.createCab(this.cab)
+      CabHelpers.hasCabPublishedConfirmation()
+    })
+
+    it('publishes an existing draft cab and removes it from work queue', function() {
+      CabHelpers.enterCabDetails(this.cab)
+      CabHelpers.enterContactDetails(this.cab)
+      CabHelpers.enterBodyDetails(this.cab)
+      CabHelpers.saveAsDraft()
+      cy.ensureOn(CabHelpers.workQueuePath())
+      cy.contains('a', this.cab.name).click()
+      CabHelpers.clickPublish()
+      CabHelpers.hasCabPublishedConfirmation()
+      cy.ensureOn(CabHelpers.workQueuePath())
+      cy.get('a').contains(this.cab.name).should('not.exist')
+    })
   })
+
   context('when reviewing details', function() {
     
     beforeEach(function() {

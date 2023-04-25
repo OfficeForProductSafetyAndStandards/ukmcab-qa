@@ -252,7 +252,7 @@ describe('CAB Search', () => {
   context('when sorting search results', function() {
     it('displays correct sort order for - Last updated', function() {
       SearchHelpers.sortView('Last updated')
-      SearchHelpers.azureSearchResults('', {orderBy: ['LastUpdatedDate']}).then(expectedResults => {
+      SearchHelpers.azureSearchResults('', {orderBy: ['LastUpdatedDate desc']}).then(expectedResults => {
         const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
         SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
           const actualCabs = Cypress._.map(actualResults, 'innerText')

@@ -14,7 +14,7 @@ export const createCab = (cab) => {
   uploadSchedules(cab)
   uploadDocuments(cab)
   hasDetailsConfirmation(cab)
-  cy.get('button,a').contains('Publish').click()
+  clickPublish()
 }
 
 export const draftCab = (cab) => {
@@ -24,7 +24,7 @@ export const draftCab = (cab) => {
   uploadSchedules(cab)
   uploadDocuments(cab)
   hasDetailsConfirmation(cab)
-  cy.get('button,a').contains('Save as draft').click()
+  saveAsDraft()
 }
 
 export const enterCabDetails = (cab) => {
@@ -90,6 +90,10 @@ export const uploadSchedules = (cab) => {
 export const uploadDocuments = (cab) => {
   uploadFiles(cab.documents)
   cy.continue()
+}
+
+export const clickPublish = () => {
+  cy.get('button,a').contains('Publish').click()
 }
 
 export const hasDetailsConfirmation = (cab) => {
@@ -162,25 +166,23 @@ export const getAllCabs = () => {
 
 export const getAllPublishedCabs = () => {
   return getAllCabs().then(cabs => {
-    return cabs.filter(cab => cab.isPublished)
+    return cabs.filter(cab => cab.status === "Published")
   })
 }
 
 export const getAllDraftCabs = () => {
   return getAllCabs().then(cabs => {
-    return cabs.filter(cab => !cab.isPublished)
+    return cabs.filter(cab => cab.status === "Draft")
   })
 }
 
 export const getAllDraftOrArchivedCabs = () => {
-  // TODO - Archive not yet developed
   return getAllCabs().then(cabs => {
-    return cabs.filter(cab => !cab.isPublished)
+    return cabs.filter(cab => cab.status === "Draft" || cab.status === "Archived")
   })
 }
 
 export const sanitiseLabel = (label) => {
-  // return Cypress._.upperFirst(label.replaceAll('-', ' '))
   switch (label) {
     case 'third-country-body':
       return 'Third country body'
@@ -194,7 +196,7 @@ export const sanitiseLabel = (label) => {
 }
 
 export const getDistinctBodyTypes = () => {
-  const querySpec = 'SELECT DISTINCT c.BodyTypes FROM c WHERE c.IsPublished = true'
+  const querySpec = "SELECT DISTINCT c.BodyTypes FROM c WHERE c.Status = 'Published'"
   return cy.task('executeQuery', {db: 'main', container: 'cab-documents', querySpec: querySpec}).then(results => {
     const bodyTypes = results.resources.flatMap(r => r.BodyTypes)
     const sanitised = bodyTypes.map(bt => sanitiseLabel(bt))
@@ -203,7 +205,7 @@ export const getDistinctBodyTypes = () => {
 }
 
 export const getDistinctRegisteredOfficeLocations = () => {
-  const querySpec = 'SELECT DISTINCT c.RegisteredOfficeLocation FROM c WHERE c.IsPublished = true'
+  const querySpec = "SELECT DISTINCT c.RegisteredOfficeLocation FROM c WHERE c.Status = 'Published'"
   return cy.task('executeQuery', {db: 'main', container: 'cab-documents', querySpec: querySpec}).then(results => {
     const _locations = Cypress._.uniq(results.resources.map(r => r.RegisteredOfficeLocation))
     const sanitised = _locations.map(l => sanitiseLabel(l))
@@ -214,7 +216,7 @@ export const getDistinctRegisteredOfficeLocations = () => {
 }
 
 export const getDistinctTestingLocations = () => {
-  const querySpec = 'SELECT DISTINCT c.TestingLocations FROM c WHERE c.IsPublished = true'
+  const querySpec = "SELECT DISTINCT c.TestingLocations FROM c WHERE c.Status = 'Published'"
   return cy.task('executeQuery', {db: 'main', container: 'cab-documents', querySpec: querySpec}).then(results => {
     const _locations = results.resources.flatMap(r => r.TestingLocations).filter(Boolean)
     const sanitised = _locations.map(l => sanitiseLabel(l))
@@ -225,7 +227,7 @@ export const getDistinctTestingLocations = () => {
 }
 
 export const getDistinctLegislativeAreas = () => {
-  const querySpec = 'SELECT DISTINCT c.LegislativeAreas FROM c WHERE c.IsPublished = true'
+  const querySpec = "SELECT DISTINCT c.LegislativeAreas FROM c WHERE c.Status = 'Published'"
   return cy.task('executeQuery', {db: 'main', container: 'cab-documents', querySpec: querySpec}).then(results => {
     const areas =  results.resources.flatMap(r => r.LegislativeAreas)
     const sanitised = areas.map(a => sanitiseLabel(a))
@@ -246,7 +248,7 @@ export const upload = () => {
 }
 
 export const saveAsDraft = () => {
-  cy.contains('button', 'Save as draft').click()
+  cy.contains('button,a', 'Save as draft').click()
 }
 
 export const submitForApproval = () => {
