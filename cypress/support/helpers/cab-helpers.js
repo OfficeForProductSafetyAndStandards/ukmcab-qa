@@ -1,6 +1,6 @@
 import Cab from '../domain/cab'
 import { date, valueOrNotProvided } from './formatters'
-export const workQueuePath = (id) => { return '/admin/work-queue'}
+export const workQueuePath = () => { return '/admin/work-queue'}
 export const cabProfilePage = (id) => { return `/search/cab-profile/${id}`}
 export const cabSummaryPage = (id) => { return `/admin/cab/summary/${id}`}
 export const addCabPath = () => { return '/admin/cab/details/create'}
@@ -127,8 +127,12 @@ export const hasDetailsConfirmation = (cab) => {
   cy.contains('Once published this record will be visible to the public.')
 }
 
-export const hasCabPublishedConfirmation = () => {
-  cy.location('pathname').should('include', '/admin/cab/confirmation')
+export const hasCabPublishedConfirmation = (cab) => {
+  cy.get('.govuk-panel--confirmation')
+  cy.get('.govuk-panel--confirmation').contains(cab.name + ' published ' + 'CAB number' + cab.cabNumber)
+  cy.contains('What happens next CAB is now publicly available.')
+  cy.contains('a', 'View CAB')
+  cy.contains('a', 'View work queue').should('have.attr', 'href', workQueuePath())
 }
 
 // expects files in fixtures folder

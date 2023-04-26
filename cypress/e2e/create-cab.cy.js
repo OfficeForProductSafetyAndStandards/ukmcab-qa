@@ -219,7 +219,7 @@ describe('Creating a new CAB', () => {
 
     it('is successful with valid data entry', function() {
       CabHelpers.createCab(this.cab)
-      CabHelpers.hasCabPublishedConfirmation()
+      CabHelpers.hasCabPublishedConfirmation(this.cab)
     })
 
     it('publishes an existing draft cab and removes it from work queue', function() {
@@ -230,7 +230,7 @@ describe('Creating a new CAB', () => {
       cy.ensureOn(CabHelpers.workQueuePath())
       cy.contains('a', this.cab.name).click()
       CabHelpers.clickPublish()
-      CabHelpers.hasCabPublishedConfirmation()
+      CabHelpers.hasCabPublishedConfirmation(this.cab)
       cy.ensureOn(CabHelpers.workQueuePath())
       cy.get('a').contains(this.cab.name).should('not.exist')
     })
