@@ -8,7 +8,7 @@ export default class Cab {
     this.townCity = cabData.TownCity
     this.postcode = cabData.Postcode
     this.country = cabData.Country
-    this.appointmentDate = cabData.AppointmentDate
+    this.appointmentDate = new Date(cabData.AppointmentDate)
     this.cabId = cabData.CABId
     this.cabNumber = cabData.CABNumber
     this.bodyTypes = cabData.BodyTypes

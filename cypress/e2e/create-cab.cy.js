@@ -199,11 +199,12 @@ describe('Creating a new CAB', () => {
   })
 
   context('when saving as Draft', function() {
-    it('displays Work Queue and draft saved message', function() {
+    it('displays draft saved message on work queue page with cab record listed', function() {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.saveAsDraft()
       cy.location('pathname').should('equal', CabHelpers.workQueuePath())
       cy.get('.govuk-notification-banner__content').contains(`Draft record saved for ${this.cab.name} (CAB number ${this.cab.cabNumber})`)
+      cy.get('a').contains(this.cab.name)
     })
   })
 
@@ -250,12 +251,11 @@ describe('Creating a new CAB', () => {
     it('allows editing any of the details', function() {
       let cloneCab = this.cab
       let uniqueId = Date.now()
-      const editSection = (heading) => { cy.get('.cab-summary-header').contains(heading).next('a').click() }
       
       // Edit cab details
       cloneCab.name = `Test Cab ${uniqueId}`
       cloneCab.appointmentDate = Cypress.dayjs().add('1', 'day')
-      editSection('About')
+      CabHelpers.editCabDetail('About')
       CabHelpers.enterCabDetails(cloneCab)
       CabHelpers.hasDetailsConfirmation(cloneCab)
 
@@ -264,12 +264,12 @@ describe('Creating a new CAB', () => {
       cloneCab.email = 'support@gov.uk'
       cloneCab.pointOfContactName = ''
       cloneCab.isPointOfContactPublicDisplay = true
-      editSection('Contact details')
+      CabHelpers.editCabDetail('Contact details')
       CabHelpers.enterContactDetails(cloneCab)
       CabHelpers.hasDetailsConfirmation(cloneCab)
 
       // Edit body details
-      editSection('Body details')
+      CabHelpers.editCabDetail('Body details')
       cloneCab.bodyTypes.push('Overseas body')
       cloneCab.legislativeAreas.push('Lifts')
       cloneCab.testingLocations.push('France')
