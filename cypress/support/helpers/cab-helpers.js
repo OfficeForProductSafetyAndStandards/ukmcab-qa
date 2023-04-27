@@ -157,6 +157,12 @@ export const hasUploadedFileNames = (files) => {
 
 export const getTestCab = () => {
   return getAllPublishedCabs().then(cabs => {
+    return cabs[0]
+  })
+}
+
+export const getTestCabForEditing = () => {
+  return getAllPublishedCabs().then(cabs => {
     return cabs.find(cab => cab.name.startsWith('4ward Testing'))
   })
 }

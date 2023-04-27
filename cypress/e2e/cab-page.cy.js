@@ -1,15 +1,16 @@
   import * as CabHelpers from '../support/helpers/cab-helpers'
+  import { date, valueOrNotProvided } from '../support/helpers/formatters'
 
 describe('CAB profile page', () => {
   
-  const DEFAULT_VALUE = "Not provided"
-  const formattedDate = (date) => {
-    return new Date(date).toLocaleDateString("en-GB", {day: "numeric", month: "short", year: "numeric"})
-  }
+  // const DEFAULT_VALUE = "Not provided"
+  // const formattedDate = (date) => {
+  //   return new Date(date).toLocaleDateString("en-GB", {day: "numeric", month: "short", year: "numeric"})
+  // }
 
-  const spacedFormatted = (values) => {
-    return values ? values.join(' ') : DEFAULT_VALUE
-  }
+  // const spacedFormatted = (values) => {
+  //   return values ? values.join(' ') : DEFAULT_VALUE
+  // }
 
   beforeEach(function() {
     CabHelpers.getTestCab().then(cab => {
@@ -23,8 +24,8 @@ describe('CAB profile page', () => {
   })
 
   it('displays published and updated date', function() {
-    cy.contains(`Published: ${formattedDate(this.cab.publishedDate) ?? DEFAULT_VALUE}`)
-    cy.contains(`Last updated: ${formattedDate(this.cab.lastUpdatedDate)}`)
+    cy.contains(`Published: ${date(this.cab.publishedDate).DMMMYYYY}`)
+    cy.contains(`Last updated: ${date(this.cab.lastUpdatedDate).DMMMYYYY}`)
   })
 
   context('when viewing Details', function() {
@@ -32,20 +33,28 @@ describe('CAB profile page', () => {
     it('displays all expected CAB details', function() {
       cy.contains('.cab-detail-section', 'About').within(() => {
         cy.hasKeyValueDetail('CAB name', this.cab.name)
-        cy.hasKeyValueDetail('UKAS reference number', DEFAULT_VALUE)
+        cy.hasKeyValueDetail('UKAS reference number', valueOrNotProvided(this.cab.ukasRef))
       })
       cy.contains('.cab-detail-section', 'Contact details').within(() => {
-        cy.hasKeyValueDetail('Address', this.cab.addressLines.join(', ') ?? DEFAULT_VALUE)
-        cy.hasKeyValueDetail('Website', this.cab.website).and('have.attr', 'href', 'https://' + this.cab.website)
-        cy.hasKeyValueDetail('Email', this.cab.email).and('have.attr', 'href', `mailto: ${this.cab.email}`)
-        cy.hasKeyValueDetail('Phone', this.cab.phone ?? DEFAULT_VALUE)
-        cy.hasKeyValueDetail('Registered office location', this.cab.registeredOfficeLocation ?? DEFAULT_VALUE)
+        cy.hasKeyValueDetail('Address', this.cab.addressLines.join(', '))
+        if(this.cab.website) {
+          cy.hasKeyValueDetail('Website', this.cab.website).and('have.attr', 'href', 'https://' + this.cab.website)
+        } else {
+          valueOrNotProvided(this.cab.website)
+        }
+        if(this.cab.email) {
+          cy.hasKeyValueDetail('Email', this.cab.email).and('have.attr', 'href', `mailto: ${this.cab.email}`)
+        } else {
+          valueOrNotProvided(this.cab.email)
+        }
+        cy.hasKeyValueDetail('Phone', this.cab.phone)
+        cy.hasKeyValueDetail('Registered office location', this.cab.registeredOfficeLocation)
       })
       cy.contains('.cab-detail-section', 'Body details').within(() => {
-        cy.hasKeyValueDetail('Registered test location', spacedFormatted(this.cab.testingLocations))
-        cy.hasKeyValueDetail('Body number', this.cab.cabNumber ?? DEFAULT_VALUE)
-        cy.hasKeyValueDetail('Body type', spacedFormatted(this.cab.bodyTypes))
-        cy.hasKeyValueDetail('Legislative area', spacedFormatted(this.cab.legislativeAreas))
+        cy.hasKeyValueDetail('Registered test location', valueOrNotProvided(this.cab.testingLocations?.join(' ')))
+        cy.hasKeyValueDetail('Body number', valueOrNotProvided(this.cab.cabNumber))
+        cy.hasKeyValueDetail('Body type', this.cab.bodyTypes.join(' '))
+        cy.hasKeyValueDetail('Legislative area', this.cab.legislativeAreas.join(' '))
       })
     })
   })

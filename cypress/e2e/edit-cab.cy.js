@@ -3,7 +3,7 @@ import * as CabHelpers from '../support/helpers/cab-helpers'
 describe('Editing a CAB', () => {
 
   beforeEach(function() {
-    CabHelpers.getTestCab().then(cab => {
+    CabHelpers.getTestCabForEditing().then(cab => {
       cy.wrap(cab).as('cab')
     })
   })
