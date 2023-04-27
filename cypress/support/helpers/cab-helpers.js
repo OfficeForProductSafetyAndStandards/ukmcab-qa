@@ -99,10 +99,9 @@ export const clickPublish = () => {
 export const hasDetailsConfirmation = (cab) => {
   cy.hasKeyValueDetail('CAB name', cab.name)
   cy.hasKeyValueDetail('CAB number', cab.cabNumber)
-  cy.hasKeyValueDetail('Appointment date (optional)', date(cab.appointmentDate).DDMMYYYY)
-  cy.hasKeyValueDetail('Renewal date (optional)', date(cab.renewalDate).DDMMYYYY)
+  cy.hasKeyValueDetail('Appointment date (optional)', valueOrNotProvided(date(cab.appointmentDate)?.DDMMYYYY))
+  cy.hasKeyValueDetail('Renewal date (optional)', valueOrNotProvided(date(cab.renewalDate)?.DDMMYYYY))
   cy.hasKeyValueDetail('UKAS reference number', valueOrNotProvided(cab.ukasRef))
-
   cy.hasKeyValueDetail('Address', valueOrNotProvided(cab.addressLines.join('')))
   cy.hasKeyValueDetail('Website', valueOrNotProvided(cab.website))
   cy.hasKeyValueDetail('Email', valueOrNotProvided(cab.email))
@@ -113,7 +112,7 @@ export const hasDetailsConfirmation = (cab) => {
   cy.hasKeyValueDetail('Display of point of contact details', cab.pointOfContactDetailsDisplayStatus())
   cy.hasKeyValueDetail('Registered office location', cab.registeredOfficeLocation)
 
-  cy.hasKeyValueDetail('Registered test location', cab.testingLocations.join(''))
+  cy.hasKeyValueDetail('Registered test location', valueOrNotProvided(cab.testingLocations?.join('')))
   cy.hasKeyValueDetail('Body Type', cab.bodyTypes.join(''))
   cy.hasKeyValueDetail('Legislative area', cab.legislativeAreas.join(''))
 
@@ -157,8 +156,8 @@ export const hasUploadedFileNames = (files) => {
 }
 
 export const getTestCab = () => {
-  return cy.task('getItems').then(cabs => {
-    return new Cab(cabs[0])
+  return getAllPublishedCabs().then(cabs => {
+    return cabs.find(cab => cab.name.startsWith('4ward Testing'))
   })
 }
 
@@ -239,12 +238,16 @@ export const getDistinctLegislativeAreas = () => {
   })
 }
 
-export const viewCabPage = (cabId) => {
-  cy.ensureOn(`/find-a-cab/profile?id=${cabId}`)
-}
-
 export const addACabButton = () => {
   return cy.contains('a', 'Add a new CAB')
+}
+
+export const editCabButton = () => {
+  return cy.get('a,button').contains('Edit')
+}
+
+export const editCabDetail = (heading) => {
+  cy.get('.cab-summary-header').contains(heading).next('a').click()
 }
 
 export const upload = () => {

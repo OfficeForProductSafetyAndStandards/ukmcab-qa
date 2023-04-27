@@ -1,37 +1,59 @@
 import * as CabHelpers from '../support/helpers/cab-helpers'
 
-xdescribe('Editing a CAB', () => {
+describe('Editing a CAB', () => {
 
   beforeEach(function() {
     CabHelpers.getTestCab().then(cab => {
       cy.wrap(cab).as('cab')
     })
   })
-
-  context('when logged in as OGD user', () => {
-
-    it('is not allowed', function() {
-      cy.loginAsOgdUser()
-      CabHelpers.viewCabPage(this.cab.cabId)
-      CabHelpers.hasEditCabPermission()    
-    })
+  
+  it('if not possible when logged out', function() {
+    cy.ensureOn(CabHelpers.cabProfilePage(this.cab.cabId))
+    CabHelpers.editCabButton().should('not.exist')
   })
-
-  context('when logged in as OPSS user', () => {
-
-    it('is not allowed', function() {
+  
+  context('when logged in', function() {
+    
+    beforeEach(function() {
       cy.loginAsOpssUser()
-      CabHelpers.viewCabPage(this.cab.cabId)
-      CabHelpers.hasEditCabPermission()    
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab.cabId))
+      CabHelpers.editCabButton().click()
     })
-  })
 
-  context('when logged in as UKAS user', () => {
-
-    it('is allowed', function() {
-      cy.loginAsUkasUser()
-      CabHelpers.viewCabPage(this.cab.cabId)
-      CabHelpers.hasEditCabPermission()    
+    it('allows editing a cab and publishing updated cab details', function() {
+      let cloneCab = this.cab
+      let uniqueId = Date.now()
+      CabHelpers.editCabDetail('About')
+      cloneCab.name = this.cab.name + ` Edited ${uniqueId}`
+      CabHelpers.enterCabDetails(cloneCab)
+      cloneCab.addressLine1 = 'Edited address'
+      CabHelpers.editCabDetail('Contact details')
+      CabHelpers.enterContactDetails(cloneCab)
+      CabHelpers.hasDetailsConfirmation(cloneCab)
+      CabHelpers.clickPublish()
+      CabHelpers.hasCabPublishedConfirmation(cloneCab)
     })
+
+    it('allows saving an edited cab as draft with original cab still viewable', function() {
+      let cloneCab = this.cab
+      let uniqueId = Date.now()
+      CabHelpers.editCabDetail('About')
+      cloneCab.name = this.cab.name + ` Edited ${uniqueId}`
+      CabHelpers.enterCabDetails(cloneCab)
+      CabHelpers.saveAsDraft()
+      cy.ensureOn(CabHelpers.workQueuePath())
+      cy.get('a').contains(cloneCab.name)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab.cabId))
+    })
+
+    it('does not create duplicate or save cab in drafts when edited but no changes are made', function() {
+      CabHelpers.editCabDetail('About')
+      CabHelpers.enterCabDetails(this.cab)
+      CabHelpers.clickPublish()
+      cy.ensureOn(CabHelpers.workQueuePath())
+      cy.get('a').contains(this.cab.name).should('not.exist')
+    })
+
   })
 })
