@@ -7,7 +7,8 @@ describe('UKMCAB RSS Feed', function() {
 
   let searchInput = 'emission'
   it('works', function() {
-    SearchHelpers.azureSearchResults(searchInput, {orderBy: ['LastUpdatedDate']}).then(results => {
+    SearchHelpers.azureSearchResults(searchInput, {orderBy: ['LastUpdatedDate desc']}).then(results => {
+      console.log(results)
       cy.request({
         method: 'GET',
         url: '/search-feed?Keywords=emission',
@@ -25,7 +26,7 @@ describe('UKMCAB RSS Feed', function() {
           expect(entry.title.toString()).to.eq(results[index].name)
           expect(entry.summary.toString()).to.eq(results[index].addressLines.join(', '))
           expect(entry.updated).to.eq(results[index].lastUpdatedDate.toISOString().replace(/.\d+Z$/g, "Z"))
-          expect(entry.link._href).to.eq(Cypress.config().baseUrl + cabProfilePage(results[index].cabId))
+          expect(entry.link._href).to.eq(Cypress.config().baseUrl + cabProfilePage(results[index].cabId) + '?returnUrl=%2Fsearch%3FKeywords%3Demission')
         })
       })
     })
