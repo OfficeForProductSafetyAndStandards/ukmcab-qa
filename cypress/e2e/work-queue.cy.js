@@ -53,7 +53,7 @@ describe('Work Queue', function() {
     cy.get('.pagination-detail-container').contains(`Showing 1 - ${this.cabs.slice(0,10).length} of ${this.cabs.length} items`)
   })
 
-  it.only('displays correct CAB details when filtered by Draft or Archived', function() {
+  it('displays correct CAB details when filtered by Draft or Archived', function() {
     cy.get('#Filter').select('Draft')
     sortedByLastUpdatedDesc(this.draftCabs).slice(0,10).forEach((cab, index) => {
       cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {

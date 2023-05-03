@@ -1,14 +1,15 @@
 import { footer } from '../support/helpers/common-helpers'
+import { contactUsUrl, privacyUrl, termsUrl, cookiesUrl } from "../support/helpers/url-helpers";
 
 describe('Footer', function() {
   
   it('displays all expected links', function() {
     cy.ensureOn('/')
-    footer().contains('a', 'Privacy').should('have.attr', 'href', '/privacy-notice')
+    footer().contains('a', 'Privacy').should('have.attr', 'href', privacyUrl())
     footer().contains('a', 'Cookies').should('have.attr', 'href', '/cookies-policy')
     footer().contains('a', 'Accessibility statement').should('have.attr', 'href', '/accessibility-statement')
-    footer().contains('a', 'Contact').should('have.attr', 'href', '/help#contact-info')
-    footer().contains('a', 'Terms and conditions').should('have.attr', 'href', '/terms-and-conditions')
+    footer().contains('a', 'Contact').should('have.attr', 'href', contactUsUrl())
+    footer().contains('a', 'Terms and conditions').should('have.attr', 'href', termsUrl())
     footer().contains('a', 'Government Digital Service').should('have.attr', 'href', 'https://www.gov.uk/government/organisations/government-digital-service').and('have.attr', 'target', '_blank')
     footer().contains('All content is available under the Open Government Licence v3.0 (opens in a new window), except where otherwise stated').find('a', 'Open Government Licence v3.0').should('have.attr', 'href', 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/').and('have.attr', 'target', '_blank')
     footer().find('svg.govuk-footer__licence-logo').should('be.visible')
@@ -18,12 +19,12 @@ describe('Footer', function() {
   })
 
   it('displays Privacy page as expected', () => {
-    cy.ensureOn('/privacy-notice')
+    cy.ensureOn(privacyUrl())
     cy.contains('Privacy Notice - UKMCAB') //just check that page is not 404
   })
 
   it('displays Cookies page as expected', () => {
-    cy.ensureOn('/cookies-policy')
+    cy.ensureOn(cookiesUrl())
     cy.contains('Cookies policy') //just check that page is not 404
   })
 })

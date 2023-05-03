@@ -12,6 +12,16 @@ export class EmailNotification {
     return Math.abs(new Date(this.sentAt) - new Date()) < 10000
   }
 
+  isContactSubmissionEmail(name, email, subject, message) {
+    return this.subject === "Contact Form: " + subject
+    && this.body === `Your message has been submitted with the following information. We'll get back to you as soon as possible.\r\n\r\n# Name\r\n${name}\r\n\r\n# Email\r\n${email}\r\n\r\n# Subject\r\n${subject}\r\n\r\n# Message\r\n${message}`
+  }
+
+  isContactSubmissionOpssEmail(name, email, subject, message) {
+    return this.subject === "Contact Form: " + subject
+    && this.body === `We have received a new information request from a user through the UKMCAB website's contact form. Below are the details.\r\n\r\n# Name\r\n${name}\r\n\r\n# Email\r\n${email}\r\n\r\n# Subject\r\n${subject}\r\n\r\n# Message\r\n${message}`
+  }
+
   get isVerificationEmail() {
     return this.subject === "UKMCAB user registration – confirm your email"
   }

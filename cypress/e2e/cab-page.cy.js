@@ -1,16 +1,8 @@
   import * as CabHelpers from '../support/helpers/cab-helpers'
   import { date, valueOrNotProvided } from '../support/helpers/formatters'
+  import { searchPath } from '../support/helpers/search-helpers'
 
 describe('CAB profile page', () => {
-  
-  // const DEFAULT_VALUE = "Not provided"
-  // const formattedDate = (date) => {
-  //   return new Date(date).toLocaleDateString("en-GB", {day: "numeric", month: "short", year: "numeric"})
-  // }
-
-  // const spacedFormatted = (values) => {
-  //   return values ? values.join(' ') : DEFAULT_VALUE
-  // }
 
   beforeEach(function() {
     CabHelpers.getTestCab().then(cab => {
@@ -21,6 +13,10 @@ describe('CAB profile page', () => {
 
   it('displays CAB name heading', function() {
     cy.get('.govuk-heading-l').contains(this.cab.name)
+  })
+
+  it('has back to search results link', function() {
+    cy.get('a').contains('Return to Search Results').and('has.attr', 'href', searchPath())
   })
 
   it('displays published and updated date', function() {
@@ -38,7 +34,7 @@ describe('CAB profile page', () => {
       cy.contains('.cab-detail-section', 'Contact details').within(() => {
         cy.hasKeyValueDetail('Address', this.cab.addressLines.join(', '))
         if(this.cab.website) {
-          cy.hasKeyValueDetail('Website', this.cab.website).and('have.attr', 'href', 'https://' + this.cab.website)
+          cy.hasKeyValueDetail('Website', this.cab.website).and('have.attr', 'href', this.cab.website)
         } else {
           valueOrNotProvided(this.cab.website)
         }
