@@ -49,7 +49,7 @@ describe('Work Queue', function() {
   })
 
   it('displays pagination with 10 cabs per page', function() {
-    cy.get('tbody > tr.govuk-table__row').should('have.length', 10)
+    cy.get('tbody > tr.govuk-table__row').should('have.length', this.cabs.slice(0,10).length)
     cy.get('.pagination-detail-container').contains(`Showing 1 - ${this.cabs.slice(0,10).length} of ${this.cabs.length} items`)
   })
 
