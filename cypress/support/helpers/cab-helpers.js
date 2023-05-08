@@ -1,6 +1,6 @@
 import Cab from '../domain/cab'
 import { date, valueOrNotProvided } from './formatters'
-export const workQueuePath = () => { return '/admin/work-queue'}
+export const workQueuePath = () => { return '/admin/cab-management'}
 export const cabProfilePage = (id) => { return `/search/cab-profile/${id}`}
 export const cabSummaryPage = (id) => { return `/admin/cab/summary/${id}`}
 export const addCabPath = () => { return '/admin/cab/details/create'}
