@@ -54,8 +54,33 @@ export class EmailNotification {
     && this.body.includes("Request details")
   }
 
+  get isSubscriptionAccountVerification() {
+    return this.subject === "Confirm your subscription"
+    && this.body.includes("Click the link to confirm that you want to get emails from GOV.UK")
+  }
+  
+  get isSubscriptionConfirmationEmail() {
+    return this.subject === "You’ve subscribed to GOV.UK emails"
+    && this.links.length === 3
+  }
+  
+  get isSearchResultsUpdatedEmail() {
+    return this.subject === "UKMCAB search results updated"
+    && this.links.length === 5
+  }
+  
+  isCabUpdatedEmail(cab) {
+    return this.subject === `UKMCAB profile for ‘${cab.name}’ updated`
+    && this.links.length === 4
+    && this.links[0] === cab.url
+  }
+
   get link() {
     return this.body.match(/^https(.*)$/gm)[0]
+  }
+
+  get links() {
+    return this.body.match(/^https(.*)$/gm)
   }
 
 }

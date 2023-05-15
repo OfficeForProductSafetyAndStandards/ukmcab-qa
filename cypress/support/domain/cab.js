@@ -1,3 +1,4 @@
+import { cabProfilePage } from "../helpers/cab-helpers"
 export default class Cab {
 
   constructor(cabData) {
@@ -31,6 +32,10 @@ export default class Cab {
     this.website = cabData.Website
     this.status = cabData.Status
     this.isPointOfContactPublicDisplay = cabData.IsPointOfContactPublicDisplay
+  }
+
+  get url() {
+    return Cypress.config('baseUrl') + cabProfilePage(this.cabId)
   }
 
   get schedules() {
