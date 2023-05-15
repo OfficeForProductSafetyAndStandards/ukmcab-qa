@@ -325,7 +325,7 @@ describe('Email subscription', function() {
     
     it('displays Manage subscription page', function() {
       cy.contains('h1', 'Manage your UKMCAB subscription')
-      cy.contains(`Subscription for ${this.email} Change email address Topic UKMCAB search results You subscribed to get updates once a day. Change how often you get emails Unsubscribe`)
+      cy.contains(`Subscription for ${this.email} Change email address Topic UKMCAB search results You subscribed to get updates as they happen. Change how often you get emails Unsubscribe`)
       cy.contains('a', 'Change email address')
       cy.contains('a', 'Change how often you get emails')
       cy.contains('a', 'Unsubscribe')
