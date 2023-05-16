@@ -2,6 +2,7 @@ import { cabProfilePage } from "../helpers/cab-helpers"
 export default class Cab {
 
   constructor(cabData) {
+    this._cabData = cabData
     this.id = cabData.id
     this.accreditationSchedules = cabData.accreditationSchedules
     this.addressLine1 = cabData.AddressLine1
@@ -19,7 +20,7 @@ export default class Cab {
     this.lastUpdatedDate = new Date(cabData.LastUpdatedDate)
     this.name = cabData.Name
     this.phone = cabData.Phone
-    this.publishedDate = cabData.PublishedDate
+    this.publishedDate = new Date({...cabData.Published}.DateTime)
     this.pointOfContactName = cabData.PointOfContactName
     this.pointOfContactEmail = cabData.PointOfContactEmail
     this.pointOfContactPhone = cabData.PointOfContactPhone

@@ -34,7 +34,7 @@ describe('CAB profile page', () => {
       cy.contains('.cab-detail-section', 'Contact details').within(() => {
         cy.hasKeyValueDetail('Address', this.cab.addressLines.join(', '))
         if(this.cab.website) {
-          cy.hasKeyValueDetail('Website', this.cab.website).and('have.attr', 'href', this.cab.website)
+          cy.hasKeyValueDetail('Website', this.cab.website).and('have.attr', 'href', this.cab.website.startsWith('https://') ? this.cab.website : 'https://' + this.cab.website)
         } else {
           valueOrNotProvided(this.cab.website)
         }

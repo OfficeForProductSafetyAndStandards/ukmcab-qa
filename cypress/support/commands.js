@@ -51,6 +51,8 @@ Cypress.Commands.add('registerViaApi', (email, password) => {
     method: 'POST',
     url: '/api/user',
     body: {
+      FirstName: 'Test',
+      LastName: 'User',
       Email: email,
       Password: password,
       ApiPassword: Cypress.env('BASIC_AUTH_PASS')
