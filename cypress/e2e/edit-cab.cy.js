@@ -1,4 +1,5 @@
 import * as CabHelpers from '../support/helpers/cab-helpers'
+import { date } from '../support/helpers/formatters'
 
 describe('Editing a CAB', () => {
 
@@ -53,6 +54,23 @@ describe('Editing a CAB', () => {
       CabHelpers.clickPublish()
       cy.ensureOn(CabHelpers.workQueuePath())
       cy.get('a').contains(this.cab.name).should('not.exist')
+    })
+
+    it('does not affect Published Date and only updates Last Updated Date', function() {
+      let cloneCab = this.cab
+      let uniqueId = Date.now()
+      CabHelpers.editCabDetail('About')
+      cloneCab.name = this.cab.name + ` Edited ${uniqueId}`
+      CabHelpers.enterCabDetails(cloneCab)
+      cloneCab.addressLine1 = 'Edited address'
+      CabHelpers.editCabDetail('Contact details')
+      CabHelpers.enterContactDetails(cloneCab)
+      CabHelpers.hasDetailsConfirmation(cloneCab)
+      CabHelpers.clickPublish()
+      CabHelpers.hasCabPublishedConfirmation(cloneCab)
+      cy.contains('a', 'View CAB').click()
+      cy.contains(`Published: ${date(this.cab.publishedDate).DMMMYYYY}`)
+      cy.contains(`Last updated: ${date(new Date()).DMMMYYYY}`)
     })
 
   })

@@ -1,5 +1,6 @@
 import * as CabHelpers from '../support/helpers/cab-helpers'
 import Cab from '../support/domain/cab'
+import { date } from '../support/helpers/formatters'
 
 describe('Creating a new CAB', () => {
 
@@ -221,6 +222,14 @@ describe('Creating a new CAB', () => {
     it('is successful with valid data entry', function() {
       CabHelpers.createCab(this.cab)
       CabHelpers.hasCabPublishedConfirmation(this.cab)
+    })
+
+    it('sets Published Date and Last Updated Date to be current date for new cabs', function() {
+      CabHelpers.createCab(this.cab)
+      CabHelpers.hasCabPublishedConfirmation(this.cab)
+      cy.contains('a', 'View CAB').click()
+      cy.contains(`Published: ${date(new Date()).DMMMYYYY}`)
+      cy.contains(`Last updated: ${date(new Date()).DMMMYYYY}`)
     })
 
     it('publishes an existing draft cab and removes it from work queue', function() {
