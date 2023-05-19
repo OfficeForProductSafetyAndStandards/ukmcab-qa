@@ -100,22 +100,25 @@ describe('CAB Search', () => {
     })
 
     it('displays correct results by searching across all CAB metadata', function() {
-      let name = 'Limited'
-      let address = 'Rusholme'
-      let cabNumber = '8508'
-      let bodyType = 'overseas body'
-      let legislativeArea = 'equipment'
-      let registeredOfficeLocation = 'United Kingdom'
-      let email = 'www.RNelectronics.com'
-      const keywords = [name, address, cabNumber, bodyType, legislativeArea, registeredOfficeLocation, email]
-      keywords.forEach(keyword => {
-        SearchHelpers.searchCab(keyword)
-        SearchHelpers.azureSearchResults(keyword).then(expectedResults => {
-          const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
-          SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
-            const actualCabs = Cypress._.map(actualResults, 'innerText')
-            SearchHelpers.topPagination().contains(`Showing 1 - ${expectedCabs.length} of ${expectedResults.length} bodies`)
-            expect(actualCabs).to.eql(expectedCabs)
+      CabHelpers.getTestCab().then(cab => {
+        // set some test keywords from a published test cab as some cabs can be archived!
+        let name = 'Limited'
+        let address = 'United Kingdom'
+        let cabNumber = cab.cabNumber
+        let bodyType = 'overseas body'
+        let legislativeArea = 'equipment'
+        let registeredOfficeLocation = 'United Kingdom'
+        let email = '.co.uk'
+        const keywords = [name, address, cabNumber, bodyType, legislativeArea, registeredOfficeLocation, email]
+        keywords.forEach(keyword => {
+          SearchHelpers.searchCab(keyword)
+          SearchHelpers.azureSearchResults(keyword).then(expectedResults => {
+            const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
+            SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
+              const actualCabs = Cypress._.map(actualResults, 'innerText')
+              SearchHelpers.topPagination().contains(`Showing 1 - ${expectedCabs.length} of ${expectedResults.length} bodies`)
+              expect(actualCabs).to.eql(expectedCabs)
+            })
           })
         })
       })
@@ -138,13 +141,14 @@ describe('CAB Search', () => {
           expect(filterOptions).to.eql(registeredOfficeLocations)
         })
       })
-      CabHelpers.getDistinctTestingLocations().then(testingLocations => {
-        cy.get('.search-filter-option h3').contains('Testing location').next().find('.search-filter-option-item label')
-        .then(($els) => {
-          const filterOptions = Cypress._.map($els, 'innerText')
-          expect(filterOptions).to.eql(testingLocations)
-        })
-      })
+      // Removed as part of UKMCAB-831 but may return in future so keeping commented out
+      // CabHelpers.getDistinctTestingLocations().then(testingLocations => {
+      //   cy.get('.search-filter-option h3').contains('Testing location').next().find('.search-filter-option-item label')
+      //   .then(($els) => {
+      //     const filterOptions = Cypress._.map($els, 'innerText')
+      //     expect(filterOptions).to.eql(testingLocations)
+      //   })
+      // })
       CabHelpers.getDistinctLegislativeAreas().then(legislativeAreas => {
         cy.get('.search-filter-option h3').contains('Legislative area').next().find('.search-filter-option-item label')
         .then(($els) => {
@@ -180,18 +184,19 @@ describe('CAB Search', () => {
       })
     })
 
-    it('displays correct results for Testing location filters', function() {
-      const filterOptions = {"TestingLocations": ['United Kingdom']}
-      SearchHelpers.filterByTestingLocation(['United Kingdom'])
-      SearchHelpers.azureSearchResults('', {orderBy: ['RandomSort asc'], filter: SearchHelpers.buildFilterQuery(filterOptions)}).then(expectedResults => {
-        const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
-        SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
-          const actualCabs = Cypress._.map(actualResults, 'innerText')
-          SearchHelpers.topPagination().contains(`Showing 1 - ${expectedCabs.length} of ${expectedResults.length} bodies`)
-          expect(actualCabs).to.eql(expectedCabs)
-        })
-      })
-    })
+    // Removed as part of UKMCAB-831 but may return in future so keeping commented out
+    // it('displays correct results for Testing location filters', function() {
+    //   const filterOptions = {"TestingLocations": ['United Kingdom']}
+    //   SearchHelpers.filterByTestingLocation(['United Kingdom'])
+    //   SearchHelpers.azureSearchResults('', {orderBy: ['RandomSort asc'], filter: SearchHelpers.buildFilterQuery(filterOptions)}).then(expectedResults => {
+    //     const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
+    //     SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
+    //       const actualCabs = Cypress._.map(actualResults, 'innerText')
+    //       SearchHelpers.topPagination().contains(`Showing 1 - ${expectedCabs.length} of ${expectedResults.length} bodies`)
+    //       expect(actualCabs).to.eql(expectedCabs)
+    //     })
+    //   })
+    // })
 
     it('displays correct results for Legislative area filters', function() {
       const filterOptions = {"LegislativeAreas": ['Construction products', 'Electromagnetic compatibility']}
