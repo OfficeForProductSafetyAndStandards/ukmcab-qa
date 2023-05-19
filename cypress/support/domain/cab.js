@@ -8,6 +8,7 @@ export default class Cab {
     this.addressLine1 = cabData.AddressLine1
     this.addressLine2 = cabData.AddressLine2
     this.townCity = cabData.TownCity
+    this.county = cabData.County
     this.postcode = cabData.Postcode
     this.country = cabData.Country
     this.appointmentDate = new Date(cabData.AppointmentDate)
@@ -39,6 +40,18 @@ export default class Cab {
     return Cypress.config('baseUrl') + cabProfilePage(this.cabId)
   }
 
+  get isDraft() {
+    return this.status === "Draft"
+  }
+
+  get isArchived() {
+    return this.status === "Archived"
+  }
+
+  get isPublished() {
+    return this.status === "Published"
+  }
+
   get schedules() {
     return this._schedules.map(schedule => {
       return {
@@ -60,7 +73,7 @@ export default class Cab {
   }
 
   get addressLines() {
-    return [this.addressLine1, this.addressLine2, this.townCity, this.postcode, this.country].filter(Boolean)
+    return [this.addressLine1, this.addressLine2, this.townCity, this.county, this.postcode, this.country].filter(Boolean)
   }
 
   pointOfContactDetailsDisplayStatus() {

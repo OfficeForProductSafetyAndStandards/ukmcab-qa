@@ -9,6 +9,7 @@ export default class AzureCabResult {
     this.addressLine1 = _doc.AddressLine1
     this.addressLine2 = _doc.AddressLine2
     this.townCity = _doc.TownCity
+    this.county = _doc.County
     this.postcode = _doc.Postcode
     this.country = _doc.Country
     this.bodyTypes = _doc.BodyTypes
@@ -19,7 +20,7 @@ export default class AzureCabResult {
   }
 
   get addressLines() {
-    return [this.addressLine1, this.addressLine2, this.townCity, this.postcode, this.country].filter(Boolean)
+    return [this.addressLine1, this.addressLine2, this.townCity, this.county, this.postcode, this.country].filter(Boolean)
   }
 
   get bodyTypesFormatted() {
