@@ -23,6 +23,10 @@ describe('Work Queue', function() {
     return cabs.sort((a,b) => b.cabNumber.localeCompare(a.cabNumber) || a.createdDate - b.createdDate)
   }
 
+  const linkToCab = (cab) => {
+    return cab.isDraft ? CabHelpers.cabSummaryPage(cab.cabId) : CabHelpers.cabProfilePage(cab.cabId)
+  }
+
   beforeEach(function() {
     cy.loginAsOpssUser()
     cy.ensureOn(CabHelpers.workQueuePath())
@@ -41,7 +45,7 @@ describe('Work Queue', function() {
   it('displays All(Draft or Archived) CABs sorted by Last Updated Date by default', function() {
     sortedByLastUpdatedDesc(this.cabs).slice(0,10).forEach((cab, index) => {
       cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
-        cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', cabSummaryPage(cab.cabId))
+        cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', linkToCab(cab))
         cy.get('td').eq(1).contains(cab.cabNumber)
         cy.get('td').eq(2).contains(cab.status)
       })

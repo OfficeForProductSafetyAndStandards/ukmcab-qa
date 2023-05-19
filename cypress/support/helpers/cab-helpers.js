@@ -155,6 +155,16 @@ export const hasUploadedFileNames = (files) => {
   })
 }
 
+export const archiveCab = (cab, reason='Archive reason') => {
+  cy.ensureOn(cabProfilePage(cab.cabId))
+  archiveCabButton().click()
+  cy.get('#ArchiveReason').type(reason)
+  cy.continue()
+  cy.get('h2').contains('Archive')
+  cy.contains(`Archived on ${date(new Date()).DMMMYYYY} by OPSS Admin User`)
+  cy.contains(reason)
+}
+
 export const getTestCab = () => {
   return getAllPublishedCabs().then(cabs => {
     return cabs[0]
@@ -187,7 +197,8 @@ export const getAllDraftCabs = () => {
 
 export const getAllDraftOrArchivedCabs = () => {
   return getAllCabs().then(cabs => {
-    return cabs.filter(cab => cab.status === "Draft" || cab.status === "Archived")
+    // return cabs.filter(cab => cab.status === "Draft" || cab.status === "Archived")
+    return cabs.filter(cab => cab.isDraft || cab.isArchived)
   })
 }
 
@@ -233,6 +244,10 @@ export const addACabButton = () => {
 
 export const editCabButton = () => {
   return cy.get('a,button').contains('Edit')
+}
+
+export const archiveCabButton = () => {
+  return cy.get('a,button').contains('Archive')
 }
 
 export const editCabDetail = (heading) => {
