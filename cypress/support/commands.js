@@ -47,6 +47,19 @@ Cypress.Commands.add('continue', () => {
 })
 
 Cypress.Commands.add('registerViaApi', (email, password) => {
+  // coikies must be passed in when creating user via API.
+  // Cypress automatically submites these in subsequent requests once set.
+  // Login once before making egistration request and then clear cookies to logout
+  cy.request({
+    method: 'POST',
+    url: '/account/login',
+    form: true, // indicates the body should be form urlencoded and sets Content-Type: application/x-www-form-urlencoded headers
+    body: {
+      Email: Cypress.env('OPSS_USER'),
+      Password: Cypress.env('OPSS_PASS'),
+    },
+    ...basicAuthCreds()
+  })
   cy.request({
     method: 'POST',
     url: '/api/user',
@@ -59,6 +72,7 @@ Cypress.Commands.add('registerViaApi', (email, password) => {
     },
     ...basicAuthCreds()
   })
+  cy.clearCookies()
 })
 
 Cypress.Commands.add('hasKeyValueDetail', (key, value) => {
