@@ -67,7 +67,6 @@ export const enterContactDetails = (cab) => {
 }
 
 export const enterBodyDetails = (cab) => {
-  console.log(cab.testingLocations.length)
   cy.wrap(cab.testingLocations).its('length').then(count => {
     Cypress._.times(count - 1, cy.contains('a', 'Add another registered test location').click())
     cab.testingLocations.forEach((location, index) => {

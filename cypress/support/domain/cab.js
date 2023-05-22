@@ -15,7 +15,7 @@ export default class Cab {
     this.cabId = cabData.CABId
     this.cabNumber = cabData.CABNumber
     this.bodyTypes = cabData.BodyTypes
-    this.createdDate = new Date(cabData.CreatedDate)
+    this.createdDate = new Date({...cabData.Created}.DateTime)
     this.email = cabData.Email
     this.legislativeAreas = cabData.LegislativeAreas
     this.lastUpdatedDate = new Date(cabData.LastUpdatedDate)

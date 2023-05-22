@@ -1,10 +1,10 @@
-import { addCabPath, cabSummaryPage } from "../support/helpers/cab-helpers"
 import * as CabHelpers from '../support/helpers/cab-helpers'
+import { valueOrNotProvided } from "../support/helpers/formatters"
 
 describe('Work Queue', function() {
 
   const sortedByLastUpdatedDesc = (cabs) => {
-    return cabs.sort(c => c.lastUpdatedDate).reverse()
+    return cabs.sort((a, b) => b.lastUpdatedDate - a.lastUpdatedDate)
   }
 
   const sortedByNameAsc = (cabs) => {
@@ -16,11 +16,21 @@ describe('Work Queue', function() {
   }
 
   const sortedByNumberAsc = (cabs) => {
-    return cabs.sort((a,b) => a.cabNumber.localeCompare(b.cabNumber) || a.createdDate - b.createdDate)
+    const notProvided = cabs.filter(c => c.cabNumber === null)
+    return notProvided.concat(Cypress._.filter(cabs, c => c.cabNumber).sort((a,b) => a.cabNumber.localeCompare(b.cabNumber) || a.createdDate - b.createdDate))
   }
 
   const sortedByNumberDesc = (cabs) => {
-    return cabs.sort((a,b) => b.cabNumber.localeCompare(a.cabNumber) || a.createdDate - b.createdDate)
+    const notProvided = cabs.filter(c => c.cabNumber === null)
+    return Cypress._.filter(cabs, c => c.cabNumber).sort((a,b) => b.cabNumber.localeCompare(a.cabNumber) || a.createdDate - b.createdDate).concat(notProvided)
+  }
+
+  const sortedByStatusAsc = (cabs) => {
+    return cabs.sort((a,b) => a.status.localeCompare(b.status) || a.createdDate - b.createdDate)
+  }
+
+  const sortedByStatusDesc = (cabs) => {
+    return cabs.sort((a,b) => b.status.localeCompare(a.status) || a.createdDate - b.createdDate)
   }
 
   const linkToCab = (cab) => {
@@ -39,14 +49,14 @@ describe('Work Queue', function() {
   })
 
   it('displays option to create a new CAB', function() {
-    cy.get('a.govuk-button').should('contain', 'Create a CAB').and('has.attr', 'href', addCabPath())
+    cy.get('a.govuk-button').should('contain', 'Create a CAB').and('has.attr', 'href', CabHelpers.addCabPath())
   })
 
   it('displays All(Draft or Archived) CABs sorted by Last Updated Date by default', function() {
     sortedByLastUpdatedDesc(this.cabs).slice(0,10).forEach((cab, index) => {
       cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
         cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', linkToCab(cab))
-        cy.get('td').eq(1).contains(cab.cabNumber)
+        cy.get('td').eq(1).contains(valueOrNotProvided(cab.cabNumber))
         cy.get('td').eq(2).contains(cab.status)
       })
     })
@@ -61,55 +71,69 @@ describe('Work Queue', function() {
     cy.get('#Filter').select('Draft')
     sortedByLastUpdatedDesc(this.draftCabs).slice(0,10).forEach((cab, index) => {
       cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
-        cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', cabSummaryPage(cab.cabId))
-        cy.get('td').eq(1).contains(cab.cabNumber)
+        cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', CabHelpers.cabSummaryPage(cab.cabId))
+        cy.get('td').eq(1).contains(valueOrNotProvided(cab.cabNumber))
         cy.get('td').eq(2).contains(cab.status)
       })
     })
-    // TODO - Archive not yet developed
-    // cy.get('#Filter').select('Archived')
-    // this.sortedCabs.filter(cab => cab.Status === "Archived").forEach((cab, index) => {
-    //   cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
-    //     cy.get('td').eq(0).contains(cab.Name).and('has.attr', 'href', '#')
-    //     cy.get('td').eq(1).contains(cab.CABNumber ?? 'Not provided')
-    //     cy.get('td').eq(2).contains(cab.Status)
-    //   })
-    // })
+    cy.get('#Filter').select('Archived')
+    sortedByLastUpdatedDesc(this.cabs.filter(cab => cab.isArchived)).slice(0,10).forEach((cab, index) => {
+      cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
+        cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', CabHelpers.cabProfilePage(cab.cabId))
+        cy.get('td').eq(1).contains(valueOrNotProvided(cab.cabNumber))
+        cy.get('td').eq(2).contains(cab.status)
+      })
+    })
   })
 
   it('displays correct CAB order upon sorting by any of the sortable columns', function() {
     cy.get('thead th a').eq(0).click() // CAB name Asc sort
     sortedByNameAsc(this.cabs).slice(0,10).forEach((cab, index) => {
       cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
-        cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', cabSummaryPage(cab.cabId))
-        cy.get('td').eq(1).contains(cab.cabNumber)
+        cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', linkToCab(cab))
+        cy.get('td').eq(1).contains(valueOrNotProvided(cab.cabNumber))
         cy.get('td').eq(2).contains(cab.status)
       })
     })
     cy.get('thead th a').eq(0).click() // CAB name desc sort
     sortedByNameDesc(this.cabs).slice(0,10).forEach((cab, index) => {
       cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
-        cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', cabSummaryPage(cab.cabId))
-        cy.get('td').eq(1).contains(cab.cabNumber)
+        cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', linkToCab(cab))
+        cy.get('td').eq(1).contains(valueOrNotProvided(cab.cabNumber))
         cy.get('td').eq(2).contains(cab.status)
       })
     })
     cy.get('thead th a').eq(1).click() // CAB Number asc sort
     sortedByNumberAsc(this.cabs).slice(0,10).forEach((cab, index) => {
       cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
-        cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', cabSummaryPage(cab.cabId))
-        cy.get('td').eq(1).contains(cab.cabNumber)
+        cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', linkToCab(cab))
+        cy.get('td').eq(1).contains(valueOrNotProvided(cab.cabNumber))
         cy.get('td').eq(2).contains(cab.status)
       })
     })
     cy.get('thead th a').eq(1).click() // CAB Number desc sort
     sortedByNumberDesc(this.cabs).slice(0,10).forEach((cab, index) => {
       cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
-        cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', cabSummaryPage(cab.cabId))
-        cy.get('td').eq(1).contains(cab.cabNumber)
+        cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', linkToCab(cab))
+        cy.get('td').eq(1).contains(valueOrNotProvided(cab.cabNumber))
         cy.get('td').eq(2).contains(cab.status)
       })
     })
-    // TODO Sort by Status when Archiving is developed
+    cy.get('thead th a').eq(2).click() // Status asc sort
+    sortedByStatusAsc(this.cabs).slice(0,10).forEach((cab, index) => {
+      cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
+        cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', linkToCab(cab))
+        cy.get('td').eq(1).contains(valueOrNotProvided(cab.cabNumber))
+        cy.get('td').eq(2).contains(cab.status)
+      })
+    })
+    cy.get('thead th a').eq(2).click() // Status Desc sort
+    sortedByStatusDesc(this.cabs).slice(0,10).forEach((cab, index) => {
+      cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
+        cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', linkToCab(cab))
+        cy.get('td').eq(1).contains(valueOrNotProvided(cab.cabNumber))
+        cy.get('td').eq(2).contains(cab.status)
+      })
+    })
   })
 })
