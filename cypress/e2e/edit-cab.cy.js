@@ -26,7 +26,7 @@ describe('Editing a CAB', () => {
       let cloneCab = this.cab
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('About')
-      cloneCab.name = this.cab.name + ` Edited ${uniqueId}`
+      cloneCab.name = cloneCab.name = this.cab.name.replace(/Edited.*/,`Edited ${uniqueId}`)
       CabHelpers.enterCabDetails(cloneCab)
       cloneCab.addressLine1 = 'Edited address'
       CabHelpers.editCabDetail('Contact details')
@@ -36,11 +36,39 @@ describe('Editing a CAB', () => {
       CabHelpers.hasCabPublishedConfirmation(cloneCab)
     })
 
+    it('displays error if mandatory fields are omitted', function() {
+      let cloneCab = Object.assign({}, this.cab)
+      CabHelpers.editCabDetail('About')
+      cloneCab.name = null
+      cloneCab.cabNumber = null
+      CabHelpers.enterCabDetails(cloneCab)
+      cy.continue()
+      cy.hasError('CAB name', 'Enter a CAB name')
+      cy.hasError('CAB number', 'Enter a CAB number')
+      CabHelpers.enterCabDetails(this.cab)
+      CabHelpers.editCabDetail('Contact details')
+      cloneCab.addressLine1 = null
+      cloneCab.townCity = null
+      cloneCab.postcode = null
+      cloneCab.country = null
+      cloneCab.email = null
+      cloneCab.phone = null
+      cloneCab.registeredOfficeLocation = 'Choose location'
+      CabHelpers.enterContactDetails(cloneCab)
+      cy.hasError('Address line 1', 'Enter an address')
+      cy.hasError('Town or city', 'Enter a town or city')
+      cy.hasError('Postcode', 'Enter a postcode')
+      cy.hasError('Country', 'Enter a country')
+      cy.hasError('Email', 'Enter either an email or phone')
+      cy.hasError('Phone', 'Enter either an email or phone')
+      cy.hasError('Registered office location', 'Enter a registered office location')
+    })
+
     it('allows saving an edited cab as draft with original cab still viewable', function() {
       let cloneCab = this.cab
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('About')
-      cloneCab.name = this.cab.name + ` Edited ${uniqueId}`
+      cloneCab.name = this.cab.name.replace(/Edited.*/,`Edited ${uniqueId}`)
       CabHelpers.enterCabDetails(cloneCab)
       CabHelpers.saveAsDraft()
       cy.ensureOn(CabHelpers.workQueuePath())
@@ -60,7 +88,7 @@ describe('Editing a CAB', () => {
       let cloneCab = this.cab
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('About')
-      cloneCab.name = this.cab.name + ` Edited ${uniqueId}`
+      cloneCab.name = this.cab.name.replace(/Edited.*/,`Edited ${uniqueId}`)
       CabHelpers.enterCabDetails(cloneCab)
       cloneCab.addressLine1 = 'Edited address'
       CabHelpers.editCabDetail('Contact details')

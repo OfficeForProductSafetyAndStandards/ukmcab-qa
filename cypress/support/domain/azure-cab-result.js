@@ -40,7 +40,7 @@ export default class AzureCabResult {
       const suffix = values.length === 2 ? '1 other' : `${values.length - 1} others`
       return values[0] + ' and ' + suffix
     } else {
-      return values[0] ?? ''
+      return values[0] ?? 'Not provided'
     }
   }
 }

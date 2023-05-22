@@ -88,6 +88,7 @@ export default class Cab {
       AddressLine2: 'The Priory Queensway',
       TownCity: 'Birmingham',
       Postcode: 'B4 7LR',
+      County: 'West Midlands',
       Country: 'United Kingdom',
       Website: 'www.gov.uk',
       Email: 'email@gov.uk',

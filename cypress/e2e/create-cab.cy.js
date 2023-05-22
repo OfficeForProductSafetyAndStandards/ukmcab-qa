@@ -59,6 +59,7 @@ describe('Creating a new CAB', () => {
     
     it('does not display any error if optional fields are omitted', function() {
       this.cab.addressLine2 = null
+      this.cab.county = null
       this.cab.website = null
       this.cab.pointOfContactName = null
       this.cab.pointOfContactEmail = null

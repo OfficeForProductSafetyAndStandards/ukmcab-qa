@@ -51,6 +51,7 @@ export const enterContactDetails = (cab) => {
   cy.get('#AddressLine2').invoke('val', cab.addressLine2)
   cy.get('#TownCity').invoke('val', cab.townCity)
   cy.get('#Postcode').invoke('val', cab.postcode)
+  cy.get('#County').invoke('val', cab.county)
   cy.get('#Country').invoke('val', cab.country)
   cy.get('#Website').invoke('val', cab.website)
   cy.get('#Email').invoke('val', cab.email)
