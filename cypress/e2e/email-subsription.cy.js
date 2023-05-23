@@ -355,8 +355,6 @@ describe('Email subscription', function() {
 
     it('subscription confirmation links are correct', function() {
       getLastUserEmail(this.email).then(_email => {
-        console.log(_email)
-        console.log(_email.links)
         cy.ensureOn(_email.links[0])
         cy.contains('h1', 'Manage your UKMCAB subscription')
         cy.ensureOn(_email.links[1])

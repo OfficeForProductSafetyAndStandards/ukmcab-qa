@@ -205,7 +205,7 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.saveAsDraft()
       cy.location('pathname').should('equal', CabHelpers.workQueuePath())
-      cy.get('.govuk-notification-banner__content').contains(`Draft record saved for ${this.cab.name} (CAB number ${this.cab.cabNumber})`)
+      cy.get('.govuk-notification-banner__content').contains(`Draft record saved for ${this.cab.name} CAB number ${this.cab.cabNumber}`)
       cy.get('a').contains(this.cab.name)
     })
   })
