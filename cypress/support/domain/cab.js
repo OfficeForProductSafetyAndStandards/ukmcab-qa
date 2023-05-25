@@ -55,6 +55,7 @@ export default class Cab {
   get schedules() {
     return this._schedules.map(schedule => {
       return {
+        label: schedule.Label,
         fileName: schedule.FileName,
         blobName: schedule.BlobName,
         uploadDateTime: schedule.UploadDateTime

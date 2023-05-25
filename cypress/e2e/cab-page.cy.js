@@ -66,7 +66,7 @@ describe('CAB profile page', () => {
         this.cab.schedules.forEach((schedule,index) => {
           // Known cypress issue with dowbload links timeout  - https://github.com/cypress-io/cypress/issues/14857
           cy.window().then((win) => { setTimeout(() => { win.location.reload() },5000) }) 
-          cy.get('.cab-profile-file-list-item a').eq(index).click()
+          cy.get('.cab-profile-file-list-item').eq(index).contains('a', schedule.label).click()
           cy.readFile(`cypress/downloads/${schedule.fileName}`)
         })
       })
