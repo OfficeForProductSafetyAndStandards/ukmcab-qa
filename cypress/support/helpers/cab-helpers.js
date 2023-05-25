@@ -129,9 +129,9 @@ export const hasDetailsConfirmation = (cab) => {
 export const hasCabPublishedConfirmation = (cab) => {
   cy.get('.govuk-panel--confirmation')
   cy.get('.govuk-panel--confirmation').contains(cab.name + ' published ' + 'CAB number' + cab.cabNumber)
-  cy.contains('What happens next CAB is now publicly available.')
-  cy.contains('a', 'View CAB')
-  cy.contains('a', 'View work queue').should('have.attr', 'href', workQueuePath())
+  cy.contains(`What happens next CAB ${cab.cabNumber} is now publicly available.`).find('a', cab.cabNumber)
+  cy.contains('a', `View CAB ${cab.cabNumber} - ${cab.name}`)
+  cy.contains('a', 'Go to CAB management').should('have.attr', 'href', workQueuePath())
 }
 
 // expects files in fixtures folder
