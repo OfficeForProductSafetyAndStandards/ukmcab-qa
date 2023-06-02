@@ -24,7 +24,7 @@ describe('Archiving a CAB', () => {
 
     it('works and removes it from search results!', function() {
       CabHelpers.archiveCab(this.cab)
-      cy.get('.govuk-notification-banner__content').contains(`Archived on ${date(new Date()).DMMMYYYY}`)
+      cy.get('.govuk-notification-banner__content').contains(`Archived on ${date(new Date()).DDMMMYYYY}`)
       searchCab(this.cab.name)
       cy.contains('a', this.cab.name).should('not.exist')
     })
