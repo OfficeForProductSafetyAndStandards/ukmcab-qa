@@ -8,7 +8,7 @@ describe('Login/Logout', () => {
     cy.ensureOn(loginPath())
   })
 
-  it.only('displays Login page as per design', function() {
+  it('displays Login page as per design', function() {
     cy.get('h1').contains('UK Market Conformity Assessment Bodies Sign In')
     cy.get('#Email').siblings('label').contains('Email address')
     cy.get('#Password').siblings('label').contains('Password').siblings('a.show-password-button').contains('Show')

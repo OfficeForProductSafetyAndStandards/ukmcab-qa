@@ -1,6 +1,9 @@
-name: UKMCAB E2E TESTS
-run-name: ${{ github.actor }} is running GitHub Actions for UKMCAB e2e tests 🚀
-on: [push]
+name: '[DEV] UKMCAB e2e tests'
+run-name: DEV e2e test suite initiated by ${{ github.actor }} 🚀
+on:
+  push:
+    branches:
+      - 'main'
 jobs:
   regression:
     runs-on: ubuntu-latest
@@ -9,7 +12,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Create cypress.env.json with secret config values stored in Github
         run: |
-          echo '${{ secrets.E2E_ENV_VARS }}' > cypress.env.json
+          echo '${{ secrets.DEV_CONFIG }}' > cypress.env.json
       - name: Cypress Run
         uses: cypress-io/github-action@v5.0.2
         with:
