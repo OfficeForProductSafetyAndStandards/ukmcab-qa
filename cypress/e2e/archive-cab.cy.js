@@ -22,7 +22,7 @@ describe('Archiving a CAB', () => {
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab.cabId))
     })
 
-    it.only('works and removes it from search results!', function() {
+    it('works and removes it from search results!', function() {
       CabHelpers.archiveCab(this.cab)
       cy.get('.govuk-notification-banner__content').contains(`Archived on ${date(new Date()).DDMMMYYYY}`)
       searchCab(this.cab.name)
