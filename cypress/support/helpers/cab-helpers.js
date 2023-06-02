@@ -3,9 +3,7 @@ import { date, valueOrNotProvided } from './formatters'
 export const workQueuePath = () => { return '/admin/cab-management'}
 export const cabProfilePage = (id) => { return `/search/cab-profile/${id}`}
 export const cabSummaryPage = (id) => { return `/admin/cab/summary/${id}`}
-export const addCabPath = () => { return '/admin/cab/details/create'}
-export const editCabPath = (cabId) => { return '/Admin/edit'}
-export const cabRequestsPath = () => { return '/admin/review/list'}
+export const addCabPath = () => { return '/admin/cab/about/create'}
 
 export const createCab = (cab) => {
   enterCabDetails(cab)
