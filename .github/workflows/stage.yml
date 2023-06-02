@@ -1,0 +1,20 @@
+name: "[STAGE] UKMCAB e2e tests"
+run-name: STAGE e2e test suite initiated by ${{ github.actor }} 🚀
+on:
+  push:
+    branches:
+      - 'release/**'
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Create cypress.env.json with secret config values stored in Github
+        run: |
+          echo '${{ secrets.STAGE_CONFIG }}' > cypress.env.json
+      - name: Cypress Run
+        uses: cypress-io/github-action@v5.0.2
+        with:
+          browser: chrome
+          config: baseUrl=https://ukmcab-stage.beis.gov.uk

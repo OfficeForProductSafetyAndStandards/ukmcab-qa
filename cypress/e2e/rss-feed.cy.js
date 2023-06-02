@@ -7,6 +7,7 @@ describe('UKMCAB RSS Feed', function() {
 
   let searchInput = 'british'
   it('works', function() {
+    cy.log(new URL(Cypress.config('baseUrl')).host)
     SearchHelpers.azureSearchResults(searchInput, {orderBy: ['LastUpdatedDate desc']}).then(results => {
       cy.request({
         method: 'GET',
@@ -21,7 +22,7 @@ describe('UKMCAB RSS Feed', function() {
         expect(feed.title.toString()).to.eq('UK Market Conformity Assessment Bodies')
         expect(feed.author.name).to.eq('HM Government')
         feed.entry.forEach((entry, index) => {
-          expect(entry.id).to.eq(`tag:ukmcab-dev.beis.gov.uk:${cabProfilePage(results[index].cabId)}`)
+          expect(entry.id).to.eq(`tag:${new URL(Cypress.config('baseUrl')).host}:${cabProfilePage(results[index].cabId)}`)
           expect(entry.title.toString()).to.eq(results[index].name)
           expect(entry.summary.toString()).to.eq(results[index].addressLines.join(', '))
           expect(entry.updated).to.eq(results[index].lastUpdatedDate.toISOString().replace(/.\d+Z$/g, "Z"))

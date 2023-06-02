@@ -15,7 +15,7 @@ module.exports = defineConfig({
       const key = config.env.DB_KEY;
       const client = new CosmosClient({ endpoint, key });
       const azureSearchClient = new SearchClient(
-        "https://acs-ukmcab-dev.search.windows.net",
+        config.env.AZURE_SEARCH_URL,
         "ukmcab-search-index",
         new AzureKeyCredential(config.env.AZURE_SEARCH_API_KEY)
       );
