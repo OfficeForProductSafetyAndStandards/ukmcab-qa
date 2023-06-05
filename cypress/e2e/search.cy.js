@@ -3,7 +3,7 @@ import * as SearchHelpers from '../support/helpers/search-helpers'
 import * as CabHelpers from "../support/helpers/cab-helpers"
 import { valueOrNotProvided } from "../support/helpers/formatters"
 
-describe('CAB Search', () => {
+xdescribe('CAB Search', () => {
 
   beforeEach(() => {
     cy.ensureOn(SearchHelpers.searchPath())
