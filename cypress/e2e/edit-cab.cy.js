@@ -71,7 +71,7 @@ describe('Editing a CAB', () => {
       cloneCab.name = this.cab.name.replace(/Edited.*/,`Edited ${uniqueId}`)
       CabHelpers.enterCabDetails(cloneCab)
       CabHelpers.saveAsDraft()
-      cy.ensureOn(CabHelpers.workQueuePath())
+      cy.ensureOn(CabHelpers.cabManagementPath())
       cy.get('a').contains(cloneCab.name)
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab.cabId))
     })
@@ -80,7 +80,7 @@ describe('Editing a CAB', () => {
       CabHelpers.editCabDetail('About')
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.clickPublish()
-      cy.ensureOn(CabHelpers.workQueuePath())
+      cy.ensureOn(CabHelpers.cabManagementPath())
       cy.get('a').contains(this.cab.name).should('not.exist')
     })
 

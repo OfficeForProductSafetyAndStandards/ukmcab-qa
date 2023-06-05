@@ -2,7 +2,7 @@ import { header } from '../support/helpers/common-helpers'
 import { searchPath } from '../support/helpers/search-helpers'
 import { loginPath } from '../support/helpers/login-helpers'
 import { changePasswordPath } from '../support/helpers/password-helpers'
-import { workQueuePath } from '../support/helpers/cab-helpers'
+import { cabManagementPath } from '../support/helpers/cab-helpers'
 
 describe('Header', function() {
 
@@ -35,7 +35,7 @@ describe('Header', function() {
       header().contains('a', 'Help').should('have.attr', 'href', '/help')
       header().contains('a', 'About').should('have.attr', 'href', '/about')
       header().contains('a', 'Updates').should('have.attr', 'href', '/updates')
-      header().contains('a', 'Admin').should('have.attr', 'href', workQueuePath())
+      header().contains('a', 'Admin').should('have.attr', 'href', cabManagementPath())
       header().contains('a', 'Change password').should('have.attr', 'href', changePasswordPath())
       header().contains('button', 'Sign out')
     })

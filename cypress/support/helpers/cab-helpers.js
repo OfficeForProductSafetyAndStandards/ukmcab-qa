@@ -1,6 +1,6 @@
 import Cab from '../domain/cab'
 import { date, valueOrNotProvided } from './formatters'
-export const workQueuePath = () => { return '/admin/cab-management'}
+export const cabManagementPath = () => { return '/admin/cab-management'}
 export const cabProfilePage = (id) => { return `/search/cab-profile/${id}`}
 export const cabSummaryPage = (id) => { return `/admin/cab/summary/${id}`}
 export const addCabPath = () => { return '/admin/cab/about/create'}
@@ -129,7 +129,7 @@ export const hasCabPublishedConfirmation = (cab) => {
   cy.get('.govuk-panel--confirmation').contains(cab.name + ' published ' + 'CAB number' + cab.cabNumber)
   cy.contains(`What happens next CAB ${cab.cabNumber} is now publicly available.`).find('a', cab.cabNumber)
   cy.contains('a', `View CAB ${cab.cabNumber} - ${cab.name}`)
-  cy.contains('a', 'Go to CAB management').should('have.attr', 'href', workQueuePath())
+  cy.contains('a', 'Go to CAB management').should('have.attr', 'href', cabManagementPath())
 }
 
 // expects files in fixtures folder

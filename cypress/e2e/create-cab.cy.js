@@ -129,7 +129,7 @@ describe('Creating a new CAB', () => {
 
     it('canceling file upload returns user back to Admin page', function() {
       cy.contains('Cancel').click()
-      cy.location('pathname').should('equal', CabHelpers.workQueuePath())
+      cy.location('pathname').should('equal', CabHelpers.cabManagementPath())
     })
 
     it('allows skipping of schedule upload', function() {
@@ -185,7 +185,7 @@ describe('Creating a new CAB', () => {
 
     it('canceling file upload returns user back to Admin page', function() {
       cy.contains('Cancel').click()
-      cy.location('pathname').should('equal', CabHelpers.workQueuePath())
+      cy.location('pathname').should('equal', CabHelpers.cabManagementPath())
     })
 
     it('allows skipping supporting document upload', function() {
@@ -201,10 +201,10 @@ describe('Creating a new CAB', () => {
   })
 
   context('when saving as Draft', function() {
-    it('displays draft saved message on work queue page with cab record listed', function() {
+    it('displays draft saved message on Cab Management page with cab record listed', function() {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.saveAsDraft()
-      cy.location('pathname').should('equal', CabHelpers.workQueuePath())
+      cy.location('pathname').should('equal', CabHelpers.cabManagementPath())
       cy.get('.govuk-notification-banner__content').contains(`Draft record saved for ${this.cab.name} CAB number ${this.cab.cabNumber}`)
       cy.get('a').contains(this.cab.name)
     })
@@ -214,7 +214,7 @@ describe('Creating a new CAB', () => {
     it('Publish button is disabled until all mandatory data has been entered', function() {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.saveAsDraft()
-      cy.ensureOn(CabHelpers.workQueuePath())
+      cy.ensureOn(CabHelpers.cabManagementPath())
       cy.contains('a', this.cab.name).click()
       cy.contains('Provide all mandatory information before you are able to publish this record.')
       cy.get('button').contains('Publish').should('be.disabled')
@@ -233,16 +233,16 @@ describe('Creating a new CAB', () => {
       cy.contains(`Last updated: ${date(new Date()).DMMMYYYY}`)
     })
 
-    it('publishes an existing draft cab and removes it from work queue', function() {
+    it('publishes an existing draft cab and removes it from Cab Management', function() {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
       CabHelpers.saveAsDraft()
-      cy.ensureOn(CabHelpers.workQueuePath())
+      cy.ensureOn(CabHelpers.cabManagementPath())
       cy.contains('a', this.cab.name).click()
       CabHelpers.clickPublish()
       CabHelpers.hasCabPublishedConfirmation(this.cab)
-      cy.ensureOn(CabHelpers.workQueuePath())
+      cy.ensureOn(CabHelpers.cabManagementPath())
       cy.get('a').contains(this.cab.name).should('not.exist')
     })
   })

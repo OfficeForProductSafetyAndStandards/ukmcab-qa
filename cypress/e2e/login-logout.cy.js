@@ -1,6 +1,6 @@
 import { loginPath } from '../support/helpers/login-helpers'
 import OpssAdminUser from '../support/domain/opss-admin-user'
-import { workQueuePath } from '../support/helpers/cab-helpers'
+import { cabManagementPath } from '../support/helpers/cab-helpers'
 
 describe('Login/Logout', () => {
 
@@ -43,9 +43,9 @@ describe('Login/Logout', () => {
     cy.contains('The service is now locked for 2 hours due to multiple failed login attempts.')
   })
 
-  it('logs admin user in with valid credentials and displays work queue', () => {
+  it('logs admin user in with valid credentials and displays Cab Management', () => {
     cy.loginAsOpssUser()
-    cy.location('pathname').should('equal', workQueuePath())
+    cy.location('pathname').should('equal', cabManagementPath())
   })
 
   it('logs user out successfully', function() {
