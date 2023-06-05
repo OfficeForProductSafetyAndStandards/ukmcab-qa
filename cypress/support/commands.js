@@ -21,21 +21,29 @@ Cypress.Commands.add('ensureOn', (urlPath, options={}) => {
   })
 })
 
-Cypress.Commands.add('login', (username, password) => {
-  cy.ensureOn(Login.loginPath())
-  Login.login(username, password)
+Cypress.Commands.add('login', (username=Cypress.env('OPSS_USER'), password=Cypress.env('OPSS_PASS')) => {
+  cy.request({
+    method: 'POST',
+    url: '/account/login',
+    form: true,
+    body: {
+      Email: username,
+      Password: password,
+    },
+    ...basicAuthCreds()
+  })
 })
 
 Cypress.Commands.add('loginAsOpssUser', () => {
-  Login.loginAsOpssUser()
+  cy.login()
 })
 
 Cypress.Commands.add('loginAsOgdUser', () => {
-  Login.loginAsOgdUser()
+  cy.login(Cypress.env('OGD_USER'), Cypress.env('OGD_PASS'))
 })
 
 Cypress.Commands.add('loginAsUkasUser', () => {
-  Login.loginAsUkasUser()
+  cy.login(Cypress.env('UKAS_USER'), Cypress.env('UKAS_PASS'))
 })
 
 Cypress.Commands.add('logout', () => {
@@ -50,16 +58,7 @@ Cypress.Commands.add('registerViaApi', (email, password) => {
   // coikies must be passed in when creating user via API.
   // Cypress automatically submites these in subsequent requests once set.
   // Login once before making egistration request and then clear cookies to logout
-  cy.request({
-    method: 'POST',
-    url: '/account/login',
-    form: true, // indicates the body should be form urlencoded and sets Content-Type: application/x-www-form-urlencoded headers
-    body: {
-      Email: Cypress.env('OPSS_USER'),
-      Password: Cypress.env('OPSS_PASS'),
-    },
-    ...basicAuthCreds()
-  })
+  cy.login()
   cy.request({
     method: 'POST',
     url: '/api/user',

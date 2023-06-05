@@ -6,11 +6,13 @@ import { cabManagementPath } from '../support/helpers/cab-helpers'
 
 describe('Header', function() {
 
-  beforeEach(() => {
-    cy.ensureOn('/')
-  })
-
+  
   context('when logged out', function() {
+
+    beforeEach(() => {
+      cy.ensureOn('/')
+    })
+    
     it('displays all expected links', function() {
       header().contains('a', 'GOV.UK').should('have.attr', 'href', '/')
       header().contains('a', 'UK Market Conformity Assessment Bodies').should('have.attr', 'href', '/')
@@ -21,11 +23,12 @@ describe('Header', function() {
       header().contains('a', 'Sign in').should('have.attr', 'href', loginPath())
     })
   })
-
+  
   context('when logged in', function() {
-
+    
     beforeEach(() => {
-      cy.loginAsOpssUser()
+      cy.login()
+      cy.ensureOn('/')
     })
 
     it('displays all expected links', function() {

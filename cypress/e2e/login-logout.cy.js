@@ -1,11 +1,11 @@
-import { loginPath } from '../support/helpers/login-helpers'
+import * as LoginHelpers from '../support/helpers/login-helpers'
 import OpssAdminUser from '../support/domain/opss-admin-user'
 import { cabManagementPath } from '../support/helpers/cab-helpers'
 
 describe('Login/Logout', () => {
 
   beforeEach(() => {
-    cy.ensureOn(loginPath())
+    cy.ensureOn(LoginHelpers.loginPath())
   })
 
   it('displays Login page as per design', function() {
@@ -18,18 +18,18 @@ describe('Login/Logout', () => {
   })
 
   it('displays error when using unknown credentials', () => {
-    cy.login(`Unknown${Date.now()}@ukmcab.gov.uk`, 'Som3P255W0rd!')
+    LoginHelpers.login(`Unknown${Date.now()}@ukmcab.gov.uk`, 'Som3P255W0rd!')
     cy.hasError('Email address', 'The information provided is not right, try again')
   })
 
   it('displays email/password validation errors', () => {
-    cy.login('', 'adminP@ssw0rd!')
+    LoginHelpers.login('', 'adminP@ssw0rd!')
     cy.hasError('Email address', 'Enter email address')
 
-    cy.login('admin@ukmcab.gov.uk', '')
+    LoginHelpers.login('admin@ukmcab.gov.uk', '')
     cy.hasError('Password', 'Enter password')
 
-    cy.login('', '')
+    LoginHelpers.login('', '')
     cy.hasError('Email address', 'Enter email address')
     cy.hasError('Password', 'Enter password')
   })
@@ -38,20 +38,20 @@ describe('Login/Logout', () => {
     const user = new OpssAdminUser()
     cy.registerViaApi(user.email, user.password)
     for(var i = 0; i < 5; i++){
-      cy.login(user.email, 'IncorrectPassword')
+      LoginHelpers.login(user.email, 'IncorrectPassword')
     }
     cy.contains('The service is now locked for 2 hours due to multiple failed login attempts.')
   })
 
   it('logs admin user in with valid credentials and displays Cab Management', () => {
-    cy.loginAsOpssUser()
+    LoginHelpers.loginAsOpssUser()
     cy.location('pathname').should('equal', cabManagementPath())
   })
 
   it('logs user out successfully', function() {
     const user = new OpssAdminUser()
     cy.registerViaApi(user.email, user.password)
-    cy.login(user.email, user.password)
+    LoginHelpers.login(user.email, user.password)
     cy.logout()
     cy.contains('You have successfully signed out.')
   })

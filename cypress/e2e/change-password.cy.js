@@ -1,5 +1,6 @@
 import * as EmailHelpers from '../support/helpers/email-helpers'
 import * as PasswordHelpers from '../support/helpers/password-helpers'
+import * as LoginHelpers from '../support/helpers/login-helpers'
 import { shouldBeLoggedIn, shouldBeLoggedOut } from '../support/helpers/common-helpers'
 import OpssAdminUser from '../support/domain/opss-admin-user'
 
@@ -70,10 +71,10 @@ describe('Change of password', () => {
     it('user can login with the updated password and old password ceases to work', function() {
       PasswordHelpers.hasPasswordChangeConfirmation()
       cy.logout()
-      cy.login(this.user.email, this.newPassword)
+      LoginHelpers.login(this.user.email, this.newPassword)
       shouldBeLoggedIn()
       cy.logout()
-      cy.login(this.user.email, this.user.password)
+      LoginHelpers.login(this.user.email, this.user.password)
       cy.hasError('Email address', PasswordHelpers.errors.invalidLoginAttempt)
       shouldBeLoggedOut()
     })
