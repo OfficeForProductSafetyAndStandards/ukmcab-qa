@@ -55,7 +55,7 @@ describe('Contact us page', function() {
     submitForm(name, email, subject, message)
     cy.contains('Your message has been submitted')
     cy.contains("We'll get back to you as soon as possible.")
-    cy.get('a').contains('Submit another message').and('has.attr', 'href', contactUsUrl())
+    cy.get('a').contains('Submit another message').and('has.attr', 'href', contactUsUrl() + '?returnUrl=%252F')
     getLastUserEmail(email).then(_email => {
       expect(_email.isRecent).to.be.true
       expect(_email.isContactSubmissionEmail(name, email, subject, message)).to.be.true

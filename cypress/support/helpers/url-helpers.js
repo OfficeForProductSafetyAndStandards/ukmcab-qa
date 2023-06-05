@@ -1,4 +1,4 @@
-export const contactUsUrl = () => { return '/contact-us?returnUrl=%252F' }
+export const contactUsUrl = () => { return '/contact-us' }
 export const privacyUrl = () => { return '/privacy-notice' }
 export const termsUrl = () => { return '/terms-and-conditions' }
 export const cookiesUrl = () => { return '/cookies-policy' }
