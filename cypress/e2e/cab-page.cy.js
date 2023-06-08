@@ -7,7 +7,7 @@ describe('CAB profile page', () => {
   beforeEach(function() {
     CabHelpers.getTestCab().then(cab => {
       cy.wrap(cab).as('cab')
-      cy.ensureOn(CabHelpers.cabProfilePage(cab.cabId))
+      cy.ensureOn(CabHelpers.cabProfilePage(cab))
     })
   })
 
@@ -16,7 +16,7 @@ describe('CAB profile page', () => {
   })
 
   it('has back to search results link', function() {
-    cy.get('a').contains('Return to Search Results').and('has.attr', 'href', searchPath())
+    cy.get('a').contains('Back to Search Results').and('has.attr', 'href', searchPath())
   })
 
   it('displays published and updated date', function() {
