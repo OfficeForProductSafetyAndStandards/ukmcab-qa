@@ -10,7 +10,7 @@ describe('Editing a CAB', () => {
   })
   
   it('if not possible when logged out', function() {
-    cy.ensureOn(CabHelpers.cabProfilePage(this.cab.cabId))
+    cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
     CabHelpers.editCabButton().should('not.exist')
   })
   
@@ -18,7 +18,7 @@ describe('Editing a CAB', () => {
     
     beforeEach(function() {
       cy.loginAsOpssUser()
-      cy.ensureOn(CabHelpers.cabProfilePage(this.cab.cabId))
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
       CabHelpers.editCabButton().click()
     })
 
@@ -73,7 +73,7 @@ describe('Editing a CAB', () => {
       CabHelpers.saveAsDraft()
       cy.ensureOn(CabHelpers.cabManagementPath())
       cy.get('a').contains(cloneCab.name)
-      cy.ensureOn(CabHelpers.cabProfilePage(this.cab.cabId))
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
     })
 
     it('does not create duplicate or save cab in drafts when edited but no changes are made', function() {
@@ -99,6 +99,39 @@ describe('Editing a CAB', () => {
       cy.contains('a', 'View CAB').click()
       cy.contains(`Published: ${date(this.cab.publishedDate).DMMMYYYY}`)
       cy.contains(`Last updated: ${date(new Date()).DMMMYYYY}`)
+    })
+
+    it('displays error if cab is updated with name of another cab', function() {
+      let cloneCab = this.cab
+      CabHelpers.editCabDetail('About')
+      cloneCab.name = 'Lift Cert Limited'
+      CabHelpers.enterCabDetails(cloneCab)
+      cy.hasError('CAB name', 'A document already exists for this CAB name, number or UKAS reference')
+    })
+
+    it('updates cab URL identifier to a hyphenated identifier based on new name and sets up redirect from old to new', function() {
+      cy.url().then(x => console.log(x))
+      let cloneCab = this.cab
+      let uniqueId = Date.now()
+      CabHelpers.editCabDetail('About')
+      const newName = this.cab.name.replace(/Edited.*/,`Edited ${uniqueId} * ${uniqueId}`) // deliberately added special char to test new URL handles itc
+      const newUrlSlug = newName.replace(/[^a-zA-Z0-9 ]/g, "").replace(/\s+/g, '-').toLowerCase()
+      cloneCab.name = newName
+      CabHelpers.enterCabDetails(cloneCab)
+      cloneCab.addressLine1 = 'Edited address'
+      CabHelpers.editCabDetail('Contact details')
+      CabHelpers.enterContactDetails(cloneCab)
+      CabHelpers.hasDetailsConfirmation(cloneCab)
+      CabHelpers.clickPublish()
+      CabHelpers.hasCabPublishedConfirmation(cloneCab)
+      cy.contains('a', 'View CAB').click()
+      cy.location().then(loc => {
+        expect(loc.pathname).to.eq('/search/cab-profile/' + newUrlSlug)
+      })
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab)) // cab object still has old url set
+      cy.location().then(loc => {
+        expect(loc.pathname).to.eq('/search/cab-profile/' + newUrlSlug)
+      })
     })
 
   })

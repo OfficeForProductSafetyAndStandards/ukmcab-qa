@@ -1,7 +1,7 @@
 import Cab from '../domain/cab'
 import { date, valueOrNotProvided } from './formatters'
 export const cabManagementPath = () => { return '/admin/cab-management'}
-export const cabProfilePage = (id) => { return `/search/cab-profile/${id}`}
+export const cabProfilePage = (cab) => { return `/search/cab-profile/${cab.urlSlug}` }
 export const cabSummaryPage = (id) => { return `/admin/cab/summary/${id}`}
 export const addCabPath = () => { return '/admin/cab/about/create'}
 
@@ -154,7 +154,7 @@ export const hasUploadedFileNames = (files) => {
 }
 
 export const archiveCab = (cab, reason='Archive reason') => {
-  cy.ensureOn(cabProfilePage(cab.cabId))
+  cy.ensureOn(cabProfilePage(cab))
   archiveCabButton().click()
   cy.get('#ArchiveReason').type(reason)
   cy.continue()

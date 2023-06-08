@@ -39,7 +39,7 @@ describe('Cab management', function() {
   }
 
   const linkToCab = (cab) => {
-    return cab.isDraft ? CabHelpers.cabSummaryPage(cab.cabId) : CabHelpers.cabProfilePage(cab.cabId)
+    return cab.isDraft ? CabHelpers.cabSummaryPage(cab.cabId) : CabHelpers.cabProfilePage(cab)
   }
 
   beforeEach(function() {
@@ -86,7 +86,7 @@ describe('Cab management', function() {
     cy.get('#Filter').select('Archived')
     sortedByLastUpdatedDesc(this.cabs.filter(cab => cab.isArchived)).slice(0,10).forEach((cab, index) => {
       cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
-        cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', CabHelpers.cabProfilePage(cab.cabId))
+        cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', CabHelpers.cabProfilePage(cab))
         cy.get('td').eq(1).contains(valueOrNotProvided(cab.cabNumber))
         cy.get('td').eq(2).contains(date(cab.lastUpdatedDate).DDMMYYYY)
         cy.get('td').eq(3).contains(cab.status)

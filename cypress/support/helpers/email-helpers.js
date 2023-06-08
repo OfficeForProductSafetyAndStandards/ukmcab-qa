@@ -72,7 +72,7 @@ export class EmailNotification {
   isCabUpdatedEmail(cab) {
     return this.subject === `UKMCAB profile for ‘${cab.name}’ updated`
     && this.links.length === 4
-    && this.links[0] === cab.url
+    && this.links[0] === cab.oldSchemeUrl
   }
 
   get link() {

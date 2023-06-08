@@ -11,7 +11,7 @@ describe('Archiving a CAB', () => {
   })
   
   it('if not possible when logged out', function() {
-    cy.ensureOn(CabHelpers.cabProfilePage(this.cab.cabId))
+    cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
     CabHelpers.archiveCabButton().should('not.exist')
   })
   
@@ -19,7 +19,7 @@ describe('Archiving a CAB', () => {
     
     beforeEach(function() {
       cy.loginAsOpssUser()
-      cy.ensureOn(CabHelpers.cabProfilePage(this.cab.cabId))
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
     })
 
     it('works and removes it from search results!', function() {

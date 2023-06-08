@@ -31,7 +31,7 @@ describe('Email subscription', function() {
     let uniqueId = Date.now()
     cy.loginAsOpssUser()
     let cloneCab = cab
-    cy.ensureOn(CabHelpers.cabProfilePage(cab.cabId))
+    cy.ensureOn(CabHelpers.cabProfilePage(cab))
     CabHelpers.editCabButton().click()
     CabHelpers.editCabDetail('About')
     cloneCab.name = cab.name.replace(/Ltd.*/,`Ltd Edited ${uniqueId}`)
@@ -256,7 +256,7 @@ describe('Email subscription', function() {
 
   context('when subscribing to Cab profile changes', function() {
     beforeEach(function() {
-      cy.ensureOn(CabHelpers.cabProfilePage(this.testCab.cabId))
+      cy.ensureOn(CabHelpers.cabProfilePage(this.testCab))
     })
 
     it('all pages and any errors are displayed as expected', function() {

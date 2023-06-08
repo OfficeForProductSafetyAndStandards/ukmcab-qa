@@ -34,10 +34,15 @@ export default class Cab {
     this.website = cabData.Website
     this.status = cabData.Status
     this.isPointOfContactPublicDisplay = cabData.IsPointOfContactPublicDisplay
+    this.urlSlug = cabData.URLSlug
   }
 
   get url() {
-    return Cypress.config('baseUrl') + cabProfilePage(this.cabId)
+    return Cypress.config('baseUrl') + cabProfilePage(this)
+  }
+
+  get oldSchemeUrl() {
+    return Cypress.config('baseUrl') + `/search/cab-profile/${this.cabId}`
   }
 
   get isDraft() {
