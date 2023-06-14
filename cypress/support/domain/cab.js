@@ -88,8 +88,9 @@ export default class Cab {
 
   static build() {
     const uniqueId = Date.now()
+    const name = `Test Cab ${uniqueId}`
     return new this({
-      Name: `Test Cab ${uniqueId}`,
+      Name: name,
       AddressLine1: 'Cannon House',
       AddressLine2: 'The Priory Queensway',
       TownCity: 'Birmingham',
@@ -113,6 +114,7 @@ export default class Cab {
       AppointmentDate: new Date(),
       RenewalDate: new Date(),
       UKASReference: uniqueId,
+      URLSlug: name.replace(/[^a-zA-Z0-9 ]/g, "").replace(/\s+/g, '-').toLowerCase()
     })
   }
 }

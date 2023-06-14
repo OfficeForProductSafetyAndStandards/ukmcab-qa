@@ -110,7 +110,6 @@ describe('Editing a CAB', () => {
     })
 
     it('updates cab URL identifier to a hyphenated identifier based on new name and sets up redirect from old to new', function() {
-      cy.url().then(x => console.log(x))
       let cloneCab = this.cab
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('About')
