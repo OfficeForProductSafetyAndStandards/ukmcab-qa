@@ -53,7 +53,7 @@ export default class Cab {
   }
 
   get oldSchemeUrl() {
-    return Cypress.config('baseUrl') + `/search/cab-profile/${this.cabId}`
+    return `/search/cab-profile/${this.cabId}`
   }
 
   get isDraft() {

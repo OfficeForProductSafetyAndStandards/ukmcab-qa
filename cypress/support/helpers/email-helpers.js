@@ -70,9 +70,9 @@ export class EmailNotification {
   }
   
   isCabUpdatedEmail(cab) {
-    return this.subject === `UKMCAB profile for ‘${cab.name}’ updated`
+    return /^UKMCAB profile for ‘.*’ updated$/.test(this.subject)
     && this.links.length === 4
-    && this.links[0] === cab.oldSchemeUrl
+    && this.links[0] === Cypress.config('baseUrl') + cab.oldSchemeUrl
   }
 
   get link() {

@@ -13,7 +13,7 @@ describe('Email subscription', function() {
   }
 
   const diagnosticsPath = '/subscriptions/diagnostics'
-  const unsubscribePath = '/subscriptions/unsubscribe-all'
+  const unsubscribePath = '/subscriptions/unsubscribe-all?s=1'
   const fakeDateTimeDaily = Cypress.dayjs(new Date()).add(3, 'hours').add(1, 'day').format('DD/MM/YYYY HH:mm:ss')
   const fakeDateTimeWeekly = Cypress.dayjs(new Date()).add(3, 'hours').add(7, 'days').format('DD/MM/YYYY HH:mm:ss')
 
@@ -170,6 +170,7 @@ describe('Email subscription', function() {
       cy.contains(`We’ve sent an email to ${this.email} Click the link in the email to confirm you want emails from UKMCAB about: UKMCAB search results The link will stop working after 7 days.` )
       cy.contains("details", "Not received an email? Emails sometimes take a few minutes to arrive. If you do not receive an email soon, check your spam or junk folder. If this does not work, contact GOV.UK for help.")
       .find('a', "contact GOV.UK").should('have.attr', 'href', "https://www.gov.uk/contact/govuk")
+      cy.contains('a', 'Go to search').should('have.attr', 'href', Cypress.config('baseUrl') + searchUrl())
     })
     
     it('Correct emails are delivered for daily subscriptions', function() {
@@ -278,6 +279,7 @@ describe('Email subscription', function() {
       cy.contains(`We’ve sent an email to ${this.email} Click the link in the email to confirm you want emails from UKMCAB about: UKMCAB profile for '${this.testCab.name}' The link will stop working after 7 days.` )
       cy.contains("details", "Not received an email? Emails sometimes take a few minutes to arrive. If you do not receive an email soon, check your spam or junk folder. If this does not work, contact GOV.UK for help.")
       .find('a', "contact GOV.UK").should('have.attr', 'href', "https://www.gov.uk/contact/govuk")
+      cy.contains('a', `Go to CAB profile for '${this.testCab.name}'`).should('have.attr', 'href', this.testCab.oldSchemeUrl)
     })
 
     it('Correct emails are delivered for daily subscriptions', function() {
@@ -325,8 +327,9 @@ describe('Email subscription', function() {
     
     it('displays Manage subscription page', function() {
       cy.contains('h1', 'Manage your UKMCAB subscription')
-      cy.contains(`Subscription for ${this.email} Change email address Topic UKMCAB search results You subscribed to get updates as they happen. Change how often you get emails Unsubscribe`)
+      cy.contains(`Subscription for ${this.email} Change email address Go to search Topic UKMCAB search results You subscribed to get updates as they happen. Change how often you get emails Unsubscribe`)
       cy.contains('a', 'Change email address')
+      cy.contains('a', 'Go to search')
       cy.contains('a', 'Change how often you get emails')
       cy.contains('a', 'Unsubscribe')
     })
