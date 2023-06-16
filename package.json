@@ -6,7 +6,6 @@
   "dependencies": {},
   "devDependencies": {
     "@azure/cosmos": "^3.17.1",
-    "@azure/search-documents": "^11.3.1",
     "chai-datetime": "^1.8.0",
     "cypress": "^12.13.0",
     "dayjs": "^1.11.7",

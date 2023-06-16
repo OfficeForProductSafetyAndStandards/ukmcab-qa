@@ -3,7 +3,7 @@ import * as SearchHelpers from '../support/helpers/search-helpers'
 import * as CabHelpers from "../support/helpers/cab-helpers"
 import { valueOrNotProvided } from "../support/helpers/formatters"
 
-xdescribe('CAB Search', () => {
+describe('CAB Search', () => {
 
   beforeEach(() => {
     cy.ensureOn(SearchHelpers.searchPath())
@@ -57,7 +57,7 @@ xdescribe('CAB Search', () => {
     })
 
     it('displays randomly sorted results by default', function() {
-      SearchHelpers.azureSearchResults('', {orderBy: ['RandomSort asc']}).then(expectedResults => {
+      SearchHelpers.azureSearchResults('', {orderby: 'RandomSort asc'}).then(expectedResults => {
         const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
         SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
           const actualCabs = Cypress._.map(actualResults, 'innerText')
@@ -68,7 +68,7 @@ xdescribe('CAB Search', () => {
     })
 
     it('displays expected information for each result', function() {
-      SearchHelpers.azureSearchResults('', {orderBy: ['RandomSort asc']}).then(expectedResults => {
+      SearchHelpers.azureSearchResults('', {orderby: 'RandomSort asc'}).then(expectedResults => {
         SearchHelpers.displayedSearchResults().then(displayedResults => {
           Cypress._.zip(displayedResults.slice(0,20), expectedResults.slice(0,20)).forEach(([$displayedResult, expectedResult]) => {
             cy.wrap($displayedResult).contains('h3 a', expectedResult.name).and('have.attr', 'href', CabHelpers.cabProfilePage(expectedResult) + '?returnUrl=%252Fsearch')
@@ -162,7 +162,7 @@ xdescribe('CAB Search', () => {
     it('displays correct results for Body type filters', function() {
       const filterOptions = {"BodyTypes": ['Approved body', 'Overseas body']}
       SearchHelpers.filterByBodyType(['Approved body', 'Overseas body'])
-      SearchHelpers.azureSearchResults('', {orderBy: ['RandomSort asc'], filter: SearchHelpers.buildFilterQuery(filterOptions)}).then(expectedResults => {
+      SearchHelpers.azureSearchResults('', {filter: SearchHelpers.buildFilterQuery(filterOptions), orderby: 'RandomSort asc'}).then(expectedResults => {
         const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
         SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
           const actualCabs = Cypress._.map(actualResults, 'innerText')
@@ -175,7 +175,7 @@ xdescribe('CAB Search', () => {
     it('displays correct results for Registered office location filters', function() {
       const filterOptions = {"RegisteredOfficeLocation": ['United Kingdom']}
       SearchHelpers.filterByRegisteredofficeLocation(['United Kingdom'])
-      SearchHelpers.azureSearchResults('', {orderBy: ['RandomSort asc'], filter: SearchHelpers.buildFilterQuery(filterOptions)}).then(expectedResults => {
+      SearchHelpers.azureSearchResults('', {filter: SearchHelpers.buildFilterQuery(filterOptions), orderby: 'RandomSort asc'}).then(expectedResults => {
         const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
         SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
           const actualCabs = Cypress._.map(actualResults, 'innerText')
@@ -189,7 +189,7 @@ xdescribe('CAB Search', () => {
     // it('displays correct results for Testing location filters', function() {
     //   const filterOptions = {"TestingLocations": ['United Kingdom']}
     //   SearchHelpers.filterByTestingLocation(['United Kingdom'])
-    //   SearchHelpers.azureSearchResults('', {orderBy: ['RandomSort asc'], filter: SearchHelpers.buildFilterQuery(filterOptions)}).then(expectedResults => {
+    //   SearchHelpers.azureSearchResults('', {filter: SearchHelpers.buildFilterQuery(filterOptions), orderby: 'RandomSort asc'}).then(expectedResults => {
     //     const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
     //     SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
     //       const actualCabs = Cypress._.map(actualResults, 'innerText')
@@ -202,7 +202,7 @@ xdescribe('CAB Search', () => {
     it('displays correct results for Legislative area filters', function() {
       const filterOptions = {"LegislativeAreas": ['Construction products', 'Electromagnetic compatibility']}
       SearchHelpers.filterByLegislativeArea(['Construction products', 'Electromagnetic compatibility'])
-      SearchHelpers.azureSearchResults('', {orderBy: ['RandomSort asc'], filter: SearchHelpers.buildFilterQuery(filterOptions)}).then(expectedResults => {
+      SearchHelpers.azureSearchResults('', {filter: SearchHelpers.buildFilterQuery(filterOptions), orderby: 'RandomSort asc'}).then(expectedResults => {
         const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
         SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
           const actualCabs = Cypress._.map(actualResults, 'innerText')
@@ -216,7 +216,7 @@ xdescribe('CAB Search', () => {
       const filterOptions = {"BodyTypes": ['Approved body', 'Overseas body'], "LegislativeAreas": ['Construction products', 'Electromagnetic compatibility']}
       SearchHelpers.filterByBodyType(['Approved body', 'Overseas body'])
       SearchHelpers.filterByLegislativeArea(['Construction products', 'Electromagnetic compatibility'])
-      SearchHelpers.azureSearchResults('', {orderBy: ['RandomSort asc'], filter: SearchHelpers.buildFilterQuery(filterOptions)}).then(expectedResults => {
+      SearchHelpers.azureSearchResults('', {filter: SearchHelpers.buildFilterQuery(filterOptions), orderby: 'RandomSort asc'}).then(expectedResults => {
         const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
         SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
           const actualCabs = Cypress._.map(actualResults, 'innerText')
@@ -244,7 +244,7 @@ xdescribe('CAB Search', () => {
       SearchHelpers.searchCab('Limited')
       SearchHelpers.filterByLegislativeArea(['Construction products', 'Electromagnetic compatibility'])
       cy.contains('Clear all filters').click()
-      SearchHelpers.azureSearchResults('', {orderBy: ['RandomSort asc']}).then(expectedResults => {
+      SearchHelpers.azureSearchResults('', {orderby: 'RandomSort asc'}).then(expectedResults => {
         const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
         SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
           const actualCabs = Cypress._.map(actualResults, 'innerText')
@@ -258,7 +258,7 @@ xdescribe('CAB Search', () => {
   context('when sorting search results', function() {
     it('displays correct sort order for - Last updated', function() {
       SearchHelpers.sortView('Last updated')
-      SearchHelpers.azureSearchResults('', {orderBy: ['LastUpdatedDate desc']}).then(expectedResults => {
+      SearchHelpers.azureSearchResults('', {orderby: 'LastUpdatedDate desc'}).then(expectedResults => {
         const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
         SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
           const actualCabs = Cypress._.map(actualResults, 'innerText')
@@ -270,7 +270,7 @@ xdescribe('CAB Search', () => {
 
     it('displays correct sort order for - A to Z', function() {
       SearchHelpers.sortView('A to Z')
-      SearchHelpers.azureSearchResults('', {orderBy: ['Name']}).then(expectedResults => {
+      SearchHelpers.azureSearchResults('', {orderby: 'Name'}).then(expectedResults => {
         const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
         SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
           const actualCabs = Cypress._.map(actualResults, 'innerText')
@@ -282,7 +282,7 @@ xdescribe('CAB Search', () => {
 
     it('displays correct sort order for - Z to A', function() {
       SearchHelpers.sortView('Z to A')
-      SearchHelpers.azureSearchResults('', {orderBy: ['Name desc']}).then(expectedResults => {
+      SearchHelpers.azureSearchResults('', {orderby: 'Name desc'}).then(expectedResults => {
         const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
         SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
           const actualCabs = Cypress._.map(actualResults, 'innerText')
@@ -295,7 +295,7 @@ xdescribe('CAB Search', () => {
     it('mainatains sort order when paginating', function() {
       SearchHelpers.sortView('Z to A')
       SearchHelpers.topPagination().contains('a', '2').click({force: true})
-      SearchHelpers.azureSearchResults('', {orderBy: ['Name desc']}).then(expectedResults => {
+      SearchHelpers.azureSearchResults('', {orderby: 'Name desc'}).then(expectedResults => {
         const expectedCabs = expectedResults.slice(20,40).map(r => r.name)
         SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
           const actualCabs = Cypress._.map(actualResults, 'innerText')
@@ -308,7 +308,7 @@ xdescribe('CAB Search', () => {
       SearchHelpers.sortView('Z to A')
       SearchHelpers.topPagination().contains('a', '2').click({force: true})
       SearchHelpers.sortView('A to Z')
-      SearchHelpers.azureSearchResults('', {orderBy: ['Name asc']}).then(expectedResults => {
+      SearchHelpers.azureSearchResults('', {orderby: 'Name asc'}).then(expectedResults => {
         const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
         SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
           const actualCabs = Cypress._.map(actualResults, 'innerText')

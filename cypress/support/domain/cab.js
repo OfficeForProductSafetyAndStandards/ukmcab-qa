@@ -19,7 +19,7 @@ export default class Cab {
     this.email = cabData.Email
     this.legislativeAreas = cabData.LegislativeAreas
     this.lastUpdatedDate = new Date(cabData.LastUpdatedDate)
-    this.name = cabData.Name
+    this._name = cabData.Name
     this.phone = cabData.Phone
     this.publishedDate = new Date({...cabData.Published}.DateTime)
     this.pointOfContactName = cabData.PointOfContactName
@@ -35,6 +35,17 @@ export default class Cab {
     this.status = cabData.Status
     this.isPointOfContactPublicDisplay = cabData.IsPointOfContactPublicDisplay
     this.urlSlug = cabData.URLSlug
+  }
+
+  get name() {
+    return this._name
+  }
+
+  set name(newName) {
+    this._name = newName
+    if(newName) {
+      this.urlSlug = newName.replace(/[^a-zA-Z0-9 ]/g, "").replace(/\s+/g, '-').toLowerCase()
+    }
   }
 
   get url() {

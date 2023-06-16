@@ -1,9 +1,6 @@
 const { defineConfig } = require("cypress");
 const { CosmosClient } = require("@azure/cosmos");
-const { SearchClient, AzureKeyCredential } = require("@azure/search-documents")
-
-// GOV UK Notify
-const NotifyClient = require('notifications-node-client').NotifyClient
+const NotifyClient = require('notifications-node-client').NotifyClient // GOV UK Notify
 
 module.exports = defineConfig({
   e2e: {
@@ -14,11 +11,6 @@ module.exports = defineConfig({
       const endpoint = config.env.DB_URL;
       const key = config.env.DB_KEY;
       const client = new CosmosClient({ endpoint, key });
-      const azureSearchClient = new SearchClient(
-        config.env.AZURE_SEARCH_URL,
-        "ukmcab-search-index",
-        new AzureKeyCredential(config.env.AZURE_SEARCH_API_KEY)
-      );
       const notifyClient = new NotifyClient(config.env.NOTIFY_API_KEY)
       on('task', {
         async getItems() {
@@ -39,14 +31,6 @@ module.exports = defineConfig({
         async getEmails(email) {
           const recentEmails = (await notifyClient.getNotifications()).data.notifications
           return recentEmails
-        },
-        async azureSearch({keyword, options}) {
-          const searchResults = []
-          const x = await azureSearchClient.search(keyword, options)
-          for await (const result of x.results) {
-            searchResults.push(result)
-          }
-          return searchResults
         }
       })
     },

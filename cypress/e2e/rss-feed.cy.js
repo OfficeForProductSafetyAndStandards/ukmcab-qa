@@ -6,10 +6,9 @@ import X2JS from  'x2js'
 describe('UKMCAB RSS Feed', function() {
 
   let searchInput = 'british'
+
   it('works', function() {
-    cy.log(new URL(Cypress.config('baseUrl')).host)
-    SearchHelpers.azureSearchResults(searchInput, {orderBy: ['LastUpdatedDate desc']}).then(results => {
-      console.log(results)
+    SearchHelpers.azureSearchResults(searchInput).then(results => {
       cy.request({
         method: 'GET',
         url: `/search-feed?Keywords=${searchInput}`,

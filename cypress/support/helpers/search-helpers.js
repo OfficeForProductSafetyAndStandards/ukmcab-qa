@@ -41,8 +41,8 @@ const _applyFilter = (filterGroup, filters) => {
   })
 }
 
-export const azureSearchResults = (keyword, options={}) => {
-  return cy.task('azureSearch', {keyword: keyword, options: {...options, ...{queryType: 'simple'}}}).then(results => {
+export const azureSearchResults = (term, options) => {
+  return cy.getSearchResults(term, options).then(results => {
     return results.map(result => new AzureCabResult(result))
   })
 }
@@ -55,8 +55,7 @@ export const buildFilterQuery = (filterOptions) => {
     if(filterCategory === 'RegisteredOfficeLocation') {
       filters.push(Array.from(options).map(option => `RegisteredOfficeLocation eq '${option}'`).join(' or '))
     } else {
-      filters.push(`${filterCategory}/any(x: ${Array.from(options).map(option => `x eq '${option}'`).join(' or ')})`)
-      // filters.push(`RegisteredOfficeLocation eq '${filterOptions['RegisteredOfficeLocation']}'`)
+      filters.push(`${filterCategory}\/any\(x\: ${Array.from(options).map(option => `x eq \'${option}\'`).join(' or ')}\)`)
     }
   })
   return filters.join(' and ')

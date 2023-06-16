@@ -1,23 +1,22 @@
 export default class AzureCabResult {
 
   constructor(result) {
-    const _doc = result.document
-    this.document = _doc
-    this.id = _doc.id
-    this.cabId = _doc.CABId
-    this.name = _doc.Name
-    this.addressLine1 = _doc.AddressLine1
-    this.addressLine2 = _doc.AddressLine2
-    this.townCity = _doc.TownCity
-    this.county = _doc.County
-    this.postcode = _doc.Postcode
-    this.country = _doc.Country
-    this.bodyTypes = _doc.BodyTypes
-    this.registeredOfficeLocation = _doc.RegisteredOfficeLocation
-    this.testingLocations = _doc.TestingLocations
-    this.legislativeAreas = _doc.LegislativeAreas
-    this.lastUpdatedDate = new Date(_doc.LastUpdatedDate)
-    this.urlSlug = _doc.URLSlug
+    this._doc = result
+    this.id = result.id
+    this.cabId = result.CABId
+    this.name = result.Name
+    this.addressLine1 = result.AddressLine1
+    this.addressLine2 = result.AddressLine2
+    this.townCity = result.TownCity
+    this.county = result.County
+    this.postcode = result.Postcode
+    this.country = result.Country
+    this.bodyTypes = result.BodyTypes
+    this.registeredOfficeLocation = result.RegisteredOfficeLocation
+    this.testingLocations = result.TestingLocations
+    this.legislativeAreas = result.LegislativeAreas
+    this.lastUpdatedDate = new Date(result.LastUpdatedDate)
+    this.urlSlug = result.URLSlug
   }
 
   get addressLines() {

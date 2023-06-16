@@ -23,10 +23,11 @@ describe('Editing a CAB', () => {
     })
 
     it('allows editing a cab and publishing updated cab details', function() {
-      let cloneCab = this.cab
+      let cloneCab = Cypress._.cloneDeep(this.cab)
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('About')
-      cloneCab.name = cloneCab.name = this.cab.name.replace(/Edited.*/,`Edited ${uniqueId}`)
+      cloneCab.name = this.cab.name.replace(/Edited.*/,`Edited ${uniqueId}`)
+      console.log(cloneCab)
       CabHelpers.enterCabDetails(cloneCab)
       cloneCab.addressLine1 = 'Edited address'
       CabHelpers.editCabDetail('Contact details')
@@ -37,7 +38,7 @@ describe('Editing a CAB', () => {
     })
 
     it('displays error if mandatory fields are omitted', function() {
-      let cloneCab = Object.assign({}, this.cab)
+      let cloneCab = Cypress._.cloneDeep(this.cab)
       CabHelpers.editCabDetail('About')
       cloneCab.name = null
       cloneCab.cabNumber = null
@@ -65,7 +66,7 @@ describe('Editing a CAB', () => {
     })
 
     it('allows saving an edited cab as draft with original cab still viewable', function() {
-      let cloneCab = this.cab
+      let cloneCab = Cypress._.cloneDeep(this.cab)
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('About')
       cloneCab.name = this.cab.name.replace(/Edited.*/,`Edited ${uniqueId}`)
@@ -85,7 +86,7 @@ describe('Editing a CAB', () => {
     })
 
     it('does not affect Published Date and only updates Last Updated Date', function() {
-      let cloneCab = this.cab
+      let cloneCab = Cypress._.cloneDeep(this.cab)
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('About')
       cloneCab.name = this.cab.name.replace(/Edited.*/,`Edited ${uniqueId}`)
@@ -102,7 +103,7 @@ describe('Editing a CAB', () => {
     })
 
     it('displays error if cab is updated with name of another cab', function() {
-      let cloneCab = this.cab
+      let cloneCab = Cypress._.cloneDeep(this.cab)
       CabHelpers.editCabDetail('About')
       cloneCab.name = 'Lift Cert Limited'
       CabHelpers.enterCabDetails(cloneCab)
@@ -110,12 +111,10 @@ describe('Editing a CAB', () => {
     })
 
     it('updates cab URL identifier to a hyphenated identifier based on new name and sets up redirect from old to new', function() {
-      let cloneCab = this.cab
+      let cloneCab = Cypress._.cloneDeep(this.cab)
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('About')
-      const newName = this.cab.name.replace(/Edited.*/,`Edited ${uniqueId} * ${uniqueId}`) // deliberately added special char to test new URL handles itc
-      const newUrlSlug = newName.replace(/[^a-zA-Z0-9 ]/g, "").replace(/\s+/g, '-').toLowerCase()
-      cloneCab.name = newName
+      cloneCab.name = this.cab.name.replace(/Edited.*/,`Edited ${uniqueId} * ${uniqueId}`) // deliberately added special char to test new URL handles itc
       CabHelpers.enterCabDetails(cloneCab)
       cloneCab.addressLine1 = 'Edited address'
       CabHelpers.editCabDetail('Contact details')
@@ -125,11 +124,11 @@ describe('Editing a CAB', () => {
       CabHelpers.hasCabPublishedConfirmation(cloneCab)
       cy.contains('a', 'View CAB').click()
       cy.location().then(loc => {
-        expect(loc.pathname).to.eq('/search/cab-profile/' + newUrlSlug)
+        expect(loc.pathname).to.eq(CabHelpers.cabProfilePage(cloneCab))
       })
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab)) // cab object still has old url set
       cy.location().then(loc => {
-        expect(loc.pathname).to.eq('/search/cab-profile/' + newUrlSlug)
+        expect(loc.pathname).to.eq(CabHelpers.cabProfilePage(cloneCab))
       })
     })
 

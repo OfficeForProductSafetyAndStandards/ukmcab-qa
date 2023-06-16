@@ -30,7 +30,7 @@ describe('Email subscription', function() {
   const updateCabToTriggerSubscription = (cab) => {
     let uniqueId = Date.now()
     cy.loginAsOpssUser()
-    let cloneCab = cab
+    let cloneCab = Cypress._.cloneDeep(cab)
     cy.ensureOn(CabHelpers.cabProfilePage(cab))
     CabHelpers.editCabButton().click()
     CabHelpers.editCabDetail('About')

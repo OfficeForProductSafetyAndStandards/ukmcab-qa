@@ -74,6 +74,27 @@ Cypress.Commands.add('registerViaApi', (email, password) => {
   cy.clearCookies()
 })
 
+Cypress.Commands.add('getSearchResults', (keywords, options={}) => {
+  keywords = keywords === '' ? '*' : `Name:(${keywords})^3 TownCity:(${keywords}) Postcode:("${keywords}") HiddenText:("${keywords}") CABNumber:("${keywords}")^4 LegislativeAreas:(${keywords})^6`
+  cy.request({
+    method: 'POST',
+    headers: {
+      'api-key' : Cypress.env('AZURE_SEARCH_API_KEY')
+    },
+    // url: 'https://acs-ukmcab-dev.search.windows.net/indexes/ukmcab-search-index-v1-1/docs/search?api-version=2020-06-30',
+    url: Cypress.env('AZURE_SEARCH_URL') + '/indexes/ukmcab-search-index-v1-1/docs/search?api-version=2020-06-30',
+    body: {
+      search: keywords,
+      queryType: 'full',
+      searchMode: 'any',
+      top: 1000,
+      ...options
+    }
+  }).then(resp => {
+    return resp.body.value
+  })
+})
+
 Cypress.Commands.add('hasKeyValueDetail', (key, value) => {
   cy.get('.govuk-summary-list__row').contains(key).next().contains(value)
 })
