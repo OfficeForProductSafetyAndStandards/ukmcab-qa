@@ -61,13 +61,17 @@ describe('CAB profile page', () => {
       cy.contains('#tab_product-schedules', 'Product schedules').click()
     })
 
-    it('displays downloadable list of uploaded schedules', function() {
+    it('displays viewable and downloadable list of uploaded schedules', function() {
       cy.contains('.cab-detail-section', 'Product schedules').within(() => {
         this.cab.schedules.forEach((schedule,index) => {
           // Known cypress issue with dowbload links timeout  - https://github.com/cypress-io/cypress/issues/14857
           cy.window().then((win) => { setTimeout(() => { win.location.reload() },5000) }) 
-          cy.get('.cab-profile-file-list-item').eq(index).contains('a', schedule.label).click()
-          cy.readFile(`cypress/downloads/${schedule.fileName}`)
+          cy.get('.govuk-summary-list__row').eq(index).within(() => {
+            cy.get('dt').contains(schedule.label)
+            cy.get('dd').eq(0).contains('a', 'View').should('have.attr', 'target', '_blank').invoke('attr', 'href').should('match', /^\/search\/cab-schedule-view/)
+            cy.get('dd').eq(1).contains('a', 'Download').click()
+            cy.readFile(`cypress/downloads/${schedule.fileName}`)
+          })
         })
       })
     })
