@@ -225,6 +225,21 @@ describe('Creating a new CAB', () => {
       CabHelpers.hasCabPublishedConfirmation(this.cab)
     })
 
+    it('point of contact info is only displayed to internal users if restricted', function() {
+      this.cab.isPointOfContactPublicDisplay = false
+      CabHelpers.createCab(this.cab)
+      CabHelpers.hasCabPublishedConfirmation(this.cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      cy.hasKeyValueDetail('Point of contact name', this.cab.pointOfContactName)
+      cy.hasKeyValueDetail('Point of contact email', this.cab.pointOfContactEmail)
+      cy.hasKeyValueDetail('Point of contact phone', this.cab.pointOfContactPhone)
+      cy.logout()
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      cy.contains('Point of contact name').should('not.exist')
+      cy.contains('Point of contact email').should('not.exist')
+      cy.contains('Point of contact phone').should('not.exist')
+    })
+
     it('sets Published Date and Last Updated Date to be current date for new cabs', function() {
       CabHelpers.createCab(this.cab)
       CabHelpers.hasCabPublishedConfirmation(this.cab)
