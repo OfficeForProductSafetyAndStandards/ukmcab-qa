@@ -27,7 +27,6 @@ describe('Editing a CAB', () => {
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('About')
       cloneCab.name = this.cab.name.replace(/Edited.*/,`Edited ${uniqueId}`)
-      console.log(cloneCab)
       CabHelpers.enterCabDetails(cloneCab)
       cloneCab.addressLine1 = 'Edited address'
       CabHelpers.editCabDetail('Contact details')

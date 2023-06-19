@@ -22,9 +22,10 @@ describe('Archiving a CAB', () => {
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
     })
 
-    it('works and removes it from search results!', function() {
+    it('is successful and make it uneditable and removes it from search results!', function() {
       CabHelpers.archiveCab(this.cab)
       cy.get('.govuk-notification-banner__content').contains(`Archived on ${date(new Date()).DDMMMYYYY}`)
+      CabHelpers.editCabButton().should('not.exist')
       searchCab(this.cab.name)
       cy.contains('a', this.cab.name).should('not.exist')
     })

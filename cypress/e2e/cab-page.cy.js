@@ -7,7 +7,7 @@ describe('CAB profile page', function() {
   beforeEach(function() {
     CabHelpers.getTestCabWithDocuments().then(cab => {
       cy.wrap(cab).as('cab')
-      console.log(cab)
+      (cab)
     })
   })
   
@@ -100,7 +100,6 @@ describe('CAB profile page', function() {
     })
 
     it('displays viewable and downloadable list of supporting documents', function() {
-      console.log(this.cab.documents)
       cy.contains('.cab-detail-section', 'Supporting documents').within(() => {
         this.cab.documents.forEach((document,index) => {
           // Known cypress issue with dowbload links timeout  - https://github.com/cypress-io/cypress/issues/14857
