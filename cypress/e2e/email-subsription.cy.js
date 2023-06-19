@@ -110,10 +110,15 @@ describe('Email subscription', function() {
     })
   }
 
-  const assertSearchUpdateSubscriptionEmailIsSent = (email) => {
+  const assertSearchUpdateSubscriptionEmailIsSent = (email, searchTerm) => {
     getLastUserEmail(email).then(_email => {
       expect(_email.isRecent).to.be.true
       expect(_email.isSearchResultsUpdatedEmail).to.be.true
+      if(searchTerm) {
+        expect(_email.body).includes(`Your UKMCAB search results for '${searchTerm}' have been updated.`)
+      } else {
+        expect(_email.body).includes(`Your UKMCAB search results have been updated.`)
+      }
     })
   }
 
@@ -228,7 +233,7 @@ describe('Email subscription', function() {
       updateCabToTriggerSubscription(this.testCab)
       setFakeDateTime(fakeDateTimeDaily)
       processSubscriptions()
-      assertSearchUpdateSubscriptionEmailIsSent(this.email)
+      assertSearchUpdateSubscriptionEmailIsSent(this.email, this.testCab.name)
     })
 
     it('Correct emails are delivered for weekly subscriptions', function() {
