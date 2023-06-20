@@ -136,6 +136,15 @@ describe('Email subscription', function() {
     })
   }
 
+  // const assertSearchSubscriptionChangesAreDisplayed = (numAdditions, numRemoved, numModified) => {
+  //   cy.contains('Search results changes')
+  //   cy.contains('Search results have changed')
+  //   cy.contains('Summary of changes')
+  //   cy.get('th').contains('Additions').next('td').contains(numAdditions)
+  //   cy.get('th').contains('Removed').next('td').contains(numRemoved)
+  //   cy.get('th').contains('Modified').next('td').contains(numModified).next('td').contains('a', 'View')
+  // }
+
   beforeEach(function() {
     clearSubscriptions()
     clearFakeDateTime()
@@ -209,6 +218,21 @@ describe('Email subscription', function() {
       processSubscriptions()
       assertSearchUpdateSubscriptionEmailIsSent(this.email)
     })
+
+    // it.only('displays correct data on search results changes page when user clicks link in the email to see changes', function() {
+    //   subscribe(Frequency.Instantly, this.email)
+    //   assertVerificationEmailIsSentAndVerifyEmail(this.email)
+    //   processSubscriptionConfirmationEmail()
+    //   assertSubscriptionConfirmationEmailIsSent(this.email)
+    //   updateCabToTriggerSubscription(this.testCab)
+    //   processSubscriptions()
+    //   assertSearchUpdateSubscriptionEmailIsSent(this.email)
+    //   getLastUserEmail(this.email).then(_email => {
+    //     cy.wait(2000)
+    //     cy.ensureOn(_email.links[1]) // second link is view subscription changes
+    //     assertSearchSubscriptionChangesAreDisplayed(0,0,1)
+    //   })
+    // })
   })
 
   context('when subscribing to filtered search results', function() {
@@ -245,7 +269,7 @@ describe('Email subscription', function() {
       updateCabToTriggerSubscription(this.testCab)
       setFakeDateTime(fakeDateTimeWeekly)
       processSubscriptions()
-      assertSearchUpdateSubscriptionEmailIsSent(this.email)
+      assertSearchUpdateSubscriptionEmailIsSent(this.email, this.testCab.name)
     })
 
     it('Correct emails are delivered for instant subscriptions', function() {
@@ -256,7 +280,7 @@ describe('Email subscription', function() {
       assertSubscriptionConfirmationEmailIsSent(this.email)
       updateCabToTriggerSubscription(this.testCab)
       processSubscriptions()
-      assertSearchUpdateSubscriptionEmailIsSent(this.email)
+      assertSearchUpdateSubscriptionEmailIsSent(this.email, this.testCab.name)
     })
   })
 
