@@ -69,7 +69,7 @@ describe('CAB profile page', function() {
   
   context('when viewing Product Schedules', function() {
     
-    beforeEach(() => {
+    beforeEach(function() {
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
       cy.contains('#tab_product-schedules', 'Product schedules').click()
     })
