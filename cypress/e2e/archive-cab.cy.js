@@ -26,6 +26,7 @@ describe('Archiving a CAB', () => {
       CabHelpers.archiveCab(this.cab)
       cy.get('.govuk-notification-banner__content').contains(`Archived on ${date(new Date()).DDMMMYYYY}`)
       CabHelpers.editCabButton().should('not.exist')
+      cy.get('a,button').contains('Archived') // tab changes to Archived
       searchCab(this.cab.name)
       cy.contains('a', this.cab.name).should('not.exist')
     })
