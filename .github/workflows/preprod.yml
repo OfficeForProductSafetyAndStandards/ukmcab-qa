@@ -1,9 +1,6 @@
 name: '[PREPROD] UKMCAB e2e tests'
 run-name: PREPROD e2e test suite initiated by ${{ github.actor }} 🚀
-on:
-  push:
-    branches:
-      - 'release/**'
+on: workflow_dispatch
 jobs:
   regression:
     runs-on: ubuntu-latest
