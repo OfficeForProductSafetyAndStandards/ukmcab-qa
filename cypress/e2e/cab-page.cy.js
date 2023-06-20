@@ -7,7 +7,6 @@ describe('CAB profile page', function() {
   beforeEach(function() {
     CabHelpers.getTestCabWithDocuments().then(cab => {
       cy.wrap(cab).as('cab')
-      (cab)
     })
   })
   
