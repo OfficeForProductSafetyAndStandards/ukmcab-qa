@@ -12,8 +12,12 @@ export const Frequency = {
   Instantly: "Each time we add or update a page (you may get more than one email a day)"
 }
 
+export const getEmailsLink = () => {
+  return cy.contains('a', 'Get emails')
+}
+
 export const subscribe = (frequency, email, subscriptionType = "") => {
-  cy.contains('a', 'Get emails').click()
+  EmailSubscriptionHelpers.getEmailsLink().click()
   cy.continue()
   cy.contains('label', frequency).click()
   cy.continue()

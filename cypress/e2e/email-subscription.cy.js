@@ -32,7 +32,7 @@ describe('Email subscription', function() {
     })
 
     it('all pages and any errors are displayed as expected', function() {
-      cy.contains('a', 'Get emails').click()
+      EmailSubscriptionHelpers.getEmailsLink().click()
       cy.get('h1').contains('Get emails from GOV.UK')
       cy.get('form').contains("You’ll get emails when we add or update pages about: UKMCAB search results")
       cy.continue()
@@ -173,7 +173,7 @@ describe('Email subscription', function() {
     })
 
     it('all pages and any errors are displayed as expected', function() {
-      cy.contains('a', 'Get emails').click()
+      EmailSubscriptionHelpers.getEmailsLink().click()
       cy.get('h1').contains('Get emails from GOV.UK')
       cy.get('form').contains(`You’ll get emails when we add or update pages about: UKMCAB profile for '${this.testCab.name}'`)
       cy.continue()
