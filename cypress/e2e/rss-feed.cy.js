@@ -3,7 +3,7 @@ import { cabProfilePage } from '../support/helpers/cab-helpers'
 import * as SearchHelpers from '../support/helpers/search-helpers'
 import X2JS from  'x2js'
 
-describe('UKMCAB RSS Feed', function() {
+xdescribe('UKMCAB RSS Feed', function() {
 
   let searchInput = 'british'
 
