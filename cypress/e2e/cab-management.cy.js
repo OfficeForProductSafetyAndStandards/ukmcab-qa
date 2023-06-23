@@ -31,11 +31,11 @@ describe('Cab management', function() {
   }
 
   const sortedByStatusAsc = (cabs) => {
-    return cabs.sort((a,b) => a.status.localeCompare(b.status) || a.createdDate - b.createdDate)
+    return cabs.sort((a,b) => a.status.localeCompare(b.status) || b.lastUpdatedDate - a.lastUpdatedDate)
   }
 
   const sortedByStatusDesc = (cabs) => {
-    return cabs.sort((a,b) => b.status.localeCompare(a.status) || a.createdDate - b.createdDate)
+    return cabs.sort((a,b) => b.status.localeCompare(a.status) || b.lastUpdatedDate - a.lastUpdatedDate)
   }
 
   const linkToCab = (cab) => {
