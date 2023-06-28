@@ -72,7 +72,7 @@ describe('CAB Search', () => {
         SearchHelpers.displayedSearchResults().then(displayedResults => {
           Cypress._.zip(displayedResults.slice(0,20), expectedResults.slice(0,20)).forEach(([$displayedResult, expectedResult]) => {
             cy.wrap($displayedResult).contains('h3 a', expectedResult.name).and('have.attr', 'href', CabHelpers.cabProfilePage(expectedResult) + '?returnUrl=%252Fsearch')
-            cy.wrap($displayedResult).find('li').eq(0).should('have.text', valueOrNotProvided(expectedResult.addressLines.join(', ')))
+            cy.wrap($displayedResult).find('li').eq(0).should('have.text', 'Address: ' + valueOrNotProvided(expectedResult.addressLines.join(', ')))
             cy.wrap($displayedResult).find('li').eq(1).should('have.text', 'Body type: ' + expectedResult.bodyTypesFormatted)
             cy.wrap($displayedResult).find('li').eq(2).should('have.text', 'Registered office location: ' + expectedResult.registeredOfficeLocation)
             cy.wrap($displayedResult).find('li').eq(3).should('have.text', 'Testing location: ' + expectedResult.testingLocationsFormatted)
