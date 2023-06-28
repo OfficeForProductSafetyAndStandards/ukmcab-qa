@@ -47,7 +47,7 @@ describe('Creating a new CAB', () => {
       cy.hasError('Postcode', 'Enter a postcode')
       cy.hasError('Country', 'Enter a country')
       cy.hasError('Email', 'Enter either an email or phone')
-      cy.hasError('Phone', 'Enter either an email or phone')
+      cy.hasError('Telephone', 'Enter either an email or phone')
       cy.hasError('Registered office location', 'Enter a registered office location')
     })
 
@@ -232,12 +232,12 @@ describe('Creating a new CAB', () => {
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
       cy.hasKeyValueDetail('Point of contact name', this.cab.pointOfContactName)
       cy.hasKeyValueDetail('Point of contact email', this.cab.pointOfContactEmail)
-      cy.hasKeyValueDetail('Point of contact phone', this.cab.pointOfContactPhone)
+      cy.hasKeyValueDetail('Point of contact telephone', this.cab.pointOfContactPhone)
       cy.logout()
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
       cy.contains('Point of contact name').should('not.exist')
       cy.contains('Point of contact email').should('not.exist')
-      cy.contains('Point of contact phone').should('not.exist')
+      cy.contains('Point of contact telephone').should('not.exist')
     })
 
     it('sets Published Date and Last Updated Date to be current date for new cabs', function() {

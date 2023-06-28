@@ -55,7 +55,7 @@ describe('CAB profile page', function() {
         } else {
           valueOrNotProvided(this.cab.email)
         }
-        cy.hasKeyValueDetail('Phone', this.cab.phone)
+        cy.hasKeyValueDetail('Telephone', this.cab.phone)
         cy.hasKeyValueDetail('Registered office location', this.cab.registeredOfficeLocation)
       })
       cy.contains('.cab-detail-section', 'Body details').within(() => {

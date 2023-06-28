@@ -103,10 +103,10 @@ export const hasDetailsConfirmation = (cab) => {
   cy.hasKeyValueDetail('Address', valueOrNotProvided(cab.addressLines.join('')))
   cy.hasKeyValueDetail('Website', valueOrNotProvided(cab.website))
   cy.hasKeyValueDetail('Email', valueOrNotProvided(cab.email))
-  cy.hasKeyValueDetail('Phone', valueOrNotProvided(cab.phone))
+  cy.hasKeyValueDetail('Telephone', valueOrNotProvided(cab.phone))
   cy.hasKeyValueDetail('Point of contact name (optional)',valueOrNotProvided(cab.pointOfContactName))
   cy.hasKeyValueDetail('Point of contact email (optional)', valueOrNotProvided(cab.pointOfContactEmail))
-  cy.hasKeyValueDetail('Point of contact phone (optional)', valueOrNotProvided(cab.pointOfContactPhone))
+  cy.hasKeyValueDetail('Point of contact telephone (optional)', valueOrNotProvided(cab.pointOfContactPhone))
   cy.hasKeyValueDetail('Display of point of contact details', cab.pointOfContactDetailsDisplayStatus())
   cy.hasKeyValueDetail('Registered office location', cab.registeredOfficeLocation)
 

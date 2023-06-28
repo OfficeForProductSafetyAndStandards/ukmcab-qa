@@ -60,7 +60,7 @@ describe('Editing a CAB', () => {
       cy.hasError('Postcode', 'Enter a postcode')
       cy.hasError('Country', 'Enter a country')
       cy.hasError('Email', 'Enter either an email or phone')
-      cy.hasError('Phone', 'Enter either an email or phone')
+      cy.hasError('Telephone', 'Enter either an email or phone')
       cy.hasError('Registered office location', 'Enter a registered office location')
     })
 
