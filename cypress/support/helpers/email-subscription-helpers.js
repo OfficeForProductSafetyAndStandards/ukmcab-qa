@@ -17,7 +17,7 @@ export const getEmailsLink = () => {
 }
 
 export const subscribe = (frequency, email, subscriptionType = "") => {
-  EmailSubscriptionHelpers.getEmailsLink().click()
+  getEmailsLink().click()
   cy.continue()
   cy.contains('label', frequency).click()
   cy.continue()
