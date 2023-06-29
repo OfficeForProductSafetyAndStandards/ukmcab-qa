@@ -49,7 +49,7 @@ export default class Cab {
   }
 
   get url() {
-    return Cypress.config('baseUrl') + cabProfilePage(this)
+    return cabProfilePage(this)
   }
 
   get oldSchemeUrl() {
