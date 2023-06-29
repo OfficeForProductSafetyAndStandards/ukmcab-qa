@@ -30,8 +30,8 @@ describe('Feedback form', () => {
     it('displays as expected', () => {
       feedbackForm().contains('Help us improve GOV.UK')
       feedbackForm().contains("Don't include personal or financial information like your National Insurance number or credit card details.")
-      feedbackForm().contains('h1', 'What you were doing').next().contains('Please explain, step by step, what you did. If we can reproduce a problem, we can try and fix it.')
-      feedbackForm().contains('h1', 'What went wrong').next().contains('Please explain what you expected to happen, and what actually happened. A clear explanation will help us fix the problem.')
+      feedbackForm().contains('h3', 'What you were doing').next().contains('Please explain, step by step, what you did. If we can reproduce a problem, we can try and fix it.')
+      feedbackForm().contains('h3', 'What went wrong').next().contains('Please explain what you expected to happen, and what actually happened. A clear explanation will help us fix the problem.')
     })
 
     it('displays error if required details are not provided', () => {
