@@ -112,12 +112,7 @@ export const assertSubscriptionConfirmationEmailIsSent = (email) => {
 export const assertSearchUpdateSubscriptionEmailIsSent = (email, searchTerm) => {
   getLastUserEmail(email).then(_email => {
     expect(_email.isRecent).to.be.true
-    expect(_email.isSearchResultsUpdatedEmail).to.be.true
-    if(searchTerm) {
-      expect(_email.body).includes(`Your UKMCAB search results for '${searchTerm}' have been updated.`)
-    } else {
-      expect(_email.body).includes(`Your UKMCAB search results have been updated.`)
-    }
+    expect(_email.isSearchResultsUpdatedEmail(searchTerm)).to.be.true
   })
 }
 

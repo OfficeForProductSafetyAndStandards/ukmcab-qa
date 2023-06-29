@@ -55,32 +55,34 @@ export class EmailNotification {
   }
 
   get isSubscriptionAccountVerification() {
-    return this.subject === "Confirm your subscription"
-    && this.body.includes("Click the link to confirm that you want to get emails from GOV.UK")
+    return this.subject === "Confirm your UKMCAB email subscription"
   }
   
   get isSubscriptionConfirmationEmail() {
-    return this.subject === "You’ve subscribed to GOV.UK emails"
-    && this.links.length === 3
+    return this.subject === "You’ve subscribed to UKMCAB emails"
+    && this.links.length === 4
   }
   
-  get isSearchResultsUpdatedEmail() {
+  isSearchResultsUpdatedEmail(searchTerm) {
+    const message = searchTerm ? `The UKMCAB search results for '${searchTerm}' have changed.` : 'The UKMCAB search results have changed.'
     return this.subject === "UKMCAB search results updated"
-    && this.links.length === 5
+    && this.body.includes(message)
+    && this.body.includes("View the [summary page]")
+    && this.links.length === 6
   }
   
   isCabUpdatedEmail(cab) {
-    return /^UKMCAB profile for ‘.*’ updated$/.test(this.subject)
-    && this.links.length === 4
-    && this.links[0] === Cypress.config('baseUrl') + cab.oldSchemeUrl
+    return /^UKMCAB ‘.*‘ profile has changed$/.test(this.subject)
+    && this.links.length === 5
+    && this.links[0] === Cypress.config('baseUrl') + '/__subscriptions/__inbound/cab/' + cab.cabId
   }
 
   get link() {
-    return this.body.match(/^https(.*)$/gm)[0]
+    return this.links[0]
   }
 
   get links() {
-    return this.body.match(/^https(.*)$/gm)
+    return this.body.match(/https.+(?=\))/gm)
   }
 
 }
