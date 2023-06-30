@@ -22,3 +22,5 @@ chai.use(chaiDatetime);
 
 const dayjs = require('dayjs')
 Cypress.dayjs = dayjs
+
+import 'cypress-mochawesome-reporter/register';

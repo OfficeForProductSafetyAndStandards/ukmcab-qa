@@ -3,11 +3,20 @@ const { CosmosClient } = require("@azure/cosmos");
 const NotifyClient = require('notifications-node-client').NotifyClient // GOV UK Notify
 
 module.exports = defineConfig({
+  reporter: 'cypress-mochawesome-reporter',
+  reporterOptions: {
+    charts: true,
+    reportPageTitle: 'UKMCAB TEST REPORT',
+    embeddedScreenshots: true,
+    inlineAssets: true,
+    saveAllAttempts: false,
+  },
   e2e: {
     baseUrl: 'https://ukmcab-dev.beis.gov.uk',
     chromeWebSecurity: false,
     experimentalRunAllSpecs: true,
     setupNodeEvents(on, config) {
+      require('cypress-mochawesome-reporter/plugin')(on);
       const endpoint = config.env.DB_URL;
       const key = config.env.DB_KEY;
       const client = new CosmosClient({ endpoint, key });
