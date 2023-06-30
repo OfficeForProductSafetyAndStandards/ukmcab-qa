@@ -64,7 +64,7 @@ describe('UKMCAB RSS Feed', function() {
         expect(feed.link[1]._href).to.eq(Cypress.config('baseUrl') + cab.oldSchemeUrl)
         expect(feed.entry.id).to.eq(`tag:www.gov.uk,2005:${cab.url}`)
         expect(feed.entry.title.toString()).to.eq(cab.name)
-        expect(feed.entry.summary.toString()).to.include(cab.name) // TODO expand checks once agreement is reached about formatting
+        expect(feed.entry.summary.toString()).to.include('Address:') // TODO expand checks once agreement is reached about formatting
         expect(feed.entry.updated).to.eq(cab.lastUpdatedDate.toISOString().replace(/.\d+Z$/g, "Z"))
 
         expect(feed.entry.link._rel).to.eq('alternate')
