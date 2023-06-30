@@ -23,4 +23,4 @@ jobs:
         if: failure()
         with:
           name: cypress-report
-          path: cypress/report
+          path: cypress/reports
