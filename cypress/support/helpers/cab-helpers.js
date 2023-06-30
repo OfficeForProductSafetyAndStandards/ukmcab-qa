@@ -111,7 +111,7 @@ export const hasDetailsConfirmation = (cab) => {
   cy.hasKeyValueDetail('Registered office location', cab.registeredOfficeLocation)
 
   cy.hasKeyValueDetail('Registered test location', valueOrNotProvided(cab.testingLocations?.join('')))
-  cy.hasKeyValueDetail('Body Type', cab.bodyTypes.join(''))
+  cy.hasKeyValueDetail('Body type', cab.bodyTypes.join(''))
   cy.hasKeyValueDetail('Legislative area', cab.legislativeAreas.join(''))
 
   filenames(cab.schedules).forEach(filename => {
