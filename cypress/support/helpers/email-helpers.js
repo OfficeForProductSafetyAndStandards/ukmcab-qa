@@ -13,8 +13,8 @@ export class EmailNotification {
   }
 
   isContactSubmissionEmail(name, email, subject, message) {
-    return this.subject === "Contact Form: " + subject
-    && this.body === `Your message has been submitted with the following information. We'll get back to you as soon as possible.\r\n\r\n# Name\r\n${name}\r\n\r\n# Email\r\n${email}\r\n\r\n# Subject\r\n${subject}\r\n\r\n# Message\r\n${message}`
+    return this.subject === 'Contact form submitted to UKMCAB'
+    && this.body.includes(`You have submitted a contact form to UKMCAB. We will respond as soon as possible.\r\n\r\nHere are the details submitted on the form:\r\n\r\nName: ${name}\r\nEmail: ${email}\r\nSubject: ${subject}\r\nMessage:\r\n${message}`)
   }
 
   isContactSubmissionOpssEmail(name, email, subject, message) {
@@ -45,8 +45,8 @@ export class EmailNotification {
   }
   
   get isPasswordChangedConfirmationEmail() {
-    return this.subject === "UKMCAB password changed"
-    && this.body === "Your password has been successfully changed.\r\nIf you did not request this please contact an administrator."
+    return this.subject === "Your UKMCAB password has been changed"
+    && this.body.includes("You have successfully changed the password for your UKMCAB account.\r\n\r\nIf you did not request this change, please [contact support]")
   }
 
   get isFeedbackEmail() {

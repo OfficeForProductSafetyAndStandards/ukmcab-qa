@@ -80,7 +80,7 @@ export default class Cab {
   }
 
   get documents() {
-    return this._documents.map(document => {
+    return this._documents?.map(document => {
       return {
         fileName: document.FileName,
         blobName: document.BlobName,

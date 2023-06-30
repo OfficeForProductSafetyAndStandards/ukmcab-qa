@@ -13,9 +13,10 @@
     "x2js": "^3.4.4"
   },
   "scripts": {
-    "cypressOpen": "cypress open",
-    "cypressHeaded": "cypress run --browser chrome --headed",
-    "cypressHeadless": "cypress run --browser chrome"
+    "cypress:open:dev": "cypress open",
+    "cypress:open:stage": "cypress open --config baseUrl=https://ukmcab-stage.beis.gov.uk",
+    "cypress:run:dev": "cypress run --browser chrome",
+    "cypress:run:stage": "cypress run --browser chrome --config baseUrl=https://ukmcab-stage.beis.gov.uk"
   },
   "repository": {
     "type": "git",
