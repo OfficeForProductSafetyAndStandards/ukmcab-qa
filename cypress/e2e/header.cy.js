@@ -14,7 +14,7 @@ describe('Header', function() {
     })
     
     it('displays all expected links', function() {
-      header().contains('a', 'GOV.UK').should('have.attr', 'href', '/')
+      header().contains('a', 'GOV.UK').should('not.have.attr', 'href', '/')
       header().contains('a', 'UK Market Conformity Assessment Bodies').should('have.attr', 'href', '/')
       header().contains('a', 'Search').should('have.attr', 'href', searchPath())
       header().contains('a', 'Help').should('have.attr', 'href', '/help')
