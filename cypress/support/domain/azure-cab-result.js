@@ -37,8 +37,7 @@ export default class AzureCabResult {
 
   _formatted(values) {
     if(values.length > 1) {
-      const suffix = values.length === 2 ? '1 other' : `${values.length - 1} others`
-      return values[0] + ' and ' + suffix
+      return values.join(', ')
     } else {
       return values[0] ?? 'Not provided'
     }
