@@ -1,5 +1,5 @@
 import AzureCabResult from "../domain/azure-cab-result"
-export const searchPath = () => { return '/search'}
+export const searchPath = () => { return '/'}
 
 export const topPagination = () => { return cy.get('.search-results-pagination-container').eq(0)}
 export const bottomPagination = () => { return cy.get('.search-results-pagination-container').eq(1)}

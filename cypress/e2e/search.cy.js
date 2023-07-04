@@ -243,7 +243,7 @@ describe('CAB Search', () => {
     it('clears all applied filters and displays default results when filters are cleared', function() {
       SearchHelpers.searchCab('Limited')
       SearchHelpers.filterByLegislativeArea(['Construction products', 'Electromagnetic compatibility'])
-      cy.contains('Clear all filters').click()
+      cy.contains('Remove all filters').click()
       SearchHelpers.azureSearchResults('', {orderby: 'RandomSort asc'}).then(expectedResults => {
         const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
         SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
