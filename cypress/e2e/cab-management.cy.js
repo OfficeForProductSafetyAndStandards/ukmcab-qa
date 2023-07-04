@@ -5,21 +5,21 @@ describe('Cab management', function() {
 
   
   const sortedByNameAsc = (cabs) => {
-    return cabs.sort((a,b) => a.name.localeCompare(b.name) || a.createdDate - b.createdDate)
+    return cabs.sort((a,b) => a.name.localeCompare(b.name) || a.lastUpdatedDate - b.lastUpdatedDate)
   }
   
   const sortedByNameDesc = (cabs) => {
-    return cabs.sort((a,b) => b.name.localeCompare(a.name) || a.createdDate - b.createdDate)
+    return cabs.sort((a,b) => b.name.localeCompare(a.name) || a.lastUpdatedDate - b.lastUpdatedDate)
   }
   
   const sortedByNumberAsc = (cabs) => {
-    const notProvided = cabs.filter(c => c.cabNumber === null)
-    return notProvided.concat(Cypress._.filter(cabs, c => c.cabNumber).sort((a,b) => a.cabNumber.localeCompare(b.cabNumber) || a.createdDate - b.createdDate))
+    const notProvided = cabs.filter(c => c.cabNumber === null).sort((a, b) => a.lastUpdatedDate - b.lastUpdatedDate)
+    return notProvided.concat(Cypress._.filter(cabs, c => c.cabNumber).sort((a,b) => a.cabNumber.localeCompare(b.cabNumber) || a.lastUpdatedDate - b.lastUpdatedDate))
   }
   
   const sortedByNumberDesc = (cabs) => {
-    const notProvided = cabs.filter(c => c.cabNumber === null)
-    return Cypress._.filter(cabs, c => c.cabNumber).sort((a,b) => b.cabNumber.localeCompare(a.cabNumber) || a.createdDate - b.createdDate).concat(notProvided)
+    const notProvided = cabs.filter(c => c.cabNumber === null).sort((a, b) => a.lastUpdatedDate - b.lastUpdatedDate)
+    return Cypress._.filter(cabs, c => c.cabNumber).sort((a,b) => b.cabNumber.localeCompare(a.cabNumber) || a.lastUpdatedDate - b.lastUpdatedDate).concat(notProvided)
   }
 
   const sortedByLastUpdatedAsc = (cabs) => {
