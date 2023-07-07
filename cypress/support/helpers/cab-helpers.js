@@ -33,10 +33,10 @@ export const enterCabDetails = (cab) => {
     cy.get('#AppointmentDateMonth').invoke('val', date(cab.appointmentDate).MM)
     cy.get('#AppointmentDateYear').invoke('val', date(cab.appointmentDate).YYYY)
   }
-  if(cab.renewalDate) {
-    cy.get('#RenewalDateDay').invoke('val', date(cab.renewalDate).DD)
-    cy.get('#RenewalDateMonth').invoke('val', date(cab.renewalDate).MM)
-    cy.get('#RenewalDateYear').invoke('val', date(cab.renewalDate).YYYY)
+  if(cab.reviewDate) {
+    cy.get('#ReviewDateDay').invoke('val', date(cab.reviewDate).DD)
+    cy.get('#ReviewDateMonth').invoke('val', date(cab.reviewDate).MM)
+    cy.get('#ReviewDateYear').invoke('val', date(cab.reviewDate).YYYY)
   }
   if (cab.ukasRef) {
     cy.get('#UKASReference').invoke('val', cab.ukasRef)
@@ -98,7 +98,7 @@ export const hasDetailsConfirmation = (cab) => {
   cy.hasKeyValueDetail('CAB name', cab.name)
   cy.hasKeyValueDetail('CAB number', cab.cabNumber)
   cy.hasKeyValueDetail('Appointment date (optional)', valueOrNotProvided(date(cab.appointmentDate)?.DDMMYYYY))
-  cy.hasKeyValueDetail('Review date (optional)', valueOrNotProvided(date(cab.renewalDate)?.DDMMYYYY))
+  cy.hasKeyValueDetail('Review date (optional)', valueOrNotProvided(date(cab.reviewDate)?.DDMMYYYY))
   cy.hasKeyValueDetail('UKAS reference number', valueOrNotProvided(cab.ukasRef))
   cy.hasKeyValueDetail('Address', valueOrNotProvided(cab.addressLines.join('')))
   cy.hasKeyValueDetail('Website', valueOrNotProvided(cab.website))

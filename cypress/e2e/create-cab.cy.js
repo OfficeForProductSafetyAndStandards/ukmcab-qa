@@ -28,7 +28,7 @@ describe('Creating a new CAB', () => {
 
     it('does not display any error if optional fields are omitted', function() {
       this.cab.appointmentDate = null
-      this.cab.renewalDate = null
+      this.cab.reviewDate = null
       this.cab.ukasRef = null
       CabHelpers.enterCabDetails(this.cab)
       cy.contains('h1', 'Contact details')

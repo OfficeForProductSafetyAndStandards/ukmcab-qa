@@ -26,7 +26,7 @@ export default class Cab {
     this.pointOfContactEmail = cabData.PointOfContactEmail
     this.pointOfContactPhone = cabData.PointOfContactPhone
     this.registeredOfficeLocation = cabData.RegisteredOfficeLocation
-    this.renewalDate = cabData.RenewalDate
+    this.reviewDate = cabData.RenewalDate
     this.testingLocations = cabData.TestingLocations
     this._schedules = cabData.Schedules
     this._documents = cabData.Documents
