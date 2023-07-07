@@ -169,9 +169,15 @@ export const getTestCab = () => {
   })
 }
 
-export const getTestCabWithCatbNumber = () => {
+export const getTestCabWithCabNumber = () => {
   return getAllPublishedCabs().then(cabs => {
     return cabs.find(c => c.cabNumber !== null)
+  })
+}
+
+export const getTestCabWithCabNumberAndUkasRef = () => {
+  return getAllPublishedCabs().then(cabs => {
+    return cabs.find(c => c.cabNumber !== null && c.ukasRef !== null)
   })
 }
 

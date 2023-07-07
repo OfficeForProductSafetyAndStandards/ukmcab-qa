@@ -123,7 +123,7 @@ export default class Cab {
       Documents: [{ FileName: 'dummy2.pdf' }, { FileName: 'dummy.docx' }, { FileName: 'dummy.xlsx' }],
       CABNumber: uniqueId,
       AppointmentDate: new Date(),
-      RenewalDate: new Date(),
+      RenewalDate: new Date() + 1,
       UKASReference: uniqueId,
       URLSlug: name.replace(/[^a-zA-Z0-9 ]/g, "").replace(/\s+/g, '-').toLowerCase()
     })

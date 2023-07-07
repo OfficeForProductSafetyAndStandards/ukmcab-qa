@@ -103,7 +103,7 @@ describe('CAB Search', () => {
     })
 
     it('displays correct results by searching across all CAB metadata', function() {
-      CabHelpers.getTestCabWithCatbNumber().then(cab => {
+      CabHelpers.getTestCabWithCabNumber().then(cab => {
         // set some test keywords from a published test cab as some cabs can be archived!
         let name = 'Limited'
         let address = 'London'

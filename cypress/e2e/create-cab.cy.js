@@ -18,11 +18,13 @@ describe('Creating a new CAB', () => {
       cy.hasError('CAB number', 'Enter a CAB number')
     })
     
-    it('displays error if a CAB with name or number already exists', function() {
-      CabHelpers.getTestCab().then(cab => {
-        cab.cabNumber = 'sdfsdffs' // some imported cabs don't have cab number. Set it so this validation can be tested
+    it.only('displays error if a CAB with name, Cab number or Ukas ref already exists', function() {
+      CabHelpers.getTestCabWithCabNumberAndUkasRef().then(cab => {
+        cab.reviewDate = null
         CabHelpers.enterCabDetails(cab)
-        cy.hasError('CAB name', 'A document already exists for this CAB name, number or UKAS reference')
+        cy.hasError('CAB name', 'This CAB name already exists')
+        cy.hasError('CAB number', 'This CAB number already exists')
+        cy.hasError('UKAS reference (optional)', 'This UKAS reference number already exists')
       })
     })
 
