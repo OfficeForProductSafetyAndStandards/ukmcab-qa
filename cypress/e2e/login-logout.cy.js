@@ -10,8 +10,8 @@ describe('Login/Logout', () => {
 
   it('displays Login page as per design', function() {
     cy.get('h1').contains('UK Market Conformity Assessment Bodies Sign In')
-    cy.get('#Email').siblings('label').contains('Email address')
-    cy.get('#Password').siblings('label').contains('Password').siblings('a.show-password-button').contains('Show')
+    cy.contains('label', 'Email address')
+    cy.get('#Password').siblings('a.show-password-button').contains('Show')
     cy.contains('By signing in you accept our terms and conditions.').find('a').contains('terms and conditions').should('have.attr', 'href', '/terms-and-conditions')
     cy.get('button').contains('Sign in')
     cy.contains('If you are inactive for 20 minutes, your session will timeout.')
@@ -19,7 +19,7 @@ describe('Login/Logout', () => {
 
   it('displays error when using unknown credentials', () => {
     LoginHelpers.login(`Unknown${Date.now()}@ukmcab.gov.uk`, 'Som3P255W0rd!')
-    cy.hasError('Email address', 'The information provided is not right, try again')
+    cy.hasError('Email address', 'Enter a valid email address and password')
   })
 
   it('displays email/password validation errors', () => {

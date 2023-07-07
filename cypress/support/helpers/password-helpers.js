@@ -12,7 +12,7 @@ export const errors = {
   passwordAtleastOneUppercase: "Passwords must have at least one uppercase ('A'-'Z').",
   passwordAtleastOneNonAlphanum: "Passwords must have at least one non alphanumeric character.",
   passwordsDontMatch: "New password does not match, try again.",
-  invalidLoginAttempt: "The information provided is not right, try again",
+  invalidLoginAttempt: "Enter a valid email address and password",
   incorrectPassword: "Incorrect password.",
 }
 export const enterEmail = (email) => { 
