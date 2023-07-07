@@ -46,13 +46,15 @@ describe('CAB Search', () => {
         // Paginate once a few pages ahead
         cy.get('li').eq(5).contains('5').click({force: true})
         cy.get('li').eq(0).find('a').should('have.attr', 'href', '/?pagenumber=4').and('have.text', 'Previous')
-        cy.get('li').eq(1).find('a').should('have.attr', 'href', '/?pagenumber=3').and('have.text', '3')
-        cy.get('li').eq(2).find('a').should('have.attr', 'href', '/?pagenumber=4').and('have.text', '4')
-        cy.get('li').eq(3).find('a').should('not.exist')
-        cy.get('li').eq(3).should('have.text', '5')
-        cy.get('li').eq(4).find('a').should('have.attr', 'href', '/?pagenumber=6').and('have.text', '6')
-        cy.get('li').eq(5).find('a').should('have.attr', 'href', '/?pagenumber=7').and('have.text', '7')
-        cy.get('li').eq(6).find('a').should('have.attr', 'href', '/?pagenumber=6').and('have.text', 'Next')
+        cy.get('li').eq(1).find('a').should('have.attr', 'href', '/?pagenumber=1').and('have.text', '1')
+        cy.get('li').eq(2).should('have.text', '…')
+        cy.get('li').eq(3).find('a').should('have.attr', 'href', '/?pagenumber=3').and('have.text', '3')
+        cy.get('li').eq(4).find('a').should('have.attr', 'href', '/?pagenumber=4').and('have.text', '4')
+        cy.get('li').eq(5).find('a').should('not.exist')
+        cy.get('li').eq(5).should('have.text', '5')
+        cy.get('li').eq(6).find('a').should('have.attr', 'href', '/?pagenumber=6').and('have.text', '6')
+        cy.get('li').eq(7).find('a').should('have.attr', 'href', '/?pagenumber=7').and('have.text', '7')
+        cy.get('li').eq(8).find('a').should('have.attr', 'href', '/?pagenumber=6').and('have.text', 'Next')
       })
     })
 
@@ -101,10 +103,10 @@ describe('CAB Search', () => {
     })
 
     it('displays correct results by searching across all CAB metadata', function() {
-      CabHelpers.getTestCab().then(cab => {
+      CabHelpers.getTestCabWithCatbNumber().then(cab => {
         // set some test keywords from a published test cab as some cabs can be archived!
         let name = 'Limited'
-        let address = 'United Kingdom'
+        let address = 'London'
         let cabNumber = cab.cabNumber
         let bodyType = 'overseas body'
         let legislativeArea = 'equipment'
