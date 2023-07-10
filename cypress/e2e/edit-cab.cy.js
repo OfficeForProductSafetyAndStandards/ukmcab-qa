@@ -131,5 +131,40 @@ describe('Editing a CAB', () => {
       })
     })
 
+    it('returns user back to summary page when editing is cancelled at any step', function() {
+      CabHelpers.editCabDetail('About')
+      cy.cancel()
+      cy.location().then(loc => {
+        expect(loc.pathname).to.eq(CabHelpers.cabSummaryPage(this.cab.cabId))
+      })
+      CabHelpers.editCabDetail('Contact details')
+      cy.cancel()
+      cy.location().then(loc => {
+        expect(loc.pathname).to.eq(CabHelpers.cabSummaryPage(this.cab.cabId))
+      })
+      CabHelpers.editCabDetail('Body details')
+      cy.cancel()
+      cy.location().then(loc => {
+        expect(loc.pathname).to.eq(CabHelpers.cabSummaryPage(this.cab.cabId))
+      })
+      CabHelpers.editCabDetail('Product schedules')
+      cy.cancel()
+      cy.location().then(loc => {
+        expect(loc.pathname).to.eq(CabHelpers.cabSummaryPage(this.cab.cabId))
+      })
+      CabHelpers.editCabDetail('Supporting documents')
+      cy.cancel()
+      cy.location().then(loc => {
+        expect(loc.pathname).to.eq(CabHelpers.cabSummaryPage(this.cab.cabId))
+      })
+    })
+
+    it('returns user back to cab page when editing is cancelled from summary page', function() {
+      cy.cancel()
+      cy.location().then(loc => {
+        expect(loc.pathname).to.eq(CabHelpers.cabProfilePage(this.cab))
+      })
+    })
+
   })
 })

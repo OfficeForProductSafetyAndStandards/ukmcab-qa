@@ -54,6 +54,10 @@ Cypress.Commands.add('continue', () => {
   cy.contains('button,a', 'Continue').click()
 })
 
+Cypress.Commands.add('cancel', () => {
+  cy.contains('button,a', 'Cancel').click()
+})
+
 Cypress.Commands.add('registerViaApi', (email, password) => {
   // coikies must be passed in when creating user via API.
   // Cypress automatically submites these in subsequent requests once set.
