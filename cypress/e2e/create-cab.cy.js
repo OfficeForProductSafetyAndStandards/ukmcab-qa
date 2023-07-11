@@ -20,7 +20,7 @@ describe('Creating a new CAB', () => {
     
     it.only('displays error if a CAB with name, Cab number or Ukas ref already exists', function() {
       CabHelpers.getTestCabWithCabNumberAndUkasRef().then(cab => {
-        cab.reviewDate = null
+        cab.reviewDate = null // old data has invalid dates
         CabHelpers.enterCabDetails(cab)
         cy.hasError('CAB name', 'This CAB name already exists')
         cy.hasError('CAB number', 'This CAB number already exists')
