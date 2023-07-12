@@ -18,7 +18,7 @@ describe('Creating a new CAB', () => {
       cy.hasError('CAB number', 'Enter a CAB number')
     })
     
-    it.only('displays error if a CAB with name, Cab number or Ukas ref already exists', function() {
+    it('displays error if a CAB with name, Cab number or Ukas ref already exists', function() {
       CabHelpers.getTestCabWithCabNumberAndUkasRef().then(cab => {
         cab.reviewDate = null // old data has invalid dates
         CabHelpers.enterCabDetails(cab)
@@ -49,21 +49,15 @@ describe('Creating a new CAB', () => {
       cy.hasError('Town or city', 'Enter a town or city')
       cy.hasError('Postcode', 'Enter a postcode')
       cy.hasError('Country', 'Enter a country')
-      cy.hasError('Email', 'Enter either an email or phone')
-      cy.hasError('Telephone', 'Enter either an email or phone')
+      cy.hasError('Telephone', 'Enter a telephone number')
       cy.hasError('Registered office location', 'Enter a registered office location')
-    })
-
-    it('only one of email or phone is mandatory', function() {
-      this.cab.email = null
-      CabHelpers.enterContactDetails(this.cab)
-      cy.contains('h1', 'Body details')
     })
     
     it('does not display any error if optional fields are omitted', function() {
       this.cab.addressLine2 = null
       this.cab.county = null
       this.cab.website = null
+      this.cab.email = null
       this.cab.pointOfContactName = null
       this.cab.pointOfContactEmail = null
       this.cab.pointOfContactPhone = null
@@ -282,7 +276,7 @@ describe('Creating a new CAB', () => {
       
       // Edit cab details
       cloneCab.name = `Test Cab ${uniqueId}`
-      cloneCab.appointmentDate = Cypress.dayjs().add('1', 'day')
+      cloneCab.appointmentDate = Cypress.dayjs().subtract('5', 'days')
       CabHelpers.editCabDetail('About')
       CabHelpers.enterCabDetails(cloneCab)
       CabHelpers.hasDetailsConfirmation(cloneCab)

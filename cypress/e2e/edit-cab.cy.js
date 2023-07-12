@@ -51,7 +51,6 @@ describe('Editing a CAB', () => {
       cloneCab.townCity = null
       cloneCab.postcode = null
       cloneCab.country = null
-      cloneCab.email = null
       cloneCab.phone = null
       cloneCab.registeredOfficeLocation = 'Choose location'
       CabHelpers.enterContactDetails(cloneCab)
@@ -59,8 +58,7 @@ describe('Editing a CAB', () => {
       cy.hasError('Town or city', 'Enter a town or city')
       cy.hasError('Postcode', 'Enter a postcode')
       cy.hasError('Country', 'Enter a country')
-      cy.hasError('Email', 'Enter either an email or phone')
-      cy.hasError('Telephone', 'Enter either an email or phone')
+      cy.hasError('Telephone', 'Enter a telephone number')
       cy.hasError('Registered office location', 'Enter a registered office location')
     })
 
@@ -106,7 +104,7 @@ describe('Editing a CAB', () => {
       CabHelpers.editCabDetail('About')
       cloneCab.name = 'Lift Cert Limited'
       CabHelpers.enterCabDetails(cloneCab)
-      cy.hasError('CAB name', 'A document already exists for this CAB name, number or UKAS reference')
+      cy.hasError('CAB name', 'This CAB name already exists')
     })
 
     it('updates cab URL identifier to a hyphenated identifier based on new name and sets up redirect from old to new', function() {
