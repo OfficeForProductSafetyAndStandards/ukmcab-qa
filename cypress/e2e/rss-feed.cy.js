@@ -69,7 +69,7 @@ describe('UKMCAB RSS Feed', function() {
 
         expect(feed.entry.link._rel).to.eq('alternate')
         expect(feed.entry.link._type).to.eq('text/html')
-        expect(feed.entry.link._href).to.eq(Cypress.config('baseUrl') + cab.url + `?returnUrl=${encodeURIComponent(cab.oldSchemeUrl)}`)
+        expect(feed.entry.link._href).to.eq(Cypress.config('baseUrl') + cab.url)
       })
     })
   })
