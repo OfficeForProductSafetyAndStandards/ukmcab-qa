@@ -25,18 +25,26 @@ export const draftCab = (cab) => {
   saveAsDraft()
 }
 
+export const setAppointmentDate = (day, month, year) => {
+  cy.get('#AppointmentDateDay').invoke('val', day)
+  cy.get('#AppointmentDateMonth').invoke('val', month)
+  cy.get('#AppointmentDateYear').invoke('val', year)
+}
+
+export const setReviewDate = (day, month, year) => {
+  cy.get('#ReviewDateDay').invoke('val', day)
+  cy.get('#ReviewDateMonth').invoke('val', month)
+  cy.get('#ReviewDateYear').invoke('val', year)
+}
+
 export const enterCabDetails = (cab) => {
   cy.get('#Name').invoke('val', cab.name)
   cy.get('#CABNumber').invoke('val', cab.cabNumber)
   if(cab.appointmentDate) {
-    cy.get('#AppointmentDateDay').invoke('val', date(cab.appointmentDate).DD)
-    cy.get('#AppointmentDateMonth').invoke('val', date(cab.appointmentDate).MM)
-    cy.get('#AppointmentDateYear').invoke('val', date(cab.appointmentDate).YYYY)
+    setAppointmentDate(date(cab.appointmentDate).DD, date(cab.appointmentDate).MM, date(cab.appointmentDate).YYYY)
   }
   if(cab.reviewDate) {
-    cy.get('#ReviewDateDay').invoke('val', date(cab.reviewDate).DD)
-    cy.get('#ReviewDateMonth').invoke('val', date(cab.reviewDate).MM)
-    cy.get('#ReviewDateYear').invoke('val', date(cab.reviewDate).YYYY)
+    setReviewDate(date(cab.reviewDate).DD, date(cab.reviewDate).MM, date(cab.reviewDate).YYYY)
   }
   if (cab.ukasRef) {
     cy.get('#UKASReference').invoke('val', cab.ukasRef)
@@ -99,10 +107,10 @@ export const hasDetailsConfirmation = (cab) => {
   cy.hasKeyValueDetail('CAB number', cab.cabNumber)
   cy.hasKeyValueDetail('Appointment date (optional)', valueOrNotProvided(date(cab.appointmentDate)?.DDMMYYYY))
   cy.hasKeyValueDetail('Review date (optional)', valueOrNotProvided(date(cab.reviewDate)?.DDMMYYYY))
-  cy.hasKeyValueDetail('UKAS reference number', valueOrNotProvided(cab.ukasRef))
+  cy.hasKeyValueDetail('UKAS reference number (optional)', valueOrNotProvided(cab.ukasRef))
   cy.hasKeyValueDetail('Address', valueOrNotProvided(cab.addressLines.join('')))
-  cy.hasKeyValueDetail('Website', valueOrNotProvided(cab.website))
-  cy.hasKeyValueDetail('Email', valueOrNotProvided(cab.email))
+  cy.hasKeyValueDetail('Website (optional)', valueOrNotProvided(cab.website))
+  cy.hasKeyValueDetail('Email (optional)', valueOrNotProvided(cab.email))
   cy.hasKeyValueDetail('Telephone', valueOrNotProvided(cab.phone))
   cy.hasKeyValueDetail('Point of contact name (optional)',valueOrNotProvided(cab.pointOfContactName))
   cy.hasKeyValueDetail('Point of contact email (optional)', valueOrNotProvided(cab.pointOfContactEmail))

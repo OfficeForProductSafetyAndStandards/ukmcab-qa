@@ -11,7 +11,7 @@ export default class Cab {
     this.county = cabData.County
     this.postcode = cabData.Postcode
     this.country = cabData.Country
-    this.appointmentDate = new Date(cabData.AppointmentDate)
+    this.appointmentDate = Cypress.dayjs(cabData.AppointmentDate)
     this.cabId = cabData.CABId
     this.cabNumber = cabData.CABNumber
     this.bodyTypes = cabData.BodyTypes
@@ -26,7 +26,7 @@ export default class Cab {
     this.pointOfContactEmail = cabData.PointOfContactEmail
     this.pointOfContactPhone = cabData.PointOfContactPhone
     this.registeredOfficeLocation = cabData.RegisteredOfficeLocation
-    this.reviewDate = cabData.RenewalDate
+    this.reviewDate = Cypress.dayjs(cabData.RenewalDate)
     this.testingLocations = cabData.TestingLocations
     this._schedules = cabData.Schedules
     this._documents = cabData.Documents
@@ -122,8 +122,8 @@ export default class Cab {
       Schedules: [{ FileName: 'dummy.pdf' }, { FileName: 'dummy1.pdf' }],
       Documents: [{ FileName: 'dummy2.pdf' }, { FileName: 'dummy.docx' }, { FileName: 'dummy.xlsx' }],
       CABNumber: uniqueId,
-      AppointmentDate: new Date(),
-      RenewalDate: new Date() + 1,
+      AppointmentDate: Cypress.dayjs().subtract(5, 'days'),
+      RenewalDate: Cypress.dayjs().add(10, 'days'),
       UKASReference: uniqueId,
       URLSlug: name.replace(/[^a-zA-Z0-9 ]/g, "").replace(/\s+/g, '-').toLowerCase()
     })

@@ -35,6 +35,56 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterCabDetails(this.cab)
       cy.contains('h1', 'Contact details')
     })
+
+    it('requires appointment date to be in past', function() {
+      this.cab.appointmentDate = Cypress.dayjs()
+      CabHelpers.enterCabDetails(this.cab)
+      cy.hasError('Appointment date (optional)', 'The appointment date must be in the past.')
+      this.cab.appointmentDate = Cypress.dayjs().add(1, 'day')
+      CabHelpers.enterCabDetails(this.cab)
+      cy.hasError('Appointment date (optional)', 'The appointment date must be in the past.')
+    })
+    
+    it('requires review date to be in future but no more than 5 years from appointment date', function() {
+      this.cab.reviewDate = Cypress.dayjs()
+      CabHelpers.enterCabDetails(this.cab)
+      cy.hasError('Review date (optional)', 'The review date must be in the future.')
+      this.cab.reviewDate = Cypress.dayjs().subtract(1, 'day')
+      CabHelpers.enterCabDetails(this.cab)
+      cy.hasError('Review date (optional)', 'The review date must be in the future.')
+      this.cab.reviewDate = this.cab.appointmentDate.add(5, 'years').add(1, 'day')
+      CabHelpers.enterCabDetails(this.cab)
+      cy.hasError('Review date (optional)', 'The review date must be within 5 years of the appointment date.')
+      // check that dates within 5 years go through
+      this.cab.reviewDate = this.cab.appointmentDate.add(5, 'years')
+      CabHelpers.enterCabDetails(this.cab)
+      cy.contains('h1', 'Contact details')
+    })
+
+    it('displays correct error for invalid or missing date fields', function() {
+      CabHelpers.setAppointmentDate(32, 7, 2023)
+      CabHelpers.setReviewDate(29, 2, 2023)
+      cy.continue()
+      cy.hasError('Appointment date (optional)', 'Appointment date must be a real date.')
+      cy.hasError('Review date (optional)', 'Review date must be a real date.')
+      CabHelpers.setAppointmentDate(32, '', 2023)
+      CabHelpers.setReviewDate(32, 7, '')
+      cy.continue()
+      cy.hasError('Appointment date (optional)', 'Appointment date must include a month.')
+      cy.hasError('Review date (optional)', 'Review date must include a year.')
+      CabHelpers.setAppointmentDate(30, '', '')
+      CabHelpers.setReviewDate('', 7, '')
+      cy.continue()
+      cy.hasError('Appointment date (optional)', 'Appointment date must include a month and year.')
+      cy.hasError('Review date (optional)', 'Review date must include a day and year.')
+    })
+
+    it('validates review date to be within 5 years from yesterday if appointment date is not provided', function() {
+      this.cab.appointmentDate = null
+      this.cab.reviewDate = Cypress.dayjs().add(1, 'day')
+      CabHelpers.enterCabDetails(this.cab)
+      cy.hasError('Review date (optional)', 'The review date must be within 5 years of the appointment date.')
+    })
   })
   
   context('when entering contact details', function() {
