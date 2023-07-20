@@ -56,14 +56,14 @@ describe('Feedback form', () => {
     })
 
     it('collapses when Cancel is clicked', () => {
-      feedbackForm().contains('a', 'Cancel').click()
+      feedbackForm().contains('a,button', 'Cancel').click()
       feedbackForm().should('not.have.attr', 'open')
     })
 
     it('displays success message upon successful submission with option to submit new feedback', () => {
       submitFeedback('Doing something', 'Something wrong')
       feedbackForm().contains('Thank you for your help We will look to improve this service based on your feedback.')
-      feedbackForm().contains('a', 'Submit another feedback').click()
+      feedbackForm().contains('a', 'Submit further feedback on this page').click()
       feedbackForm().should('have.attr', 'open')
       EmailHelpers.getLastUserEmail('test.feedback@teset.gov.uk').then(email => {
         expect(email.isRecent).to.be.true
