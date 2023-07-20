@@ -9,39 +9,36 @@ describe('CAB profile page', function() {
       cy.wrap(cab).as('cab')
     })
   })
-  
+
   const supportingDocumentsTab = () => {
     return cy.contains('#tab_supporting-documents', 'Supporting documents')
   }
-  
-  it('displays CAB name heading', function() {
-    cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-    cy.get('.govuk-heading-l').contains(this.cab.name)
-  })
 
-  it('has back to search results link', function() {
-    cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-    cy.get('a').contains('Back to Search Results').and('has.attr', 'href', searchPath())
-  })
-  
-  it('displays published and updated date', function() {
-    cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-    cy.contains(`Published: ${date(this.cab.publishedDate).DMMMYYYY}`)
-    cy.contains(`Last updated: ${date(this.cab.lastUpdatedDate).DMMMYYYY}`)
-  })
+  context('when logged out', function() {
 
-  it('does not display Supporting Documents to logged out users', function() {
-    cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-    supportingDocumentsTab().should('not.exist')
-  })
-  
-  context('when viewing Details', function() {
-    
-    it('displays all expected CAB details', function() {
+    beforeEach(function() {
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+    })
+    
+    it('displays CAB name heading', function() {
+      cy.get('.govuk-heading-l').contains(this.cab.name)
+    })
+  
+    it('has back to search results link', function() {
+      cy.get('a').contains('Back to Search Results').and('has.attr', 'href', searchPath())
+    })
+    
+    it('displays published and updated date', function() {
+      cy.contains(`Published: ${date(this.cab.publishedDate).DMMMYYYY}`)
+      cy.contains(`Last updated: ${date(this.cab.lastUpdatedDate).DMMMYYYY}`)
+    })
+
+    it('displays all expected CAB details', function() {
       cy.contains('.cab-detail-section', 'CAB details').within(() => {
         cy.hasKeyValueDetail('CAB name', this.cab.name)
         cy.hasKeyValueDetail('Body number', valueOrNotProvided(this.cab.cabNumber))
+        cy.contains('Appointment date').should('not.exist')
+        cy.contains('Review date').should('not.exist')
         cy.hasKeyValueDetail('UKAS reference number', valueOrNotProvided(this.cab.ukasRef))
       })
       cy.contains('.cab-detail-section', 'Contact details').within(() => {
@@ -65,16 +62,51 @@ describe('CAB profile page', function() {
         cy.hasKeyValueDetail('Legislative area', this.cab.legislativeAreas.join(' '))
       })
     })
-  })
-  
-  context('when viewing Product Schedules', function() {
-    
-    beforeEach(function() {
-      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-      cy.contains('#tab_product-schedules', 'Product schedules').click()
+
+    it('does not display Supporting Documents to logged out users', function() {
+      supportingDocumentsTab().should('not.exist')
     })
-    
+  })
+
+  context('when logged in', function() {
+
+    beforeEach(function() {
+      cy.loginAsOpssUser()
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+    })
+
+    it('displays all expected CAB details', function() {
+      cy.contains('.cab-detail-section', 'CAB details').within(() => {
+        cy.hasKeyValueDetail('CAB name', this.cab.name)
+        cy.hasKeyValueDetail('CAB number', valueOrNotProvided(this.cab.cabNumber))
+        cy.hasKeyValueDetail('Appointment date', valueOrNotProvided(date(this.cab.appointmentDate).DMMMYYYY))
+        cy.hasKeyValueDetail('Review date', valueOrNotProvided(date(this.cab.reviewDate).DMMMYYYY))
+        cy.hasKeyValueDetail('UKAS reference number', valueOrNotProvided(this.cab.ukasRef))
+      })
+      cy.contains('.cab-detail-section', 'Contact details').within(() => {
+        cy.hasKeyValueDetail('Address', this.cab.addressLines.join(', '))
+        if(this.cab.website) {
+          cy.hasKeyValueDetail('Website', this.cab.website).and('have.attr', 'href', this.cab.website.startsWith('https://') ? this.cab.website : 'https://' + this.cab.website).and('have.attr', 'target', '_blank')
+        } else {
+          valueOrNotProvided(this.cab.website)
+        }
+        if(this.cab.email) {
+          cy.hasKeyValueDetail('Email', this.cab.email).and('have.attr', 'href', `mailto: ${this.cab.email}`)
+        } else {
+          valueOrNotProvided(this.cab.email)
+        }
+        cy.hasKeyValueDetail('Telephone', this.cab.phone)
+        cy.hasKeyValueDetail('Registered office location', this.cab.registeredOfficeLocation)
+      })
+      cy.contains('.cab-detail-section', 'Body details').within(() => {
+        cy.hasKeyValueDetail('Registered test location', valueOrNotProvided(this.cab.testingLocations?.join(' ')))
+        cy.hasKeyValueDetail('Body type', this.cab.bodyTypes.join(' '))
+        cy.hasKeyValueDetail('Legislative area', this.cab.legislativeAreas.join(' '))
+      })
+    })
+
     it('displays viewable and downloadable list of uploaded schedules', function() {
+      cy.contains('#tab_product-schedules', 'Product schedules').click()
       cy.contains('.cab-detail-section', 'Product schedules').within(() => {
         this.cab.schedules.forEach((schedule,index) => {
           // Known cypress issue with dowbload links timeout  - https://github.com/cypress-io/cypress/issues/14857
@@ -88,17 +120,9 @@ describe('CAB profile page', function() {
         })
       })
     })
-  })
-
-  context('when viewing Supporting Documents', function() {
-    
-    beforeEach(function() {
-      cy.login()
-      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-      supportingDocumentsTab().click()
-    })
 
     it('displays viewable and downloadable list of supporting documents', function() {
+      supportingDocumentsTab().click()
       cy.contains('.cab-detail-section', 'Supporting documents').within(() => {
         this.cab.documents.forEach((document,index) => {
           // Known cypress issue with dowbload links timeout  - https://github.com/cypress-io/cypress/issues/14857

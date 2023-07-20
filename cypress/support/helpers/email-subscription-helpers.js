@@ -32,7 +32,7 @@ export const updateCabToTriggerSubscription = (cab) => {
   let cloneCab = Cypress._.cloneDeep(cab)
   cy.ensureOn(CabHelpers.cabProfilePage(cab))
   CabHelpers.editCabButton().click()
-  CabHelpers.editCabDetail('About')
+  CabHelpers.editCabDetail('CAB details')
   cloneCab.name = cab.name.replace(/Ltd.*/,`Ltd Edited ${uniqueId}`)
   CabHelpers.enterCabDetails(cloneCab)
   CabHelpers.clickPublish()

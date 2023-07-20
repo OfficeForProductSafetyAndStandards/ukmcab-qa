@@ -347,7 +347,7 @@ describe('Creating a new CAB', () => {
       // Edit cab details
       cloneCab.name = `Test Cab ${uniqueId}`
       cloneCab.appointmentDate = Cypress.dayjs().subtract('5', 'days')
-      CabHelpers.editCabDetail('About')
+      CabHelpers.editCabDetail('CAB details')
       CabHelpers.enterCabDetails(cloneCab)
       CabHelpers.hasDetailsConfirmation(cloneCab)
 

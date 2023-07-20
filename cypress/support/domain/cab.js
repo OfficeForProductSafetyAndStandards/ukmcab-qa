@@ -11,7 +11,7 @@ export default class Cab {
     this.county = cabData.County
     this.postcode = cabData.Postcode
     this.country = cabData.Country
-    this.appointmentDate = Cypress.dayjs(cabData.AppointmentDate)
+    this.appointmentDate = cabData.AppointmentDate && Cypress.dayjs(cabData.AppointmentDate)
     this.cabId = cabData.CABId
     this.cabNumber = cabData.CABNumber
     this.bodyTypes = cabData.BodyTypes
@@ -26,7 +26,7 @@ export default class Cab {
     this.pointOfContactEmail = cabData.PointOfContactEmail
     this.pointOfContactPhone = cabData.PointOfContactPhone
     this.registeredOfficeLocation = cabData.RegisteredOfficeLocation
-    this.reviewDate = Cypress.dayjs(cabData.RenewalDate)
+    this.reviewDate = cabData.RenewalDate && Cypress.dayjs(cabData.RenewalDate)
     this.testingLocations = cabData.TestingLocations
     this._schedules = cabData.Schedules
     this._documents = cabData.Documents
