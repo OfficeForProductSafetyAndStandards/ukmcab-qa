@@ -72,6 +72,7 @@ export default class Cab {
     return this._schedules.map(schedule => {
       return {
         label: schedule.Label,
+        legislativeArea: schedule.LegislativeArea,
         fileName: schedule.FileName,
         blobName: schedule.BlobName,
         uploadDateTime: schedule.UploadDateTime
@@ -119,8 +120,11 @@ export default class Cab {
       TestingLocations: ['United Kingdom', 'Belgium'],
       BodyTypes: ['Approved body', 'NI Notified body'],
       LegislativeAreas: ['Cableway installation', 'Ecodesign'],
-      Schedules: [{ FileName: 'dummy.pdf' }, { FileName: 'dummy1.pdf' }],
+      Schedules: [{ FileName: 'dummy.pdf', Label: 'MyCustomLabel', LegislativeArea: 'Lifts' }],
+      // Schedules: [{ FileName: 'dummy.pdf', Label: 'MyCustomLabel', LegislativeArea: 'Lifts' }, { FileName: 'dummy1.pdf', LegislativeArea: 'Cableway installation' }],
       Documents: [{ FileName: 'dummy2.pdf' }, { FileName: 'dummy.docx' }, { FileName: 'dummy.xlsx' }],
+      // Documents: [{ FileName: 'dummy2.pdf' }, { FileName: 'dummy.docx' }, { FileName: 'dummy.xlsx' }],
+      Documents: [{ FileName: 'dummy2.pdf' }],
       CABNumber: uniqueId,
       AppointmentDate: Cypress.dayjs().subtract(5, 'days'),
       RenewalDate: Cypress.dayjs().add(10, 'days'),

@@ -122,8 +122,8 @@ export const hasDetailsConfirmation = (cab) => {
   cy.hasKeyValueDetail('Body type', cab.bodyTypes.join(''))
   cy.hasKeyValueDetail('Legislative area', cab.legislativeAreas.join(''))
 
-  filenames(cab.schedules).forEach(filename => {
-    cy.contains('Schedule').next().contains(filename)
+  cab.schedules.forEach((schedule) => {
+    cy.contains('Schedule').next().contains('a', schedule.label ?? schedule.fileName)
   })
   filenames(cab.documents).forEach(filename => {
     cy.contains('Document').next().contains(filename)
@@ -145,6 +145,12 @@ export const uploadFiles = (files) => {
   files.forEach((file, index, files) => {
     cy.get('input[type=file]').selectFile(`cypress/fixtures/${file.fileName}`)
     upload()
+    if(file.label) {
+      setFileLabel(file.fileName, file.label)
+    }
+    if(file.legislativeArea) {
+      setLegislativeArea(file.fileName, file.legislativeArea)
+    }
     if(index < files.length - 1) { cy.contains('Upload another file').click() }
   })
 }
@@ -153,12 +159,33 @@ export const filenames = (files) => {
   return files.map(f => { return f.fileName})
 }
 
+export const hasUploadedSchedules = (files) => {
+  cy.get('tbody tr').each(($row, index) => {
+    cy.wrap($row).find('td').eq(0).should('contain', `${index+1}. ${files[index].fileName}`)
+    cy.wrap($row).find('td').eq(0).find('input').should('have.value', files[index].fileName)
+    cy.wrap($row).find('td').eq(1).find('select').find(':selected').should('have.text', 'Not assigned')
+    cy.wrap($row).find('td').eq(2).contains('button', 'Remove')
+  })
+}
+
 export const hasUploadedFileNames = (files) => {
   cy.get('tbody tr').each(($row, index) => {
     cy.wrap($row).find('td').eq(0).should('contain', `${index+1}.`)
     cy.wrap($row).find('td').eq(1).should('contain', files[index].fileName)
     cy.wrap($row).find('td').eq(2).contains('button', 'Remove').and('has.attr', 'value', files[index].fileName)
   })
+}
+
+export const uploadedFile = (filename) => {
+  return cy.contains('tbody tr', filename)
+}
+
+export const setFileLabel = (filename, newFileName) => {
+  uploadedFile(filename).find('input:visible').clear().type(newFileName)
+}
+
+export const setLegislativeArea = (filename, value) => {
+  uploadedFile(filename).find('select').select(value)
 }
 
 export const archiveCab = (cab, reason='Archive reason') => {

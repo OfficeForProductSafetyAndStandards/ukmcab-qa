@@ -81,9 +81,13 @@ describe('Creating a new CAB', () => {
 
     it('validates review date to be within 5 years from yesterday if appointment date is not provided', function() {
       this.cab.appointmentDate = null
-      this.cab.reviewDate = Cypress.dayjs().add(1, 'day')
+      this.cab.reviewDate = Cypress.dayjs().add(5, 'years')
       CabHelpers.enterCabDetails(this.cab)
       cy.hasError('Review date (optional)', 'The review date must be within 5 years of the appointment date.')
+      // make sure date within 5 years is accepted
+      this.cab.reviewDate = Cypress.dayjs().add(5, 'years').subtract(1, 'day')
+      CabHelpers.enterCabDetails(this.cab)
+      cy.contains('h1', 'Contact details')
     })
   })
   
@@ -170,8 +174,20 @@ describe('Creating a new CAB', () => {
     it('only allows upto 5 files to be uploaded', function() {
       const files = [{ fileName: 'dummy.pdf' }, { fileName: 'dummy1.pdf' }, { fileName: 'dummy2.pdf' }, { fileName: 'dummy3.pdf' }, { fileName: 'dummy4.pdf' }]
       CabHelpers.uploadFiles(files)
-      CabHelpers.hasUploadedFileNames(files)
+      CabHelpers.hasUploadedSchedules(files)
       cy.contains('Upload another file').should('not.exist')
+    })
+
+    it('allows user to assign label and legislative area for uploaded files', function() {
+      CabHelpers.uploadFiles([{ fileName: 'dummy.pdf' }, { fileName: 'dummy1.pdf' }, { fileName: 'dummy2.pdf' }])
+      CabHelpers.setFileLabel('dummy.pdf', 'New Dummy Label')
+      CabHelpers.setLegislativeArea('dummy.pdf', 'Cableway installation')
+      CabHelpers.setFileLabel('dummy1.pdf', 'NewDummy1Label.pdf')
+      CabHelpers.setLegislativeArea('dummy1.pdf', 'Cableway installation')
+      CabHelpers.setFileLabel('dummy2.pdf', 'ReaaaaaaaaaaaaaaaaaaaaaaaallyLooooooooooooooooooooooongLaaaaaaaaaaaaaabel')
+      CabHelpers.setLegislativeArea('dummy2.pdf', 'Cableway installation')
+      cy.continue()
+      cy.contains('Upload the supporting documents')
     })
 
     it('canceling file upload returns user back to Admin page', function() {
@@ -294,6 +310,10 @@ describe('Creating a new CAB', () => {
       cy.contains(`Published: ${date(new Date()).DMMMYYYY}`)
       cy.contains(`Last updated: ${date(new Date()).DMMMYYYY}`)
     })
+
+    // it.only('displays custom titles if provided during file upload', function() {
+    //   CabHelpers.createCab(this.cab)
+    // })
 
     it('publishes an existing draft cab and removes it from Cab Management', function() {
       CabHelpers.enterCabDetails(this.cab)
