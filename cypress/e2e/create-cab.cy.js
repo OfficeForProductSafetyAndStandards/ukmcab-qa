@@ -283,9 +283,14 @@ describe('Creating a new CAB', () => {
       cy.get('button').contains('Publish').should('be.disabled')
     })
 
-    it('is successful with valid data entry', function() {
+    it('displays custom file labels on cab page if provided', function() {
       CabHelpers.createCab(this.cab)
       CabHelpers.hasCabPublishedConfirmation(this.cab)
+      cy.contains('a', 'View CAB').click()
+      CabHelpers.viewSchedules()
+      this.cab.schedules.forEach(schedule => {
+        schedule.label ? cy.contains(schedule.label) : cy.contains(schedule.fileName)
+      })
     })
 
     it('point of contact info is only displayed to internal users if restricted', function() {
@@ -311,10 +316,6 @@ describe('Creating a new CAB', () => {
       cy.contains(`Last updated: ${date(new Date()).DMMMYYYY}`)
     })
 
-    // it.only('displays custom titles if provided during file upload', function() {
-    //   CabHelpers.createCab(this.cab)
-    // })
-
     it('publishes an existing draft cab and removes it from Cab Management', function() {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
@@ -339,7 +340,7 @@ describe('Creating a new CAB', () => {
       CabHelpers.uploadDocuments(this.cab)
       CabHelpers.hasDetailsConfirmation(this.cab)
     })
-    
+
     it('allows editing any of the details', function() {
       let cloneCab = this.cab
       let uniqueId = Date.now()

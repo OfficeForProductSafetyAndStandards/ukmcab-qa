@@ -105,8 +105,8 @@ export const clickPublish = () => {
 export const hasDetailsConfirmation = (cab) => {
   cy.hasKeyValueDetail('CAB name', cab.name)
   cy.hasKeyValueDetail('CAB number', cab.cabNumber)
-  cy.hasKeyValueDetail('Appointment date (optional)', valueOrNotProvided(date(cab.appointmentDate)?.DDMMYYYY))
-  cy.hasKeyValueDetail('Review date (optional)', valueOrNotProvided(date(cab.reviewDate)?.DDMMYYYY))
+  cy.hasKeyValueDetail('Appointment date (optional)', valueOrNotProvided(date(cab.appointmentDate)?.DMMMYYYY))
+  cy.hasKeyValueDetail('Review date (optional)', valueOrNotProvided(date(cab.reviewDate)?.DMMMYYYY))
   cy.hasKeyValueDetail('UKAS reference number (optional)', valueOrNotProvided(cab.ukasRef))
   cy.hasKeyValueDetail('Address', valueOrNotProvided(cab.addressLines.join('')))
   cy.hasKeyValueDetail('Website (optional)', valueOrNotProvided(cab.website))
@@ -124,6 +124,7 @@ export const hasDetailsConfirmation = (cab) => {
 
   cab.schedules.forEach((schedule) => {
     cy.contains('Schedule').next().contains('a', schedule.label ?? schedule.fileName)
+    cy.contains('Schedule').next().contains(schedule.legislativeArea)
   })
   filenames(cab.documents).forEach(filename => {
     cy.contains('Document').next().contains(filename)
@@ -196,6 +197,10 @@ export const archiveCab = (cab, reason='Archive reason') => {
   cy.get('h2').contains('Archive')
   cy.contains(`Archived on ${date(new Date()).DDMMMYYYY} by OPSS Admin User`)
   cy.contains(reason)
+}
+
+export const viewSchedules = () => {
+  cy.contains('#tab_product-schedules', 'Product schedules').click()
 }
 
 export const getTestCab = () => {

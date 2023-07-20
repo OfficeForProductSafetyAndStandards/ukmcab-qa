@@ -106,7 +106,7 @@ describe('CAB profile page', function() {
     })
 
     it('displays viewable and downloadable list of uploaded schedules', function() {
-      cy.contains('#tab_product-schedules', 'Product schedules').click()
+      CabHelpers.viewSchedules()
       cy.contains('.cab-detail-section', 'Product schedules').within(() => {
         this.cab.schedules.forEach((schedule,index) => {
           // Known cypress issue with dowbload links timeout  - https://github.com/cypress-io/cypress/issues/14857

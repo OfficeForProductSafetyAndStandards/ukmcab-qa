@@ -122,7 +122,6 @@ export default class Cab {
       LegislativeAreas: ['Cableway installation', 'Ecodesign'],
       Schedules: [{ FileName: 'dummy.pdf', Label: 'MyCustomLabel', LegislativeArea: 'Lifts' }],
       // Schedules: [{ FileName: 'dummy.pdf', Label: 'MyCustomLabel', LegislativeArea: 'Lifts' }, { FileName: 'dummy1.pdf', LegislativeArea: 'Cableway installation' }],
-      Documents: [{ FileName: 'dummy2.pdf' }, { FileName: 'dummy.docx' }, { FileName: 'dummy.xlsx' }],
       // Documents: [{ FileName: 'dummy2.pdf' }, { FileName: 'dummy.docx' }, { FileName: 'dummy.xlsx' }],
       Documents: [{ FileName: 'dummy2.pdf' }],
       CABNumber: uniqueId,
