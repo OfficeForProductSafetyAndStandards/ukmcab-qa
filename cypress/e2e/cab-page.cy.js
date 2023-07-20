@@ -39,8 +39,9 @@ describe('CAB profile page', function() {
     
     it('displays all expected CAB details', function() {
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-      cy.contains('.cab-detail-section', 'About').within(() => {
+      cy.contains('.cab-detail-section', 'CAB details').within(() => {
         cy.hasKeyValueDetail('CAB name', this.cab.name)
+        cy.hasKeyValueDetail('Body number', valueOrNotProvided(this.cab.cabNumber))
         cy.hasKeyValueDetail('UKAS reference number', valueOrNotProvided(this.cab.ukasRef))
       })
       cy.contains('.cab-detail-section', 'Contact details').within(() => {
@@ -60,7 +61,6 @@ describe('CAB profile page', function() {
       })
       cy.contains('.cab-detail-section', 'Body details').within(() => {
         cy.hasKeyValueDetail('Registered test location', valueOrNotProvided(this.cab.testingLocations?.join(' ')))
-        cy.hasKeyValueDetail('Body number', valueOrNotProvided(this.cab.cabNumber))
         cy.hasKeyValueDetail('Body type', this.cab.bodyTypes.join(' '))
         cy.hasKeyValueDetail('Legislative area', this.cab.legislativeAreas.join(' '))
       })
