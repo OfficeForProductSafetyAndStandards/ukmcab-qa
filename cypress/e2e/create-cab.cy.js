@@ -190,6 +190,18 @@ describe('Creating a new CAB', () => {
       cy.contains('Upload the supporting documents')
     })
 
+    it('displays error if legislative area is not assigned', function() {
+      CabHelpers.uploadFiles([{ fileName: 'dummy.pdf' }])
+      cy.continue()
+      cy.hasError('Legislative area', 'Enter a legislative area')
+    })
+
+    it('displays error if legislative area is not selected and draft is saved', function() {
+      CabHelpers.uploadFiles([{ fileName: 'dummy.pdf' }])
+      CabHelpers.saveAsDraft()
+      cy.hasError('Legislative area', 'Enter a legislative area')
+    })
+
     it('canceling file upload returns user back to Admin page', function() {
       cy.contains('Cancel').click()
       cy.location('pathname').should('equal', CabHelpers.cabManagementPath())
@@ -290,6 +302,8 @@ describe('Creating a new CAB', () => {
       CabHelpers.viewSchedules()
       this.cab.schedules.forEach(schedule => {
         schedule.label ? cy.contains(schedule.label) : cy.contains(schedule.fileName)
+        // TODO: GROUP AND SORT LEGISLATIVE AREAS WHEN MULTIPE UPLOAD ISSUE IS FIXED
+        cy.contains(schedule.legislativeArea) // TMP check
       })
     })
 

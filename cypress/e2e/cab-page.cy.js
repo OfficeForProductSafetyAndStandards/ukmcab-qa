@@ -108,6 +108,9 @@ describe('CAB profile page', function() {
     it('displays viewable and downloadable list of uploaded schedules', function() {
       CabHelpers.viewSchedules()
       cy.contains('.cab-detail-section', 'Product schedules').within(() => {
+
+        // TODO: GROUP AND SORT LEGISLATIVE AREAS WHEN MULTIPE UPLOAD ISSUE IS FIXED
+        
         this.cab.schedules.forEach((schedule,index) => {
           // Known cypress issue with dowbload links timeout  - https://github.com/cypress-io/cypress/issues/14857
           cy.window().then((win) => { setTimeout(() => { win.location.reload() },5000) }) 
