@@ -124,6 +124,54 @@ describe('CAB profile page', function() {
       })
     })
 
+    // Some mapping has been added that maps legacy(imported) cab schedules to legislative areas.
+    // This is done at DB level. This test has picked out an entry from that mapping spreadhseet
+    // and validates that all those entries are displayed on the page for this cab.
+    it('displays correct mapping of legislative areas for legacy cabs', function() {
+      const expectedData = [
+        {
+          "Lifts": 'Lifts regulations 2016'
+        },
+        {
+          "Transportable pressure equipment": 'Transportable Pressure Equipment Regulations 2009'
+        },
+        {
+          "Gas appliances and related": 'Appliances Burning Gas Regulations EU 2016/426 (as retained in UK law and amended)'
+        },
+        {
+          "Measuring instruments": 'Measuring Instruments Regulations 2016'
+        },
+        {
+          "Construction products": 'The Construction Products Regulation 2011 (EU) No 305/2011 as it has effect in the UK as retained EU law and by virtue of the Northern Ireland Protocol'
+        },
+        {
+          "Marine equipment": 'Marine Equipment Regulations 2016'
+        },
+        {
+          "Personal protective equipment": 'Personal Protective Equipment Regulations (Regulation (EU) 2016/425 as brought into UK law and amended) and the Personal Protective Equipment (Enforcement) Regulations 2018'
+        },
+        {
+          "Pressure equipment": 'Pressure Equipment (Safety) Regulations 2016'
+        },
+        {
+          "Radio equipment": 'Radio Equipment Regulations 2017'
+        },
+        {
+          "Ecodesign": 'Ecodesign (Boiler Efficiency Regulations)'
+        },
+        {
+          "Medical devices": 'UK-Australia MRA'
+        }
+      ]
+      cy.ensureOn('/search/cab-profile/bsi-assurance-uk-ltd')
+      CabHelpers.viewSchedules()
+      expectedData.forEach(data => {
+        Object.entries(data).forEach(entry => {
+          cy.contains('h3', entry[0]).next('dl').contains(entry[1])
+        })
+      })
+    })
+
     it('displays viewable and downloadable list of supporting documents', function() {
       supportingDocumentsTab().click()
       cy.contains('.cab-detail-section', 'Supporting documents').within(() => {
