@@ -41,6 +41,27 @@ const _applyFilter = (filterGroup, filters) => {
   })
 }
 
+export const topFilterSelection = () => {
+  return cy.get('#search-results-filter-list')
+} 
+
+export const hasAppliedFilters = (filters) => {
+  topFilterSelection().within(() => {
+    cy.get('a').eq(0).invoke('text')
+    filters.forEach(filter => {
+      cy.contains(filter + ' x')
+    })
+  })
+} 
+
+export const removeFromTopFilters = (filters) => {
+  topFilterSelection().within(() => {
+    filters.forEach(filter => {
+      cy.contains('a', filter).click().should('not.exist')
+    })
+  })
+} 
+
 export const azureSearchResults = (term, options) => {
   return cy.getSearchResults(term, options).then(results => {
     return results.map(result => new AzureCabResult(result))

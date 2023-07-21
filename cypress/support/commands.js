@@ -85,7 +85,6 @@ Cypress.Commands.add('getSearchResults', (keywords, options={}) => {
     headers: {
       'api-key' : Cypress.env('AZURE_SEARCH_API_KEY')
     },
-    // url: 'https://acs-ukmcab-dev.search.windows.net/indexes/ukmcab-search-index-v1-1/docs/search?api-version=2020-06-30',
     url: Cypress.env('AZURE_SEARCH_URL') + '/indexes/ukmcab-search-index-v1-1/docs/search?api-version=2020-06-30',
     body: {
       search: keywords,

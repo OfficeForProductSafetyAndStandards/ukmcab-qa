@@ -79,8 +79,8 @@ describe('CAB profile page', function() {
       cy.contains('.cab-detail-section', 'CAB details').within(() => {
         cy.hasKeyValueDetail('CAB name', this.cab.name)
         cy.hasKeyValueDetail('CAB number', valueOrNotProvided(this.cab.cabNumber))
-        cy.hasKeyValueDetail('Appointment date', valueOrNotProvided(date(this.cab.appointmentDate).DMMMYYYY))
-        cy.hasKeyValueDetail('Review date', valueOrNotProvided(date(this.cab.reviewDate).DMMMYYYY))
+        cy.hasKeyValueDetail('Appointment date', valueOrNotProvided(date(this.cab.appointmentDate)?.DMMMYYYY))
+        cy.hasKeyValueDetail('Review date', valueOrNotProvided(date(this.cab.reviewDate)?.DMMMYYYY))
         cy.hasKeyValueDetail('UKAS reference number', valueOrNotProvided(this.cab.ukasRef))
       })
       cy.contains('.cab-detail-section', 'Contact details').within(() => {

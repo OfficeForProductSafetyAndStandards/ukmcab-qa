@@ -242,6 +242,31 @@ describe('CAB Search', () => {
       })
     })
 
+    it('displays applied filters above the search results', function() {
+      const bodyTypes = ['Approved body', 'Overseas body']
+      const legislativeAreas = ['Construction products', 'Electromagnetic compatibility']
+      SearchHelpers.filterByBodyType(bodyTypes)
+      SearchHelpers.filterByLegislativeArea(legislativeAreas)
+      SearchHelpers.hasAppliedFilters(bodyTypes.concat(legislativeAreas))
+    })
+
+    it('displays correct results when some of the applied filters are removed', function() {
+      const bodyTypes = ['Approved body', 'Overseas body']
+      const legislativeAreas = ['Construction products', 'Electromagnetic compatibility']
+      SearchHelpers.filterByBodyType(bodyTypes)
+      SearchHelpers.filterByLegislativeArea(legislativeAreas)
+      const filterOptions = {"BodyTypes": ['Overseas body'], "LegislativeAreas": ['Electromagnetic compatibility']}
+      SearchHelpers.removeFromTopFilters(['Approved body', 'Construction products'])
+        SearchHelpers.azureSearchResults('', {filter: SearchHelpers.buildFilterQuery({"BodyTypes": ['Overseas body'], "LegislativeAreas": ['Electromagnetic compatibility']}), orderby: 'RandomSort asc'}).then(expectedResults => {
+          const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
+          SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
+            const actualCabs = Cypress._.map(actualResults, 'innerText')
+            SearchHelpers.topPagination().contains(`Showing 1 - ${expectedCabs.length} of ${expectedResults.length} bodies`)
+            expect(actualCabs).to.eql(expectedCabs)
+        })
+      })
+    })
+
     it('clears all applied filters and displays default results when filters are cleared', function() {
       SearchHelpers.searchCab('Limited')
       SearchHelpers.filterByLegislativeArea(['Construction products', 'Electromagnetic compatibility'])
