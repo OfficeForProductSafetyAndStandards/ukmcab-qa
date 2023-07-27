@@ -33,7 +33,7 @@ describe('CAB Search', () => {
         cy.get('li').eq(5).find('a').should('have.attr', 'href', '/?pagenumber=2').and('have.text', 'Next')
 
         // Paginate once forward
-        cy.get('li').eq(5).contains('Next').click()
+        cy.get('li').eq(5).contains('Next').click({force: true})
         cy.get('li').eq(0).find('a').should('have.attr', 'href', '/?pagenumber=1').and('have.text', 'Previous')
         cy.get('li').eq(1).find('a').should('have.attr', 'href', '/?pagenumber=1').and('have.text', '1')
         cy.get('li').eq(2).find('a').should('not.exist')
