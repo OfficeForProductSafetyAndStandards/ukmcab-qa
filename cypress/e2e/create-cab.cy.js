@@ -348,6 +348,12 @@ describe('Creating a new CAB', () => {
         CabHelpers.uploadSchedules(this.cab)
         CabHelpers.uploadDocuments(this.cab)
         cy.hasKeyValueDetail('CAB name', 'This CAB name already exists. Only create this CAB if you have contacted OPSS for approval.')
+
+        // also check that its removed when user corrects cab name to be unique
+        CabHelpers.editCabDetail('CAB details')
+        this.cab.name = `Test Cab ${Date.now()}`
+        CabHelpers.enterCabDetails(this.cab)
+        cy.hasKeyValueDetail('CAB name', 'This CAB name already exists. Only create this CAB if you have contacted OPSS for approval.').should('not.exist')
       })
     })
 
