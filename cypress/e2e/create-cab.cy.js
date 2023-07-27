@@ -18,11 +18,10 @@ describe('Creating a new CAB', () => {
       cy.hasError('CAB number', 'Enter a CAB number')
     })
     
-    it('displays error if a CAB with name, Cab number or Ukas ref already exists', function() {
+    it('displays error if Cab number or Ukas ref already exists', function() {
       CabHelpers.getTestCabWithCabNumberAndUkasRef().then(cab => {
         cab.reviewDate = null // old data has invalid dates
         CabHelpers.enterCabDetails(cab)
-        cy.hasError('CAB name', 'This CAB name already exists')
         cy.hasError('CAB number', 'This CAB number already exists')
         cy.hasError('UKAS reference (optional)', 'This UKAS reference number already exists')
       })
@@ -296,7 +295,62 @@ describe('Creating a new CAB', () => {
     })
   })
 
+  context('when reviewing details', function() {
+    
+    beforeEach(function() {
+      CabHelpers.enterCabDetails(this.cab)
+      CabHelpers.enterContactDetails(this.cab)
+      CabHelpers.enterBodyDetails(this.cab)
+      CabHelpers.uploadSchedules(this.cab)
+      CabHelpers.uploadDocuments(this.cab)
+      CabHelpers.hasDetailsConfirmation(this.cab)
+    })
+
+    it('allows editing any of the details', function() {
+      let cloneCab = this.cab
+      let uniqueId = Date.now()
+      
+      // Edit cab details
+      cloneCab.name = `Test Cab ${uniqueId}`
+      cloneCab.appointmentDate = Cypress.dayjs().subtract('5', 'days')
+      CabHelpers.editCabDetail('CAB details')
+      CabHelpers.enterCabDetails(cloneCab)
+      CabHelpers.hasDetailsConfirmation(cloneCab)
+
+       // Edit contact details
+      cloneCab.addressLine1 = 'Newbury house'
+      cloneCab.email = 'support@gov.uk'
+      cloneCab.pointOfContactName = ''
+      cloneCab.isPointOfContactPublicDisplay = true
+      CabHelpers.editCabDetail('Contact details')
+      CabHelpers.enterContactDetails(cloneCab)
+      CabHelpers.hasDetailsConfirmation(cloneCab)
+
+      // Edit body details
+      CabHelpers.editCabDetail('Body details')
+      cloneCab.bodyTypes.push('Overseas body')
+      cloneCab.legislativeAreas.push('Lifts')
+      cloneCab.testingLocations.push('France')
+      CabHelpers.enterBodyDetails(cloneCab)
+      CabHelpers.hasDetailsConfirmation(cloneCab)
+    })
+  })
+
   context('when Publishing a CAB', function() {
+
+    it('displays CAB name advisory if CAB name already exists', function() {
+      CabHelpers.getTestCab().then(cab => {
+        cab.reviewDate = null // old data has invalid dates
+        this.cab.name = cab.name
+        CabHelpers.enterCabDetails(this.cab)
+        CabHelpers.enterContactDetails(this.cab)
+        CabHelpers.enterBodyDetails(this.cab)
+        CabHelpers.uploadSchedules(this.cab)
+        CabHelpers.uploadDocuments(this.cab)
+        cy.hasKeyValueDetail('CAB name', 'This CAB name already exists. Only create this CAB if you have contacted OPSS for approval.')
+      })
+    })
+
     it('Publish button is disabled until all mandatory data has been entered', function() {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.saveAsDraft()
@@ -353,47 +407,5 @@ describe('Creating a new CAB', () => {
       cy.ensureOn(CabHelpers.cabManagementPath())
       cy.get('a').contains(this.cab.name).should('not.exist')
     })
-  })
-
-  context('when reviewing details', function() {
-    
-    beforeEach(function() {
-      CabHelpers.enterCabDetails(this.cab)
-      CabHelpers.enterContactDetails(this.cab)
-      CabHelpers.enterBodyDetails(this.cab)
-      CabHelpers.uploadSchedules(this.cab)
-      CabHelpers.uploadDocuments(this.cab)
-      CabHelpers.hasDetailsConfirmation(this.cab)
-    })
-
-    it('allows editing any of the details', function() {
-      let cloneCab = this.cab
-      let uniqueId = Date.now()
-      
-      // Edit cab details
-      cloneCab.name = `Test Cab ${uniqueId}`
-      cloneCab.appointmentDate = Cypress.dayjs().subtract('5', 'days')
-      CabHelpers.editCabDetail('CAB details')
-      CabHelpers.enterCabDetails(cloneCab)
-      CabHelpers.hasDetailsConfirmation(cloneCab)
-
-       // Edit contact details
-      cloneCab.addressLine1 = 'Newbury house'
-      cloneCab.email = 'support@gov.uk'
-      cloneCab.pointOfContactName = ''
-      cloneCab.isPointOfContactPublicDisplay = true
-      CabHelpers.editCabDetail('Contact details')
-      CabHelpers.enterContactDetails(cloneCab)
-      CabHelpers.hasDetailsConfirmation(cloneCab)
-
-      // Edit body details
-      CabHelpers.editCabDetail('Body details')
-      cloneCab.bodyTypes.push('Overseas body')
-      cloneCab.legislativeAreas.push('Lifts')
-      cloneCab.testingLocations.push('France')
-      CabHelpers.enterBodyDetails(cloneCab)
-      CabHelpers.hasDetailsConfirmation(cloneCab)
-    })
-    
   })
 })
