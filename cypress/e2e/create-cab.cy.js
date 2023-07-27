@@ -61,6 +61,17 @@ describe('Creating a new CAB', () => {
       cy.contains('h1', 'Contact details')
     })
 
+    it('displays button to auto populate review date', function() {
+      CabHelpers.autoFillReviewDate()
+      const expectedDate = Cypress.dayjs().add(18, 'months')
+      CabHelpers.hasReviewDate(expectedDate)
+
+      //check that any existing input is cleared if button is invoked
+      CabHelpers.setReviewDate(date(this.cab.reviewDate).DD, date(this.cab.reviewDate).MM, date(this.cab.reviewDate).YYYY)
+      CabHelpers.autoFillReviewDate()
+      CabHelpers.hasReviewDate(expectedDate)
+    })
+
     it('displays correct error for invalid or missing date fields', function() {
       CabHelpers.setAppointmentDate(32, 7, 2023)
       CabHelpers.setReviewDate(29, 2, 2023)

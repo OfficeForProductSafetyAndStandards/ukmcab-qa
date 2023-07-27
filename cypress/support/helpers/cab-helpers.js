@@ -37,6 +37,16 @@ export const setReviewDate = (day, month, year) => {
   cy.get('#ReviewDateYear').invoke('val', year)
 }
 
+export const autoFillReviewDate = () => {
+  cy.contains('button', 'Add 18 months from today').click()
+}
+
+export const hasReviewDate = (date) => {
+  cy.get('#ReviewDateDay').invoke('val').should('eq', date.date().toString())
+  cy.get('#ReviewDateMonth').invoke('val').should('eq', (date.month() + 1).toString())
+  cy.get('#ReviewDateYear').invoke('val').should('eq', date.year().toString())
+}
+
 export const enterCabDetails = (cab) => {
   cy.get('#Name').invoke('val', cab.name)
   cy.get('#CABNumber').invoke('val', cab.cabNumber)
@@ -212,6 +222,12 @@ export const getTestCab = () => {
 export const getTestCabWithCabNumber = () => {
   return getAllPublishedCabs().then(cabs => {
     return cabs.find(c => c.cabNumber !== null)
+  })
+}
+
+export const getTestCabWithReviewDate= () => {
+  return getAllPublishedCabs().then(cabs => {
+    return cabs.find(c => c.reviewDate !== null)
   })
 }
 

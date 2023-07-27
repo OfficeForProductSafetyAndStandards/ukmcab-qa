@@ -3,27 +3,33 @@ import { date } from '../support/helpers/formatters'
 
 describe('Editing a CAB', () => {
 
-  beforeEach(function() {
-    CabHelpers.getTestCabForEditing().then(cab => {
-      cy.wrap(cab).as('cab')
+  context('when logged out', function() {
+
+    beforeEach(function() {
+      CabHelpers.getTestCabForEditing().then(cab => {
+        cy.wrap(cab).as('cab')
+      })
     })
-  })
-  
-  it('if not possible when logged out', function() {
-    cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-    CabHelpers.editCabButton().should('not.exist')
+    
+    it('if not possible when logged out', function() {
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.editCabButton().should('not.exist')
+    })
+
   })
   
   context('when logged in', function() {
-    
+
     beforeEach(function() {
-      cy.loginAsOpssUser()
-      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-      CabHelpers.editCabButton().click()
+      CabHelpers.getTestCabForEditing().then(cab => {
+        cy.wrap(cab).as('cab')
+        cy.loginAsOpssUser()
+        cy.ensureOn(CabHelpers.cabProfilePage(cab))
+        CabHelpers.editCabButton().click()
+      })
     })
 
     it('allows editing a cab and publishing updated cab details', function() {
-      console.log(this.cab)
       let cloneCab = Cypress._.cloneDeep(this.cab)
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('CAB details')
@@ -165,5 +171,24 @@ describe('Editing a CAB', () => {
       })
     })
 
+  })
+
+  context('when editing a CAB with review date', function() {
+
+    beforeEach(function() {
+      CabHelpers.getTestCabWithReviewDate().then(cab => {
+        cy.wrap(cab).as('cab')
+        cy.loginAsOpssUser()
+        cy.ensureOn(CabHelpers.cabProfilePage(cab))
+        CabHelpers.editCabButton().click()
+      })
+    })
+
+    it('sets review date to 18 years from existing review date if auto fill button is invoked', function() {
+      CabHelpers.editCabDetail('CAB details')
+      CabHelpers.autoFillReviewDate()
+      const expectedDate = this.cab.reviewDate.add(18, 'months')
+      CabHelpers.hasReviewDate(expectedDate)
+    })
   })
 })
