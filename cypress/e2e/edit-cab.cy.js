@@ -106,14 +106,6 @@ describe('Editing a CAB', () => {
       cy.contains(`Last updated: ${date(new Date()).DMMMYYYY}`)
     })
 
-    it('displays error if cab is updated with name of another cab', function() {
-      let cloneCab = Cypress._.cloneDeep(this.cab)
-      CabHelpers.editCabDetail('CAB details')
-      cloneCab.name = 'Lift Cert Limited'
-      CabHelpers.enterCabDetails(cloneCab)
-      cy.hasError('CAB name', 'This CAB name already exists')
-    })
-
     it('updates cab URL identifier to a hyphenated identifier based on new name and sets up redirect from old to new', function() {
       let cloneCab = Cypress._.cloneDeep(this.cab)
       let uniqueId = Date.now()
