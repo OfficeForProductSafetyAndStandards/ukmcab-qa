@@ -9,7 +9,8 @@ export const createCab = (cab) => {
   enterCabDetails(cab)
   enterContactDetails(cab)
   enterBodyDetails(cab)
-  uploadSchedules(cab)
+  uploadSchedules(cab.schedules)
+  cy.continue()
   uploadDocuments(cab)
   hasDetailsConfirmation(cab)
   clickPublish()
@@ -19,7 +20,8 @@ export const draftCab = (cab) => {
   enterCabDetails(cab)
   enterContactDetails(cab)
   enterBodyDetails(cab)
-  uploadSchedules(cab)
+  uploadSchedules(cab.schedules)
+  cy.continue()
   uploadDocuments(cab)
   hasDetailsConfirmation(cab)
   saveAsDraft()
@@ -98,9 +100,17 @@ export const enterBodyDetails = (cab) => {
   cy.continue()
 }
 
-export const uploadSchedules = (cab) => {
-  uploadFiles(cab.schedules)
-  cy.continue()
+export const uploadSchedules = (schedules) => {
+  schedules.forEach((file, index, files) => {
+    uploadFile(file)
+    if(file.label) {
+      setFileLabel(file.fileName, file.label)
+    }
+    if(file.legislativeArea) {
+      setLegislativeArea(file.fileName, file.legislativeArea)
+    }
+    if(index < files.length - 1) { cy.contains('Save and upload another file').click() }
+  })
 }
 
 export const uploadDocuments = (cab) => {
@@ -152,16 +162,14 @@ export const hasCabPublishedConfirmation = (cab) => {
 }
 
 // expects files in fixtures folder
+export const uploadFile = (file) => {
+  cy.get('input[type=file]').selectFile(`cypress/fixtures/${file.fileName}`)
+  upload()
+}
+
 export const uploadFiles = (files) => {
   files.forEach((file, index, files) => {
-    cy.get('input[type=file]').selectFile(`cypress/fixtures/${file.fileName}`)
-    upload()
-    if(file.label) {
-      setFileLabel(file.fileName, file.label)
-    }
-    if(file.legislativeArea) {
-      setLegislativeArea(file.fileName, file.legislativeArea)
-    }
+    uploadFile(file)
     if(index < files.length - 1) { cy.contains('Upload another file').click() }
   })
 }
@@ -173,8 +181,8 @@ export const filenames = (files) => {
 export const hasUploadedSchedules = (files) => {
   cy.get('tbody tr').each(($row, index) => {
     cy.wrap($row).find('td').eq(0).should('contain', `${index+1}. ${files[index].fileName}`)
-    cy.wrap($row).find('td').eq(0).find('input').should('have.value', files[index].fileName)
-    cy.wrap($row).find('td').eq(1).find('select').find(':selected').should('have.text', 'Not assigned')
+    cy.wrap($row).find('td').eq(0).find('input').should('have.value', files[index].label)
+    cy.wrap($row).find('td').eq(1).find('select').find(':selected').should('have.text', files[index].legislativeArea)
     cy.wrap($row).find('td').eq(2).contains('button', 'Remove')
   })
 }

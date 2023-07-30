@@ -60,7 +60,7 @@ describe('Creating a new CAB', () => {
       cy.contains('h1', 'Contact details')
     })
 
-    it.only('auto populates review date 18 months from creation date when review date button is used', function() {
+    it('auto populates review date 18 months from creation date when review date button is used', function() {
       CabHelpers.autoFillReviewDate()
       const expectedDate = Cypress.dayjs().add(18, 'months')
       CabHelpers.hasReviewDate(expectedDate)
@@ -155,7 +155,7 @@ describe('Creating a new CAB', () => {
     })
 
     it('displays correct heading and other relevant copy', function() {
-      cy.contains('h1', 'Upload the Schedule of Accreditation')
+      cy.contains('h1', 'Product schedules upload')
       cy.contains('You can upload up to 5 PDF documents.')
       cy.contains('Files you have uploaded')
       cy.contains('0 file uploaded')
@@ -172,7 +172,7 @@ describe('Creating a new CAB', () => {
     })
 
     it('displays error if duplicate file is uploaded', function() {
-      CabHelpers.uploadFiles([{ fileName: 'dummy.pdf' }, { fileName: 'dummy.pdf' }])
+      CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy.pdf' }])
       cy.hasError('Select a PDF file', 'Uploaded files must have different names to those already uploaded.')
     })
 
@@ -182,20 +182,14 @@ describe('Creating a new CAB', () => {
     })
 
     it('only allows upto 5 files to be uploaded', function() {
-      const files = [{ fileName: 'dummy.pdf' }, { fileName: 'dummy1.pdf' }, { fileName: 'dummy2.pdf' }, { fileName: 'dummy3.pdf' }, { fileName: 'dummy4.pdf' }]
-      CabHelpers.uploadFiles(files)
+      const files = [{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy1.pdf', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy2.pdf', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy3.pdf', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy4.pdf', label: 'My Label', legislativeArea: 'Lifts' }]
+      CabHelpers.uploadSchedules(files)
       CabHelpers.hasUploadedSchedules(files)
       cy.contains('Upload another file').should('not.exist')
     })
 
     it('allows user to assign label and legislative area for uploaded files', function() {
-      CabHelpers.uploadFiles([{ fileName: 'dummy.pdf' }, { fileName: 'dummy1.pdf' }, { fileName: 'dummy2.pdf' }])
-      CabHelpers.setFileLabel('dummy.pdf', 'New Dummy Label')
-      CabHelpers.setLegislativeArea('dummy.pdf', 'Cableway installation')
-      CabHelpers.setFileLabel('dummy1.pdf', 'NewDummy1Label.pdf')
-      CabHelpers.setLegislativeArea('dummy1.pdf', 'Cableway installation')
-      CabHelpers.setFileLabel('dummy2.pdf', 'ReaaaaaaaaaaaaaaaaaaaaaaaallyLooooooooooooooooooooooongLaaaaaaaaaaaaaabel')
-      CabHelpers.setLegislativeArea('dummy2.pdf', 'Cableway installation')
+      CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'New Dummy Label', legislativeArea: 'Cableway installation' }, { fileName: 'dummy1.pdf', label: 'NewDummy1Label.pdf', legislativeArea: 'Lifts' }, { fileName: 'dummy2.pdf', label: 'ReaaaaaaaaaaaaaaaaaaaaaaaallyLooooooooooooooooooooooongLaaaaaaaaaaaaaabel', legislativeArea: 'Cableway installation' }])
       cy.continue()
       cy.contains('Upload the supporting documents')
     })
@@ -203,13 +197,13 @@ describe('Creating a new CAB', () => {
     it('displays error if legislative area is not assigned', function() {
       CabHelpers.uploadFiles([{ fileName: 'dummy.pdf' }])
       cy.continue()
-      cy.hasError('Legislative area', 'Enter a legislative area')
+      cy.hasError('Legislative area', 'Select a legislative area')
     })
 
     it('displays error if legislative area is not selected and draft is saved', function() {
       CabHelpers.uploadFiles([{ fileName: 'dummy.pdf' }])
       CabHelpers.saveAsDraft()
-      cy.hasError('Legislative area', 'Enter a legislative area')
+      cy.hasError('Legislative area', 'Select a legislative area')
     })
 
     it('canceling file upload returns user back to Admin page', function() {
@@ -223,7 +217,7 @@ describe('Creating a new CAB', () => {
     })
 
     it('user can remove uploaded file', function() {
-      CabHelpers.uploadFiles([{ fileName: 'dummy.pdf' }])
+      CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts' }])
       cy.contains('Remove').click()
       cy.contains('0 file uploaded')
     })
@@ -236,7 +230,8 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
-      CabHelpers.uploadSchedules(this.cab)
+      CabHelpers.uploadSchedules(this.cab.schedules)
+      cy.continue()
     })
 
     it('displays correct heading and other relevant copy', function() {
@@ -301,7 +296,8 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
-      CabHelpers.uploadSchedules(this.cab)
+      CabHelpers.uploadSchedules(this.cab.schedules)
+      cy.continue()
       CabHelpers.uploadDocuments(this.cab)
       CabHelpers.hasDetailsConfirmation(this.cab)
     })
@@ -329,7 +325,7 @@ describe('Creating a new CAB', () => {
       // Edit body details
       CabHelpers.editCabDetail('Body details')
       cloneCab.bodyTypes.push('Overseas body')
-      cloneCab.legislativeAreas.push('Lifts')
+      cloneCab.legislativeAreas.push('Machinery')
       cloneCab.testingLocations.push('France')
       CabHelpers.enterBodyDetails(cloneCab)
       CabHelpers.hasDetailsConfirmation(cloneCab)
@@ -345,7 +341,8 @@ describe('Creating a new CAB', () => {
         CabHelpers.enterCabDetails(this.cab)
         CabHelpers.enterContactDetails(this.cab)
         CabHelpers.enterBodyDetails(this.cab)
-        CabHelpers.uploadSchedules(this.cab)
+        CabHelpers.uploadSchedules(this.cab.schedules)
+        cy.continue()
         CabHelpers.uploadDocuments(this.cab)
         cy.hasKeyValueDetail('CAB name', 'This CAB name already exists. Only create this CAB if you have contacted OPSS for approval.')
 
