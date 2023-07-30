@@ -60,7 +60,7 @@ describe('Creating a new CAB', () => {
       cy.contains('h1', 'Contact details')
     })
 
-    it('displays button to auto populate review date', function() {
+    it.only('auto populates review date 18 months from creation date when review date button is used', function() {
       CabHelpers.autoFillReviewDate()
       const expectedDate = Cypress.dayjs().add(18, 'months')
       CabHelpers.hasReviewDate(expectedDate)

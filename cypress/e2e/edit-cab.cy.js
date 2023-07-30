@@ -184,10 +184,10 @@ describe('Editing a CAB', () => {
       })
     })
 
-    it('sets review date to 18 years from existing review date if auto fill button is invoked', function() {
+    it('sets review date to 18 years from current date if auto fill button is invoked', function() {
       CabHelpers.editCabDetail('CAB details')
       CabHelpers.autoFillReviewDate()
-      const expectedDate = this.cab.reviewDate.add(18, 'months')
+      const expectedDate = Cypress.dayjs().add(18, 'months')
       CabHelpers.hasReviewDate(expectedDate)
     })
   })
