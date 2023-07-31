@@ -1,4 +1,5 @@
 import * as CabHelpers from '../support/helpers/cab-helpers'
+import Cab from '../support/domain/cab'
 import { date } from '../support/helpers/formatters'
 
 describe('Editing a CAB', () => {
@@ -163,6 +164,16 @@ describe('Editing a CAB', () => {
       })
     })
 
+    it('legislative areas assigned to uploaded schedules can not be modified', function() {
+      CabHelpers.editCabDetail('Body details')
+      cy.contains('Pre-selected areas are linked to the product schedule and cannot be removed here')
+      this.cab.schedules.forEach(schedule => {
+        cy.get(`input[value='${schedule.legislativeArea}']`).should('be.checked').and('be.disabled')
+      })
+      cy.continue()
+      cy.contains('Check details before publishing')
+    })
+
   })
 
   context('when editing a CAB with review date', function() {
@@ -181,6 +192,32 @@ describe('Editing a CAB', () => {
       CabHelpers.autoFillReviewDate()
       const expectedDate = Cypress.dayjs().add(18, 'months')
       CabHelpers.hasReviewDate(expectedDate)
+    })
+  })
+
+  context('when editing a CAB with review date', function() {
+
+    beforeEach(function() {
+      cy.loginAsOpssUser()
+      cy.ensureOn(CabHelpers.addCabPath())
+      cy.wrap(Cab.build()).as('cab')
+    })
+    
+    it('legislative areas on summary page and profile page are in sync', function() {
+      CabHelpers.createCab(this.cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.editCabButton().click()
+      CabHelpers.editCabDetail('Product schedules')
+      cy.contains('Save and upload another file').click()
+      const newSchedule = { fileName: 'dummy5.pdf', label: 'MyCustomLabel5', legislativeArea: 'Pyrotechnics' }
+      this.cab.schedules.push(newSchedule)
+      CabHelpers.uploadSchedules([newSchedule])
+      cy.continue()
+      cy.contains('Check details before publishing')
+      cy.contains('Schedule').next().contains(newSchedule.legislativeArea)
+      CabHelpers.clickPublish()
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      cy.hasKeyValueDetail('Legislative area', newSchedule.legislativeArea)
     })
   })
 })
