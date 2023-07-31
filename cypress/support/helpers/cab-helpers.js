@@ -40,7 +40,7 @@ export const setReviewDate = (day, month, year) => {
 }
 
 export const autoFillReviewDate = () => {
-  cy.contains('button', 'Add 18 months from today').click()
+  cy.contains('button', 'Add suggested review date').click()
 }
 
 export const hasReviewDate = (date) => {
