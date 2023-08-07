@@ -1,0 +1,1 @@
+export const userManagementPath = () => { return '/user-admin/list'}

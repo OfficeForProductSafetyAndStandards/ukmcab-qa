@@ -13,11 +13,11 @@ Cypress.Commands.add('ensureOn', (urlPath, options={}) => {
 // state is cached. Next time this command is called anytime in the suite it uses the state to simulate login
 Cypress.Commands.add('login', (username, password) => {
   cy.session([username, password], () => {
-    cy.visit('https://signin.integration.account.gov.uk/',
+    cy.visit('https://signin.integration.account.gov.uk',
     {
       auth: {
-        username: 'integration-user',
-        password: 'winter2021'
+        username: Cypress.env('ONE_LOGIN_BASIC_AUTH_USER'),
+        password: Cypress.env('ONE_LOGIN_BASIC_AUTH_PASS')
       },
       failOnStatusCode: false
     })
