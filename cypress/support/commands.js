@@ -1,18 +1,6 @@
 import { basicAuthCreds } from '../support/helpers/common-helpers'
 import { header } from './helpers/common-helpers'
-import * as Login from './helpers/login-helpers'
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
+
 Cypress.Commands.add('ensureOn', (urlPath, options={}) => {
   cy.location().then(loc => {
     if(loc.toString().replace(loc.origin, '') !== urlPath) {
@@ -21,21 +9,33 @@ Cypress.Commands.add('ensureOn', (urlPath, options={}) => {
   })
 })
 
-Cypress.Commands.add('login', (username=Cypress.env('OPSS_USER'), password=Cypress.env('OPSS_PASS')) => {
-  cy.request({
-    method: 'POST',
-    url: '/account/login',
-    form: true,
-    body: {
-      Email: username,
-      Password: password,
-    },
-    ...basicAuthCreds()
-  })
+// Uses Cypress session. For each test run the first time login is performed via UI and then that logged in
+// state is cached. Next time this command is called anytime in the suite it uses the state to simulate login
+Cypress.Commands.add('login', (username, password) => {
+  cy.session([username, password], () => {
+    cy.visit('https://signin.integration.account.gov.uk/',
+    {
+      auth: {
+        username: 'integration-user',
+        password: 'winter2021'
+      },
+      failOnStatusCode: false
+    })
+    cy.ensureOn('https://ukmcab-dev.beis.gov.uk')
+    cy.setCookie('accept_analytics_cookies', 'accept')
+    cy.contains('Sign in').click()
+    cy.contains('button', 'Sign in').click()
+    cy.get('#email').type(username)
+    cy.continue()
+    cy.get('#password').type(password)
+    cy.continue()
+  },
+  {cacheAcrossSpecs: true} // by default caching is used within a single spec file. This setting enables it across all specs.
+  )
 })
 
 Cypress.Commands.add('loginAsOpssUser', () => {
-  cy.login()
+  cy.login(Cypress.env('OPSS_USER'), Cypress.env('OPSS_PASS'))
 })
 
 Cypress.Commands.add('loginAsOgdUser', () => {
@@ -47,7 +47,7 @@ Cypress.Commands.add('loginAsUkasUser', () => {
 })
 
 Cypress.Commands.add('logout', () => {
-  header().find('button').contains('Sign out').click()
+  header().find('a').contains('Sign out').click()
 })
 
 Cypress.Commands.add('continue', () => {
@@ -56,26 +56,6 @@ Cypress.Commands.add('continue', () => {
 
 Cypress.Commands.add('cancel', () => {
   cy.contains('button,a', 'Cancel').click()
-})
-
-Cypress.Commands.add('registerViaApi', (email, password) => {
-  // coikies must be passed in when creating user via API.
-  // Cypress automatically submites these in subsequent requests once set.
-  // Login once before making egistration request and then clear cookies to logout
-  cy.login()
-  cy.request({
-    method: 'POST',
-    url: '/api/user',
-    body: {
-      FirstName: 'Test',
-      LastName: 'User',
-      Email: email,
-      Password: password,
-      ApiPassword: Cypress.env('BASIC_AUTH_PASS')
-    },
-    ...basicAuthCreds()
-  })
-  cy.clearCookies()
 })
 
 Cypress.Commands.add('getSearchResults', (keywords, options={}) => {
@@ -107,16 +87,3 @@ Cypress.Commands.add('hasError', (fieldLabel, error) => {
   cy.contains('.govuk-form-group', fieldLabel).contains(error)
   cy.get('.govuk-error-summary__list').contains(error)
 })
-
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })

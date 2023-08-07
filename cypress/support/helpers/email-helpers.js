@@ -39,16 +39,6 @@ export class EmailNotification {
     return this.subject === "Your UKMCAB registration request has been rejected"
   }
 
-  get isResetPasswordEmail() {
-    return this.subject === "Reset password"
-    && this.body.includes("#Reset password\r\n\r\nPlease reset you password by clicking on the link below:")
-  }
-  
-  get isPasswordChangedConfirmationEmail() {
-    return this.subject === "Your UKMCAB password has been changed"
-    && this.body.includes("You have successfully changed the password for your UKMCAB account.\r\n\r\nIf you did not request this change, please [contact support]")
-  }
-
   get isFeedbackEmail() {
     return this.subject === "UKMCAB user feedback"
     && this.body.includes("Request details")

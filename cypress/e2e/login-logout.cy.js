@@ -1,59 +1,30 @@
-import * as LoginHelpers from '../support/helpers/login-helpers'
-import OpssAdminUser from '../support/domain/opss-admin-user'
-import { cabManagementPath } from '../support/helpers/cab-helpers'
+import { header, basicAuthCreds, shouldBeLoggedOut } from '../support/helpers/common-helpers'
 
 describe('Login/Logout', () => {
 
   beforeEach(() => {
-    cy.ensureOn(LoginHelpers.loginPath())
+    cy.ensureOn('/')
   })
 
-  it('displays Login page as per design', function() {
-    cy.get('h1').contains('UK Market Conformity Assessment Bodies Sign In')
-    cy.contains('label', 'Email address')
-    cy.get('#Password').siblings('a.show-password-button').contains('Show')
-    cy.contains('By signing in you accept our terms and conditions.').find('a').contains('terms and conditions').should('have.attr', 'href', '/terms-and-conditions')
-    cy.get('button').contains('Sign in')
-    cy.contains('If you are inactive for 20 minutes, your session will timeout.')
-  })
-
-  it('displays error when using unknown credentials', () => {
-    LoginHelpers.login(`Unknown${Date.now()}@ukmcab.gov.uk`, 'Som3P255W0rd!')
-    cy.hasError('Email address', 'Enter a valid email address and password')
-  })
-
-  it('displays email/password validation errors', () => {
-    LoginHelpers.login('', 'adminP@ssw0rd!')
-    cy.hasError('Email address', 'Enter email address')
-
-    LoginHelpers.login('admin@ukmcab.gov.uk', '')
-    cy.hasError('Password', 'Enter password')
-
-    LoginHelpers.login('', '')
-    cy.hasError('Email address', 'Enter email address')
-    cy.hasError('Password', 'Enter password')
-  })
-
-  it('locks account after 5 unsuccessful attempts', () => {
-    const user = new OpssAdminUser()
-    cy.registerViaApi(user.email, user.password)
-    for(var i = 0; i < 5; i++){
-      LoginHelpers.login(user.email, 'IncorrectPassword')
-    }
-    cy.contains('The service is now locked for 2 hours due to multiple failed login attempts.')
-  })
-
-  it('logs admin user in with valid credentials and displays Cab Management', () => {
-    LoginHelpers.loginAsOpssUser()
-    cy.location('pathname').should('equal', cabManagementPath())
+  it('redirects user to GOV UK One login upon clicking Sign in', () => {
+    header().contains('a', 'Sign in').invoke('attr', 'href').then(href => {
+      cy.request({
+        method: 'GET',
+        url: href,
+        failOnStatusCode: false,
+        ...basicAuthCreds()
+      }).then(response => {
+        console.log(response)
+        expect(response.redirects.pop()).to.eq('302: https://signin.integration.account.gov.uk/')
+      })
+    })
   })
 
   it('logs user out successfully', function() {
-    const user = new OpssAdminUser()
-    cy.registerViaApi(user.email, user.password)
-    LoginHelpers.login(user.email, user.password)
+    cy.loginAsOpssUser()
+    cy.ensureOn('/')
     cy.logout()
-    cy.contains('You have successfully signed out.')
+    shouldBeLoggedOut()
   })
 
 })
