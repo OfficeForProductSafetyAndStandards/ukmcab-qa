@@ -213,7 +213,7 @@ export const archiveCab = (cab, reason='Archive reason') => {
   cy.get('#ArchiveReason').type(reason)
   cy.continue()
   cy.get('h2').contains('Archive')
-  cy.contains(`Archived on ${date(new Date()).DDMMMYYYY} by OPSS Admin User`)
+  cy.contains(new RegExp(`Archived on ${date(new Date()).DDMMMYYYY} by \\w+`)) // ToDO Match any user for now until users roles are implemented
   cy.contains(reason)
 }
 
