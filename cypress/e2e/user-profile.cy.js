@@ -39,7 +39,7 @@ describe('User Profile', () => {
       cy.hasError('Email address', 'Enter an email address')
     })
 
-    it.only('validates email address', function() {
+    it('validates email address', function() {
       this.user.contactEmail = 'malformed'
       UserManagementHelpers.editUserProfileDetails(this.user)
       cy.hasError('Email address', 'Enter a valid email address')
