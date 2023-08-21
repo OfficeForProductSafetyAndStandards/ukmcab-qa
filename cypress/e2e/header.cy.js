@@ -1,6 +1,6 @@
 import { header } from '../support/helpers/common-helpers'
 import { loginPath } from '../support/helpers/login-helpers'
-import { cabManagementPath } from '../support/helpers/cab-helpers'
+import { userProfilePath } from '../support/helpers/user-management-helpers'
 
 describe('Header', function() {
 
@@ -36,8 +36,9 @@ describe('Header', function() {
       header().contains('a', 'Help').should('have.attr', 'href', '/help')
       header().contains('a', 'About').should('have.attr', 'href', '/about')
       header().contains('a', 'Updates').should('have.attr', 'href', '/updates')
-      header().contains('a', 'Admin').should('have.attr', 'href', cabManagementPath())
-      header().contains('button', 'Sign out')
+      header().contains('a', 'Admin').should('have.attr', 'href', '/admin')
+      header().contains('a', 'Sign out').should('have.attr', 'href', '/account/logout')
+      header().contains('a', 'Profile').should('have.attr', 'href', userProfilePath())
     })
   })
 })

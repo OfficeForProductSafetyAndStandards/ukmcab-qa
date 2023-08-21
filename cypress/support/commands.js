@@ -9,42 +9,51 @@ Cypress.Commands.add('ensureOn', (urlPath, options={}) => {
   })
 })
 
-// Uses Cypress session. For each test run the first time login is performed via UI and then that logged in
-// state is cached. Next time this command is called anytime in the suite it uses the state to simulate login
-Cypress.Commands.add('login', (username, password) => {
-  cy.session([username, password], () => {
-    cy.visit('https://signin.integration.account.gov.uk',
-    {
-      auth: {
-        username: Cypress.env('ONE_LOGIN_BASIC_AUTH_USER'),
-        password: Cypress.env('ONE_LOGIN_BASIC_AUTH_PASS')
-      },
-      failOnStatusCode: false
-    })
-    cy.ensureOn('https://ukmcab-dev.beis.gov.uk')
-    cy.setCookie('accept_analytics_cookies', 'accept')
-    cy.contains('Sign in').click()
-    cy.contains('button', 'Sign in').click()
-    cy.get('#email').type(username)
-    cy.continue()
-    cy.get('#password').type(password)
-    cy.continue()
-  },
-  {cacheAcrossSpecs: true} // by default caching is used within a single spec file. This setting enables it across all specs.
-  )
+// // Uses Cypress session. For each test run the first time login is performed via UI and then that logged in
+// // state is cached. Next time this command is called anytime in the suite it uses the state to simulate login
+// Cypress.Commands.add('login', (username, password) => {
+//   cy.session([username, password], () => {
+//     cy.visit('https://signin.integration.account.gov.uk',
+//     {
+//       auth: {
+//         username: Cypress.env('ONE_LOGIN_BASIC_AUTH_USER'),
+//         password: Cypress.env('ONE_LOGIN_BASIC_AUTH_PASS')
+//       },
+//       failOnStatusCode: false
+//     })
+//     cy.ensureOn('https://ukmcab-dev.beis.gov.uk')
+//     cy.setCookie('accept_analytics_cookies', 'accept')
+//     cy.contains('Sign in').click()
+//     cy.contains('button', 'Sign in').click()
+//     cy.get('#email').type(username)
+//     cy.continue()
+//     cy.get('#password').type(password)
+//     cy.continue()
+//   },
+//   {cacheAcrossSpecs: true} // by default caching is used within a single spec file. This setting enables it across all specs.
+//   )
+// })
+
+// login using QA endpoint
+Cypress.Commands.add('loginAs', (user) => {
+  cy.request({
+    method: 'POST',
+    url: '/account/qalogin',
+    body: {
+      userId: user.id
+    },
+    form: true,
+    ...basicAuthCreds()
+  })
 })
 
 Cypress.Commands.add('loginAsOpssUser', () => {
-  cy.login(Cypress.env('OPSS_USER'), Cypress.env('OPSS_PASS'))
+  cy.fixture('users').then(users => {
+    cy.loginAs(users.OpssAdminUser)
+  })
 })
 
-Cypress.Commands.add('loginAsOgdUser', () => {
-  cy.login(Cypress.env('OGD_USER'), Cypress.env('OGD_PASS'))
-})
-
-Cypress.Commands.add('loginAsUkasUser', () => {
-  cy.login(Cypress.env('UKAS_USER'), Cypress.env('UKAS_PASS'))
-})
+// TODO: OTHER USERS YET TO COME
 
 Cypress.Commands.add('logout', () => {
   header().find('a').contains('Sign out').click()
@@ -52,6 +61,10 @@ Cypress.Commands.add('logout', () => {
 
 Cypress.Commands.add('continue', () => {
   cy.contains('button,a', 'Continue').click()
+})
+
+Cypress.Commands.add('clickSubmit', () => {
+  cy.contains('button,a', 'Submit').click()
 })
 
 Cypress.Commands.add('cancel', () => {

@@ -32,8 +32,8 @@ module.exports = defineConfig({
           return result
         },
         async upsertUser(user) {
-          const d = await client.database('UKMCABIdentity')
-          const c = await d.container('AppIdentity')
+          const d = await client.database('main')
+          const c = await d.container('user-accounts')
           const updatedUser = await c.items.upsert(user)
           return updatedUser.resource
         },
