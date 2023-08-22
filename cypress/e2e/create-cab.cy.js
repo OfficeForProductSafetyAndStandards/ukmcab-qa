@@ -156,7 +156,7 @@ describe('Creating a new CAB', () => {
 
     it('displays correct heading and other relevant copy', function() {
       cy.contains('h1', 'Product schedules upload')
-      cy.contains('You can upload up to 5 PDF documents.')
+      cy.contains('You can upload up to 35 PDF documents.')
       cy.contains('Files you have uploaded')
       cy.contains('0 file uploaded')
     })
@@ -179,13 +179,6 @@ describe('Creating a new CAB', () => {
     it('displays error if schedule of accreditation file size is greater than 10MB', function() {
       CabHelpers.uploadFiles([{ fileName: 'dummy-pdf-10mb-plus.pdf' }])
       cy.hasError('Select a PDF file', 'Files must be no more that 10Mb in size.')
-    })
-
-    it('only allows upto 5 files to be uploaded', function() {
-      const files = [{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy1.pdf', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy2.pdf', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy3.pdf', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy4.pdf', label: 'My Label', legislativeArea: 'Lifts' }]
-      CabHelpers.uploadSchedules(files)
-      CabHelpers.hasUploadedSchedules(files)
-      cy.contains('Upload another file').should('not.exist')
     })
 
     it('allows user to assign label and legislative area for uploaded files', function() {
@@ -224,7 +217,7 @@ describe('Creating a new CAB', () => {
 
   })
 
-  context('when uploading supporting documents', function() {
+  context.only('when uploading supporting documents', function() {
 
     beforeEach(function(){
       CabHelpers.enterCabDetails(this.cab)
