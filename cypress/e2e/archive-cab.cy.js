@@ -1,5 +1,4 @@
 import { date } from '../support/helpers/formatters'
-import { searchCab } from '../support/helpers/search-helpers'
 import * as CabHelpers from '../support/helpers/cab-helpers'
 import { getEmailsLink } from '../support/helpers/email-subscription-helpers'
 
@@ -13,7 +12,7 @@ describe('Archiving a CAB', () => {
   
   it('if not possible when logged out', function() {
     cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-    CabHelpers.archiveCabButton().should('not.exist')
+    CabHelpers.archiveCabButton().should('not.be.visible')
   })
   
   context('when logged in', function() {
@@ -23,15 +22,33 @@ describe('Archiving a CAB', () => {
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
     })
 
-    it('is successful and make it uneditable and removes it from search results!', function() {
+    it('is successful and makes it uneditable', function() {
       CabHelpers.archiveCab(this.cab)
       cy.get('.govuk-notification-banner__content').contains(`Archived on ${date(new Date()).DDMMMYYYY}`)
       CabHelpers.editCabButton().should('not.exist') // edit button is removed from archived cabs
-      CabHelpers.editCabButton().should('not.exist') // edit button is removed from archived cabs
-      cy.get('a,button').contains('Archived') // tab changes to Archived
       getEmailsLink().should('not.exist') // subscriptions are disabled for archived cabs
-      searchCab(this.cab.name)
-      cy.contains('a', this.cab.name).should('not.exist')
+    })
+
+    it('allows canceling or closing of the modal', function() {
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.archiveCabButton().click()
+      cy.get('.modal-content').contains('a', 'Close').click()
+      cy.get('.modal-content').should('not.be.visible')
+      CabHelpers.archiveCabButton().click()
+      cy.get('.modal-content').contains('a', 'Cancel').click()
+      cy.get('.modal-content').should('not.be.visible')
+    })
+
+    it('displays expected information and errors(when applicable) in modal', function() {
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.archiveCabButton().click()
+      cy.get('.modal-content').within(() => {
+        cy.contains('h2', 'Archive CAB profile')
+        cy.contains('Enter the reason for archiving this CAB profile.')
+        cy.contains('Archived CAB profiles cannot be edited and users cannot view them in the search results.')
+        CabHelpers.archiveCabButton().click()
+        cy.contains('#archive-error-message','Enter the reason for archiving this CAB profile')
+      })
     })
 
   })

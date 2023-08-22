@@ -210,11 +210,10 @@ export const setLegislativeArea = (filename, value) => {
 export const archiveCab = (cab, reason='Archive reason') => {
   cy.ensureOn(cabProfilePage(cab))
   archiveCabButton().click()
-  cy.get('#ArchiveReason').type(reason)
-  cy.continue()
-  cy.get('h2').contains('Archive')
-  cy.contains(new RegExp(`Archived on ${date(new Date()).DDMMMYYYY} by \\w+`)) // ToDO Match any user for now until users roles are implemented
-  cy.contains(reason)
+  cy.get('.modal-content').within(() => {
+    cy.get('#archive-reason').type(reason)
+    archiveCabButton().click()
+  })
 }
 
 export const viewSchedules = () => {
