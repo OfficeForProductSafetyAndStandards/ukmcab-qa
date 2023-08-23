@@ -6,6 +6,7 @@ export const date = (date) => {
     DDMMYYYY: Cypress.dayjs(date).format('DD/MM/YYYY'),
     DMMMYYYY: Cypress.dayjs(date).format('D MMM YYYY'),
     DDMMMYYYY: Cypress.dayjs(date).format('DD MMM YYYY'),
+    DDMMYYHHmm: Cypress.dayjs(date).format('DD/MM/YY HH:mm'),
   } : null
 }
 

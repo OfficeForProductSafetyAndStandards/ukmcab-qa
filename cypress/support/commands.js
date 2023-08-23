@@ -34,7 +34,14 @@ Cypress.Commands.add('ensureOn', (urlPath, options={}) => {
 //   )
 // })
 
-// login using QA endpoint
+// login using QA endpoint visually
+Cypress.Commands.add('login', (user) => {
+  cy.ensureOn('/account/qalogin')
+  cy.get('input[name=userid]').type(user.id)
+  cy.get('form').submit()
+})
+
+// login using QA endpoint request
 Cypress.Commands.add('loginAs', (user) => {
   cy.request({
     method: 'POST',

@@ -10,6 +10,7 @@ export default class User {
     this.phone = userData.phoneNumber
     this.isLocked = userData.isLocked
     this.lockReason = userData.lockReason
+    this.lastLogon = userData.lastLogonUtc
   }
   
 }

@@ -14,5 +14,37 @@
     "lastLogonUtc": "2023-08-10T08:47:20.693737Z",
     "lockReasonDescription": null,
     "lockInternalNotes": null
+  },
+  "LockedUser": {
+    "id": "2",
+    "firstName": "Test",
+    "surname": "Locked User",
+    "organisationName": "QA Automation Ltd",
+    "emailAddress": "Test.LockedUser@EmailAddress.com",
+    "contactEmailAddress": "Test.LockedUser@ContactEmailAddress.com",
+    "phoneNumber": "+44 020 4654 9876",
+    "isLocked": true,
+    "lockReason": 0,
+    "createdUtc": "2023-08-10T08:47:04.3248959Z",
+    "lastUpdatedUtc": "2023-08-10T08:47:04.324896Z",
+    "lastLogonUtc": "2023-08-10T08:47:20.693737Z",
+    "lockReasonDescription": null,
+    "lockInternalNotes": null
+  },
+  "SomeUser": {
+    "id": "3",
+    "firstName": "Test",
+    "surname": "Some User",
+    "organisationName": "QA Automation Ltd",
+    "emailAddress": "Test.SomeUser@EmailAddress.com",
+    "contactEmailAddress": "Test.SomeUser@ContactEmailAddress.com",
+    "phoneNumber": "+44 020 4654 9876",
+    "isLocked": false,
+    "lockReason": null,
+    "createdUtc": "2023-08-10T08:47:04.3248959Z",
+    "lastUpdatedUtc": "2023-08-10T08:47:04.324896Z",
+    "lastLogonUtc": "2023-08-10T08:47:20.693737Z",
+    "lockReasonDescription": null,
+    "lockInternalNotes": null
   }
 }

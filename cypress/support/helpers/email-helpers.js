@@ -12,6 +12,14 @@ export class EmailNotification {
     return Math.abs(new Date(this.sentAt) - new Date()) < 10000
   }
 
+  isAccountLockedEmail() {
+    return this.subject === 'Your UKMCAB account has been locked'
+  }
+
+  isAccountUnlockedEmail() {
+    return this.subject === 'Your UKMCAB account has been unlocked'
+  }
+
   isContactSubmissionEmail(name, email, subject, message) {
     return this.subject === 'Contact form submitted to UKMCAB'
     && this.body.includes(`You have submitted a contact form to UKMCAB. We will respond as soon as possible.\r\n\r\nHere are the details submitted on the form:\r\n\r\nName: ${name}\r\nEmail: ${email}\r\nSubject: ${subject}\r\nMessage:\r\n${message}`)
