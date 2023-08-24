@@ -61,7 +61,6 @@ describe('User Management', () => {
     
     it('account is unlocked allowing user to login  and sends user email', function() {
       cy.ensureOn(UserManagementHelpers.userAdminPath(this.lockedUser))
-      cy.contains('This account is locked')
       UserManagementHelpers.unlockUser(this.lockedUser)
       cy.contains('Account unlocked You have unlocked the user account').click()
       cy.contains('a', 'Continue').should('have.attr', 'href', UserManagementHelpers.userAdminPath(this.lockedUser))
@@ -70,6 +69,54 @@ describe('User Management', () => {
       getLastUserEmail(this.lockedUser.contactEmail).then(_email => {
         expect(_email.isRecent).to.be.true
         expect(_email.isAccountUnlockedEmail()).to.be.true
+      })
+    })
+  })
+
+  context('when archiving user account', function() {
+
+    beforeEach(function() {
+      UserManagementHelpers.getUsers().then(users => {
+        cy.wrap(users.SomeUser).as('user')
+        cy.loginAs(users.OpssAdminUser)
+      })
+    })
+
+    it('account is archived stopping user from logging in and sends user email', function() {
+      UserManagementHelpers.archiveUser(this.user)
+      cy.contains('Account archived You have archived the user account').click()
+      cy.contains('a', 'Continue').should('have.attr', 'href', UserManagementHelpers.userAdminPath(this.user))
+      cy.logout()
+      cy.login(this.user)
+      shouldBeLoggedOut()
+      cy.contains('Account locked Sorry your account is locked, please contact the help desk for further assistance.')
+      cy.contains('a', 'Contact support').should('have.attr', 'href', contactUsUrl())
+      getLastUserEmail(this.user.contactEmail).then(_email => {
+        expect(_email.isRecent).to.be.true
+        expect(_email.isAccountArchivedEmail()).to.be.true
+      })
+    })
+  })
+
+  context('when unarchiving user account', function() {
+
+    beforeEach(function() {
+      UserManagementHelpers.getUsers().then(users => {
+        cy.wrap(users.ArchivedUser).as('user')
+        cy.loginAs(users.OpssAdminUser)
+      })
+    })
+
+    it('account is unarchived allowing user to log in and sends user email', function() {
+      cy.ensureOn(UserManagementHelpers.userAdminPath(this.user))
+      UserManagementHelpers.unarchiveUser(this.user)
+      cy.contains('Account unarchived You have unarchived the user account').click()
+      cy.contains('a', 'Continue').should('have.attr', 'href', UserManagementHelpers.userAdminPath(this.user))
+      cy.login(this.user)
+      shouldBeLoggedIn()
+      getLastUserEmail(this.user.contactEmail).then(_email => {
+        expect(_email.isRecent).to.be.true
+        expect(_email.isAccountUnarchivedEmail()).to.be.true
       })
     })
   })

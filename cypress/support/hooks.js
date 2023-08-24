@@ -1,5 +1,5 @@
 // runs before each spec file. Uses user fixtures and upserts them into Cosmos
-before(() => {
+beforeEach(() => {
   cy.fixture('users').then(users => {
     Object.values(users).forEach(user => {
       cy.task('upsertUser', user)

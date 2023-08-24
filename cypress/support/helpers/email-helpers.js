@@ -20,6 +20,14 @@ export class EmailNotification {
     return this.subject === 'Your UKMCAB account has been unlocked'
   }
 
+  isAccountArchivedEmail() {
+    return this.subject === 'Your UKMCAB account has been archived'
+  }
+
+  isAccountUnarchivedEmail() {
+    return this.subject === 'Your UKMCAB account has been activated'
+  }
+
   isContactSubmissionEmail(name, email, subject, message) {
     return this.subject === 'Contact form submitted to UKMCAB'
     && this.body.includes(`You have submitted a contact form to UKMCAB. We will respond as soon as possible.\r\n\r\nHere are the details submitted on the form:\r\n\r\nName: ${name}\r\nEmail: ${email}\r\nSubject: ${subject}\r\nMessage:\r\n${message}`)

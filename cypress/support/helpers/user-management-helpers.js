@@ -35,6 +35,7 @@ export const lockUser = (user) => {
 
 export const unlockUser = (user) => { 
   cy.ensureOn(userAdminPath(user))
+  cy.contains('This account is locked')
   cy.contains('a', 'Unlock').click()
 
   cy.contains('label', 'Reason')
@@ -56,7 +57,35 @@ export const hasUserProfileDetails = (user) => {
   cy.hasKeyValueDetail('Email', user.contactEmail)
 }
 
-// export const getUserAccounts = () => {
-//   const querySpec = "SELECT * FROM c"
-//   cy.task('executeQuery', {db: 'main', container: 'user-accounts', querySpec: querySpec})
-// }
+export const archiveUser = (user) => { 
+  cy.ensureOn(userAdminPath(user))
+  cy.contains('a', 'Archive').click()
+  cy.contains('h1', 'Archive user account')
+
+  cy.contains('label', 'Reason')
+  .next().contains('This will be included in user notifications and the account history viewable by all users')
+  .next().type('Test reason for archiving')
+
+  cy.contains('label', 'Admin notes')
+  .next().contains('The comments will only be viewable by administrators in the account history.')
+  .next().type('Test Admin notes for archiving')
+  cy.contains('a', 'Cancel').should('have.attr', 'href', userAdminPath(user))
+  cy.contains('button', 'Archive account').click()
+}
+
+export const unarchiveUser = (user) => { 
+  cy.ensureOn(userAdminPath(user))
+  cy.contains('This account is archived')
+  cy.contains('a', 'Unarchive').click()
+  cy.contains('h1', 'Unarchive user account')
+
+  cy.contains('label', 'Reason')
+  .next().contains('This will be included in user notifications and the account history viewable by all users')
+  .next().type('Test reason for unarchiving')
+
+  cy.contains('label', 'Admin notes')
+  .next().contains('The comments will only be viewable by administrators in the account history.')
+  .next().type('Test Admin notes for unarchiving')
+  cy.contains('a', 'Cancel').should('have.attr', 'href', userAdminPath(user))
+  cy.contains('button', 'Unarchive account').click()
+}
