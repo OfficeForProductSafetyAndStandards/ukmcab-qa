@@ -3,7 +3,7 @@ import * as UserManagementHelpers from '../support/helpers/user-management-helpe
 describe('User Profile', () => {
 
   beforeEach(function() {
-    UserManagementHelpers.getUsers().then(users => {
+    UserManagementHelpers.getTestUsers().then(users => {
       const user = users.OpssAdminUser
       cy.wrap(user).as('user')
       cy.loginAs(user)

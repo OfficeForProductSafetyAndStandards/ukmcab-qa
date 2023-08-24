@@ -1,13 +1,48 @@
 import * as UserManagementHelpers from '../support/helpers/user-management-helpers'
+import { date } from '../support/helpers/formatters'
 import { contactUsUrl } from '../support/helpers/url-helpers'
 import { shouldBeLoggedIn, shouldBeLoggedOut } from '../support/helpers/common-helpers'
 import { getLastUserEmail } from "../support/helpers/email-helpers";
 describe('User Management', () => {
 
+  context.only('when viewing user list', function() {
+
+    beforeEach(function() {
+      cy.loginAsOpssUser()
+      UserManagementHelpers.getUsers().then(users => {
+        const activeUsers = users
+        .filter(user => !user.isLocked && user.id !== "1" )
+        .sort((a, b) => a.lastname.localeCompare(b.lastname))
+        cy.wrap(activeUsers).as('activeUsers')
+        const lockedOrArchivedUsers = users
+        .filter(user => user.isLocked)
+        .sort((a, b) => a.lastname.localeCompare(b.lastname))
+        cy.wrap(lockedOrArchivedUsers).as('lockedOrArchivedUsers')
+        cy.ensureOn(UserManagementHelpers.userManagementPath())
+      })
+    })
+    
+    it('displays list of active users except the logged in user', function() {
+      cy.contains('h1', 'User accounts')
+      UserManagementHelpers.hasUserList(this.activeUsers.slice(0,20))
+    })
+
+    it('displays link to view locked or archived users', function() {
+      cy.contains('a', 'View locked/archived accounts').click()
+      UserManagementHelpers.hasUserList(this.lockedOrArchivedUsers.slice(0,20))
+      cy.contains('a', 'View active accounts').and('has.attr', 'href', UserManagementHelpers.userManagementPath())
+    })
+
+    it('displays no pending requests message if there are no pending requests', function() {
+      // TODO set up pending requests when testing for pending requests
+      cy.contains('There are currently no pending account requests')
+    })
+  })
+
   context('when viewing user admin page for active user', function() {
 
     beforeEach(function() {
-      UserManagementHelpers.getUsers().then(users => {
+      UserManagementHelpers.getTestUsers().then(users => {
         const user = users.SomeUser
         cy.wrap(user).as('user')
         cy.loginAs(users.OpssAdminUser)
@@ -28,7 +63,7 @@ describe('User Management', () => {
   context('when locking user account', function() {
 
     beforeEach(function() {
-      UserManagementHelpers.getUsers().then(users => {
+      UserManagementHelpers.getTestUsers().then(users => {
         cy.wrap(users.SomeUser).as('lockedUser')
         cy.loginAs(users.OpssAdminUser)
       })
@@ -53,7 +88,7 @@ describe('User Management', () => {
   context('when unlocking user account', function() {
 
     beforeEach(function() {
-      UserManagementHelpers.getUsers().then(users => {
+      UserManagementHelpers.getTestUsers().then(users => {
         cy.wrap(users.LockedUser).as('lockedUser')
         cy.loginAs(users.OpssAdminUser)
       })
@@ -76,7 +111,7 @@ describe('User Management', () => {
   context('when archiving user account', function() {
 
     beforeEach(function() {
-      UserManagementHelpers.getUsers().then(users => {
+      UserManagementHelpers.getTestUsers().then(users => {
         cy.wrap(users.SomeUser).as('user')
         cy.loginAs(users.OpssAdminUser)
       })
@@ -101,7 +136,7 @@ describe('User Management', () => {
   context('when unarchiving user account', function() {
 
     beforeEach(function() {
-      UserManagementHelpers.getUsers().then(users => {
+      UserManagementHelpers.getTestUsers().then(users => {
         cy.wrap(users.ArchivedUser).as('user')
         cy.loginAs(users.OpssAdminUser)
       })

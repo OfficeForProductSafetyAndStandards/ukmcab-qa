@@ -1,12 +1,31 @@
 export const userManagementPath = () => { return '/user-admin/list'}
 export const userProfilePath = () => { return '/account/user-profile'}
-export const userAdminPath = (user) => { return `/user-admin/${user.id}`}
+export const userAdminPath = (user) => { return `/user-admin/${encodeURIComponent(user.id)}`}
 import User from '../domain/user'
 
-export const getUsers = () => { 
+export const getTestUsers = () => { 
   return cy.fixture('users').then(users => {
     const userObjects =  Object.entries(users).map(([userType, userData]) => [userType, new User(userData)])
     return Object.fromEntries(userObjects)
+  })
+}
+
+export const getUsers = () => { 
+  const querySpec = "SELECT * FROM c"
+  return cy.task('executeQuery', {db: 'main', container: 'user-accounts', querySpec: querySpec}).then(results => {
+    return results.resources.map(userRecord => new User(userRecord))
+  })
+}
+
+export const hasUserList = (users) => { 
+  cy.wrap(users).each((user, index) => {
+    cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
+      cy.get('td').eq(0).should('have.text', user.firstname)
+      cy.get('td').eq(1).should('have.text', user.lastname)
+      cy.get('td').eq(2).should('have.text', user.contactEmail)
+      cy.get('td').eq(3).should('have.text', user.lastLogon ? Cypress.dayjs(user.lastLogon).utc().format('DD/MM/YY HH:mm'): '')
+      cy.get('td').eq(4).contains('a', 'View details').and('has.attr', 'href', userAdminPath(user))
+    })
   })
 }
 

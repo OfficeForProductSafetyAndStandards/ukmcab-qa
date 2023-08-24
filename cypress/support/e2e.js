@@ -21,6 +21,8 @@ var chaiDatetime = require('chai-datetime');
 chai.use(chaiDatetime);
 
 const dayjs = require('dayjs')
+var utc = require('dayjs/plugin/utc')
+dayjs.extend(utc)
 Cypress.dayjs = dayjs
 
 import 'cypress-mochawesome-reporter/register';
