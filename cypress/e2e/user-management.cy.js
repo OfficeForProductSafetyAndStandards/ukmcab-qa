@@ -10,7 +10,7 @@ describe('User Management', () => {
       UserManagementHelpers.getUsers().then(users => {
         const user = users.SomeUser
         cy.wrap(user).as('user')
-        cy.loginAs(user)
+        cy.loginAs(users.OpssAdminUser)
         cy.ensureOn(UserManagementHelpers.userAdminPath(user))
       })
     })
@@ -29,10 +29,8 @@ describe('User Management', () => {
 
     beforeEach(function() {
       UserManagementHelpers.getUsers().then(users => {
-        const lockedUser = users.SomeUser
-        const user = users.OpssAdminUser
-        cy.wrap(lockedUser).as('lockedUser')
-        cy.loginAs(user)
+        cy.wrap(users.SomeUser).as('lockedUser')
+        cy.loginAs(users.OpssAdminUser)
       })
     })
 
@@ -56,15 +54,13 @@ describe('User Management', () => {
 
     beforeEach(function() {
       UserManagementHelpers.getUsers().then(users => {
-        const lockedUser = users.LockedUser
-        const user = users.OpssAdminUser
-        cy.wrap(lockedUser).as('lockedUser')
-        cy.loginAs(user)
-        cy.ensureOn(UserManagementHelpers.userAdminPath(lockedUser))
+        cy.wrap(users.LockedUser).as('lockedUser')
+        cy.loginAs(users.OpssAdminUser)
       })
     })
-
+    
     it('account is unlocked allowing user to login  and sends user email', function() {
+      cy.ensureOn(UserManagementHelpers.userAdminPath(this.lockedUser))
       cy.contains('This account is locked')
       UserManagementHelpers.unlockUser(this.lockedUser)
       cy.contains('Account unlocked You have unlocked the user account').click()
