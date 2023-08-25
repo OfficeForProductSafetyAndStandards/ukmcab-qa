@@ -211,6 +211,9 @@ export const archiveCab = (cab, reason='Archive reason') => {
   cy.ensureOn(cabProfilePage(cab))
   archiveCabButton().click()
   cy.get('.modal-content').within(() => {
+    cy.contains('h2', `Archive ${cab.name}`)
+    cy.contains('Enter the reason for archiving this CAB profile.')
+    cy.contains('Archived CAB profiles cannot be edited and users cannot view them in the search results.')
     cy.get('#archive-reason').type(reason)
     archiveCabButton().click()
   })

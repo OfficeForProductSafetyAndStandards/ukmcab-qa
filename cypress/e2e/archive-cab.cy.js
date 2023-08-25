@@ -43,9 +43,6 @@ describe('Archiving a CAB', () => {
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
       CabHelpers.archiveCabButton().click()
       cy.get('.modal-content').within(() => {
-        cy.contains('h2', 'Archive CAB profile')
-        cy.contains('Enter the reason for archiving this CAB profile.')
-        cy.contains('Archived CAB profiles cannot be edited and users cannot view them in the search results.')
         CabHelpers.archiveCabButton().click()
         cy.contains('#archive-error-message','Enter the reason for archiving this CAB profile')
       })
