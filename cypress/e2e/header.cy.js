@@ -38,7 +38,7 @@ describe('Header', function() {
       header().contains('a', 'Updates').should('have.attr', 'href', '/updates')
       header().contains('a', 'Admin').should('have.attr', 'href', '/admin')
       header().contains('a', 'Sign out').should('have.attr', 'href', '/account/logout')
-      header().contains('a', 'Profile').should('have.attr', 'href', userProfilePath())
+      header().contains('a', 'My details').should('have.attr', 'href', userProfilePath())
     })
   })
 })

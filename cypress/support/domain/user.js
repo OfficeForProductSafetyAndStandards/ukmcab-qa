@@ -3,6 +3,7 @@ export default class User {
   constructor(userData) {
     this._userData = userData
     this.id = userData.id
+    this.role = userData.role
     this.firstname = userData.firstName
     this.lastname = userData.surname
     this.email = userData.emailAddress

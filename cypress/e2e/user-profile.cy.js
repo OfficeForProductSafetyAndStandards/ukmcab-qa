@@ -36,13 +36,13 @@ describe('User Profile', () => {
       UserManagementHelpers.editUserProfileDetails(this.user)
       cy.hasError('First name', 'Enter a first name')
       cy.hasError('Last name', 'Enter a last name')
-      cy.hasError('Email address', 'Enter an email address')
+      cy.hasError('Email', 'Enter an email address')
     })
 
     it('validates email address', function() {
       this.user.contactEmail = 'malformed'
       UserManagementHelpers.editUserProfileDetails(this.user)
-      cy.hasError('Email address', 'Enter a valid email address')
+      cy.hasError('Email', 'Enter a valid email address')
       cy.get('#ContactEmailAddress').should('have.attr', 'data-val-regex-pattern', '^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$')
     })
 
@@ -52,7 +52,7 @@ describe('User Profile', () => {
       this.user.phone += '123'
       this.user.contactEmail += '.au'
       UserManagementHelpers.editUserProfileDetails(this.user)
-      cy.contains('User profile has been updated')
+      cy.contains('Your details have been updated')
       UserManagementHelpers.hasUserProfileDetails(this.user)
     })
   })
