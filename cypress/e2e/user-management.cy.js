@@ -1,11 +1,10 @@
 import * as UserManagementHelpers from '../support/helpers/user-management-helpers'
-import { date } from '../support/helpers/formatters'
 import { contactUsUrl } from '../support/helpers/url-helpers'
 import { shouldBeLoggedIn, shouldBeLoggedOut } from '../support/helpers/common-helpers'
 import { getLastUserEmail } from "../support/helpers/email-helpers";
 describe('User Management', () => {
 
-  context.only('when viewing user list', function() {
+  context('when viewing active user list', function() {
 
     beforeEach(function() {
       cy.loginAsOpssUser()
@@ -19,10 +18,11 @@ describe('User Management', () => {
         .sort((a, b) => a.lastname.localeCompare(b.lastname))
         cy.wrap(lockedOrArchivedUsers).as('lockedOrArchivedUsers')
         cy.ensureOn(UserManagementHelpers.userManagementPath())
+        cy.contains('a', 'Active').click()
       })
     })
     
-    it('displays list of active users except the logged in user', function() {
+    it('displays list of active users except the logged in user under Active tab', function() {
       cy.contains('h1', 'User accounts')
       UserManagementHelpers.hasUserList(this.activeUsers.slice(0,20))
     })
@@ -32,10 +32,21 @@ describe('User Management', () => {
       UserManagementHelpers.hasUserList(this.lockedOrArchivedUsers.slice(0,20))
       cy.contains('a', 'View active accounts').and('has.attr', 'href', UserManagementHelpers.userManagementPath())
     })
+  })
 
-    it('displays no pending requests message if there are no pending requests', function() {
-      // TODO set up pending requests when testing for pending requests
-      cy.contains('There are currently no pending account requests')
+  context('when viewing user requests', function() {
+
+    beforeEach(function() {
+      cy.loginAsOpssUser()
+      UserManagementHelpers.getPendingAccountRequests().then(requests => {
+        cy.wrap(requests).as('requests')
+        cy.ensureOn(UserManagementHelpers.userManagementPath())
+      })
+    })
+
+    it('displays a list of pending requests under Requests tab', function() {
+      cy.contains('a', `Requests (${this.requests.length})`).click()
+      UserManagementHelpers.hasAccountRequestsList(this.requests)
     })
   })
 

@@ -1,6 +1,7 @@
 {
   "OpssAdminUser": {
     "id": "1",
+    "role": "opss",
     "firstName": "Test",
     "surname": "Opss Admin User",
     "organisationName": "QA Automation Ltd",
@@ -17,6 +18,7 @@
   },
   "LockedUser": {
     "id": "2",
+    "role": "opss",
     "firstName": "Test",
     "surname": "Locked User",
     "organisationName": "QA Automation Ltd",
@@ -33,6 +35,7 @@
   },
   "SomeUser": {
     "id": "3",
+    "role": "opss",
     "firstName": "Test",
     "surname": "Some User",
     "organisationName": "QA Automation Ltd",
@@ -49,6 +52,7 @@
   },
   "ArchivedUser": {
     "id": "4",
+    "role": "opss",
     "firstName": "Test",
     "surname": "Archived User",
     "organisationName": "QA Automation Ltd",
@@ -57,6 +61,23 @@
     "phoneNumber": "+44 020 4654 9876",
     "isLocked": true,
     "lockReason": 1,
+    "createdUtc": "2023-08-10T08:47:04.3248959Z",
+    "lastUpdatedUtc": "2023-08-10T08:47:04.324896Z",
+    "lastLogonUtc": "2023-08-10T08:47:20.693737Z",
+    "lockReasonDescription": null,
+    "lockInternalNotes": null
+  },
+  "UkasUser": {
+    "id": "5",
+    "role": "ukas",
+    "firstName": "Test",
+    "surname": "Ukas User",
+    "organisationName": "QA Automation Ltd",
+    "emailAddress": "Test.UkasUser@EmailAddress.com",
+    "contactEmailAddress": "Test.UkasUser@ContactEmailAddress.com",
+    "phoneNumber": "+44 020 4654 9876",
+    "isLocked": false,
+    "lockReason": null,
     "createdUtc": "2023-08-10T08:47:04.3248959Z",
     "lastUpdatedUtc": "2023-08-10T08:47:04.324896Z",
     "lastLogonUtc": "2023-08-10T08:47:20.693737Z",

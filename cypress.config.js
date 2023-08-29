@@ -31,11 +31,11 @@ module.exports = defineConfig({
           const result = await c.items.query(querySpec).fetchAll()
           return result
         },
-        async upsertUser(user) {
-          const d = await client.database('main')
-          const c = await d.container('user-accounts')
-          const updatedUser = await c.items.upsert(user)
-          return updatedUser.resource
+        async upsertItem({db, container, item}) {
+          const d = await client.database(db)
+          const c = await d.container(container)
+          const upsertedItem = await c.items.upsert(item)
+          return upsertedItem.resource
         },
         async getEmails(email) {
           const recentEmails = (await notifyClient.getNotifications()).data.notifications

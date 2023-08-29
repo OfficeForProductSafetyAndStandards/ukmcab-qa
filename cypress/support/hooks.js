@@ -2,7 +2,7 @@
 beforeEach(() => {
   cy.fixture('users').then(users => {
     Object.values(users).forEach(user => {
-      cy.task('upsertUser', user)
+      cy.task('upsertItem', {db: 'main', container: 'user-accounts', item: user})
     })
   })
 })
