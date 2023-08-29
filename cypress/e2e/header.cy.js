@@ -22,7 +22,7 @@ describe('Header', function() {
     })
   })
   
-  context('when logged in', function() {
+  context('when logged in as internal user', function() {
     
     beforeEach(() => {
       cy.loginAsOpssUser()
@@ -37,6 +37,26 @@ describe('Header', function() {
       header().contains('a', 'About').should('have.attr', 'href', '/about')
       header().contains('a', 'Updates').should('have.attr', 'href', '/updates')
       header().contains('a', 'Admin').should('have.attr', 'href', '/admin')
+      header().contains('a', 'Sign out').should('have.attr', 'href', '/account/logout')
+      header().contains('a', 'My details').should('have.attr', 'href', userProfilePath())
+    })
+  })
+
+  context('when logged in as external user', function() {
+    
+    beforeEach(() => {
+      cy.loginAsUkasUser()
+      cy.ensureOn('/')
+    })
+
+    it('displays all expected links', function() {
+      header().contains('a', 'GOV.UK').should('have.attr', 'href', '/')
+      header().contains('a', 'UK Market Conformity Assessment Bodies').should('have.attr', 'href', '/')
+      header().contains('a', 'Search').should('have.attr', 'href', '/')
+      header().contains('a', 'Help').should('have.attr', 'href', '/help')
+      header().contains('a', 'About').should('have.attr', 'href', '/about')
+      header().contains('a', 'Updates').should('have.attr', 'href', '/updates')
+      header().contains('a', 'Admin').should('not.exist')
       header().contains('a', 'Sign out').should('have.attr', 'href', '/account/logout')
       header().contains('a', 'My details').should('have.attr', 'href', userProfilePath())
     })

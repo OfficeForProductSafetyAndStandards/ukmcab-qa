@@ -60,6 +60,12 @@ Cypress.Commands.add('loginAsOpssUser', () => {
   })
 })
 
+Cypress.Commands.add('loginAsUkasUser', () => {
+  cy.fixture('users').then(users => {
+    cy.loginAs(users.UkasUser)
+  })
+})
+
 // TODO: OTHER USERS YET TO COME
 
 Cypress.Commands.add('logout', () => {
