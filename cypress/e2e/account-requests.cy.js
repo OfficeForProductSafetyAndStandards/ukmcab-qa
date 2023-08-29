@@ -1,123 +1,42 @@
-// import { registerAsOgdUser, verifyEmail } from '../support/helpers/registration-helpers'
-// import * as AccountRequests from '../support/helpers/account-request-helpers'
-// import * as EmailHelpers from '../support/helpers/email-helpers'
-// import { shouldBeLoggedIn, shouldBeLoggedOut } from '../support/helpers/common-helpers'
-// import { hasFormError } from '../support/helpers/validation-helpers'
-// import OGDUser from '../support/domain/ogd-user'
+import * as UserManagementHelpers from '../support/helpers/user-management-helpers'
+describe('User account request', () => {
 
-// xdescribe('Account requests', () => {
-
-//   beforeEach(() => {
-//     const user = new OGDUser()
-//     cy.wrap(user).as('user')
-//     registerAsOgdUser(user)
-//   })
-
-//   context('for users who have not verified their email', function() {
-//     beforeEach(() => {
-//       cy.loginAsOpssUser()
-//       AccountRequests.viewAccountRequests()
-//     })
-
-//     it('are not displayed to the admin user', function() {
-//       AccountRequests.accountRequest(this.user).should('not.exist')
-//     })
-//   })
-
-//   context('for users with verified email but pending review', function() {
-//     beforeEach(function() {
-//       verifyEmail(this.user.email)
-//       cy.loginAsOpssUser()
-//       AccountRequests.viewAccountRequests()
-//     })
-
-//     it('are displayed to the admin user', function() {
-//       cy.contains('Pending account requests')
-//       AccountRequests.accountRequest(this.user).should('exist')
-//     })
-
-//     it('users are informed via email notification that request is pending approval', function() {
-//       EmailHelpers.getLastUserEmail(this.user.email).then(email => {
-//         expect(email.isRecent).to.be.true
-//         expect(email.isRequestPendingEmail).to.be.true
-//       })
-//     })
-
-//     it('stop users from login with an error', function() {
-//       cy.logout()
-//       cy.login(this.user.email, this.user.password)
-//       shouldBeLoggedOut()
-//       hasFormError('Registration request has not yet been approved.')
-//     })
+  beforeEach(function() {
+    const uniqueId = Date.now() // unique non-existent user id.
+    const user = {
+      id: uniqueId,
+      firstname: 'Automated',
+      lastname: 'Test',
+      contactEmail: uniqueId + '@ContactEmailAddress.com'
+    }
+    cy.wrap(user).as('user')
+    cy.login(user)
+  })
   
-//     it('display request details upon review', function() {
-//       AccountRequests.reviewRequest(this.user)
-//       cy.contains('Pending account review')
-//       cy.hasKeyValueDetail('Email', this.user.email)
-//       cy.hasKeyValueDetail('Legislative areas', this.user.legislativeAreas.join(', '))
-//       cy.hasKeyValueDetail('Reason for request', this.user.requestReason)
-//     })
-  
-//     it('can be rejected without supplying the optional rejection reason', function() {
-//       AccountRequests.reviewRequest(this.user)
-//       AccountRequests.rejectRequest()
-//       cy.contains('Pending account requests')
-//       AccountRequests.accountRequest(this.user).should('not.exist')
-//     })
+  it('goes for approval when successful', function() {
+    UserManagementHelpers.requestAccount(this.user)
+    cy.contains('Request submitted You will receive an email with the outcome once your request has been reviewed.')
+  })
 
-//     context('when approved', function() {
-      
-//       beforeEach(function() {
-//         AccountRequests.reviewRequest(this.user)
-//         AccountRequests.approveRequest()
-//       })
+  it('error messages are displayed when required details are not supplied', function() {
+    cy.get('#ContactEmailAddress').clear() // This field is pre-populated
+    cy.clickSubmit()
+    cy.hasError('First name', 'Enter a first name')
+    cy.hasError('Last name', 'Enter a last name')
+    cy.hasError('Email address', 'Enter an email address')
+    cy.hasError('Organisation', 'Enter your organisation name')
+    cy.hasError('Can you provide more detail?', 'Enter a reason for your request')
+  })
 
-//       it('users are informed via email notification that request has been approved', function() {
-//         EmailHelpers.getLastUserEmail(this.user.email).then(email => {
-//           expect(email.isRecent).to.be.true
-//           expect(email.isRequestApprovedEmail).to.be.true
-//         })
-//       })
+  it('user is informed where a request is pending already', function() {
+    UserManagementHelpers.seedAccountRequests()
+    UserManagementHelpers.getAccountRequests().then(requests => {
+      console.log(requests)
+      const pendingReq = requests.find(r => r.isPending())
+      console.log(pendingReq)
+      cy.login({id: pendingReq.subjectId})
+      cy.contains("You have already requested an account. You will receive an email when your request has been reviewed." )
+    })
+  })
 
-//       it('removes request from requests page', function() {
-//         cy.contains('Pending account requests')
-//         AccountRequests.accountRequest(this.user).should('not.exist')
-//       })
-      
-//       it('enables user to login', function() {
-//         cy.logout()
-//         cy.login(this.user.email, this.user.password)
-//         shouldBeLoggedIn()
-//       })
-//     })
-
-//     context('when rejected', function() {
-      
-//       beforeEach(function() {
-//         AccountRequests.reviewRequest(this.user)
-//         AccountRequests.rejectRequest()
-//       })
-
-//       it('users are informed via email notification that request has been rejected', function() {
-//         EmailHelpers.getLastUserEmail(this.user.email).then(email => {
-//           expect(email.isRecent).to.be.true
-//           expect(email.isRequestRejectedEmail).to.be.true
-//         })
-//       })
-      
-//       it('removes request from requests page', function() {
-//         cy.contains('Pending account requests')
-//         AccountRequests.accountRequest(this.user).should('not.exist')
-//       })
-      
-//       it('stops user from login with an error', function() {
-//         cy.logout()
-//         cy.login(this.user.email, this.user.password)
-//         shouldBeLoggedOut()
-//         hasFormError('Invalid login attempt.')
-//       })
-//     })
-//   })
-
-
-// })
+})

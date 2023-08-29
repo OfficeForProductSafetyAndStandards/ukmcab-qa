@@ -72,6 +72,7 @@ export const requestAccount = (user) => {
   cy.get('#ContactEmailAddress').clear().type(user.contactEmail)
   cy.get('#Organisation').type('UKMCAB')
   cy.get('#Comments').type('Test comments')
+  cy.contains('a', 'Cancel').should('have.attr', 'href', '/')
   cy.clickSubmit()
 }
 

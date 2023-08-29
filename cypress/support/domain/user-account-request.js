@@ -3,6 +3,7 @@ export default class UserAccountRequest {
   constructor(sourceData) {
     this._sourceData = sourceData
     this.id = sourceData.id
+    this.subjectId = sourceData.subjectId
     this.firstname = sourceData.firstName
     this.lastname = sourceData.surname
     this.email = sourceData.emailAddress

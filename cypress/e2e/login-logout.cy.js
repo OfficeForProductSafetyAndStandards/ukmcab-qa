@@ -14,7 +14,6 @@ describe('Login/Logout', () => {
         failOnStatusCode: false,
         ...basicAuthCreds()
       }).then(response => {
-        console.log(response)
         expect(response.redirects.pop()).to.eq('302: https://signin.integration.account.gov.uk/')
       })
     })
@@ -22,9 +21,14 @@ describe('Login/Logout', () => {
 
   it('logs user out successfully', function() {
     cy.loginAsOpssUser()
-    cy.ensureOn('/')
+    cy.reload()
     cy.logout()
     shouldBeLoggedOut()
+  })
+
+  it('redirects user to account request page if user is not recognised within UKMCAB', function() {
+    cy.login({id: "999"})
+    cy.contains('h1', 'Request user account')
   })
 
 })
