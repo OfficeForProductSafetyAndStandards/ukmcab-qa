@@ -84,6 +84,10 @@ Cypress.Commands.add('cancel', () => {
   cy.contains('button,a', 'Cancel').click()
 })
 
+Cypress.Commands.add('confirm', () => {
+  cy.contains('button,a', 'Confirm').click()
+})
+
 Cypress.Commands.add('getSearchResults', (keywords, options={}) => {
   keywords = keywords === '' ? '*' : `Name:(${keywords})^3 TownCity:(${keywords}) Postcode:("${keywords}") HiddenText:("${keywords}") CABNumber:("${keywords}")^4 LegislativeAreas:(${keywords})^6`
   cy.request({

@@ -29,7 +29,7 @@ describe('User account request', () => {
   })
 
   it('user is informed where a request is pending already', function() {
-    UserManagementHelpers.seedAccountRequests()
+    UserManagementHelpers.seedAccountRequest()
     UserManagementHelpers.getAccountRequests().then(requests => {
       console.log(requests)
       const pendingReq = requests.find(r => r.isPending())

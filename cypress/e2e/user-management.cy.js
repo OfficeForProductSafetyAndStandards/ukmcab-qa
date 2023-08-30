@@ -37,6 +37,7 @@ describe('User Management', () => {
   context('when viewing user requests', function() {
 
     beforeEach(function() {
+      UserManagementHelpers.seedAccountRequest()
       cy.loginAsOpssUser()
       UserManagementHelpers.getPendingAccountRequests().then(requests => {
         cy.wrap(requests).as('requests')
@@ -165,5 +166,54 @@ describe('User Management', () => {
         expect(_email.isAccountUnarchivedEmail()).to.be.true
       })
     })
+  })
+
+  context('when reviewing user account requests', function() {
+
+    beforeEach(function() {
+      UserManagementHelpers.seedAccountRequest()
+      UserManagementHelpers.getPendingAccountRequests().then(requests => {
+        const pendingRequests = requests
+        const pendingRequest = requests[0]
+        cy.wrap(pendingRequests).as('pendingRequests')
+        cy.wrap(pendingRequest).as('pendingRequest')
+        cy.loginAsOpssUser()
+        cy.ensureOn(UserManagementHelpers.reviewRequestPath(pendingRequest))
+      })
+    })
+
+    it('displays all expected information about the request', function() {
+      UserManagementHelpers.hasAccountRequestDetails(this.pendingRequest)
+    })
+
+    it('can be approved - request is removed from pending requests list - user is notified by email - allows user system access', function() {
+      UserManagementHelpers.approveAccountRequest(this.pendingRequest, 'OPSS')
+      UserManagementHelpers.hasAccountRequestsList(this.pendingRequests.filter(req => req.id !== this.pendingRequest.id))
+      getLastUserEmail(this.pendingRequest.contactEmail).then(_email => {
+        expect(_email.isRecent).to.be.true
+        expect(_email.isAccountRequestApprovedEmail()).to.be.true
+      })
+    })
+
+    it('can not be approved without assigning a user group', function() {
+      cy.contains('button', 'Approve').click()
+      cy.hasError('Select a user group', 'Choose a user group')
+    })
+    
+    it('can be declined and are removed from pending requests once rejected', function() {
+      UserManagementHelpers.rejectAccountRequest(this.pendingRequest)
+      UserManagementHelpers.hasAccountRequestsList(this.pendingRequests.filter(req => req.id !== this.pendingRequest.id))
+      getLastUserEmail(this.pendingRequest.contactEmail).then(_email => {
+        expect(_email.isRecent).to.be.true
+        expect(_email.isAccountRequestRejectedEmail()).to.be.true
+      })
+    })
+    
+    it('can not be declined without supplying a reason', function() {
+      cy.contains('button', 'Decline').click()
+      cy.continue()
+      cy.hasError('Enter the reason for declining this account request. This will be sent in the response to the request.', 'Enter the reason for declining this account request')
+    })
+
   })
 })

@@ -10,12 +10,30 @@ export default class UserAccountRequest {
     this.contactEmail = sourceData.contactEmailAddress
     this.comments = sourceData.comments
     this.status = sourceData.status
+    this.organisationName = sourceData.organisationName
     this.createdUtc =  Cypress.dayjs(sourceData.createdUtc).utc()
     this.lastUpdatedUtc = sourceData.lastUpdatedUtc
   }
  
   isPending() {
     return this.status === 0
+  }
+
+  static build() {
+    const uniqueId = Date.now().toString()
+    return {
+      id: uniqueId,
+      subjectId: uniqueId,
+      firstName: 'Test',
+      surname: `User ${uniqueId}` ,
+      emailAddress: `Test.User${uniqueId}@EmailAddress.com`,
+      contactEmailAddress: `Test.User${uniqueId}@ContactEmailAddress.com`,
+      comments: 'Test Comments',
+      status: 0,
+      organisationName: 'TEST',
+      createdUtc: Cypress.dayjs().utc().format(),
+      lastUpdatedUtc: Cypress.dayjs().utc().format()
+    }
   }
   
 }

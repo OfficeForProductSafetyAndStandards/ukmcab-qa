@@ -19,12 +19,8 @@ export const getUsers = () => {
   })
 }
 
-export const seedAccountRequests = () => { 
-  cy.fixture('user-account-requests').then(users => {
-    Object.values(users).forEach(user => {
-      cy.task('upsertItem', {db: 'main', container: 'user-account-requests', item: user})
-    })
-  })
+export const seedAccountRequest = () => { 
+  cy.task('upsertItem', {db: 'main', container: 'user-account-requests', item: UserAccountRequest.build()})
 }
 
 export const getAccountRequests = () => { 
@@ -64,6 +60,16 @@ export const hasAccountRequestsList = (requests) => {
       cy.get('td').eq(4).contains('a', 'Review request').and('has.attr', 'href', reviewRequestPath(request))
     })
   })
+}
+
+export const hasAccountRequestDetails = (request) => { 
+  cy.contains('h1', 'Account request')
+  cy.hasKeyValueDetail('First name', request.firstname)
+  cy.hasKeyValueDetail('Last name', request.lastname)
+  cy.hasKeyValueDetail('Email address', request.contactEmail)
+  cy.hasKeyValueDetail('Organisation', request.organisationName)
+  cy.hasKeyValueDetail('Requested on', request.createdUtc.format('DD/MM/YY HH:mm'))
+  cy.hasKeyValueDetail('Comments', request.comments)
 }
 
 export const requestAccount = (user) => { 
@@ -155,4 +161,21 @@ export const unarchiveUser = (user) => {
   .next().type('Test Admin notes for unarchiving')
   cy.contains('a', 'Cancel').should('have.attr', 'href', userAdminPath(user))
   cy.contains('button', 'Unarchive account').click()
+}
+
+export const approveAccountRequest = (request, userGroup) => { 
+  cy.ensureOn(reviewRequestPath(request))
+  cy.get('#role').select(userGroup)
+  cy.contains('button', 'Approve').click()
+  cy.contains(`Approve account request Confirm that the account request for ${request.firstname} ${request.lastname} should be approved. If confirmed, they will be added to the ${userGroup} user group and given the permissions associated with this group.`)
+  cy.confirm()
+}
+
+export const rejectAccountRequest = (request, reason='Test decline reason') => { 
+  cy.ensureOn(reviewRequestPath(request))
+  cy.contains('button', 'Decline').click()
+  cy.contains('h1', 'Decline account request')
+  cy.get('#Reason').invoke('val', reason)
+  cy.contains('a', 'Cancel').should('have.attr', 'href', reviewRequestPath(request))
+  cy.continue()
 }
