@@ -7,6 +7,7 @@ export default class Cab {
     this.accreditationSchedules = cabData.accreditationSchedules
     this.addressLine1 = cabData.AddressLine1
     this.addressLine2 = cabData.AddressLine2
+    this.auditLog = cabData.AuditLog
     this.townCity = cabData.TownCity
     this.county = cabData.County
     this.postcode = cabData.Postcode
@@ -15,13 +16,11 @@ export default class Cab {
     this.cabId = cabData.CABId
     this.cabNumber = cabData.CABNumber
     this.bodyTypes = cabData.BodyTypes
-    this.createdDate = new Date({...cabData.Created}.DateTime)
     this.email = cabData.Email
     this.legislativeAreas = cabData.LegislativeAreas
     this.lastUpdatedDate = new Date(cabData.LastUpdatedDate)
     this._name = cabData.Name
     this.phone = cabData.Phone
-    this.publishedDate = new Date({...cabData.Published}.DateTime)
     this.pointOfContactName = cabData.PointOfContactName
     this.pointOfContactEmail = cabData.PointOfContactEmail
     this.pointOfContactPhone = cabData.PointOfContactPhone
@@ -46,6 +45,14 @@ export default class Cab {
     if(newName) {
       this.urlSlug = newName.replace(/[^a-zA-Z0-9 ]/g, "").replace(/\s+/g, '-').toLowerCase()
     }
+  }
+
+  get publishedDate() {
+    return Cypress.dayjs(this.auditLog.find(entry => entry.Status === 'Published').DateTime)
+  }
+
+  get createdDate() {
+    return Cypress.dayjs(this.auditLog.find(entry => entry.Status === 'Created').DateTime)
   }
 
   get url() {

@@ -175,7 +175,7 @@ describe('CAB profile page', function() {
     it('displays viewable and downloadable list of supporting documents', function() {
       supportingDocumentsTab().click()
       cy.contains('.cab-detail-section', 'Supporting documents').within(() => {
-        this.cab.documents.forEach((document,index) => {
+        this.cab.documents.sort((a,b) => a.fileName.localeCompare(b.fileName)).forEach((document,index) => {
           // Known cypress issue with dowbload links timeout  - https://github.com/cypress-io/cypress/issues/14857
           cy.window().then((win) => { setTimeout(() => { win.location.reload() },5000) }) 
           cy.get('.govuk-summary-list__row').eq(index).within(() => {
