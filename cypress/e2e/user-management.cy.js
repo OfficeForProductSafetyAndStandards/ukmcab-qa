@@ -193,6 +193,8 @@ describe('User Management', () => {
         expect(_email.isRecent).to.be.true
         expect(_email.isAccountRequestApprovedEmail()).to.be.true
       })
+      cy.login({id: this.pendingRequest.subjectId})
+      shouldBeLoggedIn()
     })
 
     it('can not be approved without assigning a user group', function() {
@@ -200,13 +202,16 @@ describe('User Management', () => {
       cy.hasError('Select a user group', 'Choose a user group')
     })
     
-    it('can be declined and are removed from pending requests once rejected', function() {
+    it('can be declined - request is removed from pending requests list - user is notified by email - user can not access system', function() {
       UserManagementHelpers.rejectAccountRequest(this.pendingRequest)
       UserManagementHelpers.hasAccountRequestsList(this.pendingRequests.filter(req => req.id !== this.pendingRequest.id))
       getLastUserEmail(this.pendingRequest.contactEmail).then(_email => {
         expect(_email.isRecent).to.be.true
         expect(_email.isAccountRequestRejectedEmail()).to.be.true
       })
+      cy.login({id: this.pendingRequest.subjectId})
+      shouldBeLoggedOut()
+      cy.contains('Request user account')
     })
     
     it('can not be declined without supplying a reason', function() {
