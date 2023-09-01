@@ -89,13 +89,13 @@ Cypress.Commands.add('confirm', () => {
 })
 
 Cypress.Commands.add('getSearchResults', (keywords, options={}) => {
-  keywords = keywords === '' ? '*' : `Name:(${keywords})^3 TownCity:(${keywords}) Postcode:("${keywords}") HiddenText:("${keywords}") CABNumber:("${keywords}")^4 LegislativeAreas:(${keywords})^6`
+  keywords = keywords === '' ? '*' : `Name:(${keywords})^3 TownCity:(${keywords}) Postcode:("${keywords}") HiddenText:("${keywords}") ScheduleLabels:("${keywords}") CABNumber:("${keywords}")^4 LegislativeAreas:(${keywords})^6`
   cy.request({
     method: 'POST',
     headers: {
       'api-key' : Cypress.env('AZURE_SEARCH_API_KEY')
     },
-    url: Cypress.env('AZURE_SEARCH_URL') + '/indexes/ukmcab-search-index-v1-1/docs/search?api-version=2020-06-30',
+    url: Cypress.env('AZURE_SEARCH_URL') + '/indexes/ukmcab-search-index-v2-0/docs/search?api-version=2020-06-30',
     body: {
       search: keywords,
       queryType: 'full',

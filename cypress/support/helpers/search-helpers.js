@@ -68,6 +68,12 @@ export const azureSearchResults = (term, options) => {
   })
 }
 
+export const publishedSearchResults = (term, options) => {
+  return azureSearchResults(term, options).then(results => {
+    return results.filter(result => result.status === 'Published')
+  })
+}
+
 // TODO validate filter names
 // e.g filters = {"BodyTypes": ['Approved', 'Overseas], "RegisteredOfficeLocation": [xxx, yyy], "TestingLocations: []"}
 export const buildFilterQuery = (filterOptions) => {

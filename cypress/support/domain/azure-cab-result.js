@@ -1,3 +1,5 @@
+import { cabProfilePage } from "../helpers/cab-helpers"
+
 export default class AzureCabResult {
 
   constructor(result) {
@@ -13,10 +15,23 @@ export default class AzureCabResult {
     this.country = result.Country
     this.bodyTypes = result.BodyTypes
     this.registeredOfficeLocation = result.RegisteredOfficeLocation
+    this.status = result.Status
     this.testingLocations = result.TestingLocations
     this.legislativeAreas = result.LegislativeAreas
     this.lastUpdatedDate = new Date(result.LastUpdatedDate)
     this.urlSlug = result.URLSlug
+  }
+
+  get path() {
+    if(this.isDraft) {
+      return `/admin/cab/summary/${this.cabId}`
+    } else {
+      return `/search/cab-profile/${this.urlSlug}`
+    }
+  }
+
+  get isDraft() {
+    return this.status === "Draft"
   }
 
   get addressLines() {
