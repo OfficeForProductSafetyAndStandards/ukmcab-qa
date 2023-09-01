@@ -13,6 +13,25 @@ export const displayedSearchResults = () => {
   return cy.get('ul#search-results-list > li')
 }
 
+
+export const bodyTypeFilterOptions = (searchResults) => {
+  const bodyTypes = Cypress._.map(searchResults, 'bodyTypes').flat().filter(Boolean)
+  return [...new Set(bodyTypes)].sort() // unique values
+}
+
+export const registeredOfficeLocationFilterOptions = (searchResults) => {
+  const registeredOfficeLocations = Cypress._.map(searchResults, 'registeredOfficeLocation').flat().filter(Boolean)
+  let registeredOfficeLocationsUnique = [...new Set(registeredOfficeLocations)]
+  registeredOfficeLocationsUnique = Cypress._.without(registeredOfficeLocationsUnique, "United Kingdom")
+  registeredOfficeLocationsUnique.sort().unshift("United Kingdom")
+  return registeredOfficeLocationsUnique
+}
+
+export const legislativeAreaFilterOptions = (searchResults) => {
+  const legislativeAreas = Cypress._.map(searchResults, 'legislativeAreas').flat().filter(Boolean)
+  return [...new Set(legislativeAreas)].sort() // unique values
+}
+
 export const sortView = (choice) => {
   cy.get('#search-results-sort-container a').contains(choice).click()
 }
@@ -31,6 +50,10 @@ export const filterByTestingLocation = (filters) => {
 
 export const filterByLegislativeArea = (filters) => {
   _applyFilter('Legislative area', filters)
+}
+
+export const filterByStatus = (filters) => {
+  _applyFilter('Status', filters)
 }
 
 const _applyFilter = (filterGroup, filters) => {
@@ -74,6 +97,15 @@ export const publishedSearchResults = (term, options) => {
   })
 }
 
+export const StatusValues = {
+  'Unknown': 0,
+  'Created': 10,
+  'Draft': 20,
+  'Published': 30,
+  'Archived': 40,
+  'Historical': 50
+}
+
 // TODO validate filter names
 // e.g filters = {"BodyTypes": ['Approved', 'Overseas], "RegisteredOfficeLocation": [xxx, yyy], "TestingLocations: []"}
 export const buildFilterQuery = (filterOptions) => {
@@ -81,9 +113,13 @@ export const buildFilterQuery = (filterOptions) => {
   Object.entries(filterOptions).forEach(([filterCategory, options]) => {
     if(filterCategory === 'RegisteredOfficeLocation') {
       filters.push(Array.from(options).map(option => `RegisteredOfficeLocation eq '${option}'`).join(' or '))
+    } else if(filterCategory === 'Status') {
+      filters.push(Array.from(options).map(option => `StatusValue eq '${StatusValues[option]}'`).join(' or '))
+      // filters.push(`StatusValue\/any\(x\: ${Array.from(options).map(option => `x eq \'${option}\'`).join(' or ')}\)`)
     } else {
       filters.push(`${filterCategory}\/any\(x\: ${Array.from(options).map(option => `x eq \'${option}\'`).join(' or ')}\)`)
     }
   })
-  return filters.join(' and ')
+  // return filters.join(' and ')
+  return filters.map(f => '(' + f + ')').join(' and ')
 }

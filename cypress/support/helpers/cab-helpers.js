@@ -284,42 +284,6 @@ export const getAllDraftOrArchivedCabs = () => {
   })
 }
 
-export const getDistinctBodyTypes = () => {
-  const querySpec = "SELECT DISTINCT c.BodyTypes FROM c WHERE c.Status = 'Published'"
-  return cy.task('executeQuery', {db: 'main', container: 'cab-documents', querySpec: querySpec}).then(results => {
-    const bodyTypes = results.resources.flatMap(r => r.BodyTypes)
-    return Cypress._.uniq(bodyTypes).sort()
-  })
-}
-
-export const getDistinctRegisteredOfficeLocations = () => {
-  const querySpec = "SELECT DISTINCT c.RegisteredOfficeLocation FROM c WHERE c.Status = 'Published'"
-  return cy.task('executeQuery', {db: 'main', container: 'cab-documents', querySpec: querySpec}).then(results => {
-    const _locations = Cypress._.uniq(results.resources.map(r => r.RegisteredOfficeLocation))
-    const locations = Cypress._.without(_locations, "United Kingdom").sort() // Move UK to top
-    locations.sort().unshift("United Kingdom")
-    return locations
-  })
-}
-
-export const getDistinctTestingLocations = () => {
-  const querySpec = "SELECT DISTINCT c.TestingLocations FROM c WHERE c.Status = 'Published'"
-  return cy.task('executeQuery', {db: 'main', container: 'cab-documents', querySpec: querySpec}).then(results => {
-    const _locations = results.resources.flatMap(r => r.TestingLocations).filter(Boolean)
-    const locations = Cypress._.without(_locations, "United Kingdom").sort() // Move UK to top
-    locations.unshift("United Kingdom")
-    return locations
-  })
-}
-
-export const getDistinctLegislativeAreas = () => {
-  const querySpec = "SELECT DISTINCT c.LegislativeAreas FROM c WHERE c.Status = 'Published'"
-  return cy.task('executeQuery', {db: 'main', container: 'cab-documents', querySpec: querySpec}).then(results => {
-    const areas =  results.resources.flatMap(r => r.LegislativeAreas)
-    return Cypress._.uniq(areas).sort()
-  })
-}
-
 export const addACabButton = () => {
   return cy.contains('a', 'Add a new CAB')
 }

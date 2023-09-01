@@ -217,7 +217,7 @@ describe('Creating a new CAB', () => {
 
   })
 
-  context.only('when uploading supporting documents', function() {
+  context('when uploading supporting documents', function() {
 
     beforeEach(function(){
       CabHelpers.enterCabDetails(this.cab)

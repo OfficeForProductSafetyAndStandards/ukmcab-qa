@@ -116,7 +116,6 @@ describe('CAB Search', () => {
         keywords.forEach(keyword => {
           SearchHelpers.searchCab(keyword)
           SearchHelpers.publishedSearchResults(keyword).then(expectedResults => {
-            console.log(expectedResults)
             const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
             SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
               const actualCabs = Cypress._.map(actualResults, 'innerText')
@@ -131,33 +130,21 @@ describe('CAB Search', () => {
 
   context('when filtering search results', function() {
     it('displays expected filter categories and selections', function() {
-      CabHelpers.getDistinctBodyTypes().then(bodyTypes => {
+      SearchHelpers.publishedSearchResults('').then(expectedResults => {
         cy.get('.search-filter-option h3').contains('Body type').next().find('.search-filter-option-item label')
         .then(($els) => {
           const filterOptions = Cypress._.map($els, 'innerText')
-          expect(filterOptions).to.eql(bodyTypes)
+          expect(filterOptions).to.eql(SearchHelpers.bodyTypeFilterOptions(expectedResults))
         })
-      })
-      CabHelpers.getDistinctRegisteredOfficeLocations().then(registeredOfficeLocations => {
         cy.get('.search-filter-option h3').contains('Registered office location').next().find('.search-filter-option-item label')
         .then(($els) => {
           const filterOptions = Cypress._.map($els, 'innerText')
-          expect(filterOptions).to.eql(registeredOfficeLocations)
+          expect(filterOptions).to.eql(SearchHelpers.registeredOfficeLocationFilterOptions(expectedResults))
         })
-      })
-      // Removed as part of UKMCAB-831 but may return in future so keeping commented out
-      // CabHelpers.getDistinctTestingLocations().then(testingLocations => {
-      //   cy.get('.search-filter-option h3').contains('Testing location').next().find('.search-filter-option-item label')
-      //   .then(($els) => {
-      //     const filterOptions = Cypress._.map($els, 'innerText')
-      //     expect(filterOptions).to.eql(testingLocations)
-      //   })
-      // })
-      CabHelpers.getDistinctLegislativeAreas().then(legislativeAreas => {
         cy.get('.search-filter-option h3').contains('Legislative area').next().find('.search-filter-option-item label')
         .then(($els) => {
           const filterOptions = Cypress._.map($els, 'innerText')
-          expect(filterOptions).to.eql(legislativeAreas)
+          expect(filterOptions).to.eql(SearchHelpers.legislativeAreaFilterOptions(expectedResults))
         })
       })
     })
@@ -367,6 +354,58 @@ describe('CAB Search', () => {
             cy.wrap($displayedResult).find('li').eq(4).should('have.text', 'Testing location: ' + expectedResult.testingLocationsFormatted)
             cy.wrap($displayedResult).find('li').eq(5).should('have.text', 'Legislative area: ' + expectedResult.legislativeAreasFormatted)
           })
+        })
+      })
+    })
+
+    it('displays expected filter categories and selections', function() {
+      SearchHelpers.azureSearchResults('').then(expectedResults => {
+        cy.get('.search-filter-option h3').contains('Body type').next().find('.search-filter-option-item label')
+        .then(($els) => {
+          const filterOptions = Cypress._.map($els, 'innerText')
+          expect(filterOptions).to.eql(SearchHelpers.bodyTypeFilterOptions(expectedResults))
+        })
+        cy.get('.search-filter-option h3').contains('Registered office location').next().find('.search-filter-option-item label')
+        .then(($els) => {
+          const filterOptions = Cypress._.map($els, 'innerText')
+          expect(filterOptions).to.eql(SearchHelpers.registeredOfficeLocationFilterOptions(expectedResults))
+        })
+        cy.get('.search-filter-option h3').contains('Legislative area').next().find('.search-filter-option-item label')
+        .then(($els) => {
+          const filterOptions = Cypress._.map($els, 'innerText')
+          expect(filterOptions).to.eql(SearchHelpers.legislativeAreaFilterOptions(expectedResults))
+        })
+        cy.get('.search-filter-option h3').contains('Status').next().find('.search-filter-option-item label')
+        .then(($els) => {
+          const filterOptions = Cypress._.map($els, 'innerText')
+          expect(filterOptions).to.eql(['Draft', 'Published', 'Archived'])
+        })
+      })
+    })
+
+    it('displays correct results for Status filters', function() {
+      const filterOptions = {"Status": ['Draft', 'Archived']}
+      SearchHelpers.filterByStatus(['Draft', 'Archived'])
+      SearchHelpers.azureSearchResults('', {filter: SearchHelpers.buildFilterQuery(filterOptions), orderby: 'Name'}).then(expectedResults => {
+        const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
+        SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
+          const actualCabs = Cypress._.map(actualResults, 'innerText')
+          SearchHelpers.topPagination().contains(`Showing 1 - ${expectedCabs.length} of ${expectedResults.length} bodies`)
+          expect(actualCabs).to.eql(expectedCabs)
+        })
+      })
+    })
+
+    it('displays correct results for filters on multiple categories', function() {
+      const filterOptions = {"BodyTypes": ['Approved body', 'Overseas body'], "Status": ['Draft', 'Published']}
+      SearchHelpers.filterByBodyType(['Approved body', 'Overseas body'])
+      SearchHelpers.filterByStatus(['Draft', 'Published'])
+      SearchHelpers.azureSearchResults('', {filter: SearchHelpers.buildFilterQuery(filterOptions), orderby: 'Name'}).then(expectedResults => {
+        const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
+        SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
+          const actualCabs = Cypress._.map(actualResults, 'innerText')
+          SearchHelpers.topPagination().contains(`Showing 1 - ${expectedCabs.length} of ${expectedResults.length} bodies`)
+          expect(actualCabs).to.eql(expectedCabs)
         })
       })
     })
