@@ -85,11 +85,9 @@ export const enterContactDetails = (cab) => {
 }
 
 export const enterBodyDetails = (cab) => {
-  cy.wrap(cab.testingLocations).its('length').then(count => {
-    Cypress._.times(count - 1, cy.contains('a', 'Add another registered test location').click())
-    cab.testingLocations.forEach((location, index) => {
-      cy.get('.test-location select').eq(index).select(location)
-    })
+  cy.wrap(cab.testingLocations).each((location, index, locations) => {
+    Cypress._.times(locations - 1, cy.contains('a', 'Add another registered test location').click())
+    cy.get('.test-location select').eq(index).select(location)
   })
   cab.bodyTypes.forEach(bodyType => {
     cy.get(`input[value='${bodyType}']`).check()
