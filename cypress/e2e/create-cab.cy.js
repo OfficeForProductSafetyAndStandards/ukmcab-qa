@@ -141,7 +141,7 @@ describe('Creating a new CAB', () => {
       cy.continue()
       cy.hasError('Registered test location', 'Select a registered test location')
       cy.hasError('Body type', 'Select a body type')
-      cy.hasError('Legislative area', 'Select a legislative area')
+      cy.contains('Select a legislative area').should('not.exist')
     })
     
   })
@@ -285,7 +285,7 @@ describe('Creating a new CAB', () => {
 
   context('when reviewing details', function() {
     
-    beforeEach(function() {
+    it('allows editing any of the details', function() {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
@@ -293,9 +293,6 @@ describe('Creating a new CAB', () => {
       cy.continue()
       CabHelpers.uploadDocuments(this.cab)
       CabHelpers.hasDetailsConfirmation(this.cab)
-    })
-
-    it('allows editing any of the details', function() {
       let cloneCab = this.cab
       let uniqueId = Date.now()
       
@@ -323,29 +320,44 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterBodyDetails(cloneCab)
       CabHelpers.hasDetailsConfirmation(cloneCab)
     })
-  })
 
-  context('when Publishing a CAB', function() {
+    it('displays Legislative area advisory if Legislative area has not been entered', function() {
+      this.cab.legislativeAreas = null
+      CabHelpers.enterCabDetails(this.cab)
+      CabHelpers.enterContactDetails(this.cab)
+      CabHelpers.enterBodyDetails(this.cab)
+      cy.contains('Skip this step').click()
+      cy.contains('Skip this step').click()
+      cy.hasKeyValueDetail('Legislative area', 'No legislative area has been selected.')
+      // also check that user can still publish cab without a Legislative Area
+      CabHelpers.clickPublish()
+      CabHelpers.hasCabPublishedConfirmation(this.cab)
+    })
 
     it('displays CAB name advisory if CAB name already exists', function() {
       CabHelpers.getTestCab().then(cab => {
-        cab.reviewDate = null // old data has invalid dates
         this.cab.name = cab.name
         CabHelpers.enterCabDetails(this.cab)
         CabHelpers.enterContactDetails(this.cab)
         CabHelpers.enterBodyDetails(this.cab)
-        CabHelpers.uploadSchedules(this.cab.schedules)
-        cy.continue()
-        CabHelpers.uploadDocuments(this.cab)
+        cy.contains('Skip this step').click()
+        cy.contains('Skip this step').click()
         cy.hasKeyValueDetail('CAB name', 'This CAB name already exists. Only create this CAB if you have contacted OPSS for approval.')
+      })
 
-        // also check that its removed when user corrects cab name to be unique
-        CabHelpers.editCabDetail('CAB details')
-        this.cab.name = `Test Cab ${Date.now()}`
-        CabHelpers.enterCabDetails(this.cab)
-        cy.hasKeyValueDetail('CAB name', 'This CAB name already exists. Only create this CAB if you have contacted OPSS for approval.').should('not.exist')
+      // also check that its removed when user corrects cab name to be unique
+      CabHelpers.editCabDetail('CAB details')
+      this.cab.name = `Test Cab ${Date.now()}`
+      CabHelpers.enterCabDetails(this.cab)
+      cy.hasKeyValueDetail('CAB name', 'This CAB name already exists. Only create this CAB if you have contacted OPSS for approval.').should('not.exist')
+      CabHelpers.getTestCab().then(cab => {
+        cab.reviewDate = null // old data has invalid dates
+        this.cab.name = cab.name
       })
     })
+  })
+
+  context('when Publishing a CAB', function() {
 
     it('Publish button is disabled until all mandatory data has been entered', function() {
       CabHelpers.enterCabDetails(this.cab)

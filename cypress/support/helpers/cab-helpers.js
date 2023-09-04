@@ -94,7 +94,7 @@ export const enterBodyDetails = (cab) => {
   cab.bodyTypes.forEach(bodyType => {
     cy.get(`input[value='${bodyType}']`).check()
   })
-  cab.legislativeAreas.forEach(area => {
+  cab.legislativeAreas?.forEach(area => {
     cy.get(`input[value='${area}']`).check()
   })
   cy.continue()
