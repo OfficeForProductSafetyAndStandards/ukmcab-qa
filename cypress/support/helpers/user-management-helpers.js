@@ -44,7 +44,7 @@ export const hasUserList = (users) => {
       cy.get('td').eq(1).should('have.attr', 'title', user.lastname)
       cy.get('td').eq(2).should('have.attr', 'title', user.contactEmail)
       cy.get('td').eq(3).should('have.text', user.role.toUpperCase())
-      cy.get('td').eq(4).should('have.text', user.lastLogon?.format('DD/MM/YYYY HH:mm') ?? 'None')
+      cy.get('td').eq(4).should('have.text', user.lastLogon?.format('DD/MM/YYYY HH:mm') ?? 'N/A')
       cy.get('td').eq(5).contains('a', 'View profile').and('has.attr', 'href', userAdminPath(user))
     })
   })
