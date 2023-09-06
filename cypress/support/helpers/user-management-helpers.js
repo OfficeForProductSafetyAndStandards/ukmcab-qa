@@ -41,10 +41,10 @@ export const hasUserList = (users) => {
   cy.wrap(users).each((user, index) => {
     cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
       cy.get('td').eq(0).should('have.text', user.firstname)
-      cy.get('td').eq(1).should('have.text', user.lastname)
-      cy.get('td').eq(2).should('have.text', user.contactEmail)
+      cy.get('td').eq(1).should('have.attr', 'title', user.lastname)
+      cy.get('td').eq(2).should('have.attr', 'title', user.contactEmail)
       cy.get('td').eq(3).should('have.text', user.role.toUpperCase())
-      cy.get('td').eq(4).should('have.text', user.lastLogon ? user.lastLogon.format('DD/MM/YY HH:mm'): '')
+      cy.get('td').eq(4).should('have.text', user.lastLogon?.format('DD/MM/YYYY HH:mm') ?? 'None')
       cy.get('td').eq(5).contains('a', 'View profile').and('has.attr', 'href', userAdminPath(user))
     })
   })
@@ -54,9 +54,9 @@ export const hasAccountRequestsList = (requests) => {
   cy.wrap(requests).each((request, index) => {
     cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
       cy.get('td').eq(0).should('have.text', request.firstname)
-      cy.get('td').eq(1).should('have.text', request.lastname)
-      cy.get('td').eq(2).should('have.text', request.contactEmail)
-      cy.get('td').eq(3).should('have.text', request.createdUtc.format('DD/MM/YY HH:mm'))
+      cy.get('td').eq(1).should('have.attr', 'title', request.lastname)
+      cy.get('td').eq(2).should('have.attr', 'title', request.contactEmail)
+      cy.get('td').eq(3).should('have.text', request.createdUtc.format('DD/MM/YYYY HH:mm'))
       cy.get('td').eq(4).contains('a', 'Review request').and('has.attr', 'href', reviewRequestPath(request))
     })
   })
@@ -68,7 +68,7 @@ export const hasAccountRequestDetails = (request) => {
   cy.hasKeyValueDetail('Last name', request.lastname)
   cy.hasKeyValueDetail('Email address', request.contactEmail)
   cy.hasKeyValueDetail('Organisation', request.organisationName)
-  cy.hasKeyValueDetail('Requested on', request.createdUtc.format('DD/MM/YY HH:mm'))
+  cy.hasKeyValueDetail('Requested on', request.createdUtc.format('DD/MM/YYYY HH:mm'))
   cy.hasKeyValueDetail('Comments', request.comments)
 }
 
@@ -85,7 +85,6 @@ export const requestAccount = (user) => {
 export const editUserProfileDetails = (user) => { 
   cy.get('#FirstName').invoke('val', user.firstname)
   cy.get('#LastName').invoke('val', user.lastname)
-  cy.get('#PhoneNumber').invoke('val', user.phone)
   cy.get('#ContactEmailAddress').invoke('val', user.contactEmail)
   cy.clickSubmit()
 }
@@ -122,12 +121,13 @@ export const unlockUser = (user) => {
 }
 
 export const hasUserProfileDetails = (user) => { 
-  cy.contains('h1', 'My details')
+  cy.contains('h1', /My details|User profile/)
   cy.hasKeyValueDetail('First name', user.firstname)
   cy.hasKeyValueDetail('Last name', user.lastname)
   cy.hasKeyValueDetail('Email', user.contactEmail)
-  cy.hasKeyValueDetail('Telephone', user.phone)
+  cy.hasKeyValueDetail('Organisation', user.organisationName)
   cy.hasKeyValueDetail('User group', user.role.toUpperCase())
+  cy.hasKeyValueDetail('Last log in',  /^ \d{2}\/\d{2}\/\d{4} \d{2}:\d{2} $/)
 }
 
 export const archiveUser = (user) => { 

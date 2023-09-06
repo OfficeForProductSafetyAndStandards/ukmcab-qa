@@ -24,14 +24,12 @@ describe('User Profile', () => {
     it('displays user details pre-filled', function() {
       cy.get('#FirstName').should('have.attr', 'value', this.user.firstname)
       cy.get('#LastName').should('have.attr', 'value', this.user.lastname)
-      cy.get('#PhoneNumber').should('have.attr', 'value', this.user.phone)
       cy.get('#ContactEmailAddress').should('have.attr', 'value', this.user.contactEmail)
     })
 
     it('displays error if any fields ar left blank', function() {
       this.user.firstname = ''
       this.user.lastname = ''
-      this.user.phone = ''
       this.user.contactEmail = ''
       UserManagementHelpers.editUserProfileDetails(this.user)
       cy.hasError('First name', 'Enter a first name')

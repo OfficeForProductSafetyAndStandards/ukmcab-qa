@@ -47,11 +47,11 @@ describe('User Management', () => {
 
     it('displays a list of pending requests under Requests tab', function() {
       cy.contains('a', `Requests (${this.requests.length})`).click()
-      UserManagementHelpers.hasAccountRequestsList(this.requests)
+      UserManagementHelpers.hasAccountRequestsList(this.requests.slice(0,20))
     })
   })
 
-  context('when viewing user admin page for active user', function() {
+  context('when viewing user profile page', function() {
 
     beforeEach(function() {
       UserManagementHelpers.getTestUsers().then(users => {
@@ -63,12 +63,8 @@ describe('User Management', () => {
     })
 
     it('displays expected user details', function() {
-      cy.contains('h1', 'User account')
       cy.contains('a', 'Back').should('have.attr', 'href', UserManagementHelpers.userManagementPath())
-      cy.hasKeyValueDetail('First name', this.user.firstname)
-      cy.hasKeyValueDetail('Last name', this.user.lastname)
-      cy.hasKeyValueDetail('Email', this.user.contactEmail)
-      cy.hasKeyValueDetail('Last logon date', /^ \d{2}\/\d{2}\/\d{2} \d{2}:\d{2} $/)
+      UserManagementHelpers.hasUserProfileDetails(this.user)
     })
   })
 
@@ -188,7 +184,7 @@ describe('User Management', () => {
 
     it('can be approved - request is removed from pending requests list - user is notified by email - allows user system access', function() {
       UserManagementHelpers.approveAccountRequest(this.pendingRequest, 'OPSS')
-      UserManagementHelpers.hasAccountRequestsList(this.pendingRequests.filter(req => req.id !== this.pendingRequest.id))
+      UserManagementHelpers.hasAccountRequestsList(this.pendingRequests.filter(req => req.id !== this.pendingRequest.id).slice(0,20))
       getLastUserEmail(this.pendingRequest.contactEmail).then(_email => {
         expect(_email.isRecent).to.be.true
         expect(_email.isAccountRequestApprovedEmail()).to.be.true
@@ -204,7 +200,7 @@ describe('User Management', () => {
     
     it('can be declined - request is removed from pending requests list - user is notified by email - user can not access system', function() {
       UserManagementHelpers.rejectAccountRequest(this.pendingRequest)
-      UserManagementHelpers.hasAccountRequestsList(this.pendingRequests.filter(req => req.id !== this.pendingRequest.id))
+      UserManagementHelpers.hasAccountRequestsList(this.pendingRequests.filter(req => req.id !== this.pendingRequest.id).slice(0,20))
       getLastUserEmail(this.pendingRequest.contactEmail).then(_email => {
         expect(_email.isRecent).to.be.true
         expect(_email.isAccountRequestRejectedEmail()).to.be.true
