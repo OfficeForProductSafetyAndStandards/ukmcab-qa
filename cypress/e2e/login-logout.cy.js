@@ -27,7 +27,7 @@ describe('Login/Logout', () => {
   })
 
   it('redirects user to account request page if user is not recognised within UKMCAB', function() {
-    cy.login({id: "999"})
+    cy.login({id: "99999999999"})
     cy.contains('h1', 'Request user account')
   })
 

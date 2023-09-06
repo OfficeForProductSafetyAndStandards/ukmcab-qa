@@ -89,7 +89,8 @@ Cypress.Commands.add('confirm', () => {
 })
 
 Cypress.Commands.add('getSearchResults', (keywords, options={}) => {
-  keywords = keywords === '' ? '*' : `Name:(${keywords})^3 TownCity:(${keywords}) Postcode:("${keywords}") HiddenText:("${keywords}") ScheduleLabels:("${keywords}") CABNumber:("${keywords}")^4 LegislativeAreas:(${keywords})^6`
+  // ScheduleLabels:("${keywords}") removed until 2.0 release
+  keywords = keywords === '' ? '*' : `Name:(${keywords})^3 TownCity:(${keywords}) Postcode:("${keywords}") HiddenText:("${keywords}") CABNumber:("${keywords}")^4 LegislativeAreas:(${keywords})^6`
   cy.request({
     method: 'POST',
     headers: {

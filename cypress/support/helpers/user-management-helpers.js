@@ -66,7 +66,7 @@ export const hasAccountRequestDetails = (request) => {
   cy.contains('h1', 'Account request')
   cy.hasKeyValueDetail('First name', request.firstname)
   cy.hasKeyValueDetail('Last name', request.lastname)
-  cy.hasKeyValueDetail('Email address', request.contactEmail)
+  cy.hasKeyValueDetail('Email', request.contactEmail)
   cy.hasKeyValueDetail('Organisation', request.organisationName)
   cy.hasKeyValueDetail('Requested on', request.createdUtc.format('DD/MM/YYYY HH:mm'))
   cy.hasKeyValueDetail('Comments', request.comments)

@@ -84,8 +84,8 @@ describe('User Management', () => {
       cy.logout()
       cy.login(this.lockedUser)
       shouldBeLoggedOut()
-      cy.contains('Account locked Sorry your account is locked, please contact the help desk for further assistance.')
-      cy.contains('a', 'Contact support').should('have.attr', 'href', contactUsUrl())
+      cy.contains('Your account is locked. If you need support, use the UKMCAB contact page.')
+      cy.contains('a', 'UKMCAB contact page').should('have.attr', 'href', contactUsUrl())
       getLastUserEmail(this.lockedUser.contactEmail).then(_email => {
         expect(_email.isRecent).to.be.true
         expect(_email.isAccountLockedEmail()).to.be.true
@@ -195,7 +195,7 @@ describe('User Management', () => {
 
     it('can not be approved without assigning a user group', function() {
       cy.contains('button', 'Approve').click()
-      cy.hasError('Select a user group', 'Choose a user group')
+      cy.hasError('Select a user group', 'Select a user group')
     })
     
     it('can be declined - request is removed from pending requests list - user is notified by email - user can not access system', function() {

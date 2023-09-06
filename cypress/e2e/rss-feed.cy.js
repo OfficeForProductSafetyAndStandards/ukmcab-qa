@@ -9,7 +9,7 @@ describe('UKMCAB RSS Feed', function() {
   let searchInput = 'emission'
 
   it('works for search results', function() {
-    SearchHelpers.azureSearchResults(searchInput, {orderby: 'LastUpdatedDate desc'}).then(results => {
+    SearchHelpers.publishedSearchResults(searchInput, {orderby: 'LastUpdatedDate desc'}).then(results => {
       cy.request({
         method: 'GET',
         url: `/search-feed?Keywords=${searchInput}`,
