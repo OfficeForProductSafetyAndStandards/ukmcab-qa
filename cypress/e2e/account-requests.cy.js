@@ -23,7 +23,7 @@ describe('User account request', () => {
     cy.clickSubmit()
     cy.hasError('First name', 'Enter a first name')
     cy.hasError('Last name', 'Enter a last name')
-    cy.hasError('Email address', 'Enter an email address')
+    cy.hasError('Email', 'Enter an email address')
     cy.hasError('Organisation', 'Enter your organisation name')
     cy.hasError('Can you provide more detail?', 'Enter a reason for your request')
   })

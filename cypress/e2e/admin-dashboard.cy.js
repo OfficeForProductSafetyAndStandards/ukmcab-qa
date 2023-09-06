@@ -11,8 +11,8 @@ describe('Admin Dashboard', () => {
     it('redirects user to GOV UK One login upon clicking Sign in', () => {
       cy.ensureOn('/admin')
       cy.contains('h1', 'Admin dashboard')
-      cy.contains('a', 'CAB management').should('have.attr', 'href', cabManagementPath())
-      cy.contains('a', 'User management').should('have.attr', 'href', userManagementPath())
+      cy.contains('a', 'Manage CABs').should('have.attr', 'href', cabManagementPath())
+      cy.contains('a', 'Manage users').should('have.attr', 'href', userManagementPath())
     })
 
   })

@@ -74,8 +74,8 @@ describe('Cab management', function() {
   })
 
   it('displays correct CAB details when filtered by Draft or Archived', function() {
-    cy.get('#Filter').select('Draft')
-    sortedByLastUpdatedDesc(this.draftCabs).slice(0,10).forEach((cab, index) => {
+    cy.get('#Filter').select('Draft', {force: true})
+    cy.wrap(sortedByLastUpdatedDesc(this.draftCabs).slice(0,10)).each((cab, index) => {
       cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
         cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', CabHelpers.cabSummaryPage(cab.cabId))
         cy.get('td').eq(1).contains(valueOrNotProvided(cab.cabNumber))
@@ -83,8 +83,8 @@ describe('Cab management', function() {
         cy.get('td').eq(3).contains(cab.status)
       })
     })
-    cy.get('#Filter').select('Archived')
-    sortedByLastUpdatedDesc(this.cabs.filter(cab => cab.isArchived)).slice(0,10).forEach((cab, index) => {
+    cy.get('#Filter').select('Archived', {force: true})
+    cy.wrap(sortedByLastUpdatedDesc(this.cabs.filter(cab => cab.isArchived)).slice(0,10)).each((cab, index) => {
       cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
         cy.get('td').eq(0).contains(cab.name).and('has.attr', 'href', CabHelpers.cabProfilePage(cab))
         cy.get('td').eq(1).contains(valueOrNotProvided(cab.cabNumber))

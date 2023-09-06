@@ -48,11 +48,11 @@ export default class Cab {
   }
 
   get publishedDate() {
-    return Cypress.dayjs(this.auditLog.find(entry => entry.Status === 'Published').DateTime)
+    return Cypress.dayjs(this.auditLog.find(entry => entry.Action === 'Published').DateTime)
   }
 
   get createdDate() {
-    return Cypress.dayjs(this.auditLog.find(entry => entry.Status === 'Created').DateTime)
+    return Cypress.dayjs(this.auditLog.find(entry => entry.Action === 'Created').DateTime)
   }
 
   get url() {
