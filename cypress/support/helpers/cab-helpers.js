@@ -205,15 +205,36 @@ export const setLegislativeArea = (filename, value) => {
   uploadedFile(filename).find('select').select(value)
 }
 
-export const archiveCab = (cab, reason='Archive reason') => {
+export const archiveModal = () => {
+  return cy.get('#archive-modal .modal-content')
+}
+
+export const unarchiveModal = () => {
+  return cy.get('#unarchive-modal .modal-content')
+}
+
+export const archiveCab = (cab, reason='Test archive reason') => {
   cy.ensureOn(cabProfilePage(cab))
   archiveCabButton().click()
-  cy.get('.modal-content').within(() => {
+  archiveModal().within(() => {
     cy.contains('h2', `Archive ${cab.name}`)
     cy.contains('Enter the reason for archiving this CAB profile.')
     cy.contains('Archived CAB profiles cannot be edited and users cannot view them in the search results.')
     cy.get('#archive-reason').type(reason)
     archiveCabButton().click()
+  })
+}
+
+export const unarchiveCab = (cab, reason='Test Unarchive reason') => {
+  cy.ensureOn(cabProfilePage(cab))
+  unarchiveCabButton().click()
+  unarchiveModal().within(() => {
+    cy.contains('h2', `Unarchive ${cab.name}`)
+    cy.contains('Enter the reason for unarchiving this CAB profile.')
+    cy.contains('Unarchived CAB profiles will be saved as draft.')
+    cy.get('#unarchive-reason').type(reason)
+    cy.contains('a', 'Cancel').should('have.attr', 'href', '#')
+    unarchiveCabButton().click()
   })
 }
 
@@ -253,6 +274,7 @@ export const getTestCabWithDocuments = () => {
 
 export const getTestCabForEditing = () => {
   return getAllPublishedCabs().then(cabs => {
+    console.log(cabs.find(cab => cab.name.startsWith('4ward Testing')))
     return cabs.find(cab => cab.name.startsWith('4ward Testing'))
   })
 }
@@ -265,20 +287,26 @@ export const getAllCabs = () => {
 
 export const getAllPublishedCabs = () => {
   return getAllCabs().then(cabs => {
-    return cabs.filter(cab => cab.status === "Published")
+    return cabs.filter(cab => cab.isPublished)
   })
 }
 
 export const getAllDraftCabs = () => {
   return getAllCabs().then(cabs => {
-    return cabs.filter(cab => cab.status === "Draft")
+    return cabs.filter(cab => cab.isDraft)
   })
 }
 
 export const getAllDraftOrArchivedCabs = () => {
   return getAllCabs().then(cabs => {
-    // return cabs.filter(cab => cab.status === "Draft" || cab.status === "Archived")
     return cabs.filter(cab => cab.isDraft || cab.isArchived)
+  })
+}
+
+export const getArchivedCab= () => {
+  return getAllCabs().then(cabs => {
+    console.log(cabs.find(cab => cab.isArchived))
+    return cabs.find(cab => cab.isArchived)
   })
 }
 
@@ -292,6 +320,10 @@ export const editCabButton = () => {
 
 export const archiveCabButton = () => {
   return cy.get('a,button').contains('Archive')
+}
+
+export const unarchiveCabButton = () => {
+  return cy.get('a,button').contains('Unarchive')
 }
 
 export const editCabDetail = (heading) => {
