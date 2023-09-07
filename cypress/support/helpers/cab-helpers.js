@@ -274,7 +274,6 @@ export const getTestCabWithDocuments = () => {
 
 export const getTestCabForEditing = () => {
   return getAllPublishedCabs().then(cabs => {
-    console.log(cabs.find(cab => cab.name.startsWith('4ward Testing')))
     return cabs.find(cab => cab.name.startsWith('4ward Testing'))
   })
 }
@@ -305,7 +304,6 @@ export const getAllDraftOrArchivedCabs = () => {
 
 export const getArchivedCab= () => {
   return getAllCabs().then(cabs => {
-    console.log(cabs.find(cab => cab.isArchived))
     return cabs.find(cab => cab.isArchived)
   })
 }
