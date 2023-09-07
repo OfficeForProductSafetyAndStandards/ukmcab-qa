@@ -132,8 +132,8 @@ describe('User Management', () => {
       cy.logout()
       cy.login(this.user)
       shouldBeLoggedOut()
-      cy.contains('Account locked Sorry your account is locked, please contact the help desk for further assistance.')
-      cy.contains('a', 'Contact support').should('have.attr', 'href', contactUsUrl())
+      cy.contains('Your account is locked. If you need support, use the UKMCAB contact page.')
+      cy.contains('a', 'UKMCAB contact page').should('have.attr', 'href', contactUsUrl())
       getLastUserEmail(this.user.contactEmail).then(_email => {
         expect(_email.isRecent).to.be.true
         expect(_email.isAccountArchivedEmail()).to.be.true

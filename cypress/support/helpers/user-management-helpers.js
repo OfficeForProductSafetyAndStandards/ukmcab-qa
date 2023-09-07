@@ -137,11 +137,11 @@ export const archiveUser = (user) => {
 
   cy.contains('label', 'Reason')
   .next().contains('This will be included in user notifications and the account history viewable by all users')
-  .next().type('Test reason for archiving')
+  cy.get('#Reason').type('Test reason for archiving')
 
-  cy.contains('label', 'Admin notes')
-  .next().contains('The comments will only be viewable by administrators in the account history.')
-  .next().type('Test Admin notes for archiving')
+  cy.contains('label', 'Internal notes')
+  .next().contains('These notes will only be seen by OPSS administrators.')
+  cy.get('#Notes').type('Test Admin notes for archiving')
   cy.contains('a', 'Cancel').should('have.attr', 'href', userAdminPath(user))
   cy.contains('button', 'Archive account').click()
 }
@@ -154,11 +154,11 @@ export const unarchiveUser = (user) => {
 
   cy.contains('label', 'Reason')
   .next().contains('This will be included in user notifications and the account history viewable by all users')
-  .next().type('Test reason for unarchiving')
+  cy.get('#Reason').type('Test reason for unarchiving')
 
-  cy.contains('label', 'Admin notes')
-  .next().contains('The comments will only be viewable by administrators in the account history.')
-  .next().type('Test Admin notes for unarchiving')
+  cy.contains('label', 'Internal notes')
+  .next().contains('These notes will only be seen by OPSS administrators.')
+  cy.get('#Notes').type('Test Admin notes for unarchiving')
   cy.contains('a', 'Cancel').should('have.attr', 'href', userAdminPath(user))
   cy.contains('button', 'Unarchive account').click()
 }

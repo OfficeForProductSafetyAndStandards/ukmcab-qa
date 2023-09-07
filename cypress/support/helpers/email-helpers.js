@@ -25,7 +25,7 @@ export class EmailNotification {
   }
 
   isAccountUnarchivedEmail() {
-    return this.subject === 'Your UKMCAB account has been activated'
+    return this.subject === 'Your UKMCAB account has been unarchived'
   }
 
   isAccountRequestApprovedEmail() {
