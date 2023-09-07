@@ -60,8 +60,9 @@ describe('Unarchiving a CAB', () => {
   })
   
   it('is not possible when logged out', function() {
-    cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-    CabHelpers.unarchiveCabButton().should('not.be.visible')
+    cy.ensureOn(CabHelpers.cabProfilePage(this.cab), {failOnStatusCode: false})
+    CabHelpers.unarchiveCabButton().should('not.exist')
+    cy.contains("We can't find that page")
   })
   
   context('when logged in', function() {
