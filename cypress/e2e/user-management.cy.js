@@ -77,6 +77,12 @@ describe('User Management', () => {
       })
     })
 
+    it('both reason and internal notes are mandatory', function() {
+      UserManagementHelpers.lockUser(this.lockedUser, '', '')
+      cy.hasError('Reason', 'Enter a reason')
+      cy.hasError('Internal notes', 'Enter notes')
+    })
+
     it('account is locked stopping user from logging in and sends user email', function() {
       UserManagementHelpers.lockUser(this.lockedUser)
       cy.contains('Account locked You have locked the user account').click()
@@ -102,6 +108,12 @@ describe('User Management', () => {
       })
     })
     
+    it('both reason and internal notes are mandatory', function() {
+      UserManagementHelpers.unlockUser(this.lockedUser, '', '')
+      cy.hasError('Reason', 'Enter a reason')
+      cy.hasError('Internal notes', 'Enter notes')
+    })
+
     it('account is unlocked allowing user to login  and sends user email', function() {
       cy.ensureOn(UserManagementHelpers.userAdminPath(this.lockedUser))
       UserManagementHelpers.unlockUser(this.lockedUser)

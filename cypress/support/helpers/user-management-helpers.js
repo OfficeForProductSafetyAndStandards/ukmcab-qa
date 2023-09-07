@@ -89,33 +89,33 @@ export const editUserProfileDetails = (user) => {
   cy.clickSubmit()
 }
 
-export const lockUser = (user) => { 
+export const lockUser = (user, reason='Test reason for locking', notes='Test Admin notes for locking') => { 
   cy.ensureOn(userAdminPath(user))
   cy.contains('a', 'Lock').click()
 
   cy.contains('label', 'Reason')
-  .next().contains('This will be included in user notifications and the account history viewable by all users')
-  .next().type('Test reason for locking')
+  .next().contains('Enter the reason for locking this user account. The user will be notified that their account has been locked and the reason will be included.')
+  cy.get('#Reason').invoke('val', reason)
 
-  cy.contains('label', 'Admin notes')
-  .next().contains('The comments will only be viewable by administrators in the account history.')
-  .next().type('Test Admin notes for locking')
+  cy.contains('label', 'Internal notes')
+  .next().contains('These notes will only be seen by OPSS administrators.')
+  cy.get('#Notes').invoke('val', notes)
   cy.contains('a', 'Cancel').should('have.attr', 'href', userAdminPath(user))
   cy.contains('button', 'Lock account').click()
 }
 
-export const unlockUser = (user) => { 
+export const unlockUser = (user, reason='Test reason for unlocking', notes='Test Admin notes for unlocking') => { 
   cy.ensureOn(userAdminPath(user))
   cy.contains('This account is locked')
   cy.contains('a', 'Unlock').click()
 
   cy.contains('label', 'Reason')
-  .next().contains('This will be included in user notifications and the account history viewable by all users')
-  .next().type('Test reason for unlocking')
+  .next().contains('Enter the reason for unlocking this user account. The user will be notified that their account has been unlocked and the reason will be included.')
+  cy.get('#Reason').invoke('val', reason)
 
-  cy.contains('label', 'Admin notes')
-  .next().contains('The comments will only be viewable by administrators in the account history.')
-  .next().type('Test Admin notes for unlocking')
+  cy.contains('label', 'Internal notes')
+  .next().contains('These notes will only be seen by OPSS administrators.')
+  cy.get('#Notes').invoke('val', notes)
   cy.contains('a', 'Cancel').should('have.attr', 'href', userAdminPath(user))
   cy.contains('button', 'Unlock account').click()
 }
