@@ -198,8 +198,9 @@ describe('User Management', () => {
       UserManagementHelpers.approveAccountRequest(this.pendingRequest, 'OPSS')
       UserManagementHelpers.hasAccountRequestsList(this.pendingRequests.filter(req => req.id !== this.pendingRequest.id).slice(0,20))
       getLastUserEmail(this.pendingRequest.contactEmail).then(_email => {
+        console.log(_email)
         expect(_email.isRecent).to.be.true
-        expect(_email.isAccountRequestApprovedEmail()).to.be.true
+        expect(_email.isAccountRequestApprovedEmail('OPSS')).to.be.true
       })
       cy.login({id: this.pendingRequest.subjectId})
       shouldBeLoggedIn()

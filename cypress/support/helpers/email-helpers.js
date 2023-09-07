@@ -28,14 +28,14 @@ export class EmailNotification {
     return this.subject === 'Your UKMCAB account has been unarchived'
   }
 
-  isAccountRequestApprovedEmail() {
-    return this.subject === 'Your UKMCAB user account has been approved'
-    && this.body === "Your UKMCAB user account has been approved, click [here](https://ukmcab-dev.beis.gov.uk/) to go to UKMCAB."
+  isAccountRequestApprovedEmail(userGroup) {
+    return this.subject === 'Your request for a UKMCAB account has been approved'
+    && this.body.includes(`Your request for a UK Market Conformity Assessment Bodies (UKMCAB) account has been approved. You have been added to the ${userGroup} user group.`)
   }
 
   isAccountRequestRejectedEmail() {
-    return this.subject === 'Your UKMCAB user account has been rejected'
-    && this.body.includes('Your UKMCAB user account has been rejected for the following reason:')
+    return this.subject === 'Your request for a UKMCAB account request has been declined'
+    && this.body.includes('Your request for a UK Market Conformity Assessment Bodies (UKMCAB) account has been declined for the following reason:')
   }
 
   isContactSubmissionEmail(name, email, subject, message) {
