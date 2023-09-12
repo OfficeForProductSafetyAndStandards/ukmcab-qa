@@ -42,7 +42,7 @@ describe('Header', function() {
     })
   })
 
-  context('when logged in as external user', function() {
+  context('when logged in as Ukas user', function() {
     
     beforeEach(() => {
       cy.loginAsUkasUser()
@@ -56,7 +56,7 @@ describe('Header', function() {
       header().contains('a', 'Help').should('have.attr', 'href', '/help')
       header().contains('a', 'About').should('have.attr', 'href', '/about')
       header().contains('a', 'Updates').should('have.attr', 'href', '/updates')
-      header().contains('a', 'Admin').should('not.exist')
+      header().contains('a', 'Admin').should('exist')
       header().contains('a', 'Sign out').should('have.attr', 'href', '/account/logout')
       header().contains('a', 'My details').should('have.attr', 'href', userProfilePath())
     })
