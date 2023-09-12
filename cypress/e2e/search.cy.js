@@ -350,7 +350,7 @@ describe('CAB Search', () => {
             cy.wrap($displayedResult).find('li').eq(0).should('have.text', 'Status: ' + expectedResult.status)
             cy.wrap($displayedResult).find('li').eq(1).should('have.text', 'Address: ' + valueOrNotProvided(expectedResult.addressLines.join(', ')))
             cy.wrap($displayedResult).find('li').eq(2).should('have.text', 'Body type: ' + expectedResult.bodyTypesFormatted)
-            cy.wrap($displayedResult).find('li').eq(3).should('have.text', 'Registered office location: ' + expectedResult.registeredOfficeLocation)
+            cy.wrap($displayedResult).find('li').eq(3).should('have.text', 'Registered office location: ' + valueOrNotProvided(expectedResult.registeredOfficeLocation))
             cy.wrap($displayedResult).find('li').eq(4).should('have.text', 'Testing location: ' + expectedResult.testingLocationsFormatted)
             cy.wrap($displayedResult).find('li').eq(5).should('have.text', 'Legislative area: ' + expectedResult.legislativeAreasFormatted)
           })
