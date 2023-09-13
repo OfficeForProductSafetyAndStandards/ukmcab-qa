@@ -214,7 +214,7 @@ export const unarchiveModal = () => {
 }
 
 export const archiveCab = (cab, options) => {
-  options = {reason: 'Test archive reason', hasAssociatedDraft: true, ...options}
+  options = {reason: 'Test archive reason', hasAssociatedDraft: false, ...options}
   const draftDeletionWarningText = 'This CAB has a draft profile connected to it. If you archive this CAB, the draft will be deleted'
   cy.ensureOn(cabProfilePage(cab))
   archiveCabButton().click()
@@ -226,6 +226,7 @@ export const archiveCab = (cab, options) => {
     cy.get('#archive-reason').type(options.reason)
     archiveCabButton().click()
   })
+  cy.get('.govuk-notification-banner__content').contains(`Archived on ${date(new Date()).DDMMMYYYY}`)
 }
 
 export const unarchiveCab = (cab, reason='Test Unarchive reason') => {
@@ -239,6 +240,7 @@ export const unarchiveCab = (cab, reason='Test Unarchive reason') => {
     cy.contains('a', 'Cancel').should('have.attr', 'href', '#')
     unarchiveCabButton().click()
   })
+  cy.contains('Check details before publishing')
 }
 
 export const viewSchedules = () => {

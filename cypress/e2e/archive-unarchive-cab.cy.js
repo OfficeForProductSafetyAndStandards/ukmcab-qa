@@ -1,4 +1,3 @@
-import { date } from '../support/helpers/formatters'
 import * as CabHelpers from '../support/helpers/cab-helpers'
 import { getEmailsLink } from '../support/helpers/email-subscription-helpers'
 
@@ -47,8 +46,7 @@ describe('Archiving a CAB', () => {
     })
 
     it('user is NOT shown a message that draft will be deleted and cab is archived successfully', function() {
-      CabHelpers.archiveCab(this.cab, {hasAssociatedDraft: false})
-      cy.get('.govuk-notification-banner__content').contains(`Archived on ${date(new Date()).DDMMMYYYY}`)
+      CabHelpers.archiveCab(this.cab)
       CabHelpers.editCabButton().should('not.exist') // edit button is removed from archived cabs
       getEmailsLink().should('not.exist')  // subscriptions are disabled for archived cabs
     })
@@ -66,40 +64,43 @@ describe('Archiving a CAB', () => {
     })
 
     it('user is shown a message that draft will be deleted and the draft is deleted', function() {
-      CabHelpers.archiveCab(this.cab)
+      CabHelpers.archiveCab(this.cab, {hasAssociatedDraft: true})
       cy.ensureOn(CabHelpers.cabManagementPath())
+      cy.get('#Filter').select('Draft', {force: true})
       cy.contains(this.cab.name).should('not.exist')
     })
   })
 })
 
 describe('Unarchiving a CAB', () => {
-
-  beforeEach(function() {
+  
+  it('is not possible when logged out', function() {
     CabHelpers.getArchivedCab().then(cab => {
-      cy.wrap(cab).as('cab')
+      cy.ensureOn(CabHelpers.cabProfilePage(cab), {failOnStatusCode: false})
+      CabHelpers.unarchiveCabButton().should('not.exist')
+      cy.contains("We can't find that page")
     })
   })
   
-  it('is not possible when logged out', function() {
-    cy.ensureOn(CabHelpers.cabProfilePage(this.cab), {failOnStatusCode: false})
-    CabHelpers.unarchiveCabButton().should('not.exist')
-    cy.contains("We can't find that page")
-  })
-  
-  context('when logged in', function() {
+  context('when logged in and the CAB has no draft associated', function() {
     
     beforeEach(function() {
       cy.loginAsOpssUser()
-      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.getTestCab().then(cab => {
+        cy.wrap(cab).as('cab')
+        CabHelpers.archiveCab(cab) // create an archived cab without a draft
+        cy.get('.govuk-notification-banner__content') // confirm cab archived
+      })
     })
 
-    it('is successful and marks it as Draft', function() {
+    it('is successful and marks it as Draft and can not be unarchived again', function() {
       CabHelpers.unarchiveCab(this.cab)
       cy.location('pathname').should('equal', CabHelpers.cabSummaryPage(this.cab.cabId)) // summary page is displayed
       cy.ensureOn(CabHelpers.cabManagementPath())
       cy.get('#Filter').select('Draft', {force: true})
       cy.get('a').contains(this.cab.name)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.unarchiveCabButton().should('not.be.visible')
     })
 
     it('allows canceling or closing of the modal', function() {
@@ -117,9 +118,26 @@ describe('Unarchiving a CAB', () => {
       CabHelpers.unarchiveCabButton().click()
       CabHelpers.unarchiveModal().within(() => {
         CabHelpers.unarchiveCabButton().click()
-        cy.contains('#unarchive-error-message','Enter the reason for unarchiving this CAB profile')
+        cy.contains('#unarchive-error-message', 'Enter the reason for unarchiving this CAB profile')
       })
     })
 
+  })
+
+  context('when logged in and the CAB has draft associated', function() {
+
+    beforeEach(function() {
+      cy.loginAsOpssUser()
+      CabHelpers.getTestCab().then(cab => {
+        cy.wrap(cab).as('cab')
+        CabHelpers.archiveCab(cab) // create an archived cab
+        CabHelpers.unarchiveCab(cab) // only to get this cab into a state where it has a draft version too
+      })
+    })
+    
+    it('should not be possible', function() {
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.unarchiveCabButton().should('not.be.visible')
+    })
   })
 })
