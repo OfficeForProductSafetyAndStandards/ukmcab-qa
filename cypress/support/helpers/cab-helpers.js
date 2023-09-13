@@ -213,14 +213,17 @@ export const unarchiveModal = () => {
   return cy.get('#unarchive-modal .modal-content')
 }
 
-export const archiveCab = (cab, reason='Test archive reason') => {
+export const archiveCab = (cab, options) => {
+  options = {reason: 'Test archive reason', hasAssociatedDraft: true, ...options}
+  const draftDeletionWarningText = 'This CAB has a draft profile connected to it. If you archive this CAB, the draft will be deleted'
   cy.ensureOn(cabProfilePage(cab))
   archiveCabButton().click()
   archiveModal().within(() => {
     cy.contains('h2', `Archive ${cab.name}`)
     cy.contains('Enter the reason for archiving this CAB profile.')
+    options.hasAssociatedDraft ? cy.contains(draftDeletionWarningText) : cy.contains(draftDeletionWarningText).should('not.exist')
     cy.contains('Archived CAB profiles cannot be edited and users cannot view them in the search results.')
-    cy.get('#archive-reason').type(reason)
+    cy.get('#archive-reason').type(options.reason)
     archiveCabButton().click()
   })
 }
@@ -370,4 +373,10 @@ export const hasEditCabPermission = () => {
 
 export const hasNoEditCabPermission = () => {
   editACabButton().should('not.exist')
+}
+
+export const createDraftVersion = (cab) => {
+  cy.ensureOn(cabProfilePage(cab))
+  editCabButton().click()
+  saveAsDraft()
 }
