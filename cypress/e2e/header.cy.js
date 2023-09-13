@@ -42,24 +42,23 @@ describe('Header', function() {
     })
   })
 
-  // for release 2.1 only
-  // context('when logged in as Ukas user', function() {
+  context('when logged in as Ukas user', function() {
     
-  //   beforeEach(() => {
-  //     cy.loginAsUkasUser()
-  //     cy.ensureOn('/')
-  //   })
+    beforeEach(() => {
+      cy.loginAsUkasUser()
+      cy.ensureOn('/')
+    })
 
-  //   it('displays all expected links', function() {
-  //     header().contains('a', 'GOV.UK').should('have.attr', 'href', '/')
-  //     header().contains('a', 'UK Market Conformity Assessment Bodies').should('have.attr', 'href', '/')
-  //     header().contains('a', 'Search').should('have.attr', 'href', '/')
-  //     header().contains('a', 'Help').should('have.attr', 'href', '/help')
-  //     header().contains('a', 'About').should('have.attr', 'href', '/about')
-  //     header().contains('a', 'Updates').should('have.attr', 'href', '/updates')
-  //     header().contains('a', 'Admin').should('exist')
-  //     header().contains('a', 'Sign out').should('have.attr', 'href', '/account/logout')
-  //     header().contains('a', 'My details').should('have.attr', 'href', userProfilePath())
-  //   })
-  // })
+    it('displays all expected links', function() {
+      header().contains('a', 'GOV.UK').should('have.attr', 'href', '/')
+      header().contains('a', 'UK Market Conformity Assessment Bodies').should('have.attr', 'href', '/')
+      header().contains('a', 'Search').should('have.attr', 'href', '/')
+      header().contains('a', 'Help').should('have.attr', 'href', '/help')
+      header().contains('a', 'About').should('have.attr', 'href', '/about')
+      header().contains('a', 'Updates').should('have.attr', 'href', '/updates')
+      header().contains('a', 'Admin').should('exist')
+      header().contains('a', 'Sign out').should('have.attr', 'href', '/account/logout')
+      header().contains('a', 'My details').should('have.attr', 'href', userProfilePath())
+    })
+  })
 })
