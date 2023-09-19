@@ -11,10 +11,6 @@ describe('User Management', () => {
       UserManagementHelpers.getUsers().then(users => {
         const activeUsers = users.filter(user => !user.isLocked)
         cy.wrap(activeUsers).as('activeUsers')
-        const lockedOrArchivedUsers = users
-        .filter(user => user.isLocked)
-        .sort((a, b) => a.lastname.localeCompare(b.lastname))
-        cy.wrap(lockedOrArchivedUsers).as('lockedOrArchivedUsers')
         cy.ensureOn(UserManagementHelpers.userManagementPath())
         cy.contains('a', 'Active').click()
       })
@@ -82,6 +78,38 @@ describe('User Management', () => {
     it('displays a list of pending requests under Requests tab', function() {
       cy.contains('a', `Requests (${this.requests.length})`).click()
       UserManagementHelpers.hasAccountRequestsList(this.requests.slice(0,20))
+    })
+  })
+
+  context('when viewing Locked user list', function() {
+
+    beforeEach(function() {
+      cy.loginAsOpssUser()
+      UserManagementHelpers.getUsers().then(users => {
+        cy.wrap(users.filter(user => user.isLocked && !user.isArchived)).as('lockedUsers')
+        cy.ensureOn(UserManagementHelpers.userManagementPath())
+        cy.contains('a', 'Locked').click()
+      })
+    })
+
+    it('displays correct data sorted by last name', function() {
+      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.lockedUsers, [user => user.lastname.toLowerCase()], 'asc').slice(0,20))
+    })
+  })
+
+  context('when viewing Archived user list', function() {
+
+    beforeEach(function() {
+      cy.loginAsOpssUser()
+      UserManagementHelpers.getUsers().then(users => {
+        cy.wrap(users.filter(user => user.isArchived)).as('archivedUsers')
+        cy.ensureOn(UserManagementHelpers.userManagementPath())
+        cy.contains('a', 'Archived').click()
+      })
+    })
+
+    it('displays correct data sorted by last name', function() {
+      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.archivedUsers, [user => user.lastname.toLowerCase()], 'asc').slice(0,20))
     })
   })
 

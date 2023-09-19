@@ -15,4 +15,7 @@ export default class User {
     this.organisationName = userData.organisationName
   }
   
+  get isArchived() {
+    return this.lockReason === 1
+  }
 }
