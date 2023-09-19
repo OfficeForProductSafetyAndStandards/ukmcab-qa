@@ -163,22 +163,22 @@ describe('Creating a new CAB', () => {
 
     it('displays error upon continuing without uploading schedule of accreditation', function() {
       CabHelpers.upload()
-      cy.hasError('Select a PDF file', 'Select a PDF file 10 megabytes or less.')
+      cy.hasError('Select PDF files', 'Select a PDF file 10 megabytes or less.')
     })
     
     it('displays error if schedule of accreditation is not a PDF file', function() {
       CabHelpers.uploadFiles([{ fileName: 'dummy.docx' }])
-      cy.hasError('Select a PDF file', 'Files must be in PDF format to be uploaded.')
+      cy.hasError('Select PDF files', "dummy.docx can't be uploaded. Files must be in PDF format to be uploaded.", false)
     })
 
     it('displays error if duplicate file is uploaded', function() {
-      CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy.pdf' }])
-      cy.hasError('Select a PDF file', 'Uploaded files must have different names to those already uploaded.')
+      CabHelpers.uploadFiles([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy.pdf' }])
+      cy.hasError('Select PDF files', "dummy.pdf can't be uploaded. Uploaded files must have different names to those already uploaded.", false)
     })
 
     it('displays error if schedule of accreditation file size is greater than 10MB', function() {
       CabHelpers.uploadFiles([{ fileName: 'dummy-pdf-10mb-plus.pdf' }])
-      cy.hasError('Select a PDF file', 'Files must be no more that 10Mb in size.')
+      cy.hasError('Select PDF files', "dummy-pdf-10mb-plus.pdf can't be uploaded. Files must be no more that 10Mb in size.", false)
     })
 
     it('allows user to assign label and legislative area for uploaded files', function() {
@@ -213,6 +213,12 @@ describe('Creating a new CAB', () => {
       CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts' }])
       cy.contains('Remove').click()
       cy.contains('0 file uploaded')
+    })
+
+    it('allows uploading multiple files at once', function() {
+      const files = [{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy1.pdf', label: 'My Label1', legislativeArea: 'Ecodesign' }]
+      CabHelpers.uploadSchedules(files)
+      CabHelpers.hasUploadedSchedules(files)
     })
 
   })
@@ -251,7 +257,7 @@ describe('Creating a new CAB', () => {
 
     it('only allows upto 10 files to be uploaded', function() {
       const files = [{ fileName: 'dummy2.pdf' }, { fileName: 'dummy3.pdf' }, { fileName: 'dummy4.pdf' }, { fileName: 'dummy5.pdf' }, { fileName: 'dummy6.pdf' }, { fileName: 'dummy7.pdf' }, { fileName: 'dummy8.pdf' }, { fileName: 'dummy.doc' }, { fileName: 'dummy.xlsx' }, { fileName: 'dummy.xls' }]
-      CabHelpers.uploadFiles(files)
+      CabHelpers.uploadDocuments(files)
       CabHelpers.hasUploadedFileNames(files)
       cy.contains('Upload another file').should('not.exist')
     })
@@ -291,7 +297,8 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterBodyDetails(this.cab)
       CabHelpers.uploadSchedules(this.cab.schedules)
       cy.continue()
-      CabHelpers.uploadDocuments(this.cab)
+      CabHelpers.uploadDocuments(this.cab.documents)
+      cy.continue()
       CabHelpers.hasDetailsConfirmation(this.cab)
       let cloneCab = this.cab
       let uniqueId = Date.now()

@@ -11,7 +11,8 @@ export const createCab = (cab) => {
   enterBodyDetails(cab)
   uploadSchedules(cab.schedules)
   cy.continue()
-  uploadDocuments(cab)
+  uploadDocuments(cab.documents)
+  cy.continue()
   hasDetailsConfirmation(cab)
   clickPublish()
 }
@@ -99,21 +100,23 @@ export const enterBodyDetails = (cab) => {
 }
 
 export const uploadSchedules = (schedules) => {
-  schedules.forEach((file, index, files) => {
-    uploadFile(file)
-    if(file.label) {
-      setFileLabel(file.fileName, file.label)
+  uploadFiles(schedules)
+  cy.wrap(schedules).each((schedule) => {
+    if(schedule.label) {
+      setFileLabel(schedule.fileName, schedule.label)
     }
-    if(file.legislativeArea) {
-      setLegislativeArea(file.fileName, file.legislativeArea)
+    if(schedule.legislativeArea) {
+      setLegislativeArea(schedule.fileName, schedule.legislativeArea)
     }
-    if(index < files.length - 1) { cy.contains('Save and upload another file').click() }
   })
 }
 
-export const uploadDocuments = (cab) => {
-  uploadFiles(cab.documents)
-  cy.continue()
+export const uploadDocuments = (documents) => {
+  cy.wrap(documents).each((document, index) => {
+    cy.get('input[type=file]').selectFile(`cypress/fixtures/${document.fileName}`)
+    upload()
+    if(index < documents.length - 1) { cy.contains('Upload another file').click() }
+  })
 }
 
 export const clickPublish = () => {
@@ -165,11 +168,11 @@ export const uploadFile = (file) => {
   upload()
 }
 
+// expects files in fixtures folder
 export const uploadFiles = (files) => {
-  files.forEach((file, index, files) => {
-    uploadFile(file)
-    if(index < files.length - 1) { cy.contains('Upload another file').click() }
-  })
+  const filePaths = Cypress._.map(files, file => `cypress/fixtures/${file.fileName}`)
+  cy.get('input[type=file]').selectFile(filePaths)
+  upload()  
 }
 
 export const filenames = (files) => {
@@ -177,11 +180,11 @@ export const filenames = (files) => {
 }
 
 export const hasUploadedSchedules = (files) => {
-  cy.get('tbody tr').each(($row, index) => {
-    cy.wrap($row).find('td').eq(0).should('contain', `${index+1}. ${files[index].fileName}`)
-    cy.wrap($row).find('td').eq(0).find('input').should('have.value', files[index].label)
-    cy.wrap($row).find('td').eq(1).find('select').find(':selected').should('have.text', files[index].legislativeArea)
-    cy.wrap($row).find('td').eq(2).contains('button', 'Remove')
+  cy.wrap(files).each((file, index) => {
+    cy.get('tbody td#uploaded-file-name-td').eq(index).should('contain', `${index+1}. ${file.fileName}`)
+    cy.get('tbody tr.govuk-table__row').eq(index).find('td').eq(0).find('input').should('have.value', file.label)
+    cy.get('tbody tr.govuk-table__row').eq(index).find('td').eq(1).find('select').find(':selected').should('have.text', file.legislativeArea)
+    cy.get('tbody tr.govuk-table__row').eq(index).find('td').eq(2).contains('button', 'Remove')
   })
 }
 
@@ -194,7 +197,7 @@ export const hasUploadedFileNames = (files) => {
 }
 
 export const uploadedFile = (filename) => {
-  return cy.contains('tbody tr', filename)
+  return cy.get(`input[value='${filename}']:visible`).closest('tr')
 }
 
 export const setFileLabel = (filename, newFileName) => {
