@@ -12,11 +12,14 @@ export const getTestUsers = () => {
   })
 }
 
-export const getUsers = () => { 
-  const querySpec = "SELECT * FROM c"
+const getUsersByQuerySpec = (querySpec) => { 
   return cy.task('executeQuery', {db: 'main', container: 'user-accounts', querySpec: querySpec}).then(results => {
     return results.resources.map(userRecord => new User(userRecord))
   })
+}
+
+export const getUsers = () => { 
+  return getUsersByQuerySpec("SELECT * FROM c")
 }
 
 export const seedAccountRequest = () => { 
@@ -45,7 +48,7 @@ export const hasUserList = (users) => {
       cy.get('td').eq(2).should('have.attr', 'title', user.contactEmail)
       cy.get('td').eq(3).should('have.text', user.role.toUpperCase())
       cy.get('td').eq(4).should('have.text', user.lastLogon?.format('DD/MM/YYYY HH:mm') ?? 'None')
-      cy.get('td').eq(5).contains('a', 'View profile').and('has.attr', 'href', userAdminPath(user))
+      cy.get('td').eq(5).contains('a', 'View').and('has.attr', 'href', userAdminPath(user))
     })
   })
 }
