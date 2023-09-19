@@ -60,7 +60,7 @@ export const hasAccountRequestsList = (requests) => {
       cy.get('td').eq(1).should('have.attr', 'title', request.lastname)
       cy.get('td').eq(2).should('have.attr', 'title', request.contactEmail)
       cy.get('td').eq(3).should('have.text', request.createdUtc.format('DD/MM/YYYY HH:mm'))
-      cy.get('td').eq(4).contains('a', 'Review request').and('has.attr', 'href', reviewRequestPath(request))
+      cy.get('td').eq(4).contains('a', 'View').and('has.attr', 'href', reviewRequestPath(request))
     })
   })
 }

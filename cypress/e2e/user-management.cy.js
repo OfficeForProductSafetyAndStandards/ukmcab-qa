@@ -19,28 +19,28 @@ describe('User Management', () => {
     it('displays correct order of users by default and upon sorting by any of the sortable columns', function() {
       // default sort order
       cy.contains('h1', 'User accounts')
-      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, 'lastname', 'asc').slice(0,20))
+      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.lastname.toLowerCase()], 'asc').slice(0,20))
 
       cy.log('First name Asc sort')
       cy.get('thead th a').eq(0).click()
-      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, 'firstname', 'asc').slice(0,20))
+      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.firstname.toLowerCase()], 'asc').slice(0,20))
 
       cy.log('First name Desc sort')
       cy.get('thead th a').eq(0).click()
-      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, 'firstname', 'desc').slice(0,20))
+      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.firstname.toLowerCase()], 'desc').slice(0,20))
 
       cy.log('Last name Asc sort')
       cy.get('thead th a').eq(1).click()
-      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, 'lastname', 'asc').slice(0,20))
+      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.lastname.toLowerCase()], 'asc').slice(0,20))
 
       cy.log('Last name Desc sort')
       cy.get('thead th a').eq(1).click()
-      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, 'lastname', 'desc').slice(0,20))
+      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.lastname.toLowerCase()], 'desc').slice(0,20))
 
       // TODO: This order doesn't match JS in-memory sort. Talk to DEV if they are doing via cosmos 
       // cy.log('Email Asc sort')
       // cy.get('thead th a').eq(2).click()
-      // UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, 'contactEmail', 'asc').slice(0,20))
+      // UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.contactEmail.toLowerCase()], 'asc').slice(0,20))
 
       // cy.log('Email Desc sort')
       // cy.get('thead th a').eq(2).click()
