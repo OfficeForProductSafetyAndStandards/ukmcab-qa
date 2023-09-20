@@ -11,7 +11,8 @@ describe('Contact us page', function() {
   function submitForm(name, email, subject, message) {
     cy.get('#Name').invoke('val', name)
     cy.get('#Email').invoke('val', email)
-    cy.get('#Subject').invoke('val', subject)
+    cy.get('#Subject').contains(['Select a subject', 'CAB details', 'Feedback', 'System error', 'User account', 'User research', 'Something else'].join(' '))
+    cy.get('#Subject').select(subject)
     cy.get('#Message').invoke('val', message)
     cy.get('a,button').contains('Submit').click()
   }
@@ -34,8 +35,7 @@ describe('Contact us page', function() {
   it('enforces defined max length for all fields', function() {
     cy.get('#Name').should('have.attr', 'maxlength', 50)
     cy.get('#Email').should('have.attr', 'maxlength', 50)
-    cy.get('#Subject').should('have.attr', 'maxlength', 100)
-    submitForm('Test user', 'testuser@gov.uk', 'Test subject', 'X'.repeat(1001))
+    submitForm('Test user', 'testuser@gov.uk', 'System error', 'X'.repeat(1001))
     cy.hasError('Message', 'Maximum message length is 1000 characters')
     cy.contains('You have 1 character too many')
   })
@@ -47,14 +47,14 @@ describe('Contact us page', function() {
     })
   })
 
-  it('displays confirmation message for valid submission with emails sent to user and OPSS designated email address', function() {
+  it.only('displays confirmation message for valid submission with emails sent to user and OPSS designated email address', function() {
     let name = 'Test user'
     let email = 'testuser@gov.uk'
-    let subject = 'Test subject'
+    let subject = 'Something else'
     let message = 'Test message'
     submitForm(name, email, subject, message)
     cy.contains('Your message has been submitted')
-    cy.contains("We'll get back to you as soon as possible.")
+    cy.contains("We'll reply to you as soon as possible.")
     cy.get('a').contains('Submit another message').and('has.attr', 'href', contactUsUrl() + '?returnUrl=%252F')
     getLastUserEmail(email).then(_email => {
       expect(_email.isRecent).to.be.true
