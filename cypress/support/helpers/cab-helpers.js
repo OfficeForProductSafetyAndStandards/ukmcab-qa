@@ -250,6 +250,10 @@ export const viewSchedules = () => {
   cy.contains('#tab_product-schedules', 'Product schedules').click()
 }
 
+export const viewHistory = () => {
+  cy.contains('#tab_history', 'History').click()
+}
+
 export const getTestCab = () => {
   return getAllPublishedCabs().then(cabs => {
     return cabs[0]
