@@ -17,6 +17,7 @@ export default class AzureCabResult {
     this.registeredOfficeLocation = result.RegisteredOfficeLocation
     this.status = result.Status
     this.testingLocations = result.TestingLocations
+    this.lastUserGroup = result.LastUserGroup
     this.legislativeAreas = result.LegislativeAreas
     this.lastUpdatedDate = new Date(result.LastUpdatedDate)
     this.urlSlug = result.URLSlug

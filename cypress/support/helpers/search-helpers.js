@@ -56,6 +56,10 @@ export const filterByStatus = (filters) => {
   _applyFilter('Status', filters)
 }
 
+export const filterByUserGroup = (filters) => {
+  _applyFilter('User groups', filters)
+}
+
 const _applyFilter = (filterGroup, filters) => {
   cy.get('.search-filter-option h3').contains(filterGroup).next().within(() => {
     filters.forEach(filter => {
@@ -107,7 +111,7 @@ export const StatusValues = {
 }
 
 // TODO validate filter names
-// e.g filters = {"BodyTypes": ['Approved', 'Overseas], "RegisteredOfficeLocation": [xxx, yyy], "TestingLocations: []"}
+// e.g filters = {"BodyTypes": ['Approved', 'Overseas], "RegisteredOfficeLocation": [xxx, yyy], "TestingLocations: []", UserGroups: ['OPSS', 'UKAS']}
 export const buildFilterQuery = (filterOptions) => {
   var filters = []
   Object.entries(filterOptions).forEach(([filterCategory, options]) => {
@@ -115,11 +119,11 @@ export const buildFilterQuery = (filterOptions) => {
       filters.push(Array.from(options).map(option => `RegisteredOfficeLocation eq '${option}'`).join(' or '))
     } else if(filterCategory === 'Status') {
       filters.push(Array.from(options).map(option => `StatusValue eq '${StatusValues[option]}'`).join(' or '))
-      // filters.push(`StatusValue\/any\(x\: ${Array.from(options).map(option => `x eq \'${option}\'`).join(' or ')}\)`)
+    } else if(filterCategory === 'UserGroups') {
+      filters.push(Array.from(options).map(option => `LastUserGroup eq '${option.toLowerCase()}'`).join(' or '))
     } else {
       filters.push(`${filterCategory}\/any\(x\: ${Array.from(options).map(option => `x eq \'${option}\'`).join(' or ')}\)`)
     }
   })
-  // return filters.join(' and ')
   return filters.map(f => '(' + f + ')').join(' and ')
 }

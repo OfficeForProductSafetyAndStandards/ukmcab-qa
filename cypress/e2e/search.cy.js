@@ -16,6 +16,7 @@ describe('CAB Search', () => {
   context('when viewing search results', function() {
     it('displays pagination top and bottom', function() {
       CabHelpers.getAllPublishedCabs().then(cabs => {
+        console.log(cabs.map(cab => cab.status))
         SearchHelpers.topPagination().contains(`Showing 1 - 20 of ${cabs.length} bodies`)
         SearchHelpers.bottomPagination().contains(`Showing 1 - 20 of ${cabs.length} bodies`)
       })
@@ -344,10 +345,15 @@ describe('CAB Search', () => {
 
     it('displays expected information for each result', function() {
       SearchHelpers.azureSearchResults('', {orderby: 'Name'}).then(expectedResults => {
+        console.log(expectedResults)
         SearchHelpers.displayedSearchResults().then(displayedResults => {
           Cypress._.zip(displayedResults.slice(0,20), expectedResults.slice(0,20)).forEach(([$displayedResult, expectedResult]) => {
             cy.wrap($displayedResult).contains('h3 a', expectedResult.name).and('have.attr', 'href', expectedResult.path + '?returnUrl=%252F')
-            cy.wrap($displayedResult).find('li').eq(0).should('have.text', 'Status: ' + expectedResult.status)
+            if(expectedResult.isDraft) {
+              cy.wrap($displayedResult).find('li').eq(0).contains(`Status: ${expectedResult.status} User group: ${expectedResult.lastUserGroup.toUpperCase()}`)
+            } else {
+              cy.wrap($displayedResult).find('li').eq(0).contains('Status: ' + expectedResult.status)
+            }
             cy.wrap($displayedResult).find('li').eq(1).should('have.text', 'Address: ' + valueOrNotProvided(expectedResult.addressLines.join(', ')))
             cy.wrap($displayedResult).find('li').eq(2).should('have.text', 'Body type: ' + expectedResult.bodyTypesFormatted)
             cy.wrap($displayedResult).find('li').eq(3).should('have.text', 'Registered office location: ' + valueOrNotProvided(expectedResult.registeredOfficeLocation))
@@ -380,6 +386,11 @@ describe('CAB Search', () => {
           const filterOptions = Cypress._.map($els, 'innerText')
           expect(filterOptions).to.eql(['Draft', 'Published', 'Archived'])
         })
+        cy.get('.search-filter-option h3').contains('User groups').next().find('.search-filter-option-item label')
+        .then(($els) => {
+          const filterOptions = Cypress._.map($els, 'innerText')
+          expect(filterOptions).to.eql(['OPSS', 'UKAS'])
+        })
       })
     })
 
@@ -396,10 +407,24 @@ describe('CAB Search', () => {
       })
     })
 
+    it('displays correct results for User Group filters', function() {
+      const filterOptions = {"UserGroups": ['OPSS', 'UKAS']}
+      SearchHelpers.filterByUserGroup(['OPSS', 'UKAS'])
+      SearchHelpers.azureSearchResults('', {filter: SearchHelpers.buildFilterQuery(filterOptions), orderby: 'Name'}).then(expectedResults => {
+        const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
+        SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
+          const actualCabs = Cypress._.map(actualResults, 'innerText')
+          SearchHelpers.topPagination().contains(`Showing 1 - ${expectedCabs.length} of ${expectedResults.length} bodies`)
+          expect(actualCabs).to.eql(expectedCabs)
+        })
+      })
+    })
+
     it('displays correct results for filters on multiple categories', function() {
-      const filterOptions = {"BodyTypes": ['Approved body', 'Overseas body'], "Status": ['Draft', 'Published']}
+      const filterOptions = {"BodyTypes": ['Approved body', 'Overseas body'], "Status": ['Draft', 'Published'], "UserGroups": ['OPSS']}
       SearchHelpers.filterByBodyType(['Approved body', 'Overseas body'])
       SearchHelpers.filterByStatus(['Draft', 'Published'])
+      SearchHelpers.filterByUserGroup(['OPSS'])
       SearchHelpers.azureSearchResults('', {filter: SearchHelpers.buildFilterQuery(filterOptions), orderby: 'Name'}).then(expectedResults => {
         const expectedCabs = expectedResults.slice(0,20).map(r => r.name)
         SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {

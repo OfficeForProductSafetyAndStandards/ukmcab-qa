@@ -71,7 +71,7 @@ Cypress.Commands.add('getSearchResults', (keywords, options={}) => {
     headers: {
       'api-key' : Cypress.env('AZURE_SEARCH_API_KEY')
     },
-    url: Cypress.env('AZURE_SEARCH_URL') + '/indexes/ukmcab-search-index-v2-0/docs/search?api-version=2020-06-30',
+    url: Cypress.env('AZURE_SEARCH_URL') + '/indexes/ukmcab-search-index-v2-1/docs/search?api-version=2020-06-30',
     body: {
       search: keywords,
       queryType: 'full',
@@ -89,7 +89,7 @@ Cypress.Commands.add('hasKeyValueDetail', (key, value) => {
 })
 
 // checks error is present both at field level and form level
-Cypress.Commands.add('hasError', (fieldLabel, error) => {
-  cy.contains('.govuk-form-group', fieldLabel).contains(error)
-  cy.get('.govuk-error-summary__list').contains(error)
+Cypress.Commands.add('hasError', (fieldLabel, error, inline=true) => {
+  inline && cy.contains('.govuk-form-group', fieldLabel).contains(error) // some fields don't have inline error.
+  cy.get('.govuk-error-summary__list').contains(error) 
 })
