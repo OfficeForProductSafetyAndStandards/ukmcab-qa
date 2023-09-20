@@ -4,6 +4,16 @@ import { shouldBeLoggedIn, shouldBeLoggedOut } from '../support/helpers/common-h
 import { getLastUserEmail } from "../support/helpers/email-helpers";
 describe('User Management', () => {
 
+  it('users can not manage their own account', function() {
+    UserManagementHelpers.getTestUsers().then(users => {
+      const user = users.OpssAdminUser
+      cy.loginAs(user)
+      cy.ensureOn(UserManagementHelpers.userAdminPath(user))
+      cy.contains('button', 'Lock account').should('not.exist')
+      cy.contains('button', 'Archive account').should('not.exist')
+    })
+  })
+
   context('when viewing active user list', function() {
 
     beforeEach(function() {
