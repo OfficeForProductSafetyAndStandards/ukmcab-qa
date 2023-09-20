@@ -47,7 +47,7 @@ describe('Contact us page', function() {
     })
   })
 
-  it.only('displays confirmation message for valid submission with emails sent to user and OPSS designated email address', function() {
+  it('displays confirmation message for valid submission with emails sent to user and OPSS designated email address', function() {
     let name = 'Test user'
     let email = 'testuser@gov.uk'
     let subject = 'Something else'
