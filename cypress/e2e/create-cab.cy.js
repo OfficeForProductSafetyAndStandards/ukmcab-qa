@@ -168,28 +168,28 @@ describe('Creating a new CAB', () => {
     
     it('displays error if schedule of accreditation is not a PDF file', function() {
       CabHelpers.uploadFiles([{ fileName: 'dummy.docx' }])
-      cy.hasError('Select PDF files', "dummy.docx can't be uploaded. Files must be in PDF format to be uploaded.", false)
+      cy.hasError('Select PDF files', "dummy.docx can't be uploaded. Files must be in PDF format to be uploaded.")
     })
 
     it('displays error if duplicate file is uploaded', function() {
       CabHelpers.uploadFiles([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy.pdf' }])
-      cy.hasError('Select PDF files', "dummy.pdf can't be uploaded. Uploaded files must have different names to those already uploaded.", false)
+      cy.hasError('Select PDF files', "dummy.pdf can't be uploaded. Uploaded files must have different names to those already uploaded.")
     })
 
     it('displays error if schedule of accreditation file size is greater than 10MB', function() {
       CabHelpers.uploadFiles([{ fileName: 'dummy-pdf-10mb-plus.pdf' }])
-      cy.hasError('Select PDF files', "dummy-pdf-10mb-plus.pdf can't be uploaded. Files must be no more that 10Mb in size.", false)
+      cy.hasError('Select PDF files', "dummy-pdf-10mb-plus.pdf can't be uploaded. Select a PDF file 10 megabytes or less.")
     })
 
     it('allows user to assign label and legislative area for uploaded files', function() {
       CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'New Dummy Label', legislativeArea: 'Cableway installation' }, { fileName: 'dummy1.pdf', label: 'NewDummy1Label.pdf', legislativeArea: 'Lifts' }, { fileName: 'dummy2.pdf', label: 'ReaaaaaaaaaaaaaaaaaaaaaaaallyLooooooooooooooooooooooongLaaaaaaaaaaaaaabel', legislativeArea: 'Cableway installation' }])
-      cy.continue()
+      cy.saveAndContinue()
       cy.contains('Upload the supporting documents')
     })
 
     it('displays error if legislative area is not assigned', function() {
       CabHelpers.uploadFiles([{ fileName: 'dummy.pdf' }])
-      cy.continue()
+      cy.saveAndContinue()
       cy.hasError('Legislative area', 'Select a legislative area')
     })
 
@@ -230,7 +230,7 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
       CabHelpers.uploadSchedules(this.cab.schedules)
-      cy.continue()
+      cy.saveAndContinue()
     })
 
     it('displays correct heading and other relevant copy', function() {
@@ -247,12 +247,12 @@ describe('Creating a new CAB', () => {
     
     it('displays error is uploading file is not a DOC, XLSX or PDF', function() {
       CabHelpers.uploadFiles([{ fileName: 'dummy.txt' }])
-      cy.hasError('Select a file', 'Files must be in Word, Excel or PDF format to be uploaded.')
+      cy.hasError('Select a file', "dummy.txt can't be uploaded. Files must be in Word, Excel or PDF format to be uploaded.")
     })
 
     it('displays error if document file size is greater than 10MB', function() {
       CabHelpers.uploadFiles([{ fileName: 'dummy-pdf-10mb-plus.pdf' }])
-      cy.hasError('Select a file', 'Files must be no more that 10Mb in size.')
+      cy.hasError('Select a file', "dummy-pdf-10mb-plus.pdf can't be uploaded. Select a Word, Excel or PDF file 10 megabytes or less.")
     })
 
     it('only allows upto 10 files to be uploaded', function() {
@@ -296,7 +296,7 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
       CabHelpers.uploadSchedules(this.cab.schedules)
-      cy.continue()
+      cy.saveAndContinue()
       CabHelpers.uploadDocuments(this.cab.documents)
       cy.continue()
       CabHelpers.hasDetailsConfirmation(this.cab)

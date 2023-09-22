@@ -212,7 +212,7 @@ describe('Editing a CAB', () => {
       const newSchedule = { fileName: 'dummy5.pdf', label: 'MyCustomLabel5', legislativeArea: 'Pyrotechnics' }
       this.cab.schedules.push(newSchedule)
       CabHelpers.uploadSchedules([newSchedule])
-      cy.continue()
+      cy.saveAndContinue()
       cy.contains('Check details before publishing')
       cy.contains('Schedule').next().contains(newSchedule.legislativeArea)
       CabHelpers.clickPublish()
