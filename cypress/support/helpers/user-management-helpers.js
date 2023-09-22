@@ -109,7 +109,7 @@ export const lockUser = (user, reason='Test reason for locking', notes='Test Adm
 
 export const unlockUser = (user, reason='Test reason for unlocking', notes='Test Admin notes for unlocking') => { 
   cy.ensureOn(userAdminPath(user))
-  cy.contains('This account is locked')
+  cy.hasKeyValueDetail('Status', 'Locked')
   cy.contains('a', 'Unlock').click()
 
   cy.contains('label', 'Reason')
@@ -124,13 +124,22 @@ export const unlockUser = (user, reason='Test reason for unlocking', notes='Test
 }
 
 export const hasUserProfileDetails = (user) => { 
-  cy.contains('h1', /My details|User profile/)
+  cy.contains('h1', 'User profile')
+  hasProfileDetails(user)
+  cy.hasKeyValueDetail('Status', user.status)
+}
+export const hasProfileDetails = (user) => { 
   cy.hasKeyValueDetail('First name', user.firstname)
   cy.hasKeyValueDetail('Last name', user.lastname)
   cy.hasKeyValueDetail('Email', user.contactEmail)
   cy.hasKeyValueDetail('Organisation', user.organisationName)
   cy.hasKeyValueDetail('User group', user.role.toUpperCase())
   cy.hasKeyValueDetail('Last log in',  /^ \d{2}\/\d{2}\/\d{4} \d{2}:\d{2} $/)
+}
+
+export const hasMyDetails = (user) => { 
+  cy.contains('h1', 'My details')
+  hasProfileDetails(user)
 }
 
 export const archiveUser = (user) => { 
@@ -151,7 +160,7 @@ export const archiveUser = (user) => {
 
 export const unarchiveUser = (user) => { 
   cy.ensureOn(userAdminPath(user))
-  cy.contains('This account is archived')
+  cy.hasKeyValueDetail('Status', 'Archived')
   cy.contains('a', 'Unarchive').click()
   cy.contains('h1', 'Unarchive user account')
 

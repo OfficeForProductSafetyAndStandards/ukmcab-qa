@@ -18,4 +18,14 @@ export default class User {
   get isArchived() {
     return this.lockReason === 1
   }
+
+  get status() {
+    if (this.isLocked) {
+      return 'Locked'
+    } else if (this.isArchived) {
+      return 'Archived'
+    } else {
+      return 'Active'
+    }
+  } 
 }

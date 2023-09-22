@@ -12,7 +12,7 @@ describe('User Profile', () => {
   })
 
   it('displays correct user data', function() {
-    UserManagementHelpers.hasUserProfileDetails(this.user)
+    UserManagementHelpers.hasMyDetails(this.user)
   })
 
   context('when Editing', function() {
@@ -51,7 +51,7 @@ describe('User Profile', () => {
       this.user.contactEmail += '.au'
       UserManagementHelpers.editUserProfileDetails(this.user)
       cy.contains('Your details have been updated')
-      UserManagementHelpers.hasUserProfileDetails(this.user)
+      UserManagementHelpers.hasMyDetails(this.user)
     })
   })
 
