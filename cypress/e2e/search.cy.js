@@ -23,6 +23,8 @@ describe('CAB Search', () => {
     })
 
     it('paginates correctly', function() {
+      cy.loginAsOpssUser()
+      cy.reload()
       SearchHelpers.topPagination().within(() => {
         // Default order
         cy.get('li').eq(0).find('a').should('not.exist')
