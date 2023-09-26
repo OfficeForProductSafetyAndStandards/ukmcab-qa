@@ -1,4 +1,5 @@
 import Cab from '../domain/cab'
+import { CabNumberVisibility } from '../domain/cab-number-visibility'
 import { date, valueOrNotProvided } from './formatters'
 export const cabManagementPath = () => { return '/admin/cab-management'}
 export const cabProfilePage = (cab) => { return `/search/cab-profile/${cab.urlSlug}` }
@@ -6,11 +7,12 @@ export const cabSummaryPage = (id) => { return `/admin/cab/summary/${id}`}
 export const addCabPath = () => { return '/admin/cab/about/create'}
 
 export const createCab = (cab) => {
+  cy.ensureOn(addCabPath())
   enterCabDetails(cab)
   enterContactDetails(cab)
   enterBodyDetails(cab)
   uploadSchedules(cab.schedules)
-  cy.continue()
+  cy.saveAndContinue()
   uploadDocuments(cab.documents)
   cy.continue()
   hasDetailsConfirmation(cab)
@@ -22,7 +24,7 @@ export const draftCab = (cab) => {
   enterContactDetails(cab)
   enterBodyDetails(cab)
   uploadSchedules(cab.schedules)
-  cy.continue()
+  cy.saveAndContinue()
   uploadDocuments(cab)
   hasDetailsConfirmation(cab)
   saveAsDraft()
@@ -51,8 +53,18 @@ export const hasReviewDate = (date) => {
 }
 
 export const enterCabDetails = (cab) => {
+  console.log(cab)
   cy.get('#Name').invoke('val', cab.name)
   cy.get('#CABNumber').invoke('val', cab.cabNumber)
+  cy.get('#CabNumberVisibility option').then($options => {
+    const options = Cypress._.map($options, 'innerText')
+    expect(options).to.eql(['Display for all users', 'Display for internal users', 'Display for internal users excluding UKAS'])
+  })
+  if(cab.cabNumberVisibility === CabNumberVisibility.Internal) {
+    cy.get('#CabNumberVisibility').select('Display for internal users')
+  } else if (cab.cabNumberVisibility === CabNumberVisibility.Private) {
+    cy.get('#CabNumberVisibility').select('Display for internal users excluding UKAS')
+  }
   if(cab.appointmentDate) {
     setAppointmentDate(date(cab.appointmentDate).DD, date(cab.appointmentDate).MM, date(cab.appointmentDate).YYYY)
   }
@@ -352,17 +364,6 @@ export const submitForApproval = () => {
   cy.contains('button', 'Submit for approval').click()
 }
 
-export const onUploadSchedulePage = (cab) => {
-  enterCommonCabDetails(cab)
-  saveAndContinue()
-}
-
-export const onUploadSupportingDocsPage = (cab) => {
-  enterCommonCabDetails(cab)
-  saveAndContinue()
-  uploadFiles(cab.accreditationSchedules)
-  saveAndContinue()
-}
 
 export const hasAddCabPermission = () => {
   addACabButton().should('exist').and('have.attr', 'href', addCabPath())

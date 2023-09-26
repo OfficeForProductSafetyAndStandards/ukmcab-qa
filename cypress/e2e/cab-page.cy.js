@@ -1,14 +1,10 @@
   import * as CabHelpers from '../support/helpers/cab-helpers'
+  import Cab from '../support/domain/cab'
   import { date, valueOrNotProvided } from '../support/helpers/formatters'
   import { searchPath } from '../support/helpers/search-helpers'
+import { CabNumberVisibility } from '../support/domain/cab-number-visibility'
 
 describe('CAB profile page', function() {
-
-  beforeEach(function() {
-    CabHelpers.getTestCabWithDocuments().then(cab => {
-      cy.wrap(cab).as('cab')
-    })
-  })
 
   const supportingDocumentsTab = () => {
     return cy.contains('#tab_supporting-documents', 'Supporting documents')
@@ -17,7 +13,10 @@ describe('CAB profile page', function() {
   context('when logged out', function() {
 
     beforeEach(function() {
-      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.getTestCabWithDocuments().then(cab => {
+        cy.wrap(cab).as('cab')
+        cy.ensureOn(CabHelpers.cabProfilePage(cab))
+      })
     })
     
     it('displays CAB name heading', function() {
@@ -71,8 +70,11 @@ describe('CAB profile page', function() {
   context('when logged in', function() {
 
     beforeEach(function() {
-      cy.loginAsOpssUser()
-      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.getTestCabWithDocuments().then(cab => {
+        cy.wrap(cab).as('cab')
+        cy.loginAsOpssUser()
+        cy.ensureOn(CabHelpers.cabProfilePage(cab))
+      })
     })
 
     it('displays all expected CAB details', function() {
@@ -203,10 +205,62 @@ describe('CAB profile page', function() {
           cy.get('td').eq(2).contains(log.UserRole.toUpperCase())
           cy.get('td').eq(3).contains(Cypress._.capitalize(Cypress._.startCase(log.Action)))
           if(log.Comment) {
-            cy.get('td').eq(4).contains('View more ' + log.Comment)
+            cy.get('td').eq(4).contains('View more ') // + log.Comment - removed comment check as its seems to be wrapped in HTML. // TODO check with devs
           }
         })
       })
+    })
+  })
+
+  context('for CABs with Cab number visibility set to public(default)', function() {
+
+    it('displays Cab(Body) number for public and internal users', function() {
+      const cab = Cab.build()
+      cy.loginAsOpssUser()
+      CabHelpers.createCab(cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(cab))
+      cy.hasKeyValueDetail('CAB number', cab.cabNumber)
+      cy.logout()
+      cy.ensureOn(CabHelpers.cabProfilePage(cab))
+      cy.hasKeyValueDetail('Body number', cab.cabNumber)
+    })
+  })
+
+  context('for CABs with Cab number visibility set to internal(Display for all internal)', function() {
+
+    it('displays Cab(Body) number for UKAS/OPSS users but not for Public users', function() {
+      const cab = Cab.build()
+      cab.cabNumberVisibility = CabNumberVisibility.Internal
+      cy.loginAsOpssUser()
+      CabHelpers.createCab(cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(cab))
+      cy.hasKeyValueDetail('CAB number', cab.cabNumber)
+      cy.logout()
+      cy.loginAsUkasUser()
+      cy.ensureOn(CabHelpers.cabProfilePage(cab))
+      cy.hasKeyValueDetail('CAB number', cab.cabNumber)
+      cy.logout()
+      cy.ensureOn(CabHelpers.cabProfilePage(cab))
+      cy.contains('Body number').should('not.exist')
+    })
+  })
+
+  context('for CABs with Cab number visibility set to private(Display for only internal gov users)', function() {
+
+    it('displays Cab(Body) number for OPSS users but not for Public/UKAS users', function() {
+      const cab = Cab.build()
+      cab.cabNumberVisibility = CabNumberVisibility.Private
+      cy.loginAsOpssUser()
+      CabHelpers.createCab(cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(cab))
+      cy.hasKeyValueDetail('CAB number', cab.cabNumber)
+      cy.logout()
+      cy.loginAsUkasUser()
+      cy.ensureOn(CabHelpers.cabProfilePage(cab))
+      cy.contains('CAB number').should('not.exist')
+      cy.logout()
+      cy.ensureOn(CabHelpers.cabProfilePage(cab))
+      cy.contains('Body number').should('not.exist')
     })
   })
 

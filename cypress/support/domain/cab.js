@@ -1,4 +1,5 @@
 import { cabProfilePage } from "../helpers/cab-helpers"
+import { CabNumberVisibility } from "./cab-number-visibility"
 export default class Cab {
 
   constructor(cabData) {
@@ -15,6 +16,7 @@ export default class Cab {
     this.appointmentDate = cabData.AppointmentDate && Cypress.dayjs(cabData.AppointmentDate)
     this.cabId = cabData.CABId
     this.cabNumber = cabData.CABNumber
+    this.cabNumberVisibility = cabData.CabNumberVisibility
     this.bodyTypes = cabData.BodyTypes
     this.email = cabData.Email
     this.legislativeAreas = cabData.LegislativeAreas
@@ -123,6 +125,7 @@ export default class Cab {
       PointOfContactEmail: 'email@gov.uk',
       PointOfContactPhone: '+44 (0) 121 345 1200',
       IsPointOfContactPublicDisplay: false,
+      CabNumberVisibility: CabNumberVisibility.Public,
       RegisteredOfficeLocation: 'United Kingdom',
       TestingLocations: ['United Kingdom', 'Belgium'],
       BodyTypes: ['Approved body', 'NI Notified body'],
@@ -136,4 +139,5 @@ export default class Cab {
       URLSlug: name.replace(/[^a-zA-Z0-9 ]/g, "").replace(/\s+/g, '-').toLowerCase()
     })
   }
+
 }
