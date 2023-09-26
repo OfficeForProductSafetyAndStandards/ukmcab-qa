@@ -34,7 +34,7 @@ describe('Editing a CAB', () => {
       let cloneCab = Cypress._.cloneDeep(this.cab)
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('CAB details')
-      cloneCab.name = this.cab.name.replace(/Edited.*/,`Edited ${uniqueId}`)
+      cloneCab.name = `Test Cab Edited ${uniqueId}`
       CabHelpers.enterCabDetails(cloneCab)
       cloneCab.addressLine1 = 'Edited address'
       CabHelpers.editCabDetail('Contact details')
@@ -74,7 +74,7 @@ describe('Editing a CAB', () => {
       let cloneCab = Cypress._.cloneDeep(this.cab)
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('CAB details')
-      cloneCab.name = this.cab.name.replace(/Edited.*/,`Edited ${uniqueId}`)
+      cloneCab.name = `Test Cab Edited ${uniqueId}`
       CabHelpers.enterCabDetails(cloneCab)
       CabHelpers.saveAsDraft()
       cy.ensureOn(CabHelpers.cabManagementPath())
@@ -94,7 +94,7 @@ describe('Editing a CAB', () => {
       let cloneCab = Cypress._.cloneDeep(this.cab)
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('CAB details')
-      cloneCab.name = this.cab.name.replace(/Edited.*/,`Edited ${uniqueId}`)
+      cloneCab.name = `Test Cab Edited ${uniqueId}`
       CabHelpers.enterCabDetails(cloneCab)
       cloneCab.addressLine1 = 'Edited address'
       CabHelpers.editCabDetail('Contact details')
@@ -111,7 +111,7 @@ describe('Editing a CAB', () => {
       let cloneCab = Cypress._.cloneDeep(this.cab)
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('CAB details')
-      cloneCab.name = this.cab.name.replace(/Edited.*/,`Edited ${uniqueId} * ${uniqueId}`) // deliberately added special char to test new URL handles itc
+      cloneCab.name = `Test Cab Edited ${uniqueId} * ${uniqueId}` // deliberately added special char to test new URL handles itc
       CabHelpers.enterCabDetails(cloneCab)
       cloneCab.addressLine1 = 'Edited address'
       CabHelpers.editCabDetail('Contact details')

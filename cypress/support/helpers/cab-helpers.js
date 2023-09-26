@@ -53,7 +53,6 @@ export const hasReviewDate = (date) => {
 }
 
 export const enterCabDetails = (cab) => {
-  console.log(cab)
   cy.get('#Name').invoke('val', cab.name)
   cy.get('#CABNumber').invoke('val', cab.cabNumber)
   cy.get('#CabNumberVisibility option').then($options => {
@@ -153,15 +152,24 @@ export const hasDetailsConfirmation = (cab) => {
 
   cy.hasKeyValueDetail('Registered test location', valueOrNotProvided(cab.testingLocations?.join('')))
   cy.hasKeyValueDetail('Body type', cab.bodyTypes.join(''))
-  cy.hasKeyValueDetail('Legislative area', cab.legislativeAreas.join(''))
+  cy.hasKeyValueDetail('Legislative area', valueOrNotProvided(cab.legislativeAreas?.join('')))
 
-  cab.schedules.forEach((schedule) => {
-    cy.contains('Schedule').next().contains('a', schedule.label ?? schedule.fileName)
-    cy.contains('Schedule').next().contains(schedule.legislativeArea)
-  })
-  filenames(cab.documents).forEach(filename => {
-    cy.contains('Document').next().contains(filename)
-  })
+  if(cab.schedules) {
+    cab.schedules.forEach((schedule) => {
+      cy.contains('Schedule').next().contains('a', schedule.label ?? schedule.fileName)
+      cy.contains('Schedule').next().contains(schedule.legislativeArea)
+    })
+  } else {
+    cy.hasKeyValueDetail('Schedule', 'Not provided')
+  }
+
+  if(cab.documents) {
+    filenames(cab.documents).forEach(filename => {
+      cy.contains('Document').next().contains(filename)
+    })
+  } else {
+    cy.hasKeyValueDetail('Document', 'Not provided')
+  }
 
   cy.contains('Once published this record will be visible to the public.')
 }
@@ -298,7 +306,7 @@ export const getTestCabWithDocuments = () => {
 
 export const getTestCabForEditing = () => {
   return getAllPublishedCabs().then(cabs => {
-    return cabs.find(cab => cab.name.startsWith('4ward Testing'))
+    return cabs.find(cab => cab.name.startsWith('Test Cab'))
   })
 }
 

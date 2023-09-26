@@ -16,7 +16,6 @@ describe('CAB Search', () => {
   context('when viewing search results', function() {
     it('displays pagination top and bottom', function() {
       CabHelpers.getAllPublishedCabs().then(cabs => {
-        console.log(cabs.map(cab => cab.status))
         SearchHelpers.topPagination().contains(`Showing 1 - 20 of ${cabs.length} bodies`)
         SearchHelpers.bottomPagination().contains(`Showing 1 - 20 of ${cabs.length} bodies`)
       })
@@ -347,7 +346,6 @@ describe('CAB Search', () => {
 
     it('displays expected information for each result', function() {
       SearchHelpers.azureSearchResults('', {orderby: 'Name'}).then(expectedResults => {
-        console.log(expectedResults)
         SearchHelpers.displayedSearchResults().then(displayedResults => {
           Cypress._.zip(displayedResults.slice(0,20), expectedResults.slice(0,20)).forEach(([$displayedResult, expectedResult]) => {
             cy.wrap($displayedResult).contains('h3 a', expectedResult.name).and('have.attr', 'href', expectedResult.path + '?returnUrl=%252F')

@@ -78,7 +78,7 @@ export default class Cab {
   }
 
   get schedules() {
-    return this._schedules.map(schedule => {
+    return this._schedules?.map(schedule => {
       return {
         label: schedule.Label,
         legislativeArea: schedule.LegislativeArea,

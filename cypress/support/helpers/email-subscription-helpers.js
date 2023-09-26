@@ -33,7 +33,7 @@ export const updateCabToTriggerSubscription = (cab) => {
   cy.ensureOn(CabHelpers.cabProfilePage(cab))
   CabHelpers.editCabButton().click()
   CabHelpers.editCabDetail('CAB details')
-  cloneCab.name = cab.name.replace(/Ltd.*/,`Ltd Edited ${uniqueId}`)
+  cloneCab.name = `Test Cab Edited ${uniqueId}`
   CabHelpers.enterCabDetails(cloneCab)
   CabHelpers.clickPublish()
   CabHelpers.hasCabPublishedConfirmation(cloneCab)
