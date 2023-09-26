@@ -43,12 +43,12 @@ export const getPendingAccountRequests = () => {
 export const hasUserList = (users) => { 
   cy.wrap(users).each((user, index) => {
     cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
-      cy.get('td').eq(0).should('have.text', user.firstname)
-      cy.get('td').eq(1).should('have.attr', 'title', user.lastname)
-      cy.get('td').eq(2).should('have.attr', 'title', user.contactEmail)
-      cy.get('td').eq(3).should('have.text', user.role.toUpperCase())
-      cy.get('td').eq(4).should('have.text', user.lastLogon?.format('DD/MM/YYYY HH:mm') ?? 'None')
-      cy.get('td').eq(5).contains('a', 'View').and('has.attr', 'href', userAdminPath(user))
+      cy.get('td:not(.user-table-cell__mobile)').eq(0).should('have.attr', 'title', user.firstname)
+      cy.get('td:not(.user-table-cell__mobile)').eq(1).should('have.attr', 'title', user.lastname)
+      cy.get('td:not(.user-table-cell__mobile)').eq(2).should('have.attr', 'title', user.contactEmail)
+      cy.get('td:not(.user-table-cell__mobile)').eq(3).should('contain', user.role.toUpperCase())
+      cy.get('td:not(.user-table-cell__mobile)').eq(4).should('contain', user.lastLogon?.format('DD/MM/YYYY HH:mm') ?? 'None')
+      cy.get('td:not(.user-table-cell__mobile)').eq(5).contains('a', 'View').and('has.attr', 'href', userAdminPath(user))
     })
   })
 }
@@ -56,11 +56,11 @@ export const hasUserList = (users) => {
 export const hasAccountRequestsList = (requests) => { 
   cy.wrap(requests).each((request, index) => {
     cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
-      cy.get('td').eq(0).should('have.text', request.firstname)
-      cy.get('td').eq(1).should('have.attr', 'title', request.lastname)
-      cy.get('td').eq(2).should('have.attr', 'title', request.contactEmail)
-      cy.get('td').eq(3).should('have.text', request.createdUtc.format('DD/MM/YYYY HH:mm'))
-      cy.get('td').eq(4).contains('a', 'View').and('has.attr', 'href', reviewRequestPath(request))
+      cy.get('td:not(.user-table-cell__mobile)').eq(0).should('have.attr', 'title', request.firstname)
+      cy.get('td:not(.user-table-cell__mobile)').eq(1).should('have.attr', 'title', request.lastname)
+      cy.get('td:not(.user-table-cell__mobile)').eq(2).should('have.attr', 'title', request.contactEmail)
+      cy.get('td:not(.user-table-cell__mobile)').eq(3).should('contain', request.createdUtc.format('DD/MM/YYYY HH:mm'))
+      cy.get('td:not(.user-table-cell__mobile)').eq(4).contains('a', 'View').and('has.attr', 'href', reviewRequestPath(request))
     })
   })
 }
