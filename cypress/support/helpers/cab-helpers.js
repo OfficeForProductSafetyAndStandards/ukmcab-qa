@@ -4,7 +4,7 @@ import { date, valueOrNotProvided } from './formatters'
 export const cabManagementPath = () => { return '/admin/cab-management'}
 export const cabProfilePage = (cab) => { return `/search/cab-profile/${cab.urlSlug}` }
 export const cabSummaryPage = (id) => { return `/admin/cab/summary/${id}`}
-export const addCabPath = () => { return '/admin/cab/about/create'}
+export const addCabPath = () => { return `/admin/cab/about/${Date.now()}`}
 
 export const createCab = (cab) => {
   cy.ensureOn(addCabPath())
@@ -126,7 +126,7 @@ export const uploadDocuments = (documents) => {
   cy.wrap(documents).each((document, index) => {
     cy.get('input[type=file]').selectFile(`cypress/fixtures/${document.fileName}`)
     upload()
-    if(index < documents.length - 1) { cy.contains('Upload another file').click() }
+    if(index < documents.length - 1) { cy.contains('Save and upload another file').click() }
   })
 }
 

@@ -259,7 +259,7 @@ describe('Creating a new CAB', () => {
       const files = [{ fileName: 'dummy2.pdf' }, { fileName: 'dummy3.pdf' }, { fileName: 'dummy4.pdf' }, { fileName: 'dummy5.pdf' }, { fileName: 'dummy6.pdf' }, { fileName: 'dummy7.pdf' }, { fileName: 'dummy8.pdf' }, { fileName: 'dummy.doc' }, { fileName: 'dummy.xlsx' }, { fileName: 'dummy.xls' }]
       CabHelpers.uploadDocuments(files)
       CabHelpers.hasUploadedFileNames(files)
-      cy.contains('Upload another file').should('not.exist')
+      cy.contains('Save and upload another file').should('not.exist')
     })
 
     it('canceling file upload returns user back to Admin page', function() {
