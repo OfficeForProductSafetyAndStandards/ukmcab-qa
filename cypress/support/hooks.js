@@ -7,6 +7,17 @@ beforeEach(() => {
   })
 })
 
+// routine to delete cab documents
+// cy.fixture('cabData.json').then((fixtureData) => {
+//   fixtureData.forEach((item) => {
+//     const _id = item.id;
+//     const _partitionKey = item.CABId;
+//     cy.log(`ID: ${_id}, CABId: ${_partitionKey}`);
+//     cy.task('deleteItem', {db: 'main', container: 'cab-documents', id: _id, partitionKey: _partitionKey})
+//       });
+// });
+
+
 beforeEach(() => {
   if(Cypress.spec.name !== 'cookies.cy.js') {
     cy.setCookie('accept_analytics_cookies', 'accept')

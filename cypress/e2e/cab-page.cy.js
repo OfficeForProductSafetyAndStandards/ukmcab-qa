@@ -1,10 +1,10 @@
-  import * as CabHelpers from '../support/helpers/cab-helpers'
-  import Cab from '../support/domain/cab'
-  import { date, valueOrNotProvided } from '../support/helpers/formatters'
-  import { searchPath } from '../support/helpers/search-helpers'
+import * as CabHelpers from '../support/helpers/cab-helpers'
+import Cab from '../support/domain/cab'
+import { date, valueOrNotProvided } from '../support/helpers/formatters'
+import { searchPath } from '../support/helpers/search-helpers'
 import { CabNumberVisibility } from '../support/domain/cab-number-visibility'
 
-describe('CAB profile page', function() {
+describe('CAB profile page', function () {
 
   const supportingDocumentsTab = () => {
     return cy.contains('#tab_supporting-documents', 'Supporting documents')
@@ -18,15 +18,15 @@ describe('CAB profile page', function() {
         cy.ensureOn(CabHelpers.cabProfilePage(cab))
       })
     })
-    
+
     it('displays CAB name heading', function() {
       cy.get('.govuk-heading-l').contains(this.cab.name)
     })
-  
+
     it('has back to search results link', function() {
       cy.get('a').contains('Back to Search Results').and('has.attr', 'href', searchPath())
     })
-    
+
     it('displays published and updated date', function() {
       cy.contains(`Published: ${date(this.cab.publishedDate).DMMMYYYY}`)
       cy.contains(`Last updated: ${date(this.cab.lastUpdatedDate).DMMMYYYY}`)
@@ -67,9 +67,9 @@ describe('CAB profile page', function() {
     })
   })
 
-  context('when logged in', function() {
+  context('when logged in', function () {
 
-    beforeEach(function() {
+    beforeEach(function () {
       CabHelpers.getTestCabWithDocuments().then(cab => {
         cy.wrap(cab).as('cab')
         cy.loginAsOpssUser()
@@ -112,7 +112,7 @@ describe('CAB profile page', function() {
       cy.contains('.cab-detail-section', 'Product schedules').within(() => {
 
         // TODO: GROUP AND SORT LEGISLATIVE AREAS WHEN MULTIPE UPLOAD ISSUE IS FIXED
-        
+
         this.cab.schedules.forEach((schedule,index) => {
           // Known cypress issue with dowbload links timeout  - https://github.com/cypress-io/cypress/issues/14857
           cy.window().then((win) => { setTimeout(() => { win.location.reload() },5000) }) 
@@ -195,16 +195,20 @@ describe('CAB profile page', function() {
       })
     })
 
-    it('displays paginated Cab history ordered by latest first', function() {
+    it('displays paginated Cab history ordered by latest first', function () {
       CabHelpers.viewHistory()
-      cy.contains(`Showing 1 - ${this.cab.auditLog.slice(0,10).length} of ${this.cab.auditLog.length}`)
-      cy.wrap(Cypress._.orderBy(this.cab.auditLog, 'DateTime', 'desc').slice(0,10)).each((log, index) => {
+      // Assuming you have previously defined and wrapped 'cabs' using cy.wrap()
+
+          cy.log(`cab name is: ${this.cab._name}, cab documents are: ${this.cab.documents}`);
+
+      cy.contains(`Showing 1 - ${this.cab.auditLog.slice(0, 10).length} of ${this.cab.auditLog.length}`)
+      cy.wrap(Cypress._.orderBy(this.cab.auditLog, 'DateTime', 'desc').slice(0, 10)).each((log, index) => {
         cy.get('tbody tr').eq(index).within(() => {
           cy.get('td').eq(0).contains(Cypress.dayjs(log.DateTime).utc().format('DD/MM/YYYYHH:mm'))
           cy.get('td').eq(1).contains(log.UserName)
           cy.get('td').eq(2).contains(log.UserRole.toUpperCase())
           cy.get('td').eq(3).contains(Cypress._.capitalize(Cypress._.startCase(log.Action)))
-          if(log.Comment) {
+          if (log.Comment) {
             cy.get('td').eq(4).contains('View more ') // + log.Comment - removed comment check as its seems to be wrapped in HTML. // TODO check with devs
           }
         })

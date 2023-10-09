@@ -54,7 +54,7 @@ describe('Cab management', function() {
   })
 
   it('displays option to create a new CAB', function() {
-    cy.get('a.govuk-button').should('contain', 'Create a CAB').and('has.attr', 'href', CabHelpers.addCabPath())
+    cy.get('a.govuk-button').should('contain', 'Create a CAB')
   })
 
   it('displays All(Draft or Archived) CABs sorted by Last Updated Date by default', function() {

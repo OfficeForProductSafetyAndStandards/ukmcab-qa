@@ -14,7 +14,7 @@ export const createCab = (cab) => {
   uploadSchedules(cab.schedules)
   cy.saveAndContinue()
   uploadDocuments(cab.documents)
-  cy.continue()
+  cy.saveAndContinue()
   hasDetailsConfirmation(cab)
   clickPublish()
 }
@@ -126,6 +126,9 @@ export const uploadDocuments = (documents) => {
   cy.wrap(documents).each((document, index) => {
     cy.get('input[type=file]').selectFile(`cypress/fixtures/${document.fileName}`)
     upload()
+      if (document.category) {
+        setCategory(document.fileName, document.category)
+      }
     if (index < documents.length - 1) { cy.contains('Save and upload another file').click() }
   })
 }
@@ -220,12 +223,20 @@ export const uploadedFile = (filename) => {
   return cy.get(`input[value='${filename}']:visible`).closest('tr')
 }
 
+export const uploadedDocument = (filename) => {
+  return cy.contains('a',`${filename}`).closest('tr')
+}
+
 export const setFileLabel = (filename, newFileName) => {
   uploadedFile(filename).find('input:visible').clear().type(newFileName)
 }
 
 export const setLegislativeArea = (filename, value) => {
   uploadedFile(filename).find('select').select(value)
+}
+
+export const setCategory = (filename, value) => {
+  uploadedDocument(filename).find('select').select(value)
 }
 
 export const archiveModal = () => {

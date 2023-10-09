@@ -94,6 +94,7 @@ export default class Cab {
       return {
         fileName: document.FileName,
         blobName: document.BlobName,
+        category: document.Category,
         uploadDateTime: document.UploadDateTime
       }
     })
@@ -103,7 +104,7 @@ export default class Cab {
     return [this.addressLine1, this.addressLine2, this.townCity, this.county, this.postcode, this.country].filter(Boolean)
   }
 
-  pointOfContactDetailsDisplayStatus() {
+  pointOfContactDetailsDisplayStatus() {this.documents
     return this.isPointOfContactPublicDisplay ? 'Public' : 'Restricted'
   }
 
@@ -131,7 +132,7 @@ export default class Cab {
       BodyTypes: ['Approved body', 'NI Notified body'],
       LegislativeAreas: ['Cableway installation', 'Ecodesign'],
       Schedules: [{ FileName: 'dummy.pdf', Label: 'MyCustomLabel', LegislativeArea: 'Lifts' }],
-      Documents: [{ FileName: 'dummy2.pdf' }],
+      Documents: [{ FileName: 'dummy2.pdf', Category: 'Appointment' }],
       CABNumber: uniqueId,
       AppointmentDate: Cypress.dayjs().subtract(5, 'days'),
       RenewalDate: Cypress.dayjs().add(10, 'days'),
