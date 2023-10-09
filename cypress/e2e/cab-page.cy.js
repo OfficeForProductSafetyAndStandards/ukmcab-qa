@@ -198,9 +198,6 @@ describe('CAB profile page', function () {
     it('displays paginated Cab history ordered by latest first', function () {
       CabHelpers.viewHistory()
       // Assuming you have previously defined and wrapped 'cabs' using cy.wrap()
-
-          cy.log(`cab name is: ${this.cab._name}, cab documents are: ${this.cab.documents}`);
-
       cy.contains(`Showing 1 - ${this.cab.auditLog.slice(0, 10).length} of ${this.cab.auditLog.length}`)
       cy.wrap(Cypress._.orderBy(this.cab.auditLog, 'DateTime', 'desc').slice(0, 10)).each((log, index) => {
         cy.get('tbody tr').eq(index).within(() => {

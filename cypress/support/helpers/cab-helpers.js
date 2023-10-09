@@ -53,6 +53,9 @@ export const hasReviewDate = (date) => {
 }
 
 export const enterCabDetails = (cab) => {
+  const currentDate = new Date(); // Get the current date and time
+  currentDate.setDate(currentDate.getDate() + 3); // Add 3 days to the current date
+  const futureDate = currentDate.getTime(); // Get the timestamp of the future date in milliseconds
   cy.get('#Name').invoke('val', cab.name)
   cy.get('#CABNumber').invoke('val', cab.cabNumber)
   cy.get('#CabNumberVisibility option').then($options => {
@@ -68,7 +71,8 @@ export const enterCabDetails = (cab) => {
     setAppointmentDate(date(cab.appointmentDate).DD, date(cab.appointmentDate).MM, date(cab.appointmentDate).YYYY)
   }
   if (cab.reviewDate) {
-    setReviewDate(date(cab.reviewDate).DD, date(cab.reviewDate).MM, date(cab.reviewDate).YYYY)
+    cab.reviewDate = futureDate
+    setReviewDate(date(futureDate).DD, date(futureDate).MM, date(futureDate).YYYY)
   }
   if (cab.ukasRef) {
     cy.get('#UKASReference').invoke('val', cab.ukasRef)
@@ -126,9 +130,9 @@ export const uploadDocuments = (documents) => {
   cy.wrap(documents).each((document, index) => {
     cy.get('input[type=file]').selectFile(`cypress/fixtures/${document.fileName}`)
     upload()
-      if (document.category) {
-        setCategory(document.fileName, document.category)
-      }
+    if (document.category) {
+      setCategory(document.fileName, document.category)
+    }
     if (index < documents.length - 1) { cy.contains('Save and upload another file').click() }
   })
 }
@@ -224,7 +228,7 @@ export const uploadedFile = (filename) => {
 }
 
 export const uploadedDocument = (filename) => {
-  return cy.contains('a',`${filename}`).closest('tr')
+  return cy.contains('a', `${filename}`).closest('tr')
 }
 
 export const setFileLabel = (filename, newFileName) => {
