@@ -37,12 +37,12 @@ module.exports = defineConfig({
           const upsertedItem = await c.items.upsert(item)
           return upsertedItem.resource
         },
-        // async deleteItem({db, container, id, partitionKey}) {
-        //   const d = await client.database(db)
-        //   const c = await d.container(container)
-        //   const deletedItem = await c.item(id, partitionKey).delete()
-        //   return deletedItem.resource
-        // },
+        async deleteItem({db, container, id, partitionKey}) {
+          const d = await client.database(db)
+          const c = await d.container(container)
+          const deletedItem = await c.item(id, partitionKey).delete()
+          return deletedItem.resource
+        },
         async getEmails(email) {
           const recentEmails = (await notifyClient.getNotifications()).data.notifications
           return recentEmails

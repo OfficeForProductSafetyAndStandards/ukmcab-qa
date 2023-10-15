@@ -13,7 +13,6 @@ export const displayedSearchResults = () => {
   return cy.get('ul#search-results-list > li')
 }
 
-
 export const bodyTypeFilterOptions = (searchResults) => {
   const bodyTypes = Cypress._.map(searchResults, 'bodyTypes').flat().filter(Boolean)
   return [...new Set(bodyTypes)].sort() // unique values
