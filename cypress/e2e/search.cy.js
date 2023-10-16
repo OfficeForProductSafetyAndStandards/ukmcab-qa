@@ -63,7 +63,6 @@ describe('CAB Search', () => {
 
     it('displays randomly sorted results by default', function () {
       const filterOptions = { "Status": ['Published'] }
-      // SearchHelpers.filterByStatus(['Published'])
       SearchHelpers.azureSearchResults('', { filter: SearchHelpers.buildFilterQuery(filterOptions), orderby: 'RandomSort asc' }).then(expectedResults => {
         const expectedCabs = expectedResults.slice(0, 20).map(r => r.name)
         SearchHelpers.displayedSearchResults().find('h3').then(actualResults => {
