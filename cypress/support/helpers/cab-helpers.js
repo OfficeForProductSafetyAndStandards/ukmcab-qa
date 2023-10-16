@@ -4,7 +4,7 @@ import { date, valueOrNotProvided } from './formatters'
 export const cabManagementPath = () => { return '/admin/cab-management' }
 export const cabProfilePage = (cab) => { return `/search/cab-profile/${cab.urlSlug}` }
 export const cabSummaryPage = (id) => { return `/admin/cab/summary/${id}` }
-export const addCabPath = () => { return `/admin/cab/about/${Date.now()}` }
+export const addCabPath = () => { return `/admin/cab/create` }
 
 export const createCab = (cab) => {
   cy.ensureOn(addCabPath())
