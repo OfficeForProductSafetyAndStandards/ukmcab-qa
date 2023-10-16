@@ -10,6 +10,7 @@ describe('Creating a new CAB', () => {
     cy.wrap(Cab.build()).as('cab')
   })
 
+  
   context('when entering cab details', function() {
 
     it('displays error if mandatory details are not entered', function() {
