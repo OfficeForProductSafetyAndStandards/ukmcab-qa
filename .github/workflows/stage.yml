@@ -1,6 +1,7 @@
 name: "[STAGE] UKMCAB e2e tests"
 run-name: STAGE e2e test suite initiated by ${{ github.actor }} 🚀
 on:
+  workflow_dispatch:
   push:
     branches:
       - 'release/**'
