@@ -321,7 +321,7 @@ export const getTestCabWithDocuments = () => {
 
 export const getTestCabForEditing = () => {
   return getAllPublishedCabs().then(cabs => {
-    return cabs.find(cab => cab.name.startsWith('Test Cab'))
+    return cabs.find(cab => cab.name.startsWith('Test Cab') && cab.isRecent)
   })
 }
 

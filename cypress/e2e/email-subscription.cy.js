@@ -25,6 +25,7 @@ describe('Email subscription', function() {
     EmailSubscriptionHelpers.turnOnBackgroundService()
   })
 
+  
   context('when subscribing to all search results', function() {
 
     beforeEach(function() {

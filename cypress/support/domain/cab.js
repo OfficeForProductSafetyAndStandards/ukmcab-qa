@@ -38,6 +38,10 @@ export default class Cab {
     this.urlSlug = cabData.URLSlug
   }
 
+  get isRecent() {
+    return Math.abs(new Date(this.lastUpdatedDate) - new Date()) < 86400000
+  }
+
   get name() {
     return this._name
   }
