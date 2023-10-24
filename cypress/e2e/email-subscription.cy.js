@@ -5,33 +5,38 @@ import Cab from '../support/domain/cab'
 import * as CabHelpers from '../support/helpers/cab-helpers'
 import * as EmailSubscriptionHelpers from '../support/helpers/email-subscription-helpers'
 
-describe('Email subscription', function() {
+describe('Email subscription', function () {
 
   const fakeDateTimeDaily = Cypress.dayjs(new Date()).add(3, 'hours').add(1, 'day').format('DD/MM/YYYY HH:mm:ss')
   const fakeDateTimeWeekly = Cypress.dayjs(new Date()).add(3, 'hours').add(7, 'days').format('DD/MM/YYYY HH:mm:ss')
 
 
-  beforeEach(function() {
+  beforeEach(function () {
     EmailSubscriptionHelpers.clearSubscriptions()
     EmailSubscriptionHelpers.clearFakeDateTime()
     EmailSubscriptionHelpers.turnOffBackgroundService()
     cy.wrap(`testing${Date.now()}@dummy.gov.uk`).as('email')
-    CabHelpers.getTestCabForEditing().then(cab => {
-      cy.wrap(cab).as('testCab')
-    })
+    cy.loginAsOpssUser()
+    cy.ensureOn(CabHelpers.addCabPath())
+    cy.wrap(Cab.build()).as('cab')
+    // CabHelpers.getTestCabForEditing().then(cab => {
+    //   cy.wrap(cab).as('testCab')
+    // })
   })
 
-  afterEach(function() {
+  afterEach(function () {
     EmailSubscriptionHelpers.turnOnBackgroundService()
   })
 
-  
-  context('when subscribing to all search results', function() {
 
-    beforeEach(function() {
+  context('when subscribing to all search results', function () {
+
+    beforeEach(function () {
+      CabHelpers.createCabWithoutDocuments(this.cab)
       cy.ensureOn(searchUrl())
     })
 
+    
     it('all pages and any errors are displayed as expected', function() {
       EmailSubscriptionHelpers.getEmailsLink().click()
       cy.get('h1').contains('Get emails from GOV.UK')
@@ -53,13 +58,13 @@ describe('Email subscription', function() {
       .find('a', "contact GOV.UK").should('have.attr', 'href', "https://www.gov.uk/contact/govuk")
       cy.contains('a', 'Go to search').should('have.attr', 'href', Cypress.config('baseUrl') + searchUrl())
     })
-    
-    it('Correct emails are delivered for daily subscriptions', function() {
+
+    it('Correct emails are delivered for daily subscriptions', function () {
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Daily, this.email)
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email)
       EmailSubscriptionHelpers.processSubscriptionConfirmationEmail()
       EmailSubscriptionHelpers.assertSubscriptionConfirmationEmailIsSent(this.email)
-      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.testCab)
+      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.cab)
       EmailSubscriptionHelpers.setFakeDateTime(fakeDateTimeDaily)
       EmailSubscriptionHelpers.processSubscriptions()
       EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email)
@@ -70,7 +75,7 @@ describe('Email subscription', function() {
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email)
       EmailSubscriptionHelpers.processSubscriptionConfirmationEmail()
       EmailSubscriptionHelpers.assertSubscriptionConfirmationEmailIsSent(this.email)
-      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.testCab)
+      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.cab)
       EmailSubscriptionHelpers.setFakeDateTime(fakeDateTimeWeekly)
       EmailSubscriptionHelpers.processSubscriptions()
       EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email)
@@ -81,7 +86,7 @@ describe('Email subscription', function() {
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email)
       EmailSubscriptionHelpers.processSubscriptionConfirmationEmail()
       EmailSubscriptionHelpers.assertSubscriptionConfirmationEmailIsSent(this.email)
-      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.testCab)
+      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.cab)
       EmailSubscriptionHelpers.processSubscriptions()
       EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email)
     })
@@ -91,7 +96,7 @@ describe('Email subscription', function() {
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email)
       EmailSubscriptionHelpers.processSubscriptionConfirmationEmail()
       EmailSubscriptionHelpers.assertSubscriptionConfirmationEmailIsSent(this.email)
-      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.testCab)
+      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.cab)
       EmailSubscriptionHelpers.processSubscriptions()
       EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email)
       getLastUserEmail(this.email).then(_email => {
@@ -100,12 +105,12 @@ describe('Email subscription', function() {
       })
       cy.contains('a', 'View').click()
       cy.contains(`1 modifications to search results`)
-      cy.contains(this.testCab.addressLines.join(', '))
+      cy.contains(this.cab.addressLines.join(', '))
 
       // add a new cab to trigger notification
       cy.ensureOn(CabHelpers.addCabPath())
       const newCab = Cab.build()
-      CabHelpers.createCab(newCab)
+      CabHelpers.createCabWithoutDocuments(newCab)
       CabHelpers.hasCabPublishedConfirmation(newCab)
       EmailSubscriptionHelpers.processSubscriptions()
       EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email)
@@ -120,63 +125,68 @@ describe('Email subscription', function() {
   })
 
   context('when subscribing to filtered search results', function() {
-    
+
+    beforeEach(function () {
+      CabHelpers.createCabWithoutDocuments(this.cab)
+    })
+
     it('Emails are NOT delivered for any changes outside of the subscribed results', function() {
       searchCab('WillNotYieldAnySearchResults')
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Instantly, this.email)
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email)
       EmailSubscriptionHelpers.processSubscriptionConfirmationEmail()
       EmailSubscriptionHelpers.assertSubscriptionConfirmationEmailIsSent(this.email)
-      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.testCab)
+      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.cab)
       EmailSubscriptionHelpers.processSubscriptions()
       EmailSubscriptionHelpers.assertSubscriptionEmailIsNotSent(this.email)
     })
 
     it('Correct emails are delivered for daily subscriptions', function() {
-      searchCab(this.testCab.name)
+      searchCab(this.cab.name)
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Daily, this.email)
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email)
       EmailSubscriptionHelpers.processSubscriptionConfirmationEmail()
       EmailSubscriptionHelpers.assertSubscriptionConfirmationEmailIsSent(this.email)
-      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.testCab)
+      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.cab)
       EmailSubscriptionHelpers.setFakeDateTime(fakeDateTimeDaily)
       EmailSubscriptionHelpers.processSubscriptions()
-      EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email, this.testCab.name)
+      EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email, this.cab.name)
     })
 
     it('Correct emails are delivered for weekly subscriptions', function() {
-      searchCab(this.testCab.name)
+      searchCab(this.cab.name)
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Weekly, this.email)
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email)
       EmailSubscriptionHelpers.processSubscriptionConfirmationEmail()
       EmailSubscriptionHelpers.assertSubscriptionConfirmationEmailIsSent(this.email)
-      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.testCab)
+      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.cab)
       EmailSubscriptionHelpers.setFakeDateTime(fakeDateTimeWeekly)
       EmailSubscriptionHelpers.processSubscriptions()
-      EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email, this.testCab.name)
+      EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email, this.cab.name)
     })
 
     it('Correct emails are delivered for instant subscriptions', function() {
-      searchCab(this.testCab.name)
+      searchCab(this.cab.name)
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Instantly, this.email)
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email)
       EmailSubscriptionHelpers.processSubscriptionConfirmationEmail()
       EmailSubscriptionHelpers.assertSubscriptionConfirmationEmailIsSent(this.email)
-      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.testCab)
+      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.cab)
       EmailSubscriptionHelpers.processSubscriptions()
-      EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email, this.testCab.name)
+      EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email, this.cab.name)
     })
   })
 
   context('when subscribing to Cab profile changes', function() {
     beforeEach(function() {
-      cy.ensureOn(CabHelpers.cabProfilePage(this.testCab))
+      CabHelpers.createCabWithoutDocuments(this.cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
     })
 
     it('all pages and any errors are displayed as expected', function() {
       EmailSubscriptionHelpers.getEmailsLink().click()
       cy.get('h1').contains('Get emails from GOV.UK')
-      cy.get('form').contains(`You’ll get emails when we add or update pages about: UKMCAB profile for '${this.testCab.name}'`)
+      cy.get('form').contains(`You’ll get emails when we add or update pages about: UKMCAB profile for '${this.cab.name}'`)
       cy.continue()
       cy.get('h1').contains('How often do you want to get emails?')
       cy.contains("Do you need to unsubscribe from UKMCAB emails?").find('a', 'unsubscribe from UKMCAB emails?').should('have.attr', 'href', EmailSubscriptionHelpers.unsubscribePath)
@@ -189,42 +199,42 @@ describe('Email subscription', function() {
       cy.get('#email-address-input').invoke('val', this.email)
       cy.continue()
       cy.get('h1').contains('Check your email')
-      cy.contains(`We’ve sent an email to ${this.email} Click the link in the email to confirm you want emails from UKMCAB about: UKMCAB profile for '${this.testCab.name}' The link will stop working after 7 days.` )
+      cy.contains(`We’ve sent an email to ${this.email} Click the link in the email to confirm you want emails from UKMCAB about: UKMCAB profile for '${this.cab.name}' The link will stop working after 7 days.` )
       cy.contains("details", "Not received an email? Emails sometimes take a few minutes to arrive. If you do not receive an email soon, check your spam or junk folder. If this does not work, contact GOV.UK for help.")
       .find('a', "contact GOV.UK").should('have.attr', 'href', "https://www.gov.uk/contact/govuk")
-      cy.contains('a', `Go to CAB profile for '${this.testCab.name}'`).should('have.attr', 'href', this.testCab.oldSchemeUrl)
+      cy.contains('a', `Go to CAB profile for '${this.cab.name}'`).should('have.attr', 'href', this.cab.oldSchemeUrl)
     })
 
     it('Correct emails are delivered for daily subscriptions', function() {
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Daily, this.email)
-      EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email, `You've subscribed to emails about UKMCAB profile for '${this.testCab.name}'`)
+      EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email, `You've subscribed to emails about UKMCAB profile for '${this.cab.name}'`)
       EmailSubscriptionHelpers.processSubscriptionConfirmationEmail()
       EmailSubscriptionHelpers.assertSubscriptionConfirmationEmailIsSent(this.email)
-      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.testCab)
+      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.cab)
       EmailSubscriptionHelpers.setFakeDateTime(fakeDateTimeDaily)
       EmailSubscriptionHelpers.processSubscriptions()
-      EmailSubscriptionHelpers.assertCabUpdateSubscriptionEmailIsSent(this.email, this.testCab)
+      EmailSubscriptionHelpers.assertCabUpdateSubscriptionEmailIsSent(this.email, this.cab)
     })
 
     it('Correct emails are delivered for weekly subscriptions', function() {
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Weekly, this.email)
-      EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email, `You've subscribed to emails about UKMCAB profile for '${this.testCab.name}'`)
+      EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email, `You've subscribed to emails about UKMCAB profile for '${this.cab.name}'`)
       EmailSubscriptionHelpers.processSubscriptionConfirmationEmail()
       EmailSubscriptionHelpers.assertSubscriptionConfirmationEmailIsSent(this.email)
-      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.testCab)
+      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.cab)
       EmailSubscriptionHelpers.setFakeDateTime(fakeDateTimeWeekly)
       EmailSubscriptionHelpers.processSubscriptions()
-      EmailSubscriptionHelpers.assertCabUpdateSubscriptionEmailIsSent(this.email, this.testCab)
+      EmailSubscriptionHelpers.assertCabUpdateSubscriptionEmailIsSent(this.email, this.cab)
     }) 
 
     it('Correct emails are delivered for instant subscriptions', function() {
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Instantly, this.email)
-      EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email, `You've subscribed to emails about UKMCAB profile for '${this.testCab.name}'`)
+      EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email, `You've subscribed to emails about UKMCAB profile for '${this.cab.name}'`)
       EmailSubscriptionHelpers.processSubscriptionConfirmationEmail()
       EmailSubscriptionHelpers.assertSubscriptionConfirmationEmailIsSent(this.email)
-      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.testCab)
+      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.cab)
       EmailSubscriptionHelpers.processSubscriptions()
-      EmailSubscriptionHelpers.assertCabUpdateSubscriptionEmailIsSent(this.email, this.testCab)
+      EmailSubscriptionHelpers.assertCabUpdateSubscriptionEmailIsSent(this.email, this.cab)
     })
 
   })
@@ -232,13 +242,14 @@ describe('Email subscription', function() {
   context('when user confirms email and subscription is registered', function() {
 
     beforeEach(function() {
+      CabHelpers.createCabWithoutDocuments(this.cab)
       cy.ensureOn(searchUrl())
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Instantly, this.email)
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email)
       EmailSubscriptionHelpers.processSubscriptions()
       EmailSubscriptionHelpers.assertSubscriptionConfirmationEmailIsSent(this.email)
     })
-    
+
     it('displays Manage subscription page', function() {
       cy.contains('h1', 'Manage your UKMCAB subscription')
       cy.contains(`Subscription for ${this.email} Change email address Go to search Topic UKMCAB search results You subscribed to get updates as they happen. Change how often you get emails Unsubscribe`)
@@ -247,16 +258,16 @@ describe('Email subscription', function() {
       cy.contains('a', 'Change how often you get emails')
       cy.contains('a', 'Unsubscribe')
     })
-    
+
     it('User can unscubscribe and emails are no longer delivered', function() {
       cy.contains('a', 'Unsubscribe').click()
       cy.contains('a,button', 'Unsubscribe').click()
       cy.contains('You have successfully unsubscribed from UKMCAB search results.')
-      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.testCab)
+      EmailSubscriptionHelpers.updateCabToTriggerSubscription(this.cab)
       EmailSubscriptionHelpers.processSubscriptionConfirmationEmail()
       EmailSubscriptionHelpers.assertSubscriptionEmailIsNotSent(this.email)
     })
-    
+
     it('User can manage subscription Frequency', function() {
       // change email Frequency
       cy.contains('a', 'Change how often you get emails').click()
