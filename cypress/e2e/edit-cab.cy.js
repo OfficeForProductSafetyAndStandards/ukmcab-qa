@@ -22,15 +22,16 @@ describe('Editing a CAB', () => {
   context('when logged in', function () {
 
     beforeEach(function () {
-      CabHelpers.getTestCabForEditing().then(cab => {
-        cy.wrap(cab).as('cab')
-        cy.loginAsOpssUser()
-        cy.ensureOn(CabHelpers.cabProfilePage(cab))
-        CabHelpers.editCabButton().click()
-      })
+      cy.loginAsOpssUser()
+      cy.ensureOn(CabHelpers.addCabPath())
+      cy.wrap(Cab.buildWithoutDocuments()).as('cab')
+
     })
 
     it('allows editing a cab and publishing updated cab details', function () {
+      CabHelpers.createCabWithoutDocuments(this.cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.editCabButton().click()
       let cloneCab = Cypress._.cloneDeep(this.cab)
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('CAB details')
@@ -45,6 +46,9 @@ describe('Editing a CAB', () => {
     })
 
     it('displays error if mandatory fields are omitted', function () {
+      CabHelpers.createCabWithoutDocuments(this.cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.editCabButton().click()
       let cloneCab = Cypress._.cloneDeep(this.cab)
       CabHelpers.editCabDetail('CAB details')
       cloneCab.name = null
@@ -71,6 +75,9 @@ describe('Editing a CAB', () => {
     })
 
     it('allows saving an edited cab as draft with original cab still viewable', function () {
+      CabHelpers.createCabWithoutDocuments(this.cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.editCabButton().click()
       let cloneCab = Cypress._.cloneDeep(this.cab)
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('CAB details')
@@ -83,6 +90,9 @@ describe('Editing a CAB', () => {
     })
 
     it('does not create duplicate or save cab in drafts when edited but no changes are made', function () {
+      CabHelpers.createCabWithoutDocuments(this.cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.editCabButton().click()
       CabHelpers.editCabDetail('CAB details')
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.clickPublish()
@@ -91,6 +101,9 @@ describe('Editing a CAB', () => {
     })
 
     it('does not affect Published Date and only updates Last Updated Date', function () {
+      CabHelpers.createCabWithoutDocuments(this.cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.editCabButton().click()
       let cloneCab = Cypress._.cloneDeep(this.cab)
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('CAB details')
@@ -111,6 +124,9 @@ describe('Editing a CAB', () => {
     })
 
     it('updates cab URL identifier to a hyphenated identifier based on new name and sets up redirect from old to new', function () {
+      CabHelpers.createCabWithoutDocuments(this.cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.editCabButton().click()
       let cloneCab = Cypress._.cloneDeep(this.cab)
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('CAB details')
@@ -133,41 +149,50 @@ describe('Editing a CAB', () => {
     })
 
     it('returns user back to summary page when editing is cancelled at any step', function () {
+      CabHelpers.createCabWithoutDocuments(this.cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.editCabButton().click()
       CabHelpers.editCabDetail('CAB details')
       cy.cancel()
-      cy.location().then(loc => {
-        expect(loc.pathname).to.eq(CabHelpers.cabSummaryPage(this.cab.cabId))
-      })
+      CabHelpers.isSummaryPage()
       CabHelpers.editCabDetail('Contact details')
       cy.cancel()
-      cy.location().then(loc => {
-        expect(loc.pathname).to.eq(CabHelpers.cabSummaryPage(this.cab.cabId))
-      })
+      CabHelpers.isSummaryPage()
       CabHelpers.editCabDetail('Body details')
       cy.cancel()
-      cy.location().then(loc => {
-        expect(loc.pathname).to.eq(CabHelpers.cabSummaryPage(this.cab.cabId))
-      })
+      CabHelpers.isSummaryPage()
       CabHelpers.editCabDetail('Product schedules')
       cy.cancel()
-      cy.location().then(loc => {
-        expect(loc.pathname).to.eq(CabHelpers.cabSummaryPage(this.cab.cabId))
-      })
+      CabHelpers.isSummaryPage()
       CabHelpers.editCabDetail('Supporting documents')
       cy.cancel()
-      cy.location().then(loc => {
-        expect(loc.pathname).to.eq(CabHelpers.cabSummaryPage(this.cab.cabId))
-      })
+      CabHelpers.isSummaryPage()
     })
 
     it('returns user back to cab page when editing is cancelled from summary page', function () {
+      CabHelpers.createCabWithoutDocuments(this.cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.editCabButton().click()
       cy.cancel()
       cy.location().then(loc => {
         expect(loc.pathname).to.eq(CabHelpers.cabProfilePage(this.cab))
       })
     })
 
+  })
+
+  context('when logged in and using cabs with documents', function () {
+
+    beforeEach(function () {
+      cy.loginAsOpssUser()
+      cy.ensureOn(CabHelpers.addCabPath())
+      cy.wrap(Cab.build()).as('cab')
+    })
+
     it('legislative areas assigned to uploaded schedules can not be modified', function () {
+      CabHelpers.createCab(this.cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.editCabButton().click()
       CabHelpers.editCabDetail('Body details')
       cy.contains('Pre-selected areas are linked to the product schedule and cannot be removed here')
       this.cab.schedules.forEach(schedule => {
@@ -176,21 +201,20 @@ describe('Editing a CAB', () => {
       cy.continue()
       cy.contains('Check details before publishing')
     })
-
   })
 
   context('when editing a CAB with review date', function () {
 
     beforeEach(function () {
-      CabHelpers.getTestCabWithReviewDate().then(cab => {
-        cy.wrap(cab).as('cab')
-        cy.loginAsOpssUser()
-        cy.ensureOn(CabHelpers.cabProfilePage(cab))
-        CabHelpers.editCabButton().click()
-      })
+      cy.loginAsOpssUser()
+      cy.ensureOn(CabHelpers.addCabPath())
+      cy.wrap(Cab.buildWithoutDocuments()).as('cab')
     })
 
     it('sets review date to 18 years from current date if auto fill button is invoked', function () {
+      CabHelpers.createCabWithoutDocuments(this.cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.editCabButton().click()
       CabHelpers.editCabDetail('CAB details')
       CabHelpers.autoFillReviewDate()
       const expectedDate = Cypress.dayjs().add(18, 'months')
@@ -204,6 +228,7 @@ describe('Editing a CAB', () => {
       cy.loginAsOpssUser()
       cy.ensureOn(CabHelpers.addCabPath())
       cy.wrap(Cab.build()).as('cab')
+
     })
 
     it('legislative areas on summary page and profile page are in sync', function () {

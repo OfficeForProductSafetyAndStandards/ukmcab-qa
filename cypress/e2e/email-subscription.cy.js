@@ -179,7 +179,7 @@ describe('Email subscription', function () {
 
   context('when subscribing to Cab profile changes', function() {
     beforeEach(function() {
-      CabHelpers.createCabWithoutDocuments(this.cab)
+      CabHelpers.createCab(this.cab)
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
     })
 
