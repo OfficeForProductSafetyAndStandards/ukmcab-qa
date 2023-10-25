@@ -17,9 +17,9 @@ export const getEmailsLink = () => {
 }
 
 export const subscribe = (frequency, email, subscriptionType = "") => {
-  getEmailsLink().click()
+  getEmailsLink().should('be.visible').click({timeout: 10000})
   cy.continue()
-  cy.contains('label', frequency).click()
+  cy.contains('label', frequency).should('be.visible').click({timeout: 10000})
   cy.continue()
   cy.get('#email-address-input').invoke('val', email)
   cy.continue()
@@ -31,7 +31,7 @@ export const updateCabToTriggerSubscription = (cab) => {
   cy.loginAsOpssUser()
   let cloneCab = Cypress._.cloneDeep(cab)
   cy.ensureOn(CabHelpers.cabProfilePage(cab))
-  CabHelpers.editCabButton().click()
+  CabHelpers.editCabButton().should('be.visible').click({timeout: 10000})
   CabHelpers.editCabDetail('CAB details')
   cloneCab.name = `Test Cab Edited ${uniqueId}`
   CabHelpers.enterCabDetails(cloneCab)
@@ -41,7 +41,7 @@ export const updateCabToTriggerSubscription = (cab) => {
 
 export const clearSubscriptions = () => {
   cy.ensureOn('/subscriptions/diagnostics')
-  cy.contains('a,button', 'Clear all data').click()
+  cy.contains('a,button', 'Clear all data').should('be.visible').click({timeout: 10000})
   cy.contains('All subscriptions data cleared successfully')
 }
 
@@ -83,13 +83,13 @@ export const processSubscriptions = () => {
 export const setFakeDateTime = (value) => {
   cy.ensureOn(diagnosticsPath)
   cy.get('#when').type(value)
-  cy.contains('a,button', 'Save').click()
+  cy.contains('a,button', 'Save').should('be.visible').click({timeout: 10000})
   cy.contains('Fake date/time has been set')
 }
 
 export const clearFakeDateTime = () => {
   cy.ensureOn(diagnosticsPath)
-  cy.contains('a,button', 'Clear fake date/time').click()
+  cy.contains('a,button', 'Clear fake date/time').should('be.visible').click({timeout: 10000})
   cy.contains('Fake date/time has been cleared')
 }
 

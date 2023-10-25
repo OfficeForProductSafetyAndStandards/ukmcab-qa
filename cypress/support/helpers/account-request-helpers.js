@@ -10,7 +10,7 @@ export const accountRequest = (user) => {
 }
 
 export const reviewRequest = (user) => {
-  accountRequest(user).contains('Review').click()
+  accountRequest(user).contains('Review').should('be.visible').click({timeout: 10000})
 }
 
 export const approveRequest = () => {
@@ -23,9 +23,9 @@ export const rejectRequest = (rejectReason=null) => {
 
 const processRequest = (decision, rejectReason=null) => {
   if(decision === 'approve') {
-    cy.contains('button', 'Approve').click()
+    cy.contains('button', 'Approve').should('be.visible').click({timeout: 10000})
   } else if (decision === 'reject') {
     if(rejectReason) cy.get('#Input_RejectionReason').type(rejectReason)
-    cy.contains('button', 'Reject').click()
+    cy.contains('button', 'Reject').should('be.visible').click({timeout: 10000})
   }
 }

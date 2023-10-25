@@ -203,18 +203,18 @@ describe('Creating a new CAB', () => {
     })
 
     it('canceling file upload returns user back to Admin page', function() {
-      cy.contains('Cancel').click()
+      cy.contains('Cancel').should('be.visible').click({timeout: 10000})
       cy.location('pathname').should('equal', CabHelpers.cabManagementPath())
     })
 
     it('allows skipping of schedule upload', function() {
-      cy.contains('Skip this step').click()
+      cy.contains('Skip this step').should('be.visible').click({timeout: 10000})
       cy.contains('Upload the supporting documents')
     })
 
     it('user can remove uploaded file', function() {
       CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts' }])
-      cy.contains('Remove').click()
+      cy.contains('Remove').should('be.visible').click({timeout: 10000})
       cy.contains('0 file uploaded')
     })
 
@@ -269,18 +269,18 @@ describe('Creating a new CAB', () => {
     })
 
     it('canceling file upload returns user back to Admin page', function() {
-      cy.contains('Cancel').click()
+      cy.contains('Cancel').should('be.visible').click({timeout: 10000})
       cy.location('pathname').should('equal', CabHelpers.cabManagementPath())
     })
 
     it('allows skipping supporting document upload', function() {
-      cy.contains('Skip this step').click()
+      cy.contains('Skip this step').should('be.visible').click({timeout: 10000})
       cy.contains('Check details before publishing')
     })
 
     it('user can remove uploaded file', function() {
       CabHelpers.uploadFiles([{ fileName: 'dummy3.pdf' }])
-      cy.contains('Remove').click()
+      cy.contains('Remove').should('be.visible').click({timeout: 10000})
       cy.contains('0 file uploaded')
     })
   })
@@ -339,8 +339,8 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
-      cy.contains('Skip this step').click()
-      cy.contains('Skip this step').click()
+      cy.contains('Skip this step').should('be.visible').click({timeout: 10000})
+      cy.contains('Skip this step').should('be.visible').click({timeout: 10000})
       cy.hasKeyValueDetail('Legislative area', 'No legislative area has been selected.')
       // also check that user can still publish cab without a Legislative Area
       CabHelpers.clickPublish()
@@ -353,8 +353,8 @@ describe('Creating a new CAB', () => {
         CabHelpers.enterCabDetails(this.cab)
         CabHelpers.enterContactDetails(this.cab)
         CabHelpers.enterBodyDetails(this.cab)
-        cy.contains('Skip this step').click()
-        cy.contains('Skip this step').click()
+        cy.contains('Skip this step').should('be.visible').click({timeout: 10000})
+        cy.contains('Skip this step').should('be.visible').click({timeout: 10000})
         cy.hasKeyValueDetail('CAB name', 'This CAB name already exists. Only create this CAB if you have contacted OPSS for approval.')
       })
 
@@ -376,7 +376,7 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.saveAsDraft()
       cy.ensureOn(CabHelpers.cabManagementPath())
-      cy.contains('a', this.cab.name).click()
+      cy.contains('a', this.cab.name).should('be.visible').click({timeout: 10000})
       cy.contains('Provide all mandatory information before you are able to publish this record.')
       cy.get('button').contains('Publish').should('be.disabled')
     })
@@ -384,7 +384,7 @@ describe('Creating a new CAB', () => {
     it('displays custom file labels on cab page if provided', function() {
       CabHelpers.createCab(this.cab)
       CabHelpers.hasCabPublishedConfirmation(this.cab)
-      cy.contains('a', 'View CAB').click()
+      cy.contains('a', 'View CAB').should('be.visible').click({timeout: 10000})
       CabHelpers.viewSchedules()
       this.cab.schedules.forEach(schedule => {
         schedule.label ? cy.contains(schedule.label) : cy.contains(schedule.fileName)
@@ -411,7 +411,7 @@ describe('Creating a new CAB', () => {
     it('sets Published Date and Last Updated Date to be current date for new cabs', function() {
       CabHelpers.createCab(this.cab)
       CabHelpers.hasCabPublishedConfirmation(this.cab)
-      cy.contains('a', 'View CAB').click()
+      cy.contains('a', 'View CAB').should('be.visible').click({timeout: 10000})
       cy.contains(`Published: ${date(new Date()).DMMMYYYY}`)
       cy.contains(`Last updated: ${date(new Date()).DMMMYYYY}`)
     })
@@ -422,7 +422,7 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterBodyDetails(this.cab)
       CabHelpers.saveAsDraft()
       cy.ensureOn(CabHelpers.cabManagementPath())
-      cy.contains('a', this.cab.name).click()
+      cy.contains('a', this.cab.name).should('be.visible').click({timeout: 10000})
       CabHelpers.clickPublish()
       CabHelpers.hasCabPublishedConfirmation(this.cab)
       cy.ensureOn(CabHelpers.cabManagementPath())

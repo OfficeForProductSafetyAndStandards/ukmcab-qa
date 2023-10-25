@@ -53,7 +53,7 @@ export const setReviewDate = (day, month, year) => {
 }
 
 export const autoFillReviewDate = () => {
-  cy.contains('button', 'Add suggested review date').click()
+  cy.contains('button', 'Add suggested review date').should('be.visible').click({timeout: 10000})
 }
 export const isSummaryPage = () => {
   cy.get('h1').contains('Check details before publishing')
@@ -115,7 +115,7 @@ export const enterContactDetails = (cab) => {
 
 export const enterBodyDetails = (cab) => {
   cy.wrap(cab.testingLocations).each((location, index, locations) => {
-    Cypress._.times(locations - 1, cy.contains('a', 'Add another registered test location').click())
+    Cypress._.times(locations - 1, cy.contains('a', 'Add another registered test location').should('be.visible').click({timeout: 10000}))
     cy.get('.test-location select').eq(index).select(location)
   })
   cab.bodyTypes.forEach(bodyType => {
@@ -140,11 +140,11 @@ export const uploadSchedules = (schedules) => {
 }
 
 export const skipSchedules = () => {
-  cy.contains('Skip this step').click()
+  cy.contains('Skip this step').should('be.visible').click({timeout: 10000})
 }
 
 export const skipDocuments = () => {
-  cy.contains('Skip this step').click()
+  cy.contains('Skip this step').should('be.visible').click({timeout: 10000})
 }
 
 export const uploadDocuments = (documents) => {
@@ -154,12 +154,12 @@ export const uploadDocuments = (documents) => {
     if (document.category) {
       setCategory(document.fileName, document.category)
     }
-    if (index < documents.length - 1) { cy.contains('Save and upload another file').click() }
+    if (index < documents.length - 1) { cy.contains('Save and upload another file').should('be.visible').click({timeout: 10000}) }
   })
 }
 
 export const clickPublish = () => {
-  cy.get('button,a').contains('Publish').click()
+  cy.get('button,a').contains('Publish').should('be.visible').click({timeout: 10000})
 }
 
 export const hasDetailsConfirmation = (cab) => {
@@ -276,38 +276,38 @@ export const archiveCab = (cab, options) => {
   options = { reason: 'Test archive reason', hasAssociatedDraft: false, ...options }
   const draftDeletionWarningText = 'This CAB has a draft profile connected to it. If you archive this CAB, the draft will be deleted'
   cy.ensureOn(cabProfilePage(cab))
-  archiveCabButton().click()
+  archiveCabButton().should('be.visible').click({timeout: 10000})
   archiveModal().within(() => {
     cy.contains('h2', `Archive ${cab.name}`)
     cy.contains('Enter the reason for archiving this CAB.')
     options.hasAssociatedDraft ? cy.contains(draftDeletionWarningText) : cy.contains(draftDeletionWarningText).should('not.exist')
     cy.contains('Archived CAB profiles cannot be edited and users cannot view them in the search results.')
     cy.get('#archive-reason').type(options.reason)
-    archiveCabButton().click()
+    archiveCabButton().should('be.visible').click({timeout: 10000})
   })
   cy.get('.govuk-notification-banner__content').contains(`Archived on ${date(new Date()).DDMMMYYYY}`)
 }
 
 export const unarchiveCab = (cab, reason = 'Test Unarchive reason') => {
   cy.ensureOn(cabProfilePage(cab))
-  unarchiveCabButton().click()
+  unarchiveCabButton().should('be.visible').click({timeout: 10000})
   unarchiveModal().within(() => {
     cy.contains('h2', `Unarchive ${cab.name}`)
     cy.contains('Enter the reason for unarchiving this CAB profile.')
     cy.contains('Unarchived CAB profiles will be saved as draft.')
     cy.get('#unarchive-reason').type(reason)
     cy.contains('a', 'Cancel').should('have.attr', 'href', '#')
-    unarchiveCabButton().click()
+    unarchiveCabButton().should('be.visible').click({timeout: 10000})
   })
   cy.contains('Check details before publishing')
 }
 
 export const viewSchedules = () => {
-  cy.contains('#tab_product-schedules', 'Product schedules').click()
+  cy.contains('#tab_product-schedules', 'Product schedules').should('be.visible').click({timeout: 10000})
 }
 
 export const viewHistory = () => {
-  cy.contains('#tab_history', 'History').click()
+  cy.contains('#tab_history', 'History').should('be.visible').click({timeout: 10000})
 }
 
 export const getTestCab = () => {
@@ -393,19 +393,19 @@ export const unarchiveCabButton = () => {
 }
 
 export const editCabDetail = (heading) => {
-  cy.get('.cab-summary-header').contains(heading).parents('.govuk-summary-list__key').next().contains('a', 'Edit').click()
+  cy.get('.cab-summary-header').contains(heading).parents('.govuk-summary-list__key').next().contains('a', 'Edit').should('be.visible').click({timeout: 10000})
 }
 
 export const upload = () => {
-  cy.contains('button', 'Upload').click()
+  cy.contains('button', 'Upload').should('be.visible').click({timeout: 10000})
 }
 
 export const saveAsDraft = () => {
-  cy.contains('button,a', 'Save as draft').click()
+  cy.contains('button,a', 'Save as draft').should('be.visible').click({timeout: 10000})
 }
 
 export const submitForApproval = () => {
-  cy.contains('button', 'Submit for approval').click()
+  cy.contains('button', 'Submit for approval').should('be.visible').click({timeout: 10000})
 }
 
 
@@ -431,6 +431,6 @@ export const hasNoEditCabPermission = () => {
 
 export const createDraftVersion = (cab) => {
   cy.ensureOn(cabProfilePage(cab))
-  editCabButton().click()
+  editCabButton().should('be.visible').click({timeout: 10000})
   saveAsDraft()
 }

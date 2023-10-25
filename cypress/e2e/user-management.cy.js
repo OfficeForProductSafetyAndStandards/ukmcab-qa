@@ -22,7 +22,7 @@ describe('User Management', () => {
         const activeUsers = users.filter(user => !user.isLocked)
         cy.wrap(activeUsers).as('activeUsers')
         cy.ensureOn(UserManagementHelpers.userManagementPath())
-        cy.contains('a', 'Active').click()
+        cy.contains('a', 'Active').should('be.visible').click({timeout: 10000})
       })
     })
 
@@ -32,44 +32,44 @@ describe('User Management', () => {
       UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.lastname.toLowerCase()], 'asc').slice(0,20))
 
       cy.log('First name Asc sort')
-      cy.get('thead th a').eq(0).click()
+      cy.get('thead th a').eq(0).should('be.visible').click({timeout: 10000})
       UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.firstname.toLowerCase()], 'asc').slice(0,20))
 
       cy.log('First name Desc sort')
-      cy.get('thead th a').eq(0).click()
+      cy.get('thead th a').eq(0).should('be.visible').click({timeout: 10000})
       UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.firstname.toLowerCase()], 'desc').slice(0,20))
 
       cy.log('Last name Asc sort')
-      cy.get('thead th a').eq(1).click()
+      cy.get('thead th a').eq(1).should('be.visible').click({timeout: 10000})
       UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.lastname.toLowerCase()], 'asc').slice(0,20))
 
       cy.log('Last name Desc sort')
-      cy.get('thead th a').eq(1).click()
+      cy.get('thead th a').eq(1).should('be.visible').click({timeout: 10000})
       UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.lastname.toLowerCase()], 'desc').slice(0,20))
 
       // TODO: This order doesn't match JS in-memory sort. Talk to DEV if they are doing via cosmos 
       // cy.log('Email Asc sort')
-      // cy.get('thead th a').eq(2).click()
+      // cy.get('thead th a').eq(2).should('be.visible').click({timeout: 10000})
       // UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.contactEmail.toLowerCase()], 'asc').slice(0,20))
 
       // cy.log('Email Desc sort')
-      // cy.get('thead th a').eq(2).click()
+      // cy.get('thead th a').eq(2).should('be.visible').click({timeout: 10000})
       // UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, 'contactEmail', 'desc').slice(0,20))
 
       // cy.log('User group Asc sort')
-      // cy.get('thead th a').eq(3).click()
+      // cy.get('thead th a').eq(3).should('be.visible').click({timeout: 10000})
       // UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, 'userGroup', 'asc').slice(0,20))
 
       // cy.log('User group Desc sort')
-      // cy.get('thead th a').eq(3).click()
+      // cy.get('thead th a').eq(3).should('be.visible').click({timeout: 10000})
       // UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, 'userGroup', 'desc').slice(0,20))
 
       // cy.log('Last logon Asc sort')
-      // cy.get('thead th a').eq(4).click()
+      // cy.get('thead th a').eq(4).should('be.visible').click({timeout: 10000})
       // UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, 'lastLogon', 'asc').slice(0,20))
 
       // cy.log('Last logon Desc sort')
-      // cy.get('thead th a').eq(4).click()
+      // cy.get('thead th a').eq(4).should('be.visible').click({timeout: 10000})
       // UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, 'lastLogon', 'desc').slice(0,20))
     })
   })
@@ -86,7 +86,7 @@ describe('User Management', () => {
     })
 
     it('displays a list of pending requests under Requests tab', function() {
-      cy.contains('a', `Requests (${this.requests.length})`).click()
+      cy.contains('a', `Requests (${this.requests.length})`).should('be.visible').click({timeout: 10000})
       UserManagementHelpers.hasAccountRequestsList(this.requests.slice(0,20))
     })
   })
@@ -98,7 +98,7 @@ describe('User Management', () => {
       UserManagementHelpers.getUsers().then(users => {
         cy.wrap(users.filter(user => user.isLocked && !user.isArchived)).as('lockedUsers')
         cy.ensureOn(UserManagementHelpers.userManagementPath())
-        cy.contains('a', 'Locked').click()
+        cy.contains('a', 'Locked').should('be.visible').click({timeout: 10000})
       })
     })
 
@@ -114,7 +114,7 @@ describe('User Management', () => {
       UserManagementHelpers.getUsers().then(users => {
         cy.wrap(users.filter(user => user.isArchived)).as('archivedUsers')
         cy.ensureOn(UserManagementHelpers.userManagementPath())
-        cy.contains('a', 'Archived').click()
+        cy.contains('a', 'Archived').should('be.visible').click({timeout: 10000})
       })
     })
 
@@ -157,7 +157,7 @@ describe('User Management', () => {
 
     it('account is locked stopping user from logging in and sends user email', function() {
       UserManagementHelpers.lockUser(this.lockedUser)
-      cy.contains('Account locked You have locked the user account').click()
+      cy.contains('Account locked You have locked the user account').should('be.visible').click({timeout: 10000})
       cy.contains('a', 'Continue').should('have.attr', 'href', UserManagementHelpers.userAdminPath(this.lockedUser))
       cy.logout()
       cy.login(this.lockedUser)
@@ -189,7 +189,7 @@ describe('User Management', () => {
     it('account is unlocked allowing user to login  and sends user email', function() {
       cy.ensureOn(UserManagementHelpers.userAdminPath(this.lockedUser))
       UserManagementHelpers.unlockUser(this.lockedUser)
-      cy.contains('Account unlocked You have unlocked the user account').click()
+      cy.contains('Account unlocked You have unlocked the user account').should('be.visible').click({timeout: 10000})
       cy.contains('a', 'Continue').should('have.attr', 'href', UserManagementHelpers.userAdminPath(this.lockedUser))
       cy.login(this.lockedUser)
       shouldBeLoggedIn()
@@ -211,7 +211,7 @@ describe('User Management', () => {
 
     it('account is archived stopping user from logging in and sends user email', function() {
       UserManagementHelpers.archiveUser(this.user)
-      cy.contains('Account archived You have archived the user account').click()
+      cy.contains('Account archived You have archived the user account').should('be.visible').click({timeout: 10000})
       cy.contains('a', 'Continue').should('have.attr', 'href', UserManagementHelpers.userAdminPath(this.user))
       cy.logout()
       cy.login(this.user)
@@ -237,7 +237,7 @@ describe('User Management', () => {
     it('account is unarchived allowing user to log in and sends user email', function() {
       cy.ensureOn(UserManagementHelpers.userAdminPath(this.user))
       UserManagementHelpers.unarchiveUser(this.user)
-      cy.contains('Account unarchived You have unarchived the user account').click()
+      cy.contains('Account unarchived You have unarchived the user account').should('be.visible').click({timeout: 10000})
       cy.contains('a', 'Continue').should('have.attr', 'href', UserManagementHelpers.userAdminPath(this.user))
       cy.login(this.user)
       shouldBeLoggedIn()
@@ -278,7 +278,7 @@ describe('User Management', () => {
     })
 
     it('can not be approved without assigning a user group', function() {
-      cy.contains('button', 'Approve').click()
+      cy.contains('button', 'Approve').should('be.visible').click({timeout: 10000})
       cy.hasError('Select a user group', 'Select a user group')
     })
     
@@ -295,7 +295,7 @@ describe('User Management', () => {
     })
     
     it('can not be declined without supplying a reason', function() {
-      cy.contains('button', 'Decline').click()
+      cy.contains('button', 'Decline').should('be.visible').click({timeout: 10000})
       cy.continue()
       cy.hasError('Enter the reason for declining this account request. This will be sent in the response to the request.', 'Enter the reason for declining this account request')
     })
