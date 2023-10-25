@@ -31,7 +31,7 @@ describe('Editing a CAB', () => {
     it('allows editing a cab and publishing updated cab details', function () {
       CabHelpers.createCabWithoutDocuments(this.cab)
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-      CabHelpers.editCabButton().should('be.visible').click({timeout: 10000})
+      CabHelpers.editCabButton().click()
       let cloneCab = Cypress._.cloneDeep(this.cab)
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('CAB details')
@@ -48,7 +48,7 @@ describe('Editing a CAB', () => {
     it('displays error if mandatory fields are omitted', function () {
       CabHelpers.createCabWithoutDocuments(this.cab)
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-      CabHelpers.editCabButton().should('be.visible').click({timeout: 10000})
+      CabHelpers.editCabButton().click()
       let cloneCab = Cypress._.cloneDeep(this.cab)
       CabHelpers.editCabDetail('CAB details')
       cloneCab.name = null
@@ -77,7 +77,7 @@ describe('Editing a CAB', () => {
     it('allows saving an edited cab as draft with original cab still viewable', function () {
       CabHelpers.createCabWithoutDocuments(this.cab)
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-      CabHelpers.editCabButton().should('be.visible').click({timeout: 10000})
+      CabHelpers.editCabButton().click()
       let cloneCab = Cypress._.cloneDeep(this.cab)
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('CAB details')
@@ -92,7 +92,7 @@ describe('Editing a CAB', () => {
     it('does not create duplicate or save cab in drafts when edited but no changes are made', function () {
       CabHelpers.createCabWithoutDocuments(this.cab)
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-      CabHelpers.editCabButton().should('be.visible').click({timeout: 10000})
+      CabHelpers.editCabButton().click()
       CabHelpers.editCabDetail('CAB details')
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.clickPublish()
@@ -103,7 +103,7 @@ describe('Editing a CAB', () => {
     it('does not affect Published Date and only updates Last Updated Date', function () {
       CabHelpers.createCabWithoutDocuments(this.cab)
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-      CabHelpers.editCabButton().should('be.visible').click({timeout: 10000})
+      CabHelpers.editCabButton().click()
       let cloneCab = Cypress._.cloneDeep(this.cab)
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('CAB details')
@@ -115,7 +115,7 @@ describe('Editing a CAB', () => {
       CabHelpers.hasDetailsConfirmation(cloneCab)
       CabHelpers.clickPublish()
       CabHelpers.hasCabPublishedConfirmation(cloneCab)
-      cy.contains('a', 'View CAB').should('be.visible').click({timeout: 10000})
+      cy.contains('a', 'View CAB').click()
 
       // need to check published and last updated timestamps with devs
 
@@ -126,7 +126,7 @@ describe('Editing a CAB', () => {
     it('updates cab URL identifier to a hyphenated identifier based on new name and sets up redirect from old to new', function () {
       CabHelpers.createCabWithoutDocuments(this.cab)
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-      CabHelpers.editCabButton().should('be.visible').click({timeout: 10000})
+      CabHelpers.editCabButton().click()
       let cloneCab = Cypress._.cloneDeep(this.cab)
       let uniqueId = Date.now()
       CabHelpers.editCabDetail('CAB details')
@@ -138,7 +138,7 @@ describe('Editing a CAB', () => {
       CabHelpers.hasDetailsConfirmation(cloneCab)
       CabHelpers.clickPublish()
       CabHelpers.hasCabPublishedConfirmation(cloneCab)
-      cy.contains('a', 'View CAB').should('be.visible').click({timeout: 10000})
+      cy.contains('a', 'View CAB').click()
       cy.location().then(loc => {
         expect(loc.pathname).to.eq(CabHelpers.cabProfilePage(cloneCab))
       })
@@ -151,7 +151,7 @@ describe('Editing a CAB', () => {
     it('returns user back to summary page when editing is cancelled at any step', function () {
       CabHelpers.createCabWithoutDocuments(this.cab)
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-      CabHelpers.editCabButton().should('be.visible').click({timeout: 10000})
+      CabHelpers.editCabButton().click()
       CabHelpers.editCabDetail('CAB details')
       cy.cancel()
       CabHelpers.isSummaryPage()
@@ -172,7 +172,7 @@ describe('Editing a CAB', () => {
     it('returns user back to cab page when editing is cancelled from summary page', function () {
       CabHelpers.createCabWithoutDocuments(this.cab)
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-      CabHelpers.editCabButton().should('be.visible').click({timeout: 10000})
+      CabHelpers.editCabButton().click()
       cy.cancel()
       cy.location().then(loc => {
         expect(loc.pathname).to.eq(CabHelpers.cabProfilePage(this.cab))
@@ -192,7 +192,7 @@ describe('Editing a CAB', () => {
     it('legislative areas assigned to uploaded schedules can not be modified', function () {
       CabHelpers.createCab(this.cab)
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-      CabHelpers.editCabButton().should('be.visible').click({timeout: 10000})
+      CabHelpers.editCabButton().click()
       CabHelpers.editCabDetail('Body details')
       cy.contains('Pre-selected areas are linked to the product schedule and cannot be removed here')
       this.cab.schedules.forEach(schedule => {
@@ -214,7 +214,7 @@ describe('Editing a CAB', () => {
     it('sets review date to 18 years from current date if auto fill button is invoked', function () {
       CabHelpers.createCabWithoutDocuments(this.cab)
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-      CabHelpers.editCabButton().should('be.visible').click({timeout: 10000})
+      CabHelpers.editCabButton().click()
       CabHelpers.editCabDetail('CAB details')
       CabHelpers.autoFillReviewDate()
       const expectedDate = Cypress.dayjs().add(18, 'months')
@@ -234,9 +234,9 @@ describe('Editing a CAB', () => {
     it('legislative areas on summary page and profile page are in sync', function () {
       CabHelpers.createCab(this.cab)
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-      CabHelpers.editCabButton().should('be.visible').click({timeout: 10000})
+      CabHelpers.editCabButton().click()
       CabHelpers.editCabDetail('Product schedules')
-      cy.contains('Save and upload another file').should('be.visible').click({timeout: 10000})
+      cy.contains('Save and upload another file').click()
       const newSchedule = { fileName: 'dummy5.pdf', label: 'MyCustomLabel5', legislativeArea: 'Pyrotechnics' }
       this.cab.schedules.push(newSchedule)
       CabHelpers.uploadSchedules([newSchedule])

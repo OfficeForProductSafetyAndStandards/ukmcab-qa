@@ -18,7 +18,7 @@ describe('User Profile', () => {
   context('when Editing', function() {
 
     beforeEach(function() {
-      cy.contains('a', 'Edit').should('be.visible').click({timeout: 10000})
+      cy.contains('a', 'Edit').click()
     })
 
     it('displays user details pre-filled', function() {
