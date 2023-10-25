@@ -53,7 +53,8 @@ export const hasUserList = (users) => {
   })
 }
 
-export const hasAccountRequestsList = (requests) => { 
+export const 
+hasAccountRequestsList = (requests) => { 
   cy.wrap(requests).each((request, index) => {
     cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
       cy.get('td:not(.user-table-cell__mobile)').eq(0).should('have.attr', 'title', request.firstname)
@@ -131,7 +132,7 @@ export const hasUserProfileDetails = (user) => {
 export const hasProfileDetails = (user) => { 
   cy.hasKeyValueDetail('First name', user.firstname)
   cy.hasKeyValueDetail('Last name', user.lastname)
-  cy.hasKeyValueDetail('Email', user.contactEmail)
+  cy.hasKeyValueDetail('Contact email', user.contactEmail)
   cy.hasKeyValueDetail('Organisation', user.organisationName)
   cy.hasKeyValueDetail('User group', user.role.toUpperCase())
   cy.hasKeyValueDetail('Last log in',  /^ \d{2}\/\d{2}\/\d{4} \d{2}:\d{2} $/)

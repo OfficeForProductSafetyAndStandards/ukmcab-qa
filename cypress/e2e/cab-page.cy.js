@@ -107,7 +107,7 @@ describe('CAB profile page', function () {
       })
     })
 
-    // test commented out due to download flaky
+    // test commented out due to download flaky but works manually
     it.skip('displays viewable and downloadable list of uploaded schedules', function() {
       CabHelpers.viewSchedules()
       cy.contains('.cab-detail-section', 'Product schedules').within(() => {
