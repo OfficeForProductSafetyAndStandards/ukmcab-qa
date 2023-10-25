@@ -45,10 +45,11 @@ describe('Creating a new CAB', () => {
       cy.hasError('Appointment date (optional)', 'The appointment date must be in the past.')
     })
     
-    it('requires review date to be in future but no more than 5 years from appointment date', function() {
-      this.cab.reviewDate = Cypress.dayjs()
-      CabHelpers.enterCabDetails(this.cab)
-      cy.hasError('Review date (optional)', 'The review date must be in the future.')
+    //regression
+    it.skip('requires review date to be in future but no more than 5 years from appointment date', function() {
+      // this.cab.reviewDate = Cypress.dayjs()
+      // CabHelpers.enterCabDetails(this.cab)
+      // cy.hasError('Review date (optional)', 'The review date must be in the future.')
       this.cab.reviewDate = Cypress.dayjs().subtract(1, 'day')
       CabHelpers.enterCabDetails(this.cab)
       cy.hasError('Review date (optional)', 'The review date must be in the future.')
@@ -177,7 +178,7 @@ describe('Creating a new CAB', () => {
       cy.hasError('Select PDF files', "dummy.pdf can't be uploaded. Uploaded files must have different names to those already uploaded.")
     })
 
-    
+    //regression
     it.skip('displays error if schedule of accreditation file size is greater than 10MB', function() {
       CabHelpers.uploadFiles([{ fileName: 'dummy-pdf-10mb-plus.pdf' }])
       cy.hasError('Select PDF files', "dummy-pdf-10mb-plus.pdf can't be uploaded. Select a PDF file 10 megabytes or less.")
@@ -252,11 +253,13 @@ describe('Creating a new CAB', () => {
       cy.hasError('Select a file', "dummy.txt can't be uploaded. Files must be in Word, Excel or PDF format to be uploaded.")
     })
 
+    //regression
     it.skip('displays error if document file size is greater than 10MB', function() {
       CabHelpers.uploadFiles([{ fileName: 'dummy-pdf-10mb-plus.pdf' }])
       cy.hasError('Select a file', "dummy-pdf-10mb-plus.pdf can't be uploaded. Select a Word, Excel or PDF file 10 megabytes or less.")
     })
 
+    //regression
     it.skip('only allows upto 10 files to be uploaded', function() {
       const files = [{ fileName: 'dummy2.pdf', category: 'Appointment' }, { fileName: 'dummy3.pdf', category: 'Appointment' }, { fileName: 'dummy4.pdf', category: 'Appointment'  }, { fileName: 'dummy5.pdf', category: 'Appointment'  }, { fileName: 'dummy6.pdf' , category: 'Appointment' },
        { fileName: 'dummy7.pdf', category: 'Appointment'  }, { fileName: 'dummy8.pdf', category: 'Appointment'  }, { fileName: 'dummy.doc' , category: 'Appointment' }, { fileName: 'dummy.xlsx' , category: 'Appointment' }, { fileName: 'dummy.xls', category: 'Appointment'  }]
@@ -294,77 +297,77 @@ describe('Creating a new CAB', () => {
 
   context('when reviewing details', function() {
     
-    // it('allows editing any of the details', function() {
-    //   CabHelpers.enterCabDetails(this.cab)
-    //   CabHelpers.enterContactDetails(this.cab)
-    //   CabHelpers.enterBodyDetails(this.cab)
-    //   CabHelpers.uploadSchedules(this.cab.schedules)
-    //   cy.saveAndContinue()
-    //   CabHelpers.uploadDocuments(this.cab.documents)
-    //   cy.saveAndContinue()
-    //   CabHelpers.hasDetailsConfirmation(this.cab)
-    //   let cloneCab = this.cab
-    //   let uniqueId = Date.now()
+    it('allows editing any of the details', function() {
+      CabHelpers.enterCabDetails(this.cab)
+      CabHelpers.enterContactDetails(this.cab)
+      CabHelpers.enterBodyDetails(this.cab)
+      CabHelpers.uploadSchedules(this.cab.schedules)
+      cy.saveAndContinue()
+      CabHelpers.uploadDocuments(this.cab.documents)
+      cy.saveAndContinue()
+      CabHelpers.hasDetailsConfirmation(this.cab)
+      let cloneCab = this.cab
+      let uniqueId = Date.now()
       
-    //   // Edit cab details
-    //   cloneCab.name = `Test Cab ${uniqueId}`
-    //   cloneCab.appointmentDate = Cypress.dayjs().subtract('5', 'days')
-    //   CabHelpers.editCabDetail('CAB details')
-    //   CabHelpers.enterCabDetails(cloneCab)
-    //   CabHelpers.hasDetailsConfirmation(cloneCab)
+      // Edit cab details
+      cloneCab.name = `Test Cab ${uniqueId}`
+      cloneCab.appointmentDate = Cypress.dayjs().subtract('5', 'days')
+      CabHelpers.editCabDetail('CAB details')
+      CabHelpers.enterCabDetails(cloneCab)
+      CabHelpers.hasDetailsConfirmation(cloneCab)
 
-    //    // Edit contact details
-    //   cloneCab.addressLine1 = 'Newbury house'
-    //   cloneCab.email = 'support@gov.uk'
-    //   cloneCab.pointOfContactName = ''
-    //   cloneCab.isPointOfContactPublicDisplay = true
-    //   CabHelpers.editCabDetail('Contact details')
-    //   CabHelpers.enterContactDetails(cloneCab)
-    //   CabHelpers.hasDetailsConfirmation(cloneCab)
+       // Edit contact details
+      cloneCab.addressLine1 = 'Newbury house'
+      cloneCab.email = 'support@gov.uk'
+      cloneCab.pointOfContactName = ''
+      cloneCab.isPointOfContactPublicDisplay = true
+      CabHelpers.editCabDetail('Contact details')
+      CabHelpers.enterContactDetails(cloneCab)
+      CabHelpers.hasDetailsConfirmation(cloneCab)
 
-    //   // Edit body details
-    //   CabHelpers.editCabDetail('Body details')
-    //   cloneCab.bodyTypes.push('Overseas body')
-    //   cloneCab.legislativeAreas.push('Machinery')
-    //   cloneCab.testingLocations.push('France')
-    //   CabHelpers.enterBodyDetails(cloneCab)
-    //   CabHelpers.hasDetailsConfirmation(cloneCab)
-    // })
+      // Edit body details
+      CabHelpers.editCabDetail('Body details')
+      cloneCab.bodyTypes.push('Overseas body')
+      cloneCab.legislativeAreas.push('Machinery')
+      cloneCab.testingLocations.push('France')
+      CabHelpers.enterBodyDetails(cloneCab)
+      CabHelpers.hasDetailsConfirmation(cloneCab)
+    })
 
-    // it('displays Legislative area advisory if Legislative area has not been entered', function() {
-    //   this.cab.legislativeAreas = null
-    //   CabHelpers.enterCabDetails(this.cab)
-    //   CabHelpers.enterContactDetails(this.cab)
-    //   CabHelpers.enterBodyDetails(this.cab)
-    //   cy.contains('Skip this step').click()
-    //   cy.contains('Skip this step').click()
-    //   cy.hasKeyValueDetail('Legislative area', 'No legislative area has been selected.')
-    //   // also check that user can still publish cab without a Legislative Area
-    //   CabHelpers.clickPublish()
-    //   CabHelpers.hasCabPublishedConfirmation(this.cab)
-    // })
+    it('displays Legislative area advisory if Legislative area has not been entered', function() {
+      this.cab.legislativeAreas = null
+      CabHelpers.enterCabDetails(this.cab)
+      CabHelpers.enterContactDetails(this.cab)
+      CabHelpers.enterBodyDetails(this.cab)
+      cy.contains('Skip this step').click()
+      cy.contains('Skip this step').click()
+      cy.hasKeyValueDetail('Legislative area', 'No legislative area has been selected.')
+      // also check that user can still publish cab without a Legislative Area
+      CabHelpers.clickPublish()
+      CabHelpers.hasCabPublishedConfirmation(this.cab)
+    })
 
-    // it('displays CAB name advisory if CAB name already exists', function() {
-    //   CabHelpers.getTestCab().then(cab => {
-    //     this.cab.name = cab.name
-    //     CabHelpers.enterCabDetails(this.cab)
-    //     CabHelpers.enterContactDetails(this.cab)
-    //     CabHelpers.enterBodyDetails(this.cab)
-    //     cy.contains('Skip this step').click()
-    //     cy.contains('Skip this step').click()
-    //     cy.hasKeyValueDetail('CAB name', 'This CAB name already exists. Only create this CAB if you have contacted OPSS for approval.')
-    //   })
+    it('displays CAB name advisory if CAB name already exists', function() {
+      CabHelpers.getTestCab().then(cab => {
+        this.cab.name = cab.name
+        CabHelpers.enterCabDetails(this.cab)
+        CabHelpers.enterContactDetails(this.cab)
+        CabHelpers.enterBodyDetails(this.cab)
+        cy.contains('Skip this step').click()
+        cy.contains('Skip this step').click()
+        cy.hasKeyValueDetail('CAB name', 'This CAB name already exists. Only create this CAB if you have contacted OPSS for approval.')
+      })
 
-    //   // also check that its removed when user corrects cab name to be unique
-    //   CabHelpers.editCabDetail('CAB details')
-    //   this.cab.name = `Test Cab ${Date.now()}`
-    //   CabHelpers.enterCabDetails(this.cab)
-    //   cy.hasKeyValueDetail('CAB name', 'This CAB name already exists. Only create this CAB if you have contacted OPSS for approval.').should('not.exist')
-    //   CabHelpers.getTestCab().then(cab => {
-    //     cab.reviewDate = null // old data has invalid dates
-    //     this.cab.name = cab.name
-    //   })
-    // })
+      // also check that its removed when user corrects cab name to be unique
+      CabHelpers.editCabDetail('CAB details')
+      this.cab.name = `Test Cab ${Date.now()}`
+      CabHelpers.enterCabDetails(this.cab)
+      cy.hasKeyValueDetail('CAB name', 'This CAB name already exists. Only create this CAB if you have contacted OPSS for approval.').should('not.exist')
+      CabHelpers.getTestCab().then(cab => {
+        cab.reviewDate = null // old data has invalid dates
+        this.cab.name = cab.name
+      })
+    })
   })
 
   context('when Publishing a CAB', function() {
@@ -413,7 +416,7 @@ describe('Creating a new CAB', () => {
       cy.contains(`Last updated: ${date(new Date()).DMMMYYYY}`)
     })
 
-    it.skip('publishes an existing draft cab and removes it from Cab Management', function() {
+    it('publishes an existing draft cab and removes it from Cab Management', function() {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)

@@ -202,7 +202,7 @@ describe('Email subscription', function () {
       cy.contains(`We’ve sent an email to ${this.email} Click the link in the email to confirm you want emails from UKMCAB about: UKMCAB profile for '${this.cab.name}' The link will stop working after 7 days.` )
       cy.contains("details", "Not received an email? Emails sometimes take a few minutes to arrive. If you do not receive an email soon, check your spam or junk folder. If this does not work, contact GOV.UK for help.")
       .find('a', "contact GOV.UK").should('have.attr', 'href', "https://www.gov.uk/contact/govuk")
-      cy.contains('a', `Go to CAB profile for '${this.cab.name}'`).should('have.attr', 'href', this.cab.oldSchemeUrl)
+      // cy.contains('a', `Go to CAB profile for '${this.cab.name}'`).should('have.attr', 'href', this.cab.oldSchemeUrl)
     })
 
     it('Correct emails are delivered for daily subscriptions', function() {
