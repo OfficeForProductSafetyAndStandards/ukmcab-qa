@@ -46,10 +46,10 @@ describe('Creating a new CAB', () => {
     })
     
     //regression
-    it.skip('requires review date to be in future but no more than 5 years from appointment date', function() {
-      // this.cab.reviewDate = Cypress.dayjs()
-      // CabHelpers.enterCabDetails(this.cab)
-      // cy.hasError('Review date (optional)', 'The review date must be in the future.')
+    it('requires review date to be in future but no more than 5 years from appointment date', function() {
+      this.cab.reviewDate = Cypress.dayjs()
+      CabHelpers.enterCabDetails(this.cab)
+      cy.hasError('Review date (optional)', 'The review date must be in the future.')
       this.cab.reviewDate = Cypress.dayjs().subtract(1, 'day')
       CabHelpers.enterCabDetails(this.cab)
       cy.hasError('Review date (optional)', 'The review date must be in the future.')
