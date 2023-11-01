@@ -67,6 +67,14 @@ describe('CAB profile page', function () {
     })
   })
 
+})
+
+describe('CAB profile page', function () {
+
+  const supportingDocumentsTab = () => {
+    return cy.contains('#tab_supporting-documents', 'Supporting documents')
+  }
+
   context('when logged in', function () {
 
     beforeEach(function () {
@@ -176,15 +184,15 @@ describe('CAB profile page', function () {
       })
     })
 
-    it('displays viewable and downloadable list of supporting documents', function() {
+    it('displays viewable and downloadable list of supporting documents', function () {
       supportingDocumentsTab().click()
       cy.contains('.cab-detail-section', 'Supporting documents').within(() => {
-        this.cab.documents.sort((a,b) => a.fileName.localeCompare(b.fileName)).forEach((document,index) => {
+        this.cab.documents.sort((a, b) => a.fileName.localeCompare(b.fileName)).forEach((document, index) => {
           // Known cypress issue with dowbload links timeout  - https://github.com/cypress-io/cypress/issues/14857
-          cy.window().then((win) => { setTimeout(() => { win.location.reload() },5000) }) 
+          cy.window().then((win) => { setTimeout(() => { win.location.reload() }, 5000) })
           cy.get('.govuk-summary-list__row').eq(index).within(() => {
             cy.get('dt').contains(document.fileName)
-            if(document.fileName.endsWith('.pdf')) {
+            if (document.fileName.endsWith('.pdf')) {
               cy.get('dd').eq(0).contains('a', 'View').should('have.attr', 'target', '_blank').invoke('attr', 'href').should('match', /^\/search\/cab-schedule-view/)
             } else {
               cy.get('dd').eq(0).contains('a', 'View').should('not.exist')
@@ -217,9 +225,9 @@ describe('CAB profile page', function () {
   context('for CABs with Cab number visibility set to public(default)', function() {
 
     it('displays Cab(Body) number for public and internal users', function() {
-      const cab = Cab.build()
+      const cab = Cab.buildWithoutDocuments()
       cy.loginAsOpssUser()
-      CabHelpers.createCab(cab)
+      CabHelpers.createCabWithoutDocuments(cab)
       cy.ensureOn(CabHelpers.cabProfilePage(cab))
       cy.hasKeyValueDetail('CAB number', cab.cabNumber)
       cy.logout()
@@ -231,10 +239,10 @@ describe('CAB profile page', function () {
   context('for CABs with Cab number visibility set to internal(Display for all internal)', function() {
 
     it('displays Cab(Body) number for UKAS/OPSS users but not for Public users', function() {
-      const cab = Cab.build()
+      const cab = Cab.buildWithoutDocuments()
       cab.cabNumberVisibility = CabNumberVisibility.Internal
       cy.loginAsOpssUser()
-      CabHelpers.createCab(cab)
+      CabHelpers.createCabWithoutDocuments(cab)
       cy.ensureOn(CabHelpers.cabProfilePage(cab))
       cy.hasKeyValueDetail('CAB number', cab.cabNumber)
       cy.logout()
@@ -250,10 +258,10 @@ describe('CAB profile page', function () {
   context('for CABs with Cab number visibility set to private(Display for only internal gov users)', function() {
 
     it('displays Cab(Body) number for OPSS users but not for Public/UKAS users', function() {
-      const cab = Cab.build()
+      const cab = Cab.buildWithoutDocuments()
       cab.cabNumberVisibility = CabNumberVisibility.Private
       cy.loginAsOpssUser()
-      CabHelpers.createCab(cab)
+      CabHelpers.createCabWithoutDocuments(cab)
       cy.ensureOn(CabHelpers.cabProfilePage(cab))
       cy.hasKeyValueDetail('CAB number', cab.cabNumber)
       cy.logout()
