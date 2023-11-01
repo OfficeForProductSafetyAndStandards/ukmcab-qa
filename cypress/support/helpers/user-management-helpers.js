@@ -1,5 +1,7 @@
 export const userManagementPath = () => { return '/user-admin/list'}
 export const userProfilePath = () => { return '/account/user-profile'}
+export const serviceManagementPath = () => { return '/admin/service-management'}
+
 export const userAdminPath = (user) => { return `/user-admin/${encodeURIComponent(user.id)}`}
 export const reviewRequestPath = (request) => { return `/user-admin/review-account-request/${encodeURIComponent(request.id)}`}
 import User from '../domain/user'
@@ -149,7 +151,7 @@ export const archiveUser = (user) => {
   cy.contains('h1', 'Archive user account')
 
   cy.contains('label', 'Reason')
-  .next().contains('This will be included in user notifications and the account history viewable by all users')
+  .next().contains('Enter the reason for archiving this user account. The user will be notified that their account has been archived and the reason will be included.')
   cy.get('#Reason').type('Test reason for archiving')
 
   cy.contains('label', 'Internal notes')
@@ -166,7 +168,7 @@ export const unarchiveUser = (user) => {
   cy.contains('h1', 'Unarchive user account')
 
   cy.contains('label', 'Reason')
-  .next().contains('This will be included in user notifications and the account history viewable by all users')
+  .next().contains('Enter the reason for unarchiving this user account. The user will be notified that their account has been unarchived and the reason will be included.')
   cy.get('#Reason').type('Test reason for unarchiving')
 
   cy.contains('label', 'Internal notes')
