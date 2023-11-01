@@ -12,7 +12,7 @@ describe('UKMCAB RSS Feed', function() {
     SearchHelpers.publishedSearchResults(searchInput, {orderby: 'LastUpdatedDate desc'}).then(results => {
       cy.request({
         method: 'GET',
-        url: `/search-feed?Keywords=${searchInput}`,
+        url: `/search/search-feed?Keywords=${searchInput}`,
         headers: {
           'Content-Type': 'text/xml'
         },
