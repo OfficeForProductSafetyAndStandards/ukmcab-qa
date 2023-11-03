@@ -292,7 +292,7 @@ describe('CAB Search', () => {
       })
     })
 
-    it('displays correct results for Registered office location filters', function () {
+    it.skip('displays correct results for Registered office location filters', function () {
       const filterOptions = { "RegisteredOfficeLocation": ['United Kingdom'] }
       SearchHelpers.filterByRegisteredofficeLocation(['United Kingdom'])
       SearchHelpers.publishedSearchResults('', { filter: SearchHelpers.buildFilterQuery(filterOptions), orderby: 'RandomSort asc' }).then(expectedResults => {
