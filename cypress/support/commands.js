@@ -88,6 +88,7 @@ Cypress.Commands.add('getSearchResults', (keywords, options={}) => {
   })
 })
 
+
 Cypress.Commands.add('hasKeyValueDetail', (key, value) => {
   cy.get('.govuk-summary-list__row').contains(key).next().contains(value)
 })

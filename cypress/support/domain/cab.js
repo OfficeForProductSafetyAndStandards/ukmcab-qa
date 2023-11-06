@@ -145,4 +145,37 @@ export default class Cab {
     })
   }
 
+  static buildWithoutDocuments() {
+    const uniqueId = Date.now()
+    const name = `Test Cab ${uniqueId}`
+    return new this({
+      Name: name,
+      AddressLine1: 'Cannon House',
+      AddressLine2: 'The Priory Queensway',
+      TownCity: 'Birmingham',
+      Postcode: 'B4 7LR',
+      County: 'West Midlands',
+      Country: 'United Kingdom',
+      Website: 'www.gov.uk',
+      Email: 'email@gov.uk',
+      Phone: '+44 (0) 121 345 1200',
+      PointOfContactName: 'John Smith',
+      PointOfContactEmail: 'email@gov.uk',
+      PointOfContactPhone: '+44 (0) 121 345 1200',
+      IsPointOfContactPublicDisplay: false,
+      CabNumberVisibility: CabNumberVisibility.Public,
+      RegisteredOfficeLocation: 'United Kingdom',
+      TestingLocations: ['United Kingdom', 'Belgium'],
+      BodyTypes: ['Approved body', 'NI Notified body'],
+      LegislativeAreas: ['Cableway installation', 'Ecodesign'],
+      Schedules: [],
+      Documents: [],
+      CABNumber: uniqueId,
+      AppointmentDate: Cypress.dayjs().subtract(5, 'days'),
+      RenewalDate: Cypress.dayjs().add(10, 'days'),
+      UKASReference: uniqueId,
+      URLSlug: name.replace(/[^a-zA-Z0-9 ]/g, "").replace(/\s+/g, '-').toLowerCase()
+    })
+  }
+
 }

@@ -19,6 +19,16 @@ export const createCab = (cab) => {
   clickPublish()
 }
 
+export const createCabWithoutDocuments = (cab) => {
+  cy.ensureOn(addCabPath())
+  enterCabDetails(cab)
+  enterContactDetails(cab)
+  enterBodyDetails(cab)
+  skipSchedules()
+  skipDocuments()
+  clickPublish()
+}
+
 export const draftCab = (cab) => {
   enterCabDetails(cab)
   enterContactDetails(cab)
@@ -45,6 +55,9 @@ export const setReviewDate = (day, month, year) => {
 export const autoFillReviewDate = () => {
   cy.contains('button', 'Add suggested review date').click()
 }
+export const isSummaryPage = () => {
+  cy.get('h1').contains('Check details before publishing')
+}
 
 export const hasReviewDate = (date) => {
   cy.get('#ReviewDateDay').invoke('val').should('eq', date.date().toString())
@@ -53,9 +66,9 @@ export const hasReviewDate = (date) => {
 }
 
 export const enterCabDetails = (cab) => {
-  const currentDate = new Date(); // Get the current date and time
-  currentDate.setDate(currentDate.getDate() + 3); // Add 3 days to the current date
-  const futureDate = currentDate.getTime(); // Get the timestamp of the future date in milliseconds
+  // const currentDate = new Date(); // Get the current date and time
+  // currentDate.setDate(currentDate.getDate()); // Add 3 days to the current date
+  // const futureDate = currentDate.getTime(); // Get the timestamp of the future date in milliseconds
   cy.get('#Name').invoke('val', cab.name)
   cy.get('#CABNumber').invoke('val', cab.cabNumber)
   cy.get('#CabNumberVisibility option').then($options => {
@@ -71,8 +84,8 @@ export const enterCabDetails = (cab) => {
     setAppointmentDate(date(cab.appointmentDate).DD, date(cab.appointmentDate).MM, date(cab.appointmentDate).YYYY)
   }
   if (cab.reviewDate) {
-    cab.reviewDate = futureDate
-    setReviewDate(date(futureDate).DD, date(futureDate).MM, date(futureDate).YYYY)
+    // cab.reviewDate = futureDate
+    setReviewDate(date(cab.reviewDate).DD, date(cab.reviewDate).MM, date(cab.reviewDate).YYYY)
   }
   if (cab.ukasRef) {
     cy.get('#UKASReference').invoke('val', cab.ukasRef)
@@ -124,6 +137,14 @@ export const uploadSchedules = (schedules) => {
       setLegislativeArea(schedule.fileName, schedule.legislativeArea)
     }
   })
+}
+
+export const skipSchedules = () => {
+  cy.contains('Skip this step').click()
+}
+
+export const skipDocuments = () => {
+  cy.contains('Skip this step').click()
 }
 
 export const uploadDocuments = (documents) => {
@@ -321,7 +342,7 @@ export const getTestCabWithDocuments = () => {
 
 export const getTestCabForEditing = () => {
   return getAllPublishedCabs().then(cabs => {
-    return cabs.find(cab => cab.name.startsWith('Test Cab') && cab.isRecent)
+    return cabs.find(cab => cab.name.startsWith('Test Cab'))
   })
 }
 

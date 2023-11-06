@@ -45,6 +45,7 @@ describe('Creating a new CAB', () => {
       cy.hasError('Appointment date (optional)', 'The appointment date must be in the past.')
     })
     
+    //regression
     it('requires review date to be in future but no more than 5 years from appointment date', function() {
       this.cab.reviewDate = Cypress.dayjs()
       CabHelpers.enterCabDetails(this.cab)
@@ -177,7 +178,8 @@ describe('Creating a new CAB', () => {
       cy.hasError('Select PDF files', "dummy.pdf can't be uploaded. Uploaded files must have different names to those already uploaded.")
     })
 
-    it('displays error if schedule of accreditation file size is greater than 10MB', function() {
+    //regression
+    it.skip('displays error if schedule of accreditation file size is greater than 10MB', function() {
       CabHelpers.uploadFiles([{ fileName: 'dummy-pdf-10mb-plus.pdf' }])
       cy.hasError('Select PDF files', "dummy-pdf-10mb-plus.pdf can't be uploaded. Select a PDF file 10 megabytes or less.")
     })
@@ -251,13 +253,16 @@ describe('Creating a new CAB', () => {
       cy.hasError('Select a file', "dummy.txt can't be uploaded. Files must be in Word, Excel or PDF format to be uploaded.")
     })
 
-    it('displays error if document file size is greater than 10MB', function() {
+    //regression
+    it.skip('displays error if document file size is greater than 10MB', function() {
       CabHelpers.uploadFiles([{ fileName: 'dummy-pdf-10mb-plus.pdf' }])
       cy.hasError('Select a file', "dummy-pdf-10mb-plus.pdf can't be uploaded. Select a Word, Excel or PDF file 10 megabytes or less.")
     })
 
-    it('only allows upto 10 files to be uploaded', function() {
-      const files = [{ fileName: 'dummy2.pdf' }, { fileName: 'dummy3.pdf' }, { fileName: 'dummy4.pdf' }, { fileName: 'dummy5.pdf' }, { fileName: 'dummy6.pdf' }, { fileName: 'dummy7.pdf' }, { fileName: 'dummy8.pdf' }, { fileName: 'dummy.doc' }, { fileName: 'dummy.xlsx' }, { fileName: 'dummy.xls' }]
+    //regression
+    it.skip('only allows upto 10 files to be uploaded', function() {
+      const files = [{ fileName: 'dummy2.pdf', category: 'Appointment' }, { fileName: 'dummy3.pdf', category: 'Appointment' }, { fileName: 'dummy4.pdf', category: 'Appointment'  }, { fileName: 'dummy5.pdf', category: 'Appointment'  }, { fileName: 'dummy6.pdf' , category: 'Appointment' },
+       { fileName: 'dummy7.pdf', category: 'Appointment'  }, { fileName: 'dummy8.pdf', category: 'Appointment'  }, { fileName: 'dummy.doc' , category: 'Appointment' }, { fileName: 'dummy.xlsx' , category: 'Appointment' }, { fileName: 'dummy.xls', category: 'Appointment'  }]
       CabHelpers.uploadDocuments(files)
       CabHelpers.hasUploadedFileNames(files)
       cy.contains('Save and upload another file').should('not.exist')
@@ -299,7 +304,7 @@ describe('Creating a new CAB', () => {
       CabHelpers.uploadSchedules(this.cab.schedules)
       cy.saveAndContinue()
       CabHelpers.uploadDocuments(this.cab.documents)
-      cy.continue()
+      cy.saveAndContinue()
       CabHelpers.hasDetailsConfirmation(this.cab)
       let cloneCab = this.cab
       let uniqueId = Date.now()

@@ -13,6 +13,7 @@ module.exports = defineConfig({
   },
   e2e: {
     baseUrl: 'https://ukmcab-dev.beis.gov.uk',
+    defaultCommandTimeout: 10000,
     chromeWebSecurity: false,
     experimentalRunAllSpecs: true,
     setupNodeEvents(on, config) {

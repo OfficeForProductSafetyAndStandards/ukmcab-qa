@@ -1,5 +1,7 @@
 export const userManagementPath = () => { return '/user-admin/list'}
 export const userProfilePath = () => { return '/account/user-profile'}
+export const serviceManagementPath = () => { return '/admin/service-management'}
+
 export const userAdminPath = (user) => { return `/user-admin/${encodeURIComponent(user.id)}`}
 export const reviewRequestPath = (request) => { return `/user-admin/review-account-request/${encodeURIComponent(request.id)}`}
 import User from '../domain/user'
@@ -53,7 +55,8 @@ export const hasUserList = (users) => {
   })
 }
 
-export const hasAccountRequestsList = (requests) => { 
+export const 
+hasAccountRequestsList = (requests) => { 
   cy.wrap(requests).each((request, index) => {
     cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
       cy.get('td:not(.user-table-cell__mobile)').eq(0).should('have.attr', 'title', request.firstname)
@@ -131,7 +134,7 @@ export const hasUserProfileDetails = (user) => {
 export const hasProfileDetails = (user) => { 
   cy.hasKeyValueDetail('First name', user.firstname)
   cy.hasKeyValueDetail('Last name', user.lastname)
-  cy.hasKeyValueDetail('Email', user.contactEmail)
+  cy.hasKeyValueDetail('Contact email', user.contactEmail)
   cy.hasKeyValueDetail('Organisation', user.organisationName)
   cy.hasKeyValueDetail('User group', user.role.toUpperCase())
   cy.hasKeyValueDetail('Last log in',  /^ \d{2}\/\d{2}\/\d{4} \d{2}:\d{2} $/)
@@ -148,7 +151,7 @@ export const archiveUser = (user) => {
   cy.contains('h1', 'Archive user account')
 
   cy.contains('label', 'Reason')
-  .next().contains('This will be included in user notifications and the account history viewable by all users')
+  .next().contains('Enter the reason for archiving this user account. The user will be notified that their account has been archived and the reason will be included.')
   cy.get('#Reason').type('Test reason for archiving')
 
   cy.contains('label', 'Internal notes')
@@ -165,7 +168,7 @@ export const unarchiveUser = (user) => {
   cy.contains('h1', 'Unarchive user account')
 
   cy.contains('label', 'Reason')
-  .next().contains('This will be included in user notifications and the account history viewable by all users')
+  .next().contains('Enter the reason for unarchiving this user account. The user will be notified that their account has been unarchived and the reason will be included.')
   cy.get('#Reason').type('Test reason for unarchiving')
 
   cy.contains('label', 'Internal notes')

@@ -17,5 +17,5 @@ jobs:
       - name: Cypress Run
         uses: cypress-io/github-action@v5.0.2
         with:
-          browser: chrome
+          browser: electron
           config: baseUrl=https://ukmcab-stage.beis.gov.uk
