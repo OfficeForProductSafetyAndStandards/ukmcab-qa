@@ -163,6 +163,7 @@ export const clickPublish = () => {
 }
 
 export const hasDetailsConfirmation = (cab) => {
+  cy.get('.govuk-caption-m').contains('Create a CAB')
   cy.hasKeyValueDetail('CAB name', cab.name)
   cy.hasKeyValueDetail('CAB number', cab.cabNumber)
   cy.hasKeyValueDetail('Appointment date (optional)', valueOrNotProvided(date(cab.appointmentDate)?.DMMMYYYY))

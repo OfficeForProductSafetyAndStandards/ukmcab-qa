@@ -45,7 +45,6 @@ describe('Creating a new CAB', () => {
       cy.hasError('Appointment date (optional)', 'The appointment date must be in the past.')
     })
     
-    //regression
     it('requires review date to be in future but no more than 5 years from appointment date', function() {
       this.cab.reviewDate = Cypress.dayjs()
       CabHelpers.enterCabDetails(this.cab)

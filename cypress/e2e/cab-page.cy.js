@@ -207,14 +207,17 @@ describe('CAB profile page', function () {
     it('displays paginated Cab history ordered by latest first', function () {
       CabHelpers.viewHistory()
       // Assuming you have previously defined and wrapped 'cabs' using cy.wrap()
-      cy.contains(`Showing 1 - ${this.cab.auditLog.slice(0, 10).length} of ${this.cab.auditLog.length}`)
-      cy.wrap(Cypress._.orderBy(this.cab.auditLog, 'DateTime', 'desc').slice(0, 10)).each((log, index) => {
+      // cy.contains(`Showing 1 - ${this.cab.auditLog.slice(0, 10).length} of ${this.cab.auditLog.length}`)
+      
+      cy.log(`APproved user is: ${this.cab.auditLog.UserName}, ${this.cab.auditLog.UserRole}`)
+
+      cy.wrap(Cypress._.orderBy(this.cab.auditLog, 'DateTime', 'desc').slice(0, 10)).each((logvalue, index) => {
         cy.get('tbody tr').eq(index).within(() => {
-          cy.get('td').eq(0).contains(Cypress.dayjs(log.DateTime).utc().format('DD/MM/YYYYHH:mm'))
-          cy.get('td').eq(1).contains(log.UserName)
-          cy.get('td').eq(2).contains(log.UserRole.toUpperCase())
-          cy.get('td').eq(3).contains(Cypress._.capitalize(Cypress._.startCase(log.Action)))
-          if (log.Comment) {
+          cy.get('td').eq(0).contains(Cypress.dayjs(logvalue.DateTime).utc().format('DD/MM/YYYYHH:mm'))
+          cy.get('td').eq(1).contains(logvalue.UserName)
+          cy.get('td').eq(2).contains(logvalue.UserRole.toUpperCase())
+          cy.get('td').eq(3).contains(Cypress._.capitalize(Cypress._.startCase(logvalue.Action)))
+          if (logvalue.Comment) {
             cy.get('td').eq(4).contains('View more ') // + log.Comment - removed comment check as its seems to be wrapped in HTML. // TODO check with devs
           }
         })
