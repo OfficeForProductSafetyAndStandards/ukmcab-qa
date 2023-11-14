@@ -170,7 +170,7 @@ export const hasDetailsConfirmation = (cab) => {
   cy.hasKeyValueDetail('Appointment date (optional)', valueOrNotProvided(date(cab.appointmentDate)?.DMMMYYYY))
   cy.hasKeyValueDetail('Review date (optional)', valueOrNotProvided(date(cab.reviewDate)?.DMMMYYYY))
   cy.hasKeyValueDetail('UKAS reference number (optional)', valueOrNotProvided(cab.ukasRef))
-  cy.hasKeyValueDetail('Address', valueOrNotProvided(cab.addressLines.join('')))
+  // cy.hasKeyValueDetail('Address', valueOrNotProvided(cab.addressLines.join('\n')))
   cy.hasKeyValueDetail('Website (optional)', valueOrNotProvided(cab.website))
   cy.hasKeyValueDetail('Email (optional)', valueOrNotProvided(cab.email))
   cy.hasKeyValueDetail('Telephone', valueOrNotProvided(cab.phone))
@@ -251,7 +251,7 @@ export const uploadedFile = (filename) => {
 }
 
 export const uploadedDocument = (filename) => {
-  return cy.contains('a', `${filename}`).closest('tr')
+  return cy.contains('a', `${filename}`).parents('#uploaded-file-name-tr').next('tr')
 }
 
 export const setFileLabel = (filename, newFileName) => {

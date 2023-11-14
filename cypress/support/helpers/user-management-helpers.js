@@ -1,6 +1,6 @@
 export const userManagementPath = () => { return '/user-admin/list' }
 export const userProfilePath = () => { return '/account/user-profile' }
-export const serviceManagementPath = () => { return '/admin/service-management' }
+export const serviceManagementPath = () => { return '/service-management' }
 
 export const userAdminPath = (user) => { return `/user-admin/${encodeURIComponent(user.id)}` }
 export const userApprovePath = (userrequest) => { return `/user-admin/review-account-request/${userrequest.id}` }
