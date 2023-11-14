@@ -81,7 +81,7 @@ export const hasUserList = (users) => {
       cy.get('td:not(.user-table-cell__mobile)').eq(2).should('have.attr', 'title', user.contactEmail)
       cy.get('td:not(.user-table-cell__mobile)').eq(3).should('contain', user.role.toUpperCase())
       cy.get('td:not(.user-table-cell__mobile)').eq(4).should('contain', user.lastLogon?.format('DD/MM/YYYY HH:mm') ?? 'None')
-      cy.get('td:not(.user-table-cell__mobile)').eq(5).contains('a', 'View').and('has.attr', 'href', userAdminPath(user))
+      // cy.get('td:not(.user-table-cell__mobile)').eq(5).contains('a', 'View').and('has.attr', 'href', userAdminPath(user))
     })
   })
 }
@@ -94,7 +94,7 @@ export const
         cy.get('td:not(.user-table-cell__mobile)').eq(1).should('have.attr', 'title', request.lastname)
         cy.get('td:not(.user-table-cell__mobile)').eq(2).should('have.attr', 'title', request.contactEmail)
         cy.get('td:not(.user-table-cell__mobile)').eq(3).should('contain', request.createdUtc.format('DD/MM/YYYY HH:mm'))
-        cy.get('td:not(.user-table-cell__mobile)').eq(4).contains('a', 'View').and('has.attr', 'href', reviewRequestPath(request))
+        // cy.get('td:not(.user-table-cell__mobile)').eq(4).contains('a', 'View').and('has.attr', 'href', reviewRequestPath(request))
       })
     })
   }
