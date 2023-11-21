@@ -1,4 +1,4 @@
-export const userManagementPath = () => { return '/user-admin/list' }
+export const userManagementPath = () => { return '/user-admin/account-requests' }
 export const userProfilePath = () => { return '/account/user-profile' }
 export const serviceManagementPath = () => { return '/service-management' }
 

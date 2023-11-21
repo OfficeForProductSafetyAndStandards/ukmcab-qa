@@ -9,10 +9,11 @@ describe('Feedback form', () => {
     return cy.get('#feedback-form-details')
   }
   
-  const submitFeedback = (doing, wrong) => {
+  const submitFeedback = (doing, wrong, email) => {
     feedbackForm().within(() => {
       cy.get('#WhatWereYouDoing').invoke('text', doing)
       cy.get('#WhatWentWrong').invoke('text', wrong)
+      cy.get('#Email').invoke('val', email)
       cy.contains('button', 'Send').click()
     })
   }
@@ -28,31 +29,35 @@ describe('Feedback form', () => {
     })
 
     it('displays as expected', () => {
-      feedbackForm().contains('Help us improve GOV.UK')
-      feedbackForm().contains("Don't include personal or financial information like your National Insurance number or credit card details.")
-      feedbackForm().contains('h3', 'What you were doing').next().contains('Please explain, step by step, what you did. If we can reproduce a problem, we can try and fix it.')
-      feedbackForm().contains('h3', 'What went wrong').next().contains('Please explain what you expected to happen, and what actually happened. A clear explanation will help us fix the problem.')
+      feedbackForm().contains('Help us improve this service')
+      feedbackForm().contains("We use your feedback to make our service easier to use.")
+      feedbackForm().contains('h3', 'What were you doing?').next().contains('Explain, step by step, what you did. If we can reproduce a problem, we can try and fix it.')
+      feedbackForm().contains('h3', 'What went wrong?').next().contains('Explain what you expected to happen, and what actually happened. A clear explanation will help us fix the problem.')
+      feedbackForm().contains('label', 'Email address (optional)').next().contains('We may contact you to ask you some questions about your feedback')
+
     })
 
     it('displays error if required details are not provided', () => {
-      // both fields blank
-      submitFeedback('', '')
-      cy.contains('#feedback-form-error-message', 'Please enter details of what you were doing and what went wrong.')
+      // all fields blank
+      submitFeedback('', '', '')
+      cy.contains('#feedback-form-error-message', 'Enter information about what you were doing and what went wrong')
       cy.get('#WhatWereYouDoing').should('have.class', 'feedback-form-error')
       cy.get('#WhatWentWrong').should('have.class', 'feedback-form-error')
 
-      // first field blank
-      submitFeedback('', 'Something went wrong')
+      // first and last field blank
+      submitFeedback('', 'Something went wrong', '')
       cy.contains('button', 'Send').click()
       cy.get('#WhatWereYouDoing').should('have.class', 'feedback-form-error')
       cy.get('#WhatWentWrong').should('not.have.class', 'feedback-form-error')
-      cy.contains('#feedback-form-error-message', 'Please enter details of what you were doing.')
+      cy.get('#Email').should('not.have.class', 'feedback-form-error')
+      cy.contains('#feedback-form-error-message', 'Enter information about what you were doing')
 
-      // second field blank
-      submitFeedback('Was doing something', '')
+      // second and last field blank
+      submitFeedback('Was doing something', '', '')
       cy.get('#WhatWereYouDoing').should('not.have.class', 'feedback-form-error')
       cy.get('#WhatWentWrong').should('have.class', 'feedback-form-error')
-      cy.contains('#feedback-form-error-message', 'Please enter details of what went wrong.')
+      cy.get('#Email').should('not.have.class', 'feedback-form-error')
+      cy.contains('#feedback-form-error-message', 'Enter details of what went wrong')
     })
 
     it('collapses when Cancel is clicked', () => {
@@ -61,11 +66,11 @@ describe('Feedback form', () => {
     })
 
     it('displays success message upon successful submission with option to submit new feedback', () => {
-      submitFeedback('Doing something', 'Something wrong')
-      feedbackForm().contains('Thank you for your help We will look to improve this service based on your feedback.')
-      feedbackForm().contains('a', 'Submit further feedback on this page').click()
+      submitFeedback('Doing something', 'Something wrong', 'test@mail.com')
+      feedbackForm().contains('Thank you for your feedback')
+      feedbackForm().contains('a', 'Provide more feedback about this page').click()
       feedbackForm().should('have.attr', 'open')
-      EmailHelpers.getLastUserEmail('test.feedback@teset.gov.uk').then(email => {
+      EmailHelpers.getLastUserEmail('test.feedback@test.gov.uk').then(email => {
         expect(email.isRecent).to.be.true
         expect(email.isFeedbackEmail).to.be.true
       })
