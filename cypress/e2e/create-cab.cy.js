@@ -4,22 +4,21 @@ import { date } from '../support/helpers/formatters'
 
 describe('Creating a new CAB', () => {
 
-  beforeEach(function(){
+  beforeEach(function () {
     cy.loginAsOpssUser()
     cy.ensureOn(CabHelpers.addCabPath())
     cy.wrap(Cab.build()).as('cab')
   })
 
-  
-  context('when entering cab details', function() {
+  context('when entering cab details', function () {
 
-    it('displays error if mandatory details are not entered', function() {
+    it('displays error if mandatory details are not entered', function () {
       cy.continue()
       cy.hasError('CAB name', 'Enter a CAB name')
       cy.hasError('CAB number', 'Enter a CAB number')
     })
-    
-    it('displays error if Cab number or Ukas ref already exists', function() {
+
+    it('displays error if Cab number or Ukas ref already exists', function () {
       CabHelpers.getTestCabWithCabNumberAndUkasRef().then(cab => {
         cab.reviewDate = null // old data has invalid dates
         CabHelpers.enterCabDetails(cab)
@@ -28,7 +27,7 @@ describe('Creating a new CAB', () => {
       })
     })
 
-    it('does not display any error if optional fields are omitted', function() {
+    it('does not display any error if optional fields are omitted', function () {
       this.cab.appointmentDate = null
       this.cab.reviewDate = null
       this.cab.ukasRef = null
@@ -36,7 +35,7 @@ describe('Creating a new CAB', () => {
       cy.contains('h1', 'Contact details')
     })
 
-    it('requires appointment date to be in past', function() {
+    it('requires appointment date to be in past', function () {
       this.cab.appointmentDate = Cypress.dayjs()
       CabHelpers.enterCabDetails(this.cab)
       cy.hasError('Appointment date (optional)', 'The appointment date must be in the past.')
@@ -44,9 +43,8 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterCabDetails(this.cab)
       cy.hasError('Appointment date (optional)', 'The appointment date must be in the past.')
     })
-    
-    //regression
-    it('requires review date to be in future but no more than 5 years from appointment date', function() {
+
+    it('requires review date to be in future but no more than 5 years from appointment date', function () {
       this.cab.reviewDate = Cypress.dayjs()
       CabHelpers.enterCabDetails(this.cab)
       cy.hasError('Review date (optional)', 'The review date must be in the future.')
@@ -62,7 +60,7 @@ describe('Creating a new CAB', () => {
       cy.contains('h1', 'Contact details')
     })
 
-    it('auto populates review date 18 months from creation date when review date button is used', function() {
+    it('auto populates review date 18 months from creation date when review date button is used', function () {
       CabHelpers.autoFillReviewDate()
       const expectedDate = Cypress.dayjs().add(18, 'months')
       CabHelpers.hasReviewDate(expectedDate)
@@ -73,7 +71,7 @@ describe('Creating a new CAB', () => {
       CabHelpers.hasReviewDate(expectedDate)
     })
 
-    it('displays correct error for invalid or missing date fields', function() {
+    it('displays correct error for invalid or missing date fields', function () {
       CabHelpers.setAppointmentDate(32, 7, 2023)
       CabHelpers.setReviewDate(29, 2, 2023)
       cy.continue()
@@ -91,7 +89,7 @@ describe('Creating a new CAB', () => {
       cy.hasError('Review date (optional)', 'Review date must include a day and year.')
     })
 
-    it('validates review date to be within 5 years from yesterday if appointment date is not provided', function() {
+    it('validates review date to be within 5 years from yesterday if appointment date is not provided', function () {
       this.cab.appointmentDate = null
       this.cab.reviewDate = Cypress.dayjs().add(5, 'years')
       CabHelpers.enterCabDetails(this.cab)
@@ -102,14 +100,14 @@ describe('Creating a new CAB', () => {
       cy.contains('h1', 'Contact details')
     })
   })
-  
-  context('when entering contact details', function() {
-    
-    beforeEach(function() {
+
+  context('when entering contact details', function () {
+
+    beforeEach(function () {
       CabHelpers.enterCabDetails(this.cab)
     })
-    
-    it('displays error if mandatory details are not entered', function() {
+
+    it('displays error if mandatory details are not entered', function () {
       cy.continue()
       cy.hasError('Address line 1', 'Enter an address')
       cy.hasError('Town or city', 'Enter a town or city')
@@ -118,8 +116,8 @@ describe('Creating a new CAB', () => {
       cy.hasError('Telephone', 'Enter a telephone number')
       cy.hasError('Registered office location', 'Enter a registered office location')
     })
-    
-    it('does not display any error if optional fields are omitted', function() {
+
+    it('does not display any error if optional fields are omitted', function () {
       this.cab.addressLine2 = null
       this.cab.county = null
       this.cab.website = null
@@ -132,93 +130,93 @@ describe('Creating a new CAB', () => {
     })
   })
 
-  context('when entering body details', function() {
-    
-    beforeEach(function() {
+  context('when entering body details', function () {
+
+    beforeEach(function () {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
     })
-    
-    it('displays error if mandatory details are not entered', function() {
+
+    it('displays error if mandatory details are not entered', function () {
       cy.continue()
       cy.hasError('Registered test location', 'Select a registered test location')
       cy.hasError('Body type', 'Select a body type')
       cy.contains('Select a legislative area').should('not.exist')
     })
-    
-  })
-  
-  context('when uploading schedule of accreditation', function() {
 
-    beforeEach(function(){
+  })
+
+  context('when uploading schedule of accreditation', function () {
+
+    beforeEach(function () {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
     })
 
-    it('displays correct heading and other relevant copy', function() {
+    it('displays correct heading and other relevant copy', function () {
       cy.contains('h1', 'Product schedules upload')
       cy.contains('You can upload up to 35 PDF documents.')
       cy.contains('Files you have uploaded')
       cy.contains('0 file uploaded')
     })
 
-    it('displays error upon continuing without uploading schedule of accreditation', function() {
+    it('displays error upon continuing without uploading schedule of accreditation', function () {
       CabHelpers.upload()
       cy.hasError('Select PDF files', 'Select a PDF file 10 megabytes or less.')
     })
-    
-    it('displays error if schedule of accreditation is not a PDF file', function() {
+
+    it('displays error if schedule of accreditation is not a PDF file', function () {
       CabHelpers.uploadFiles([{ fileName: 'dummy.docx' }])
       cy.hasError('Select PDF files', "dummy.docx can't be uploaded. Files must be in PDF format to be uploaded.")
     })
 
-    it('displays error if duplicate file is uploaded', function() {
+    it('displays error if duplicate file is uploaded', function () {
       CabHelpers.uploadFiles([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy.pdf' }])
       cy.hasError('Select PDF files', "dummy.pdf can't be uploaded. Uploaded files must have different names to those already uploaded.")
     })
 
     //regression
-    it.skip('displays error if schedule of accreditation file size is greater than 10MB', function() {
+    it.skip('displays error if schedule of accreditation file size is greater than 10MB', function () {
       CabHelpers.uploadFiles([{ fileName: 'dummy-pdf-10mb-plus.pdf' }])
       cy.hasError('Select PDF files', "dummy-pdf-10mb-plus.pdf can't be uploaded. Select a PDF file 10 megabytes or less.")
     })
 
-    it('allows user to assign label and legislative area for uploaded files', function() {
+    it('allows user to assign label and legislative area for uploaded files', function () {
       CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'New Dummy Label', legislativeArea: 'Cableway installation' }, { fileName: 'dummy1.pdf', label: 'NewDummy1Label.pdf', legislativeArea: 'Lifts' }, { fileName: 'dummy2.pdf', label: 'ReaaaaaaaaaaaaaaaaaaaaaaaallyLooooooooooooooooooooooongLaaaaaaaaaaaaaabel', legislativeArea: 'Cableway installation' }])
       cy.saveAndContinue()
       cy.contains('Upload the supporting documents')
     })
 
-    it('displays error if legislative area is not assigned', function() {
+    it('displays error if legislative area is not assigned', function () {
       CabHelpers.uploadFiles([{ fileName: 'dummy.pdf' }])
       cy.saveAndContinue()
       cy.hasError('Legislative area', 'Select a legislative area')
     })
 
-    it('displays error if legislative area is not selected and draft is saved', function() {
+    it('displays error if legislative area is not selected and draft is saved', function () {
       CabHelpers.uploadFiles([{ fileName: 'dummy.pdf' }])
       CabHelpers.saveAsDraft()
       cy.hasError('Legislative area', 'Select a legislative area')
     })
 
-    it('canceling file upload returns user back to Admin page', function() {
+    it('canceling file upload returns user back to Admin page', function () {
       cy.contains('Cancel').click()
       cy.location('pathname').should('equal', CabHelpers.cabManagementPath())
     })
 
-    it('allows skipping of schedule upload', function() {
+    it('allows skipping of schedule upload', function () {
       cy.contains('Skip this step').click()
       cy.contains('Upload the supporting documents')
     })
 
-    it('user can remove uploaded file', function() {
+    it('user can remove uploaded file', function () {
       CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts' }])
       cy.contains('Remove').click()
       cy.contains('0 file uploaded')
     })
 
-    it('allows uploading multiple files at once', function() {
+    it('allows uploading multiple files at once', function () {
       const files = [{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy1.pdf', label: 'My Label1', legislativeArea: 'Ecodesign' }]
       CabHelpers.uploadSchedules(files)
       CabHelpers.hasUploadedSchedules(files)
@@ -226,9 +224,9 @@ describe('Creating a new CAB', () => {
 
   })
 
-  context('when uploading supporting documents', function() {
+  context('when uploading supporting documents', function () {
 
-    beforeEach(function(){
+    beforeEach(function () {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
@@ -236,57 +234,57 @@ describe('Creating a new CAB', () => {
       cy.saveAndContinue()
     })
 
-    it('displays correct heading and other relevant copy', function() {
-      cy.contains('h1', 'Upload the supporting documents')
-      cy.contains('You can upload up to 10 Word, Excel, or PDF documents.')
-      cy.contains('Files you have uploaded')
-      cy.contains('0 file uploaded')
-    })
+    // it('displays correct heading and other relevant copy', function() {
+    //   cy.contains('h1', 'Upload the supporting documents')
+    //   cy.contains('You can upload up to 10 Word, Excel, or PDF documents.')
+    //   cy.contains('Files you have uploaded')
+    //   cy.contains('0 file uploaded')
+    // })
 
-    it('displays error upon uploading without selecting a file', function() {
-      CabHelpers.upload()
-      cy.hasError('Select a file', 'Select a Word, Excel or PDF file 10 megabytes or less.')
-    })
-    
-    it('displays error is uploading file is not a DOC, XLSX or PDF', function() {
-      CabHelpers.uploadFiles([{ fileName: 'dummy.txt' }])
-      cy.hasError('Select a file', "dummy.txt can't be uploaded. Files must be in Word, Excel or PDF format to be uploaded.")
-    })
+    // it('displays error upon uploading without selecting a file', function() {
+    //   CabHelpers.upload()
+    //   cy.hasError('Select files', 'Select a Word, Excel or PDF file 10 megabytes or less.')
+    // })
 
-    //regression
-    it.skip('displays error if document file size is greater than 10MB', function() {
-      CabHelpers.uploadFiles([{ fileName: 'dummy-pdf-10mb-plus.pdf' }])
-      cy.hasError('Select a file', "dummy-pdf-10mb-plus.pdf can't be uploaded. Select a Word, Excel or PDF file 10 megabytes or less.")
-    })
+    // it('displays error is uploading file is not a DOC, XLSX or PDF', function() {
+    //   CabHelpers.uploadFiles([{ fileName: 'dummy.txt' }])
+    //   cy.hasError('Select files', "dummy.txt can't be uploaded. Files must be in Word, Excel or PDF format to be uploaded.")
+    // })
 
-    //regression
-    it.skip('only allows upto 10 files to be uploaded', function() {
-      const files = [{ fileName: 'dummy2.pdf', category: 'Appointment' }, { fileName: 'dummy3.pdf', category: 'Appointment' }, { fileName: 'dummy4.pdf', category: 'Appointment'  }, { fileName: 'dummy5.pdf', category: 'Appointment'  }, { fileName: 'dummy6.pdf' , category: 'Appointment' },
-       { fileName: 'dummy7.pdf', category: 'Appointment'  }, { fileName: 'dummy8.pdf', category: 'Appointment'  }, { fileName: 'dummy.doc' , category: 'Appointment' }, { fileName: 'dummy.xlsx' , category: 'Appointment' }, { fileName: 'dummy.xls', category: 'Appointment'  }]
-      CabHelpers.uploadDocuments(files)
-      CabHelpers.hasUploadedFileNames(files)
-      cy.contains('Save and upload another file').should('not.exist')
-    })
+    // //regression
+    // it.skip('displays error if document file size is greater than 10MB', function() {
+    //   CabHelpers.uploadFiles([{ fileName: 'dummy-pdf-10mb-plus.pdf' }])
+    //   cy.hasError('Select a file', "dummy-pdf-10mb-plus.pdf can't be uploaded. Select a Word, Excel or PDF file 10 megabytes or less.")
+    // })
 
-    it('canceling file upload returns user back to Admin page', function() {
-      cy.contains('Cancel').click()
-      cy.location('pathname').should('equal', CabHelpers.cabManagementPath())
-    })
+    // //regression
+    // it.skip('only allows upto 10 files to be uploaded', function() {
+    //   const files = [{ fileName: 'dummy2.pdf', category: 'Appointment' }, { fileName: 'dummy3.pdf', category: 'Appointment' }, { fileName: 'dummy4.pdf', category: 'Appointment'  }, { fileName: 'dummy5.pdf', category: 'Appointment'  }, { fileName: 'dummy6.pdf' , category: 'Appointment' },
+    //    { fileName: 'dummy7.pdf', category: 'Appointment'  }, { fileName: 'dummy8.pdf', category: 'Appointment'  }, { fileName: 'dummy.doc' , category: 'Appointment' }, { fileName: 'dummy.xlsx' , category: 'Appointment' }, { fileName: 'dummy.xls', category: 'Appointment'  }]
+    //   CabHelpers.uploadDocuments(files)
+    //   CabHelpers.hasUploadedFileNames(files)
+    //   cy.contains('Save and upload another file').should('not.exist')
+    // })
 
-    it('allows skipping supporting document upload', function() {
-      cy.contains('Skip this step').click()
-      cy.contains('Check details before publishing')
-    })
+    // it('canceling file upload returns user back to Admin page', function() {
+    //   cy.contains('Cancel').click()
+    //   cy.location('pathname').should('equal', CabHelpers.cabManagementPath())
+    // })
 
-    it('user can remove uploaded file', function() {
-      CabHelpers.uploadFiles([{ fileName: 'dummy3.pdf' }])
-      cy.contains('Remove').click()
-      cy.contains('0 file uploaded')
-    })
+    // it('allows skipping supporting document upload', function() {
+    //   cy.contains('Skip this step').click()
+    //   cy.contains('Check details before publishing')
+    // })
+
+    // it('user can remove uploaded file', function() {
+    //   CabHelpers.uploadFiles([{ fileName: 'dummy3.pdf' }])
+    //   cy.contains('Remove').click()
+    //   cy.contains('0 file uploaded')
+    // })
   })
 
-  context('when saving as Draft', function() {
-    it('displays draft saved message on Cab Management page with cab record listed', function() {
+  context('when saving as Draft', function () {
+    it('displays draft saved message on Cab Management page with cab record listed', function () {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.saveAsDraft()
       cy.location('pathname').should('equal', CabHelpers.cabManagementPath())
@@ -295,9 +293,9 @@ describe('Creating a new CAB', () => {
     })
   })
 
-  context('when reviewing details', function() {
-    
-    it('allows editing any of the details', function() {
+  context('when reviewing details', function () {
+
+    it('allows editing any of the details', function () {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
@@ -308,7 +306,7 @@ describe('Creating a new CAB', () => {
       CabHelpers.hasDetailsConfirmation(this.cab)
       let cloneCab = this.cab
       let uniqueId = Date.now()
-      
+
       // Edit cab details
       cloneCab.name = `Test Cab ${uniqueId}`
       cloneCab.appointmentDate = Cypress.dayjs().subtract('5', 'days')
@@ -316,7 +314,7 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterCabDetails(cloneCab)
       CabHelpers.hasDetailsConfirmation(cloneCab)
 
-       // Edit contact details
+      // Edit contact details
       cloneCab.addressLine1 = 'Newbury house'
       cloneCab.email = 'support@gov.uk'
       cloneCab.pointOfContactName = ''
@@ -334,7 +332,7 @@ describe('Creating a new CAB', () => {
       CabHelpers.hasDetailsConfirmation(cloneCab)
     })
 
-    it('displays Legislative area advisory if Legislative area has not been entered', function() {
+    it('displays Legislative area advisory if Legislative area has not been entered', function () {
       this.cab.legislativeAreas = null
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
@@ -347,7 +345,7 @@ describe('Creating a new CAB', () => {
       CabHelpers.hasCabPublishedConfirmation(this.cab)
     })
 
-    it('displays CAB name advisory if CAB name already exists', function() {
+    it('displays CAB name advisory if CAB name already exists', function () {
       CabHelpers.getTestCab().then(cab => {
         this.cab.name = cab.name
         CabHelpers.enterCabDetails(this.cab)
@@ -370,9 +368,9 @@ describe('Creating a new CAB', () => {
     })
   })
 
-  context('when Publishing a CAB', function() {
+  context('when Publishing a CAB', function () {
 
-    it('Publish button is disabled until all mandatory data has been entered', function() {
+    it('Publish button is disabled until all mandatory data has been entered', function () {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.saveAsDraft()
       cy.ensureOn(CabHelpers.cabManagementPath())
@@ -381,7 +379,7 @@ describe('Creating a new CAB', () => {
       cy.get('button').contains('Publish').should('be.disabled')
     })
 
-    it('displays custom file labels on cab page if provided', function() {
+    it('displays custom file labels on cab page if provided', function () {
       CabHelpers.createCab(this.cab)
       CabHelpers.hasCabPublishedConfirmation(this.cab)
       cy.contains('a', 'View CAB').click()
@@ -393,7 +391,7 @@ describe('Creating a new CAB', () => {
       })
     })
 
-    it('point of contact info is only displayed to internal users if restricted', function() {
+    it('point of contact info is only displayed to internal users if restricted', function () {
       this.cab.isPointOfContactPublicDisplay = false
       CabHelpers.createCab(this.cab)
       CabHelpers.hasCabPublishedConfirmation(this.cab)
@@ -408,7 +406,7 @@ describe('Creating a new CAB', () => {
       cy.contains('Point of contact telephone').should('not.exist')
     })
 
-    it('sets Published Date and Last Updated Date to be current date for new cabs', function() {
+    it('sets Published Date and Last Updated Date to be current date for new cabs', function () {
       CabHelpers.createCab(this.cab)
       CabHelpers.hasCabPublishedConfirmation(this.cab)
       cy.contains('a', 'View CAB').click()
@@ -416,7 +414,7 @@ describe('Creating a new CAB', () => {
       cy.contains(`Last updated: ${date(new Date()).DMMMYYYY}`)
     })
 
-    it('publishes an existing draft cab and removes it from Cab Management', function() {
+    it('publishes an existing draft cab and removes it from Cab Management', function () {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)

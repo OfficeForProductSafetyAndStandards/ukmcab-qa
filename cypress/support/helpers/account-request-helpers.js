@@ -14,7 +14,9 @@ export const reviewRequest = (user) => {
 }
 
 export const approveRequest = () => {
+  cy.get('#role').select('opss')
   processRequest('approve')
+  cy.confirm()
 }
 
 export const rejectRequest = (rejectReason=null) => {
