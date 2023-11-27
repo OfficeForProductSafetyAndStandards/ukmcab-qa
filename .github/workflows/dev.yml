@@ -2,9 +2,7 @@ name: '[DEV] UKMCAB e2e tests'
 run-name: DEV e2e test suite initiated by ${{ github.actor }} 🚀
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - 'main'
+
 jobs:
   regression:
     runs-on: ubuntu-latest
