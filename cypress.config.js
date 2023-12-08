@@ -3,6 +3,7 @@ const { CosmosClient } = require("@azure/cosmos");
 const NotifyClient = require('notifications-node-client').NotifyClient // GOV UK Notify
 
 module.exports = defineConfig({
+  projectId: 'mdthva',
   reporter: 'cypress-mochawesome-reporter',
   reporterOptions: {
     charts: true,
