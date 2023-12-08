@@ -266,12 +266,8 @@ export const setCategory = (filename, value) => {
   uploadedDocument(filename).find('select').select(value)
 }
 
-export const archiveModal = () => {
-  return cy.get('#archive-modal .modal-content')
-}
-
-export const unarchiveModal = () => {
-  return cy.get('#unarchive-modal .modal-content')
+export const mainPage = () => {
+  return cy.get('main#main-content')
 }
 
 export const archiveCab = (cab, options) => {
@@ -279,12 +275,12 @@ export const archiveCab = (cab, options) => {
   const draftDeletionWarningText = 'This CAB has a draft profile connected to it. If you archive this CAB, the draft will be deleted'
   cy.ensureOn(cabProfilePage(cab))
   archiveCabButton().click()
-  archiveModal().within(() => {
-    cy.contains('h2', `Archive ${cab.name}`)
+  mainPage().within(() => {
+    cy.contains('h1', `Archive ${cab.name}`)
     cy.contains('Enter the reason for archiving this CAB.')
     options.hasAssociatedDraft ? cy.contains(draftDeletionWarningText) : cy.contains(draftDeletionWarningText).should('not.exist')
     cy.contains('Archived CAB profiles cannot be edited and users cannot view them in the search results.')
-    cy.get('#archive-reason').type(options.reason)
+    cy.get('#ArchiveInternalReason').type(options.reason)
     archiveCabButton().click()
   })
   cy.get('.govuk-notification-banner__content').contains(`Archived on ${date(new Date()).DDMMMYYYY}`)
@@ -293,12 +289,12 @@ export const archiveCab = (cab, options) => {
 export const unarchiveCab = (cab, reason = 'Test Unarchive reason') => {
   cy.ensureOn(cabProfilePage(cab))
   unarchiveCabButton().click()
-  unarchiveModal().within(() => {
-    cy.contains('h2', `Unarchive ${cab.name}`)
-    cy.contains('Enter the reason for unarchiving this CAB profile.')
+  mainPage().within(() => {
+    cy.contains('h1', `Unarchive ${cab.name}`)
+    cy.contains('Internal notes')
     cy.contains('Unarchived CAB profiles will be saved as draft.')
-    cy.get('#unarchive-reason').type(reason)
-    cy.contains('a', 'Cancel').should('have.attr', 'href', '#')
+    cy.get('#UnarchiveInternalReason').type(reason)
+    cy.contains('a', 'Cancel').should('have.attr', 'href').and('contains','search/cab-profile')
     unarchiveCabButton().click()
   })
   cy.contains('Check details before publishing')
@@ -389,7 +385,6 @@ export const editCabButton = () => {
 export const archiveCabButton = () => {
   return cy.get('a,button').contains('Archive')
 }
-
 export const unarchiveCabButton = () => {
   return cy.get('a,button').contains('Unarchive')
 }
