@@ -139,7 +139,7 @@ describe('User Management', () => {
     })
 
     it('displays expected user details', function () {
-      cy.contains('a', 'Back').should('have.attr', 'href', UserManagementHelpers.userManagementPath())
+      cy.contains('a', 'Back').should('have.attr', 'href', UserManagementHelpers.userManagementList())
       UserManagementHelpers.hasUserProfileDetails(this.user)
     })
   })
