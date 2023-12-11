@@ -283,7 +283,7 @@ export const archiveCab = (cab, options) => {
     cy.get('#ArchiveInternalReason').type(options.reason)
     archiveCabButton().click()
   })
-  cy.get('.govuk-notification-banner__content').contains(`Archived on ${date(new Date()).DDMMMYYYY}`)
+  cy.get('.govuk-notification-banner__content').contains(`Archived on ${date(new Date()).DDMMYYYY}`)
 }
 
 export const unarchiveCab = (cab, reason = 'Test Unarchive reason') => {

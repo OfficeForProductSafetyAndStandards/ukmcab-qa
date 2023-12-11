@@ -1,5 +1,6 @@
 node_modules
 cypress.env.*
+.idea
 videos
 screenshots
 downloads
