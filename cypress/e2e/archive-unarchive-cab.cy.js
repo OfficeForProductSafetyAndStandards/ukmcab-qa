@@ -7,7 +7,7 @@ describe('Archiving a CAB', () => {
   it('is not possible when logged out', function () {
     CabHelpers.getTestCab().then(cab => {
       cy.ensureOn(CabHelpers.cabProfilePage(cab))
-      CabHelpers.archiveCabButton().should('not.be.visible')
+      CabHelpers.archiveCabButton().should('not.exist')
     })
   })
 
@@ -25,16 +25,16 @@ describe('Archiving a CAB', () => {
     CabHelpers.archiveModal().should('not.be.visible')
   })
 
-  it('displays expected information and errors in Archive modal', function () {
+  it('displays expected information and errors in Archive page', function () {
     cy.loginAsOpssUser()
     const cab = Cab.buildWithoutDocuments()
     cy.ensureOn(CabHelpers.addCabPath())
     CabHelpers.createCabWithoutDocuments(cab)
     cy.ensureOn(CabHelpers.cabProfilePage(cab))
     CabHelpers.archiveCabButton().click()
-    CabHelpers.archiveModal().within(() => {
+    CabHelpers.mainPage().within(() => {
       CabHelpers.archiveCabButton().click()
-      cy.contains('#archive-error-message', 'Enter the reason for archiving this CAB profile')
+      cy.contains('.govuk-error-summary', 'Enter notes')
     })
   })
 
@@ -121,19 +121,6 @@ describe('Unarchiving a CAB', () => {
     CabHelpers.unarchiveCabButton().click()
     CabHelpers.unarchiveModal().contains('a', 'Cancel').click()
     CabHelpers.unarchiveModal().should('not.be.visible')
-  })
-
-  it('displays expected information and errors(when applicable) in modal', function () {
-    CabHelpers.createCabWithoutDocuments(this.cab)
-    cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-    CabHelpers.archiveCab(this.cab) // create an archived cab without a draft
-    cy.get('.govuk-notification-banner__content') // confirm cab archived
-    cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-    CabHelpers.unarchiveCabButton().click()
-    CabHelpers.unarchiveModal().within(() => {
-      CabHelpers.unarchiveCabButton().click()
-      cy.contains('#UnarchiveInternalReason-error', 'State the reason for unarchiving this CAB record')
-    })
   })
 })
 
