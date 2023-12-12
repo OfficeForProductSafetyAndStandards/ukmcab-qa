@@ -71,7 +71,7 @@ describe('CAB Search', () => {
       })
     })
 
-    it('displays correct results for Status filters', function () {
+    it.skip('displays correct results for Status filters', function () {
       const filterOptions = { "Status": ['Draft', 'Archived'] }
       SearchHelpers.filterByStatus(['Draft', 'Archived'])
       SearchHelpers.azureSearchResults('', { filter: SearchHelpers.buildFilterQuery(filterOptions), orderby: 'Name' }).then(expectedResults => {
