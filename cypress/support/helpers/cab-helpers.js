@@ -231,10 +231,9 @@ export const filenames = (files) => {
 
 export const hasUploadedSchedules = (files) => {
   cy.wrap(files).each((file, index) => {
-    cy.get('tbody td#uploaded-file-name-td').eq(index).should('contain', `${index + 1}. ${file.fileName}`)
-    cy.get('tbody tr.govuk-table__row').eq(index).find('td').eq(0).find('input').should('have.value', file.label)
-    cy.get('tbody tr.govuk-table__row').eq(index).find('td').eq(1).find('select').find(':selected').should('have.text', file.legislativeArea)
-    cy.get('tbody tr.govuk-table__row').eq(index).find('td').eq(2).contains('button', 'Remove')
+    cy.get('.govuk-checkboxes .row div').eq((5 * index) + 1).should('contain', `${index + 1}. ${file.fileName}`)
+    cy.get('.govuk-checkboxes .row div').eq((5 * index) + 3).find('input').should('have.value', file.label)
+    cy.get('.govuk-checkboxes .row div').eq((5 * index) + 4).find('select').find(':selected').should('have.text', file.legislativeArea)
   })
 }
 
@@ -246,8 +245,12 @@ export const hasUploadedFileNames = (files) => {
   })
 }
 
+export const uploadedFile1 = (filename) => {
+  return cy.get(`input[value='${filename}']:visible`).parent().parent().next('div')
+}
+
 export const uploadedFile = (filename) => {
-  return cy.get(`input[value='${filename}']:visible`).closest('tr')
+  return cy.get(`input[value='${filename}']:visible`)
 }
 
 export const uploadedDocument = (filename) => {
@@ -255,15 +258,15 @@ export const uploadedDocument = (filename) => {
 }
 
 export const setFileLabel = (filename, newFileName) => {
-  uploadedFile(filename).find('input:visible').clear().type(newFileName)
+  uploadedFile(filename).clear().type(newFileName)
 }
 
 export const setLegislativeArea = (filename, value) => {
-  uploadedFile(filename).find('select').select(value)
+  uploadedFile1(filename).find('select').select(value)
 }
 
 export const setCategory = (filename, value) => {
-  uploadedDocument(filename).find('select').select(value)
+  uploadedFile1(filename).find('select').select(value)
 }
 
 export const mainPage = () => {
@@ -294,7 +297,7 @@ export const unarchiveCab = (cab, reason = 'Test Unarchive reason') => {
     cy.contains('Internal notes')
     cy.contains('Unarchived CAB profiles will be saved as draft.')
     cy.get('#UnarchiveInternalReason').type(reason)
-    cy.contains('a', 'Cancel').should('have.attr', 'href').and('contains','search/cab-profile')
+    cy.contains('a', 'Cancel').should('have.attr', 'href').and('contains', 'search/cab-profile')
     unarchiveCabButton().click()
   })
   cy.contains('Check details before publishing')

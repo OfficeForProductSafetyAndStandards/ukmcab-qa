@@ -36,8 +36,8 @@ describe('Email subscription', function () {
       cy.ensureOn(searchUrl())
     })
 
-    
-    it('all pages and any errors are displayed as expected', function() {
+
+    it('all pages and any errors are displayed as expected', function () {
       EmailSubscriptionHelpers.getEmailsLink().click()
       cy.get('h1').contains('Get emails from GOV.UK')
       cy.get('form').contains("You’ll get emails when we add or update pages about: UKMCAB search results")
@@ -53,9 +53,9 @@ describe('Email subscription', function () {
       cy.get('#email-address-input').invoke('val', this.email)
       cy.continue()
       cy.get('h1').contains('Check your email')
-      cy.contains(`We’ve sent an email to ${this.email} Click the link in the email to confirm you want emails from UKMCAB about: UKMCAB search results The link will stop working after 7 days.` )
+      cy.contains(`We’ve sent an email to ${this.email} Click the link in the email to confirm you want emails from UKMCAB about: UKMCAB search results The link will stop working after 7 days.`)
       cy.contains("details", "Not received an email? Emails sometimes take a few minutes to arrive. If you do not receive an email soon, check your spam or junk folder. If this does not work, contact GOV.UK for help.")
-      .find('a', "contact GOV.UK").should('have.attr', 'href', "https://www.gov.uk/contact/govuk")
+        .find('a', "contact GOV.UK").should('have.attr', 'href', "https://www.gov.uk/contact/govuk")
       cy.contains('a', 'Go to search').should('have.attr', 'href', Cypress.config('baseUrl') + searchUrl())
     })
 
@@ -70,7 +70,7 @@ describe('Email subscription', function () {
       EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email)
     })
 
-    it('Correct emails are delivered for weekly subscriptions', function() {
+    it('Correct emails are delivered for weekly subscriptions', function () {
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Weekly, this.email)
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email)
       EmailSubscriptionHelpers.processSubscriptionConfirmationEmail()
@@ -81,7 +81,7 @@ describe('Email subscription', function () {
       EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email)
     })
 
-    it('Correct emails are delivered for instant subscriptions', function() {
+    it('Correct emails are delivered for instant subscriptions', function () {
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Instantly, this.email)
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email)
       EmailSubscriptionHelpers.processSubscriptionConfirmationEmail()
@@ -91,7 +91,7 @@ describe('Email subscription', function () {
       EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email)
     })
 
-    it('displays changes when user clicks link in the email to view changes', function() {
+    it('displays changes when user clicks link in the email to view changes', function () {
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Instantly, this.email)
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email)
       EmailSubscriptionHelpers.processSubscriptionConfirmationEmail()
@@ -101,7 +101,7 @@ describe('Email subscription', function () {
       EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email)
       getLastUserEmail(this.email).then(_email => {
         cy.ensureOn(_email.links[1]) // second link is view subscription changes
-        EmailSubscriptionHelpers.assertSearchSubscriptionChangesAreDisplayed(0,0,1)
+        EmailSubscriptionHelpers.assertSearchSubscriptionChangesAreDisplayed(0, 0, 1)
       })
       cy.contains('a', 'View').click()
       cy.contains(`1 modifications to search results`)
@@ -116,7 +116,7 @@ describe('Email subscription', function () {
       EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email)
       getLastUserEmail(this.email).then(_email => {
         cy.ensureOn(_email.links[1]) // second link is view subscription changes
-        EmailSubscriptionHelpers.assertSearchSubscriptionChangesAreDisplayed(1,0,0)
+        EmailSubscriptionHelpers.assertSearchSubscriptionChangesAreDisplayed(1, 0, 0)
       })
       cy.contains('a', 'View').click()
       cy.contains(`1 additions to search results`)
@@ -124,13 +124,13 @@ describe('Email subscription', function () {
     })
   })
 
-  context('when subscribing to filtered search results', function() {
+  context('when subscribing to filtered search results', function () {
 
     beforeEach(function () {
       CabHelpers.createCabWithoutDocuments(this.cab)
     })
 
-    it('Emails are NOT delivered for any changes outside of the subscribed results', function() {
+    it('Emails are NOT delivered for any changes outside of the subscribed results', function () {
       searchCab('WillNotYieldAnySearchResults')
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Instantly, this.email)
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email)
@@ -141,7 +141,7 @@ describe('Email subscription', function () {
       EmailSubscriptionHelpers.assertSubscriptionEmailIsNotSent(this.email)
     })
 
-    it('Correct emails are delivered for daily subscriptions', function() {
+    it('Correct emails are delivered for daily subscriptions', function () {
       searchCab(this.cab.name)
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Daily, this.email)
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email)
@@ -153,7 +153,7 @@ describe('Email subscription', function () {
       EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email, this.cab.name)
     })
 
-    it('Correct emails are delivered for weekly subscriptions', function() {
+    it('Correct emails are delivered for weekly subscriptions', function () {
       searchCab(this.cab.name)
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Weekly, this.email)
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email)
@@ -165,7 +165,7 @@ describe('Email subscription', function () {
       EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email, this.cab.name)
     })
 
-    it('Correct emails are delivered for instant subscriptions', function() {
+    it('Correct emails are delivered for instant subscriptions', function () {
       searchCab(this.cab.name)
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Instantly, this.email)
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email)
@@ -177,13 +177,13 @@ describe('Email subscription', function () {
     })
   })
 
-  context('when subscribing to Cab profile changes', function() {
-    beforeEach(function() {
+  context('when subscribing to Cab profile changes', function () {
+    beforeEach(function () {
       CabHelpers.createCab(this.cab)
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
     })
 
-    it('all pages and any errors are displayed as expected', function() {
+    it('all pages and any errors are displayed as expected', function () {
       EmailSubscriptionHelpers.getEmailsLink().click()
       cy.get('h1').contains('Get emails from GOV.UK')
       cy.get('form').contains(`You’ll get emails when we add or update pages about: UKMCAB profile for '${this.cab.name}'`)
@@ -199,13 +199,13 @@ describe('Email subscription', function () {
       cy.get('#email-address-input').invoke('val', this.email)
       cy.continue()
       cy.get('h1').contains('Check your email')
-      cy.contains(`We’ve sent an email to ${this.email} Click the link in the email to confirm you want emails from UKMCAB about: UKMCAB profile for '${this.cab.name}' The link will stop working after 7 days.` )
+      cy.contains(`We’ve sent an email to ${this.email} Click the link in the email to confirm you want emails from UKMCAB about: UKMCAB profile for '${this.cab.name}' The link will stop working after 7 days.`)
       cy.contains("details", "Not received an email? Emails sometimes take a few minutes to arrive. If you do not receive an email soon, check your spam or junk folder. If this does not work, contact GOV.UK for help.")
-      .find('a', "contact GOV.UK").should('have.attr', 'href', "https://www.gov.uk/contact/govuk")
+        .find('a', "contact GOV.UK").should('have.attr', 'href', "https://www.gov.uk/contact/govuk")
       // cy.contains('a', `Go to CAB profile for '${this.cab.name}'`).should('have.attr', 'href', this.cab.oldSchemeUrl)
     })
 
-    it('Correct emails are delivered for daily subscriptions', function() {
+    it('Correct emails are delivered for daily subscriptions', function () {
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Daily, this.email)
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email, `You've subscribed to emails about UKMCAB profile for '${this.cab.name}'`)
       EmailSubscriptionHelpers.processSubscriptionConfirmationEmail()
@@ -216,7 +216,7 @@ describe('Email subscription', function () {
       EmailSubscriptionHelpers.assertCabUpdateSubscriptionEmailIsSent(this.email, this.cab)
     })
 
-    it('Correct emails are delivered for weekly subscriptions', function() {
+    it('Correct emails are delivered for weekly subscriptions', function () {
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Weekly, this.email)
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email, `You've subscribed to emails about UKMCAB profile for '${this.cab.name}'`)
       EmailSubscriptionHelpers.processSubscriptionConfirmationEmail()
@@ -225,9 +225,9 @@ describe('Email subscription', function () {
       EmailSubscriptionHelpers.setFakeDateTime(fakeDateTimeWeekly)
       EmailSubscriptionHelpers.processSubscriptions()
       EmailSubscriptionHelpers.assertCabUpdateSubscriptionEmailIsSent(this.email, this.cab)
-    }) 
+    })
 
-    it('Correct emails are delivered for instant subscriptions', function() {
+    it('Correct emails are delivered for instant subscriptions', function () {
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Instantly, this.email)
       EmailSubscriptionHelpers.assertVerificationEmailIsSentAndVerifyEmail(this.email, `You've subscribed to emails about UKMCAB profile for '${this.cab.name}'`)
       EmailSubscriptionHelpers.processSubscriptionConfirmationEmail()
@@ -239,9 +239,9 @@ describe('Email subscription', function () {
 
   })
 
-  context('when user confirms email and subscription is registered', function() {
+  context('when user confirms email and subscription is registered', function () {
 
-    beforeEach(function() {
+    beforeEach(function () {
       CabHelpers.createCabWithoutDocuments(this.cab)
       cy.ensureOn(searchUrl())
       EmailSubscriptionHelpers.subscribe(EmailSubscriptionHelpers.Frequency.Instantly, this.email)
@@ -250,7 +250,7 @@ describe('Email subscription', function () {
       EmailSubscriptionHelpers.assertSubscriptionConfirmationEmailIsSent(this.email)
     })
 
-    it('displays Manage subscription page', function() {
+    it('displays Manage subscription page', function () {
       cy.contains('h1', 'Manage your UKMCAB subscription')
       cy.contains(`Subscription for ${this.email} Change email address Go to search Topic UKMCAB search results You subscribed to get updates as they happen. Change how often you get emails Unsubscribe`)
       cy.contains('a', 'Change email address')
@@ -259,7 +259,7 @@ describe('Email subscription', function () {
       cy.contains('a', 'Unsubscribe')
     })
 
-    it('User can unscubscribe and emails are no longer delivered', function() {
+    it('User can unscubscribe and emails are no longer delivered', function () {
       cy.contains('a', 'Unsubscribe').click()
       cy.contains('a,button', 'Unsubscribe').click()
       cy.contains('You have successfully unsubscribed from UKMCAB search results.')
@@ -268,7 +268,7 @@ describe('Email subscription', function () {
       EmailSubscriptionHelpers.assertSubscriptionEmailIsNotSent(this.email)
     })
 
-    it('User can manage subscription Frequency', function() {
+    it('User can manage subscription Frequency', function () {
       // change email Frequency
       cy.contains('a', 'Change how often you get emails').click()
       cy.contains('a,button', 'Save').click()
@@ -281,7 +281,7 @@ describe('Email subscription', function () {
       cy.contains('h1', 'Check your email')
     })
 
-    it('subscription confirmation links are correct', function() {
+    it('subscription confirmation links are correct', function () {
       getLastUserEmail(this.email).then(_email => {
         cy.ensureOn(_email.links[0])
         cy.contains('h1', 'Manage your UKMCAB subscription')

@@ -237,7 +237,7 @@ describe('Editing a CAB', () => {
       CabHelpers.editCabButton().click()
       CabHelpers.editCabDetail('Product schedules')
       cy.contains('Save and upload another file').click()
-      const newSchedule = { fileName: 'dummy5.pdf', label: 'MyCustomLabel5', legislativeArea: 'Pyrotechnics' }
+      const newSchedule = { fileName: 'dummy3.pdf', label: 'MyCustomLabel3', legislativeArea: 'Pyrotechnics' }
       this.cab.schedules.push(newSchedule)
       CabHelpers.uploadSchedules([newSchedule])
       cy.saveAndContinue()
