@@ -176,7 +176,7 @@ describe('Creating a new CAB', () => {
       cy.hasError('Select PDF files', "dummy.pdf has already been uploaded. Select the existing file and the Use file again option, or upload a different file.")
     })
 
-    regression
+    //regression
     it.skip('displays error if schedule of accreditation file size is greater than 10MB', function () {
       CabHelpers.uploadFiles([{ fileName: 'dummy-pdf-10mb-plus.pdf' }])
       cy.hasError('Select PDF files', "dummy-pdf-10mb-plus.pdf can't be uploaded. Select a PDF file 10 megabytes or less.")
