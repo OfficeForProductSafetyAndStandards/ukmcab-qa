@@ -280,6 +280,7 @@ describe('Creating a new CAB', () => {
 
     it('user can remove uploaded file', function () {
       CabHelpers.uploadFiles([{ fileName: 'dummy3.pdf' }])
+      cy.get('.govuk-checkboxes__input').click()
       cy.contains('Remove').click()
       cy.contains('0 file uploaded')
     })
