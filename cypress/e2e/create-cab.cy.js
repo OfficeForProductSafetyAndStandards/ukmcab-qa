@@ -158,7 +158,7 @@ describe('Creating a new CAB', () => {
       cy.contains('h1', 'Product schedules upload')
       cy.contains('You can upload up to 35 PDF documents.')
       cy.contains('Files you have uploaded')
-      cy.contains('0 file uploaded')
+      cy.contains('0 files uploaded')
     })
 
     it('displays error upon continuing without uploading schedule of accreditation', function () {
@@ -214,7 +214,7 @@ describe('Creating a new CAB', () => {
       CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts' }])
       cy.get(`.govuk-checkboxes__input`).click()
       cy.contains('Remove').click()
-      cy.contains('0 file uploaded')
+      cy.contains('0 files uploaded')
     })
 
     it('allows uploading multiple files at once', function () {
@@ -240,7 +240,7 @@ describe('Creating a new CAB', () => {
       cy.contains('h1', 'Upload the supporting documents')
       cy.contains('You can upload Word, Excel, or PDF documents.')
       cy.contains('Files you have uploaded')
-      cy.contains('0 file uploaded')
+      cy.contains('0 files uploaded')
     })
 
     it('displays error upon uploading without selecting a file', function () {
@@ -282,7 +282,7 @@ describe('Creating a new CAB', () => {
       CabHelpers.uploadFiles([{ fileName: 'dummy3.pdf' }])
       cy.get('.govuk-checkboxes__input').click()
       cy.contains('Remove').click()
-      cy.contains('0 file uploaded')
+      cy.contains('0 files uploaded')
     })
   })
 
