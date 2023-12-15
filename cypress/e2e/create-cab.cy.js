@@ -238,7 +238,7 @@ describe('Creating a new CAB', () => {
 
     it('displays correct heading and other relevant copy', function () {
       cy.contains('h1', 'Upload the supporting documents')
-      cy.contains('You can upload up to 10 Word, Excel, or PDF documents.')
+      cy.contains('You can upload Word, Excel or PDF documents.')
       cy.contains('Files you have uploaded')
       cy.contains('0 file uploaded')
     })

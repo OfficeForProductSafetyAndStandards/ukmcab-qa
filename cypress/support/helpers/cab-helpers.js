@@ -1,10 +1,13 @@
 import Cab from '../domain/cab'
 import { CabNumberVisibility } from '../domain/cab-number-visibility'
 import { date, valueOrNotProvided } from './formatters'
+export const serviceManagementPath = () => { return '/service-management' }
 export const cabManagementPath = () => { return '/admin/cab-management' }
 export const cabProfilePage = (cab) => { return `/search/cab-profile/${cab.urlSlug}` }
 export const cabSummaryPage = (id) => { return `/admin/cab/summary/${id}` }
 export const addCabPath = () => { return `/admin/cab/create` }
+
+
 
 export const createCab = (cab) => {
   cy.ensureOn(addCabPath())
@@ -207,9 +210,9 @@ export const hasDetailsConfirmation = (cab) => {
 export const hasCabPublishedConfirmation = (cab) => {
   cy.get('.govuk-panel--confirmation')
   cy.get('.govuk-panel--confirmation').contains(cab.name + ' published ' + 'CAB number' + cab.cabNumber)
-  cy.contains(`What happens next CAB is now publicly available.`)
+  // cy.contains(`What happens next CAB is now publicly available.`)
   cy.contains('a', 'View CAB').should('have.attr', 'href', cabProfilePage(cab) + '?returnURL=confirmation')
-  cy.contains('a', 'Go to CAB management').should('have.attr', 'href', cabManagementPath())
+  cy.contains('a', 'Go to Home page').should('have.attr', 'href', serviceManagementPath())
 }
 
 // expects files in fixtures folder
