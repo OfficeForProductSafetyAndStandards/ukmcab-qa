@@ -20,6 +20,7 @@ export const createCab = (cab) => {
   cy.saveAndContinue()
   hasDetailsConfirmation(cab)
   clickPublish()
+  clickPublishNotes()
 }
 
 export const createCabWithoutDocuments = (cab) => {
@@ -30,6 +31,7 @@ export const createCabWithoutDocuments = (cab) => {
   skipSchedules()
   skipDocuments()
   clickPublish()
+  clickPublishNotes()
 }
 
 export const draftCab = (cab) => {
@@ -76,12 +78,14 @@ export const enterCabDetails = (cab) => {
   cy.get('#CABNumber').invoke('val', cab.cabNumber)
   cy.get('#CabNumberVisibility option').then($options => {
     const options = Cypress._.map($options, 'innerText')
-    expect(options).to.eql(['Display for all users', 'Display for internal users', 'Display for internal users excluding UKAS'])
+    expect(options).to.eql(['Select an option','Display for all users', 'Display for all signed-in users', 'Display for government users only'])
   })
   if (cab.cabNumberVisibility === CabNumberVisibility.Internal) {
     cy.get('#CabNumberVisibility').select('Display for internal users')
   } else if (cab.cabNumberVisibility === CabNumberVisibility.Private) {
     cy.get('#CabNumberVisibility').select('Display for internal users excluding UKAS')
+  } else if (cab.cabNumberVisibility === CabNumberVisibility.Public) {
+    cy.get('#CabNumberVisibility').select('Display for all users')
   }
   if (cab.appointmentDate) {
     setAppointmentDate(date(cab.appointmentDate).DD, date(cab.appointmentDate).MM, date(cab.appointmentDate).YYYY)
@@ -111,6 +115,9 @@ export const enterContactDetails = (cab) => {
   cy.get('#PointOfContactPhone').invoke('val', cab.pointOfContactPhone)
   if (cab.isPointOfContactPublicDisplay) {
     cy.get('#PublicDisplay').check()
+  } 
+  if (!cab.isPointOfContactPublicDisplay) {+
+    cy.get('#InternalDisplay').check()
   }
   cy.get('#RegisteredOfficeLocation').select(cab.registeredOfficeLocation)
   cy.continue()
@@ -162,6 +169,10 @@ export const uploadDocuments = (documents) => {
 }
 
 export const clickPublish = () => {
+  cy.get('button,a').contains('Publish').click()
+}
+
+export const clickPublishNotes = () => {
   cy.get('button,a').contains('Publish').click()
 }
 
@@ -234,9 +245,9 @@ export const filenames = (files) => {
 
 export const hasUploadedSchedules = (files) => {
   cy.wrap(files).each((file, index) => {
-    cy.get('.govuk-checkboxes .row div').eq((5 * index) + 1).should('contain', `${index + 1}. ${file.fileName}`)
-    cy.get('.govuk-checkboxes .row div').eq((5 * index) + 3).find('input').should('have.value', file.label)
-    cy.get('.govuk-checkboxes .row div').eq((5 * index) + 4).find('select').find(':selected').should('have.text', file.legislativeArea)
+    cy.get('.govuk-checkboxes__item').eq(index).should('contain', `${index + 1}. ${file.fileName}`)
+    cy.get('.govuk-checkboxes__item').eq(index).next('div').find('div').first().find('input').should('have.value', file.label)
+    cy.get('.govuk-checkboxes__item').eq(index).next('div').find('select').find(':selected').should('have.text', file.legislativeArea)
   })
 }
 
@@ -249,7 +260,7 @@ export const hasUploadedFileNames = (files) => {
 }
 
 export const uploadedFile1 = (filename) => {
-  return cy.get(`input[value='${filename}']:visible`).parent().parent().next('div')
+  return cy.get(`input[value='${filename}']:visible`).parent().next('div')
 }
 
 export const uploadedFile = (filename) => {
@@ -289,7 +300,7 @@ export const archiveCab = (cab, options) => {
     cy.get('#ArchiveInternalReason').type(options.reason)
     archiveCabButton().click()
   })
-  cy.get('.govuk-notification-banner__content').contains(`Archived on ${date(new Date()).DDMMYYYY}`)
+  cy.get('.govuk-warning-text').contains(`Archived on ${date(new Date()).DDMMYYYY}`)
 }
 
 export const unarchiveCab = (cab, reason = 'Test Unarchive reason') => {
@@ -297,13 +308,14 @@ export const unarchiveCab = (cab, reason = 'Test Unarchive reason') => {
   unarchiveCabButton().click()
   mainPage().within(() => {
     cy.contains('h1', `Unarchive ${cab.name}`)
-    cy.contains('Internal notes')
+    cy.contains('User notes')
     cy.contains('Unarchived CAB profiles will be saved as draft.')
     cy.get('#UnarchiveInternalReason').type(reason)
     cy.contains('a', 'Cancel').should('have.attr', 'href').and('contains', 'search/cab-profile')
     unarchiveCabButton().click()
   })
-  cy.contains('Check details before publishing')
+  cy.contains('Edit').click()
+  cy.contains('Once published this record will be visible to the public.')
 }
 
 export const viewSchedules = () => {
@@ -434,6 +446,7 @@ export const hasNoEditCabPermission = () => {
 
 export const createDraftVersion = (cab) => {
   cy.ensureOn(cabProfilePage(cab))
+  editCabButton().click()
   editCabButton().click()
   saveAsDraft()
 }

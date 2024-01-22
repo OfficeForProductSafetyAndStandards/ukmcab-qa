@@ -275,7 +275,7 @@ describe('Creating a new CAB', () => {
 
     it('allows skipping supporting document upload', function () {
       cy.contains('Skip this step').click()
-      cy.contains('Once published this record will be visible to the public')
+      cy.contains('Check details before publishing')
     })
 
     it('user can remove uploaded file', function () {
@@ -379,7 +379,6 @@ describe('Creating a new CAB', () => {
       cy.ensureOn(CabHelpers.cabManagementPath())
       cy.contains('a', this.cab.name).click()
       cy.contains('Provide all mandatory information before you are able to publish this record.')
-      cy.contains('Edit').click()
       cy.get('button').contains('Publish').should('be.disabled')
     })
 
@@ -425,9 +424,7 @@ describe('Creating a new CAB', () => {
       CabHelpers.saveAsDraft()
       cy.ensureOn(CabHelpers.cabManagementPath())
       cy.contains('a', this.cab.name).click()
-      cy.contains('Edit').click()
       CabHelpers.clickPublish()
-      CabHelpers.clickPublishNotes()
       CabHelpers.hasCabPublishedConfirmation(this.cab)
       cy.ensureOn(CabHelpers.cabManagementPath())
       cy.get('a').contains(this.cab.name).should('not.exist')
