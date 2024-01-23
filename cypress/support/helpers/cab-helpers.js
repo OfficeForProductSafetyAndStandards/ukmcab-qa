@@ -60,8 +60,8 @@ export const setReviewDate = (day, month, year) => {
 export const autoFillReviewDate = () => {
   cy.contains('button', 'Add suggested review date').click()
 }
-export const isSummaryPage = () => {
-  cy.get('h1').contains('Check details before publishing')
+export const isSummaryPage = (cab) => {
+  cy.contains('CAB profile')
 }
 
 export const hasReviewDate = (date) => {
