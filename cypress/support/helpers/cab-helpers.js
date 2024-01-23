@@ -81,9 +81,9 @@ export const enterCabDetails = (cab) => {
     expect(options).to.eql(['Select an option','Display for all users', 'Display for all signed-in users', 'Display for government users only'])
   })
   if (cab.cabNumberVisibility === CabNumberVisibility.Internal) {
-    cy.get('#CabNumberVisibility').select('Display for internal users')
+    cy.get('#CabNumberVisibility').select('Display for all signed-in users')
   } else if (cab.cabNumberVisibility === CabNumberVisibility.Private) {
-    cy.get('#CabNumberVisibility').select('Display for internal users excluding UKAS')
+    cy.get('#CabNumberVisibility').select('Display for government users only')
   } else if (cab.cabNumberVisibility === CabNumberVisibility.Public) {
     cy.get('#CabNumberVisibility').select('Display for all users')
   }

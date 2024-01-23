@@ -345,6 +345,7 @@ describe('Creating a new CAB', () => {
       cy.hasKeyValueDetail('Legislative area', 'No legislative area has been selected.')
       // also check that user can still publish cab without a Legislative Area
       CabHelpers.clickPublish()
+      CabHelpers.clickPublishNotes()
       CabHelpers.hasCabPublishedConfirmation(this.cab)
     })
 

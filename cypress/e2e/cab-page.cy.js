@@ -10,29 +10,29 @@ describe('CAB profile page', function () {
     return cy.contains('#tab_supporting-documents', 'Supporting documents')
   }
 
-  context('when logged out', function() {
+  context('when logged out', function () {
 
-    beforeEach(function() {
+    beforeEach(function () {
       CabHelpers.getTestCabWithDocuments().then(cab => {
         cy.wrap(cab).as('cab')
         cy.ensureOn(CabHelpers.cabProfilePage(cab))
       })
     })
 
-    it('displays CAB name heading', function() {
+    it('displays CAB name heading', function () {
       cy.get('.govuk-heading-l').contains(this.cab.name)
     })
 
-    it('has back to search results link', function() {
+    it('has back to search results link', function () {
       cy.get('a').contains('Back to search results').and('has.attr', 'href', searchPath())
     })
 
-    it('displays published and updated date', function() {
+    it('displays published and updated date', function () {
       cy.contains(`Published: ${date(this.cab.publishedDate).DMMMYYYY}`)
       cy.contains(`Last updated: ${date(this.cab.lastUpdatedDate).DMMMYYYY}`)
     })
 
-    it('displays all expected CAB details', function() {
+    it('displays all expected CAB details', function () {
       cy.contains('.cab-detail-section', 'CAB details').within(() => {
         cy.hasKeyValueDetail('CAB name', this.cab.name)
         cy.hasKeyValueDetail('Body number', valueOrNotProvided(this.cab.cabNumber))
@@ -42,12 +42,12 @@ describe('CAB profile page', function () {
       })
       cy.contains('.cab-detail-section', 'Contact details').within(() => {
         // cy.hasKeyValueDetail('Address', this.cab.addressLines.join('\n '))
-        if(this.cab.website) {
+        if (this.cab.website) {
           cy.hasKeyValueDetail('Website', this.cab.website).and('have.attr', 'href', this.cab.website.startsWith('https://') ? this.cab.website : 'https://' + this.cab.website).and('have.attr', 'target', '_blank')
         } else {
           valueOrNotProvided(this.cab.website)
         }
-        if(this.cab.email) {
+        if (this.cab.email) {
           cy.hasKeyValueDetail('Email', this.cab.email).and('have.attr', 'href', `mailto: ${this.cab.email}`)
         } else {
           valueOrNotProvided(this.cab.email)
@@ -62,7 +62,7 @@ describe('CAB profile page', function () {
       })
     })
 
-    it('does not display Supporting Documents to logged out users', function() {
+    it('does not display Supporting Documents to logged out users', function () {
       supportingDocumentsTab().should('not.exist')
     })
   })
@@ -85,7 +85,7 @@ describe('CAB profile page', function () {
       })
     })
 
-    it('displays all expected CAB details', function() {
+    it('displays all expected CAB details', function () {
       cy.contains('.cab-detail-section', 'CAB details').within(() => {
         cy.hasKeyValueDetail('CAB name', this.cab.name)
         cy.hasKeyValueDetail('CAB number', valueOrNotProvided(this.cab.cabNumber))
@@ -95,12 +95,12 @@ describe('CAB profile page', function () {
       })
       cy.contains('.cab-detail-section', 'Contact details').within(() => {
         // cy.hasKeyValueDetail('Address', this.cab.addressLines.join(', '))
-        if(this.cab.website) {
+        if (this.cab.website) {
           cy.hasKeyValueDetail('Website', this.cab.website).and('have.attr', 'href', this.cab.website.startsWith('https://') ? this.cab.website : 'https://' + this.cab.website).and('have.attr', 'target', '_blank')
         } else {
           valueOrNotProvided(this.cab.website)
         }
-        if(this.cab.email) {
+        if (this.cab.email) {
           cy.hasKeyValueDetail('Email', this.cab.email).and('have.attr', 'href', `mailto: ${this.cab.email}`)
         } else {
           valueOrNotProvided(this.cab.email)
@@ -116,15 +116,15 @@ describe('CAB profile page', function () {
     })
 
     // test commented out due to download flaky but works manually
-    it.skip('displays viewable and downloadable list of uploaded schedules', function() {
+    it.skip('displays viewable and downloadable list of uploaded schedules', function () {
       CabHelpers.viewSchedules()
       cy.contains('.cab-detail-section', 'Product schedules').within(() => {
 
         // TODO: GROUP AND SORT LEGISLATIVE AREAS WHEN MULTIPE UPLOAD ISSUE IS FIXED
 
-        this.cab.schedules.forEach((schedule,index) => {
+        this.cab.schedules.forEach((schedule, index) => {
           // Known cypress issue with dowbload links timeout  - https://github.com/cypress-io/cypress/issues/14857
-          cy.window().then((win) => { setTimeout(() => { win.location.reload() },5000) }) 
+          cy.window().then((win) => { setTimeout(() => { win.location.reload() }, 5000) })
           cy.get('.govuk-summary-list__row').eq(index).within(() => {
             cy.get('dt').contains(schedule.label)
             cy.get('dd').eq(0).contains('a', 'View').should('have.attr', 'target', '_blank').invoke('attr', 'href').should('match', /^\/search\/cab-schedule-view/)
@@ -139,7 +139,7 @@ describe('CAB profile page', function () {
     // This is done at DB level. This test has picked out an entry from that mapping spreadhseet
     // and validates that all those entries are displayed on the page for this cab.
     // skipping this test as now with Archiving in place this test CAB is often archived on DEV env so tests are flaky
-    it.skip('displays correct mapping of legislative areas for legacy cabs', function() {
+    it.skip('displays correct mapping of legislative areas for legacy cabs', function () {
       const expectedData = [
         {
           "Lifts": 'Lifts regulations 2016'
@@ -208,7 +208,7 @@ describe('CAB profile page', function () {
       CabHelpers.viewHistory()
       // Assuming you have previously defined and wrapped 'cabs' using cy.wrap()
       // cy.contains(`Showing 1 - ${this.cab.auditLog.slice(0, 10).length} of ${this.cab.auditLog.length}`)
-      
+
       cy.log(`APproved user is: ${this.cab.auditLog.UserName}, ${this.cab.auditLog.UserRole}`)
 
       cy.wrap(Cypress._.orderBy(this.cab.auditLog, 'DateTime', 'desc').slice(0, 10)).each((logvalue, index) => {
@@ -225,9 +225,9 @@ describe('CAB profile page', function () {
     })
   })
 
-  context('for CABs with Cab number visibility set to public(default)', function() {
+  context('for CABs with Cab number visibility set to public(default)', function () {
 
-    it('displays Cab(Body) number for public and internal users', function() {
+    it('displays Cab(Body) number for public and internal users', function () {
       const cab = Cab.buildWithoutDocuments()
       cy.loginAsOpssUser()
       CabHelpers.createCabWithoutDocuments(cab)
@@ -239,9 +239,9 @@ describe('CAB profile page', function () {
     })
   })
 
-  context('for CABs with Cab number visibility set to internal(Display for all internal)', function() {
+  context('for CABs with Cab number visibility set to internal(Display for all internal)', function () {
 
-    it('displays Cab(Body) number for UKAS/OPSS users but not for Public users', function() {
+    it('displays Cab(Body) number for UKAS/OPSS users but not for Public users', function () {
       const cab = Cab.buildWithoutDocuments()
       cab.cabNumberVisibility = CabNumberVisibility.Internal
       cy.loginAsOpssUser()
@@ -258,9 +258,9 @@ describe('CAB profile page', function () {
     })
   })
 
-  context('for CABs with Cab number visibility set to private(Display for only internal gov users)', function() {
+  context('for CABs with Cab number visibility set to private(Display for only internal gov users)', function () {
 
-    it('displays Cab(Body) number for OPSS users but not for Public/UKAS users', function() {
+    it('displays Cab(Body) number for OPSS users but not for Public/UKAS users', function () {
       const cab = Cab.buildWithoutDocuments()
       cab.cabNumberVisibility = CabNumberVisibility.Private
       cy.loginAsOpssUser()
