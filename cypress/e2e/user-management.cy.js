@@ -35,19 +35,19 @@ describe('User Management', () => {
 
       cy.log('First name Asc sort')
       cy.get('thead th a').eq(0).click()
-      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.firstname.toLowerCase()], 'asc').slice(0, 20))
+      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.firstname.toLowerCase()], 'asc').slice(0, 10))
 
       cy.log('First name Desc sort')
       cy.get('thead th a').eq(0).click()
-      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.firstname.toLowerCase()], 'desc').slice(0, 20))
+      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.firstname.toLowerCase()], 'desc').slice(0, 10))
 
       cy.log('Last name Asc sort')
       cy.get('thead th a').eq(1).click()
-      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.lastname.toLowerCase()], 'asc').slice(0, 20))
+      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.lastname.toLowerCase()], 'asc').slice(0, 10))
 
       cy.log('Last name Desc sort')
       cy.get('thead th a').eq(1).click()
-      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.lastname.toLowerCase()], 'desc').slice(0, 20))
+      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.activeUsers, [user => user.lastname.toLowerCase()], 'desc').slice(0, 10))
 
       // TODO: This order doesn't match JS in-memory sort. Talk to DEV if they are doing via cosmos 
       // cy.log('Email Asc sort')
@@ -89,7 +89,7 @@ describe('User Management', () => {
 
     it('displays a list of pending requests under Requests tab', function () {
       cy.contains('a', `Requests (${this.requests.length})`).click()
-      UserManagementHelpers.hasAccountRequestsList(this.requests.slice(0, 20))
+      UserManagementHelpers.hasAccountRequestsList(this.requests.slice(0, 10))
     })
   })
 
@@ -106,7 +106,7 @@ describe('User Management', () => {
 
     it('displays correct data sorted by last name', function () {
       cy.get('thead th a').eq(1).click()
-      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.lockedUsers, [user => user.lastname.toLowerCase()], 'asc').slice(0, 20))
+      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.lockedUsers, [user => user.lastname.toLowerCase()], 'asc').slice(0, 10))
     })
   })
 
@@ -123,7 +123,7 @@ describe('User Management', () => {
 
     it('displays correct data sorted by last name', function () {
       cy.get('thead th a').eq(1).click()
-      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.archivedUsers, [user => user.lastname.toLowerCase()], 'asc').slice(0, 20))
+      UserManagementHelpers.hasUserList(Cypress._.orderBy(this.archivedUsers, [user => user.lastname.toLowerCase()], 'asc').slice(0, 10))
     })
   })
 
@@ -153,10 +153,10 @@ describe('User Management', () => {
       })
     })
 
-    it('both reason and internal notes are mandatory', function () {
+    it('both reason and user notes are mandatory', function () {
       UserManagementHelpers.lockUser(this.lockedUser, '', '')
       cy.hasError('Reason', 'Enter a reason')
-      cy.hasError('Internal notes', 'Enter notes')
+      cy.hasError('User notes', 'Enter notes')
     })
 
     it('account is locked stopping user from logging in and sends user email', function () {
@@ -187,7 +187,7 @@ describe('User Management', () => {
     it('both reason and internal notes are mandatory', function () {
       UserManagementHelpers.unlockUser(this.lockedUser, '', '')
       cy.hasError('Reason', 'Enter a reason')
-      cy.hasError('Internal notes', 'Enter notes')
+      cy.hasError('User notes', 'Enter notes')
     })
 
     it('account is unlocked allowing user to login  and sends user email', function () {
