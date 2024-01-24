@@ -158,7 +158,7 @@ describe('Creating a new CAB', () => {
       cy.contains('h1', 'Product schedules upload')
       cy.contains('You can upload up to 35 PDF documents.')
       cy.contains('Files you have uploaded')
-      cy.contains('0 file uploaded')
+      cy.contains('0 files uploaded')
     })
 
     it('displays error upon continuing without uploading schedule of accreditation', function () {
@@ -173,7 +173,7 @@ describe('Creating a new CAB', () => {
 
     it('displays error if duplicate file is uploaded', function () {
       CabHelpers.uploadFiles([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy.pdf' }])
-      cy.hasError('Select PDF files', "dummy.pdf can't be uploaded. Uploaded files must have different names to those already uploaded.")
+      cy.hasError('Select PDF files', "dummy.pdf has already been uploaded. Select the existing file and the Use file again option, or upload a different file.")
     })
 
     //regression
@@ -212,12 +212,14 @@ describe('Creating a new CAB', () => {
 
     it('user can remove uploaded file', function () {
       CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts' }])
+      cy.get(`.govuk-checkboxes__input`).click()
       cy.contains('Remove').click()
-      cy.contains('0 file uploaded')
+      cy.contains('0 files uploaded')
     })
 
     it('allows uploading multiple files at once', function () {
-      const files = [{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy1.pdf', label: 'My Label1', legislativeArea: 'Ecodesign' }]
+      const files = [{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy1.pdf', label: 'My Label1', legislativeArea: 'Ecodesign' },
+      { fileName: 'dummy2.pdf', label: 'My Label2', legislativeArea: 'Ecodesign' }]
       CabHelpers.uploadSchedules(files)
       CabHelpers.hasUploadedSchedules(files)
     })
@@ -234,53 +236,54 @@ describe('Creating a new CAB', () => {
       cy.saveAndContinue()
     })
 
-    // it('displays correct heading and other relevant copy', function() {
-    //   cy.contains('h1', 'Upload the supporting documents')
-    //   cy.contains('You can upload up to 10 Word, Excel, or PDF documents.')
-    //   cy.contains('Files you have uploaded')
-    //   cy.contains('0 file uploaded')
-    // })
+    it('displays correct heading and other relevant copy', function () {
+      cy.contains('h1', 'Upload the supporting documents')
+      cy.contains('You can upload Word, Excel, or PDF documents.')
+      cy.contains('Files you have uploaded')
+      cy.contains('0 files uploaded')
+    })
 
-    // it('displays error upon uploading without selecting a file', function() {
-    //   CabHelpers.upload()
-    //   cy.hasError('Select files', 'Select a Word, Excel or PDF file 10 megabytes or less.')
-    // })
+    it('displays error upon uploading without selecting a file', function () {
+      CabHelpers.upload()
+      cy.hasError('Select files', 'Select a Word, Excel or PDF file 10 megabytes or less.')
+    })
 
-    // it('displays error is uploading file is not a DOC, XLSX or PDF', function() {
-    //   CabHelpers.uploadFiles([{ fileName: 'dummy.txt' }])
-    //   cy.hasError('Select files', "dummy.txt can't be uploaded. Files must be in Word, Excel or PDF format to be uploaded.")
-    // })
+    it('displays error is uploading file is not a DOC, XLSX or PDF', function () {
+      CabHelpers.uploadFiles([{ fileName: 'dummy.txt' }])
+      cy.hasError('Select files', "dummy.txt can't be uploaded. Files must be in Word, Excel or PDF format to be uploaded.")
+    })
 
-    // //regression
-    // it.skip('displays error if document file size is greater than 10MB', function() {
-    //   CabHelpers.uploadFiles([{ fileName: 'dummy-pdf-10mb-plus.pdf' }])
-    //   cy.hasError('Select a file', "dummy-pdf-10mb-plus.pdf can't be uploaded. Select a Word, Excel or PDF file 10 megabytes or less.")
-    // })
+    //regression
+    it.skip('displays error if document file size is greater than 10MB', function () {
+      CabHelpers.uploadFiles([{ fileName: 'dummy-pdf-10mb-plus.pdf' }])
+      cy.hasError('Select a file', "dummy-pdf-10mb-plus.pdf can't be uploaded. Select a Word, Excel or PDF file 10 megabytes or less.")
+    })
 
-    // //regression
-    // it.skip('only allows upto 10 files to be uploaded', function() {
-    //   const files = [{ fileName: 'dummy2.pdf', category: 'Appointment' }, { fileName: 'dummy3.pdf', category: 'Appointment' }, { fileName: 'dummy4.pdf', category: 'Appointment'  }, { fileName: 'dummy5.pdf', category: 'Appointment'  }, { fileName: 'dummy6.pdf' , category: 'Appointment' },
-    //    { fileName: 'dummy7.pdf', category: 'Appointment'  }, { fileName: 'dummy8.pdf', category: 'Appointment'  }, { fileName: 'dummy.doc' , category: 'Appointment' }, { fileName: 'dummy.xlsx' , category: 'Appointment' }, { fileName: 'dummy.xls', category: 'Appointment'  }]
-    //   CabHelpers.uploadDocuments(files)
-    //   CabHelpers.hasUploadedFileNames(files)
-    //   cy.contains('Save and upload another file').should('not.exist')
-    // })
+    //regression
+    it.skip('only allows upto 10 files to be uploaded', function () {
+      const files = [{ fileName: 'dummy2.pdf', category: 'Appointment' }, { fileName: 'dummy3.pdf', category: 'Appointment' }, { fileName: 'dummy4.pdf', category: 'Appointment' }, { fileName: 'dummy5.pdf', category: 'Appointment' }, { fileName: 'dummy6.pdf', category: 'Appointment' },
+      { fileName: 'dummy7.pdf', category: 'Appointment' }, { fileName: 'dummy8.pdf', category: 'Appointment' }, { fileName: 'dummy.doc', category: 'Appointment' }, { fileName: 'dummy.xlsx', category: 'Appointment' }, { fileName: 'dummy.xls', category: 'Appointment' }]
+      CabHelpers.uploadDocuments(files)
+      CabHelpers.hasUploadedFileNames(files)
+      cy.contains('Save and upload another file').should('not.exist')
+    })
 
-    // it('canceling file upload returns user back to Admin page', function() {
-    //   cy.contains('Cancel').click()
-    //   cy.location('pathname').should('equal', CabHelpers.cabManagementPath())
-    // })
+    it('canceling file upload returns user back to Admin page', function () {
+      cy.contains('Cancel').click()
+      cy.location('pathname').should('equal', CabHelpers.cabManagementPath())
+    })
 
-    // it('allows skipping supporting document upload', function() {
-    //   cy.contains('Skip this step').click()
-    //   cy.contains('Check details before publishing')
-    // })
+    it('allows skipping supporting document upload', function () {
+      cy.contains('Skip this step').click()
+      cy.contains('Once published this record will be visible to the public')
+    })
 
-    // it('user can remove uploaded file', function() {
-    //   CabHelpers.uploadFiles([{ fileName: 'dummy3.pdf' }])
-    //   cy.contains('Remove').click()
-    //   cy.contains('0 file uploaded')
-    // })
+    it('user can remove uploaded file', function () {
+      CabHelpers.uploadFiles([{ fileName: 'dummy3.pdf' }])
+      cy.get('.govuk-checkboxes__input').click()
+      cy.contains('Remove').click()
+      cy.contains('0 files uploaded')
+    })
   })
 
   context('when saving as Draft', function () {
@@ -342,6 +345,7 @@ describe('Creating a new CAB', () => {
       cy.hasKeyValueDetail('Legislative area', 'No legislative area has been selected.')
       // also check that user can still publish cab without a Legislative Area
       CabHelpers.clickPublish()
+      CabHelpers.clickPublishNotes()
       CabHelpers.hasCabPublishedConfirmation(this.cab)
     })
 
@@ -376,6 +380,7 @@ describe('Creating a new CAB', () => {
       cy.ensureOn(CabHelpers.cabManagementPath())
       cy.contains('a', this.cab.name).click()
       cy.contains('Provide all mandatory information before you are able to publish this record.')
+      cy.contains('Edit').click()
       cy.get('button').contains('Publish').should('be.disabled')
     })
 
@@ -421,7 +426,9 @@ describe('Creating a new CAB', () => {
       CabHelpers.saveAsDraft()
       cy.ensureOn(CabHelpers.cabManagementPath())
       cy.contains('a', this.cab.name).click()
+      cy.contains('Edit').click()
       CabHelpers.clickPublish()
+      CabHelpers.clickPublishNotes()
       CabHelpers.hasCabPublishedConfirmation(this.cab)
       cy.ensureOn(CabHelpers.cabManagementPath())
       cy.get('a').contains(this.cab.name).should('not.exist')

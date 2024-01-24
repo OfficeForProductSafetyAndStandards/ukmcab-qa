@@ -32,10 +32,12 @@ export const updateCabToTriggerSubscription = (cab) => {
   let cloneCab = Cypress._.cloneDeep(cab)
   cy.ensureOn(CabHelpers.cabProfilePage(cab))
   CabHelpers.editCabButton().click()
+  // CabHelpers.editCabButton().click()
   CabHelpers.editCabDetail('CAB details')
   cloneCab.name = `Test Cab Edited ${uniqueId}`
   CabHelpers.enterCabDetails(cloneCab)
   CabHelpers.clickPublish()
+  CabHelpers.clickPublishNotes()
   CabHelpers.hasCabPublishedConfirmation(cloneCab)
 }
 
@@ -128,7 +130,17 @@ export const assertSubscriptionEmailIsNotSent = (email) => {
   getLastUserEmail(email).then(_email => {
     expect(_email.isSubscriptionConfirmationEmail).to.be.true
   })
+
 }
+
+export const assertDraftCabDeletionEmailIsSent = (email) => {
+  // check deletion email 
+  getLastUserEmail(email).then(_email => {
+    expect(_email.isDraftCabDeletionConfirmationEmail).to.be.true
+  })
+
+}
+
 
 export const assertSearchSubscriptionChangesAreDisplayed = (numAdditions, numRemoved, numModified) => {
   cy.contains('Search results changes')
@@ -137,17 +149,17 @@ export const assertSearchSubscriptionChangesAreDisplayed = (numAdditions, numRem
   cy.get('tr').eq(0).within(() => {
     cy.get('th').contains('Additions')
     cy.get('td').eq(0).contains(numAdditions)
-    if(numAdditions > 0) { cy.get('td').eq(1).contains('a', 'View') }
+    if (numAdditions > 0) { cy.get('td').eq(1).contains('a', 'View') }
   })
   cy.get('tr').eq(1).within(() => {
     cy.get('th').contains('Removed')
     cy.get('td').eq(0).contains(numRemoved)
-    if(numRemoved > 0) { cy.get('td').eq(1).contains('a', 'View') }
+    if (numRemoved > 0) { cy.get('td').eq(1).contains('a', 'View') }
   })
   cy.get('tr').eq(2).within(() => {
     cy.get('th').contains('Modified')
     cy.get('td').eq(0).contains(numModified)
-    if(numModified > 0) { cy.get('td').eq(1).contains('a', 'View') }
+    if (numModified > 0) { cy.get('td').eq(1).contains('a', 'View') }
   })
   cy.get('a').contains('View search results').should('have.attr', 'href', searchPath())
   cy.get('a').contains('Manage subscription').invoke('attr', 'href').should('match', /\/subscriptions\/manage/)

@@ -74,6 +74,10 @@ export class EmailNotification {
     return this.subject === "Confirm your UKMCAB email subscription"
   }
   
+  get isDraftCabDeletionConfirmationEmail() {
+    return this.subject === "Draft CAB deleted"
+  }
+
   get isSubscriptionConfirmationEmail() {
     return this.subject === "You’ve subscribed to UKMCAB emails"
     && this.links.length === 4

@@ -6,22 +6,22 @@ import { serviceManagementPath } from '../support/helpers/user-management-helper
 describe('Header', function() {
 
   
-  // context('when logged out', function() {
+  context('when logged out', function() {
 
-  //   beforeEach(() => {
-  //     cy.ensureOn('/')
-  //   })
+    beforeEach(() => {
+      cy.ensureOn('/')
+    })
     
-  //   it('displays all expected links', function() {
-  //     header().contains('a', 'GOV.UK').should('have.attr', 'href', '/')
-  //     header().contains('a', 'UK Market Conformity Assessment Bodies').should('have.attr', 'href', '/')
-  //     header().contains('a', 'Search').should('have.attr', 'href', '/')
-  //     header().contains('a', 'Help').should('have.attr', 'href', '/help')
-  //     header().contains('a', 'Updates').should('have.attr', 'href', '/updates')
-  //     header().contains('a', 'About').should('have.attr', 'href', '/about')
-  //     header().contains('a', 'Sign in').should('have.attr', 'href', loginPath())
-  //   })
-  // })
+    it('displays all expected links', function() {
+      header().contains('a', 'GOV.UK').should('have.attr', 'href', '/')
+      header().contains('a', 'UK Market Conformity Assessment Bodies').should('have.attr', 'href', '/')
+      header().contains('a', 'Search').should('have.attr', 'href', '/')
+      header().contains('a', 'Help').should('have.attr', 'href', '/help')
+      header().contains('a', 'Updates').should('have.attr', 'href', '/updates')
+      header().contains('a', 'About').should('have.attr', 'href', '/about')
+      header().contains('a', 'Sign in').should('have.attr', 'href', loginPath())
+    })
+  })
   
   context('when logged in as internal user', function() {
     

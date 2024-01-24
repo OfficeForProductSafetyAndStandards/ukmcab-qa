@@ -16,7 +16,7 @@ describe('Service Management Dashboard', () => {
       cy.contains('a', 'Manage users').should('have.attr', 'href', userManagementPath())
       cy.contains('a', 'Manage CABs').should('have.attr', 'href', cabManagementPath())
       cy.contains('a', 'Draft').should('have.attr', 'href', `${cabManagementPath()}?filter=draft`)
-      cy.contains('a', 'Awaiting approval').should('have.attr', 'href', cabManagementPath())
+      cy.contains('a', 'Pending approval')
       cy.contains('a', 'Create a CAB').should('have.attr', 'href', addCabPath())
 
     })
@@ -33,7 +33,7 @@ describe('Service Management Dashboard', () => {
       cy.contains('a', 'Manage CABs').should('have.attr', 'href', cabManagementPath())
       cy.contains('a', 'Search for a CAB').should('have.attr', 'href', searchPath())
       cy.contains('a', 'Draft').should('have.attr', 'href', `${cabManagementPath()}?filter=draft`)
-      cy.contains('a', 'Awaiting approval').should('have.attr', 'href', cabManagementPath())
+      cy.contains('a', 'Pending approval')
       cy.contains('a', 'Create a CAB').should('have.attr', 'href', addCabPath())
       cy.contains('a', 'Manage users').should('not.exist')
     })

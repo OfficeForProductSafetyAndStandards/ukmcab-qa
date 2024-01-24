@@ -136,7 +136,7 @@ export const lockUser = (user, reason = 'Test reason for locking', notes = 'Test
     .next().contains('Enter the reason for locking this user account. The user will be notified that their account has been locked and the reason will be included.')
   cy.get('#Reason').invoke('val', reason)
 
-  cy.contains('label', 'Internal notes')
+  cy.contains('label', 'User notes')
     .next().contains('These notes will only be seen by OPSS administrators.')
   cy.get('#Notes').invoke('val', notes)
   cy.contains('a', 'Cancel').should('have.attr', 'href', userAdminPath(user))
@@ -152,7 +152,7 @@ export const unlockUser = (user, reason = 'Test reason for unlocking', notes = '
     .next().contains('Enter the reason for unlocking this user account. The user will be notified that their account has been unlocked and the reason will be included.')
   cy.get('#Reason').invoke('val', reason)
 
-  cy.contains('label', 'Internal notes')
+  cy.contains('label', 'User notes')
     .next().contains('These notes will only be seen by OPSS administrators.')
   cy.get('#Notes').invoke('val', notes)
   cy.contains('a', 'Cancel').should('have.attr', 'href', userAdminPath(user))
@@ -191,7 +191,7 @@ export const archiveUser = (user) => {
     .next().contains('Enter the reason for archiving this user account. The user will be notified that their account has been archived and the reason will be included.')
   cy.get('#Reason').type('Test reason for archiving')
 
-  cy.contains('label', 'Internal notes')
+  cy.contains('label', 'User notes')
     .next().contains('These notes will only be seen by OPSS administrators.')
   cy.get('#Notes').type('Test Admin notes for archiving')
   cy.contains('a', 'Cancel').should('have.attr', 'href', userAdminPath(user))
@@ -208,7 +208,7 @@ export const unarchiveUser = (user) => {
     .next().contains('Enter the reason for unarchiving this user account. The user will be notified that their account has been unarchived and the reason will be included.')
   cy.get('#Reason').type('Test reason for unarchiving')
 
-  cy.contains('label', 'Internal notes')
+  cy.contains('label', 'User notes')
     .next().contains('These notes will only be seen by OPSS administrators.')
   cy.get('#Notes').type('Test Admin notes for unarchiving')
   cy.contains('a', 'Cancel').should('have.attr', 'href', userAdminPath(user))

@@ -1,5 +1,5 @@
 export const CabNumberVisibility = {
-  Public: 'null',
+  Public: 'public',
   Internal: 'internal',
   Private: 'private'
 }
