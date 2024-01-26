@@ -123,7 +123,7 @@ export default class Cab {
       Postcode: 'B4 7LR',
       County: 'West Midlands',
       Country: 'United Kingdom',
-      Website: 'www.gov.uk',
+      Website: 'http://www.gov.uk',
       Email: 'email@gov.uk',
       Phone: '+44 (0) 121 345 1200',
       PointOfContactName: 'John Smith',
