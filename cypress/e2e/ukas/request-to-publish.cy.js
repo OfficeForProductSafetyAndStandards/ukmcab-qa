@@ -12,16 +12,18 @@ describe('Ukas submitting a new CAB for Approval', () => {
       cy.loginAsUkasUser()
       cy.ensureOn(CabHelpers.addCabPath())
       cy.get('#CABNumber').should('be.disabled'); //Check cab number is disabled
-      cy.get('#Name').type(this.cab.Name);
+      cy.get('#Name').type('Test ukas create cab');
       cy.continue();
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
       CabHelpers.skipThisStep()
       CabHelpers.skipThisStep()
       CabHelpers.clickSubmitForApproval()
+      cy.url().as('draftUrl')
     })
     it('OPSS approve CAB', function () {
       cy.loginAsOpssUser();
+      cy.ensureOn(this.draftUrl)
     })
   })
 })
