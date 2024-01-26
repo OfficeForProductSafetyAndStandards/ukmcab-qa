@@ -4,21 +4,24 @@ import Cab from '/cypress/support/domain/cab'
 describe('Ukas submitting a new CAB for Approval', () => {
 
   beforeEach(function () {
-    cy.loginAsUkasUser()
-    cy.ensureOn(CabHelpers.addCabPath())
     cy.wrap(Cab.build()).as('cab')
   })
 
-  context('submits cab for approval and opss approve', function () {
-    it('submit cab for approval', function () {
+  context('Ukas submits cab for approval and opss approve', function () {
+    it('Ukas submit cab for approval', function () {
+      cy.loginAsUkasUser()
+      cy.ensureOn(CabHelpers.addCabPath())
       cy.get('#CABNumber').should('be.disabled'); //Check cab number is disabled
-      cy.get('#Name').type('Test ukas create cab');
+      cy.get('#Name').type(this.cab.Name);
       cy.continue();
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
       CabHelpers.skipThisStep()
       CabHelpers.skipThisStep()
       CabHelpers.clickSubmitForApproval()
+    })
+    it('OPSS approve CAB', function () {
+      cy.loginAsOpssUser();
     })
   })
 })
