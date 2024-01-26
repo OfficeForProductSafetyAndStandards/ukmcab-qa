@@ -19,11 +19,14 @@ describe('Ukas submitting a new CAB for Approval', () => {
       CabHelpers.skipThisStep()
       CabHelpers.skipThisStep()
       CabHelpers.clickSubmitForApproval()
+      cy.get('#viewCab').click()
       cy.url().as('draftUrl')
     })
     it('OPSS approve CAB', function () {
       cy.loginAsOpssUser();
       cy.ensureOn(this.draftUrl)
+      cy.get('#approveCab').click()
+      
     })
   })
 })
