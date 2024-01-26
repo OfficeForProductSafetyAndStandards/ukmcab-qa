@@ -148,13 +148,12 @@ export const uploadSchedules = (schedules) => {
     }
   })
 }
-
-export const skipSchedules = () => {
-  cy.contains('Skip this step').click()
+export const skipThisStep = () => {
+  cy.contains('Skip this step').click({force: true})
 }
 
-export const skipDocuments = () => {
-  cy.contains('Skip this step').click()
+export const clickSubmitForApproval = () => {
+  cy.contains('Submit for approval').click({force: true})
 }
 
 export const uploadDocuments = (documents) => {
