@@ -21,6 +21,7 @@ describe('Ukas submitting a new CAB for Approval', () => {
       CabHelpers.clickSubmitForApproval()
       cy.get('#viewCab').click()
       cy.url().as('draftUrl')
+      cy.get('.cab-status-tag--pending-approval').should('contain', 'Pending approval to publish CAB')
     })
     it('OPSS approve CAB', function () {
       cy.loginAsOpssUser();
@@ -49,6 +50,7 @@ describe('Ukas submitting a new CAB for Approval', () => {
       CabHelpers.clickSubmitForApproval()
       cy.get('#viewCab').click()
       cy.url().as('draftUrl')
+      cy.get('.cab-status-tag--pending-approval').should('contain', 'Pending approval to publish CAB')
     })
     it('OPSS decline CAB', function () {
       cy.loginAsOpssUser();
