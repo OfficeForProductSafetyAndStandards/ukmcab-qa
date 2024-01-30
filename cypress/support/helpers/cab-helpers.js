@@ -28,8 +28,8 @@ export const createCabWithoutDocuments = (cab) => {
   enterCabDetails(cab)
   enterContactDetails(cab)
   enterBodyDetails(cab)
-  skipSchedules()
-  skipDocuments()
+  skipThisStep()
+  skipThisStep()
   clickPublish()
   clickPublishNotes()
 }
