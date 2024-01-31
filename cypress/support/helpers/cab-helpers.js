@@ -649,7 +649,6 @@ export const ukasRequestToUnarchiveAndPublishCab = (name) => {
 export const ukasRequestToUnarchiveAndSaveAsDraftCab = (name) => {
   cy.loginAsUkasUser();
   cy.ensureOn(`/search/cab-profile/${getSlug(name)}`);
-  //cy.get("#unpublish-button").click();
   cy.get("a").contains("Request to unarchive").click();
   cy.get("#IsPublish-2").check();
   cy.get("#Reason").type(
