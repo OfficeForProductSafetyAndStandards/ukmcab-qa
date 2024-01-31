@@ -28,8 +28,8 @@ export const createCabWithoutDocuments = (cab) => {
   enterCabDetails(cab)
   enterContactDetails(cab)
   enterBodyDetails(cab)
-  skipSchedules()
-  skipDocuments()
+  skipThisStep()
+  skipThisStep()
   clickPublish()
   clickPublishNotes()
 }
@@ -124,10 +124,10 @@ export const enterContactDetails = (cab) => {
 }
 
 export const enterBodyDetails = (cab) => {
-  cy.wrap(cab.testingLocations).each((location, index, locations) => {
-    Cypress._.times(locations - 1, cy.contains('a', 'Add another registered test location').click())
-    cy.get('.test-location select').eq(index).select(location)
-  })
+    cy.wrap(cab.testingLocations).each((location, index, locations) => {
+        Cypress._.times(locations - 1, cy.contains('a', 'Add another registered test location').click())
+        cy.get('.test-location select').eq(index).select(location)
+    })
   cab.bodyTypes.forEach(bodyType => {
     cy.get(`input[value='${bodyType}']`).check()
   })
