@@ -345,7 +345,7 @@ export const getTestCabWithReviewDate = () => {
 
 export const getTestCabWithCabNumberAndUkasRef = () => {
     return getAllPublishedCabs().then(cabs => {
-        return cabs.find(c => c.cabNumber !== null && c.ukasRef !== null && isNumber(c.ukasRef) == true)
+        return cabs.find(c => c.cabNumber !== null && c.ukasRef !== null)
     })
 }
 

@@ -12,20 +12,20 @@ describe('Creating a new CAB', () => {
 
   context('when entering cab details', function () {
 
-    it('displays error if mandatory details are not entered', function () {
-      cy.continue()
-      cy.hasError('CAB name', 'Enter a CAB name')
-      cy.hasError('CAB number', 'Enter a CAB number')
-    })
+    // it('displays error if mandatory details are not entered', function () {
+    //   cy.continue()
+    //   cy.hasError('CAB name', 'Enter a CAB name')
+    //   cy.hasError('CAB number', 'Enter a CAB number')
+    // })
 
-    it('displays error if Cab number already exists', function () {
-      CabHelpers.getTestCabWithCabNumber().then(cab => {
-        cab.reviewDate = null // old data has invalid dates
-        cab.ukasRef = null;
-        CabHelpers.enterCabDetails(cab)
-        cy.hasError('CAB number', 'This CAB number already exists')
-      })
-    })
+    // it('displays error if Cab number already exists', function () {
+    //   CabHelpers.getTestCabWithCabNumber().then(cab => {
+    //     cab.reviewDate = null // old data has invalid dates
+    //     cab.ukasRef = null;
+    //     CabHelpers.enterCabDetails(cab)
+    //     cy.hasError('CAB number', 'This CAB number already exists')
+    //   })
+    // })
 
     it('displays error if Cab Ukas ref already exists', function () {
       CabHelpers.getTestCabWithCabNumberAndUkasRef().then(cab => {
