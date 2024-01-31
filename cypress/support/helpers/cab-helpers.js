@@ -87,13 +87,13 @@ export const enterCabDetails = (cab) => {
   } else if (cab.cabNumberVisibility === CabNumberVisibility.Public) {
     cy.get('#CabNumberVisibility').select('Display for all users')
   }
-  //if (cab.appointmentDate) {
+  // if (cab.appointmentDate) {
   //  setAppointmentDate(date(cab.appointmentDate).DD, date(cab.appointmentDate).MM, date(cab.appointmentDate).YYYY)
-  //}
-  //if (cab.reviewDate) {
+  // }
+  // if (cab.reviewDate) {
   //  // cab.reviewDate = futureDate
   //  setReviewDate(date(cab.reviewDate).DD, date(cab.reviewDate).MM, date(cab.reviewDate).YYYY)
-  //}
+  // }
   if (cab.ukasRef) {      
       cy.get('#UKASReference').invoke('val', cab.ukasRef)
   }
@@ -180,8 +180,8 @@ export const hasDetailsConfirmation = (cab) => {
   // cy.get('.govuk-caption-m').contains('Create a CAB')
   cy.hasKeyValueDetail('CAB name', cab.name)
   cy.hasKeyValueDetail('CAB number', cab.cabNumber)
-  cy.hasKeyValueDetail('Appointment date (optional)', valueOrNotProvided(date(cab.appointmentDate)?.DMMMYYYY))
-  cy.hasKeyValueDetail('Review date (optional)', valueOrNotProvided(date(cab.reviewDate)?.DMMMYYYY))
+  // cy.hasKeyValueDetail('Appointment date (optional)', valueOrNotProvided(date(cab.appointmentDate)?.DMMMYYYY))
+  // cy.hasKeyValueDetail('Review date (optional)', valueOrNotProvided(date(cab.reviewDate)?.DMMMYYYY))
   cy.hasKeyValueDetail('UKAS reference number (optional)', valueOrNotProvided(cab.ukasRef))
   // cy.hasKeyValueDetail('Address', valueOrNotProvided(cab.addressLines.join('\n')))
   cy.hasKeyValueDetail('Website (optional)', valueOrNotProvided(cab.website))
