@@ -87,15 +87,15 @@ export const enterCabDetails = (cab) => {
   } else if (cab.cabNumberVisibility === CabNumberVisibility.Public) {
     cy.get('#CabNumberVisibility').select('Display for all users')
   }
-  if (cab.appointmentDate) {
-    setAppointmentDate(date(cab.appointmentDate).DD, date(cab.appointmentDate).MM, date(cab.appointmentDate).YYYY)
-  }
-  if (cab.reviewDate) {
-    // cab.reviewDate = futureDate
-    setReviewDate(date(cab.reviewDate).DD, date(cab.reviewDate).MM, date(cab.reviewDate).YYYY)
-  }
-  if (cab.ukasRef) {
-    cy.get('#UKASReference').invoke('val', cab.ukasRef)
+  //if (cab.appointmentDate) {
+  //  setAppointmentDate(date(cab.appointmentDate).DD, date(cab.appointmentDate).MM, date(cab.appointmentDate).YYYY)
+  //}
+  //if (cab.reviewDate) {
+  //  // cab.reviewDate = futureDate
+  //  setReviewDate(date(cab.reviewDate).DD, date(cab.reviewDate).MM, date(cab.reviewDate).YYYY)
+  //}
+  if (cab.ukasRef) {      
+      cy.get('#UKASReference').invoke('val', cab.ukasRef)
   }
   cy.continue()
 }
@@ -344,9 +344,9 @@ export const getTestCabWithReviewDate = () => {
 }
 
 export const getTestCabWithCabNumberAndUkasRef = () => {
-  return getAllPublishedCabs().then(cabs => {
-    return cabs.find(c => c.cabNumber !== null && c.ukasRef !== null)
-  })
+    return getAllPublishedCabs().then(cabs => {
+        return cabs.find(c => c.cabNumber !== null && c.ukasRef !== null && isNumber(c.ukasRef) == true)
+    })
 }
 
 export const getTestCabWithDocuments = () => {

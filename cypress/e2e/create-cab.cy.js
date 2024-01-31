@@ -18,15 +18,27 @@ describe('Creating a new CAB', () => {
       cy.hasError('CAB number', 'Enter a CAB number')
     })
 
-    it('displays error if Cab number or Ukas ref already exists', function () {
-      CabHelpers.getTestCabWithCabNumberAndUkasRef().then(cab => {
-        cab.reviewDate = null // old data has invalid dates
-        CabHelpers.enterCabDetails(cab)
-        cy.hasError('CAB number', 'This CAB number already exists')
-        cy.hasError('UKAS reference (optional)', 'This UKAS reference number already exists')
+    it('displays error if Cab number already exists', function () {
+        CabHelpers.getTestCabWithCabNumber().then(cab => {          
+          cab.reviewDate = null // old data has invalid dates
+          cab.ukasRef = null;
+          CabHelpers.enterCabDetails(cab)
+          cy.hasError('CAB number', 'This CAB number already exists')
       })
     })
 
+    it('displays error if Cab Ukas ref already exists', function () {
+        CabHelpers.getTestCabWithCabNumber().then(cab => {           
+            debugger
+            cab.reviewDate = null // old data has invalid dates
+            cab.ukasRef = "1694626215621"
+            CabHelpers.enterCabDetails(cab)
+            debugger
+            cy.hasError('UKAS reference (optional)', 'This UKAS reference number already exists')
+        })
+    })
+
+   
     it('does not display any error if optional fields are omitted', function () {
       this.cab.appointmentDate = null
       this.cab.reviewDate = null
@@ -43,7 +55,7 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterCabDetails(this.cab)
       cy.hasError('Appointment date (optional)', 'The appointment date must be in the past.')
     })
-
+    
     it('requires review date to be in future but no more than 5 years from appointment date', function () {
       this.cab.reviewDate = Cypress.dayjs()
       CabHelpers.enterCabDetails(this.cab)
@@ -433,5 +445,6 @@ describe('Creating a new CAB', () => {
       cy.ensureOn(CabHelpers.cabManagementPath())
       cy.get('a').contains(this.cab.name).should('not.exist')
     })
-  })
+    
+  })  
 })
