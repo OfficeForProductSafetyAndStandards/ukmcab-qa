@@ -6,7 +6,7 @@
   "devDependencies": {
     "@azure/cosmos": "^3.17.1",
     "chai-datetime": "^1.8.0",
-    "cypress": "^13.1.0",
+    "cypress": "^13.6.3",
     "cypress-mochawesome-reporter": "^3.5.1",
     "dayjs": "^1.11.7",
     "notifications-node-client": "^8.0.0",

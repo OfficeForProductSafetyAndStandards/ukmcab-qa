@@ -63,8 +63,8 @@ export const createCabWithoutDocuments = (cab) => {
   enterCabDetails(cab);
   enterContactDetails(cab);
   enterBodyDetails(cab);
-  skipSchedules();
-  skipDocuments();
+  skipThisStep();
+  skipThisStep();
   clickPublish();
   clickPublishNotes();
 };
@@ -212,6 +212,10 @@ export const skipThisStep = () => {
 
 export const skipDocuments = () => {
   cy.contains("Skip this step").click();
+};
+
+export const clickSubmitForApproval = () => {
+  cy.contains("Submit for approval").click({ force: true });
 };
 
 export const uploadDocuments = (documents) => {
