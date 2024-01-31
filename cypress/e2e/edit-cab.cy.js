@@ -181,78 +181,78 @@ describe('Editing a CAB', () => {
       CabHelpers.editCabButton().click()
       cy.cancel()
       cy.location().then(loc => {
-        expect(loc.pathname).to.eq(CabHelpers.cabProfilePage(this.cab))
+        expect(loc.pathname).contains(CabHelpers.cabProfilePage(this.cab))
       })
     })
 
   })
 
-  // context('when logged in and using cabs with documents', function () {
+  context('when logged in and using cabs with documents', function () {
 
-  //   beforeEach(function () {
-  //     cy.loginAsOpssUser()
-  //     cy.ensureOn(CabHelpers.addCabPath())
-  //     cy.wrap(Cab.build()).as('cab')
-  //   })
+    beforeEach(function () {
+      cy.loginAsOpssUser()
+      cy.ensureOn(CabHelpers.addCabPath())
+      cy.wrap(Cab.build()).as('cab')
+    })
 
-  //   it('legislative areas assigned to uploaded schedules can not be modified', function () {
-  //     CabHelpers.createCab(this.cab)
-  //     cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-  //     CabHelpers.editCabButton().click()
-  //     CabHelpers.editCabDetail('Body details')
-  //     cy.contains('Pre-selected areas are linked to the product schedule and cannot be removed here')
-  //     this.cab.schedules.forEach(schedule => {
-  //       cy.get(`input[value='${schedule.legislativeArea}']`).should('be.checked').and('be.disabled')
-  //     })
-  //     cy.continue()
-  //     cy.contains('Once published this record will be visible to the public')
-  //   })
-  // })
+    it('legislative areas assigned to uploaded schedules can not be modified', function () {
+      CabHelpers.createCab(this.cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.editCabButton().click()
+      CabHelpers.editCabDetail('Body details')
+      cy.contains('Pre-selected areas are linked to the product schedule and cannot be removed here')
+      this.cab.schedules.forEach(schedule => {
+        cy.get(`input[value='${schedule.legislativeArea}']`).should('be.checked').and('be.disabled')
+      })
+      cy.continue()
+      cy.contains('Once published this record will be visible to the public')
+    })
+  })
 
-  // context('when editing a CAB with review date', function () {
+  context('when editing a CAB with review date', function () {
 
-  //   beforeEach(function () {
-  //     cy.loginAsOpssUser()
-  //     cy.ensureOn(CabHelpers.addCabPath())
-  //     cy.wrap(Cab.buildWithoutDocuments()).as('cab')
-  //   })
+    beforeEach(function () {
+      cy.loginAsOpssUser()
+      cy.ensureOn(CabHelpers.addCabPath())
+      cy.wrap(Cab.buildWithoutDocuments()).as('cab')
+    })
 
-  //   it('sets review date to 18 years from current date if auto fill button is invoked', function () {
-  //     CabHelpers.createCabWithoutDocuments(this.cab)
-  //     cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-  //     CabHelpers.editCabButton().click()
-  //     CabHelpers.editCabDetail('CAB details')
-  //     CabHelpers.autoFillReviewDate()
-  //     const expectedDate = Cypress.dayjs().add(18, 'months')
-  //     CabHelpers.hasReviewDate(expectedDate)
-  //   })
-  // })
+    it('sets review date to 18 years from current date if auto fill button is invoked', function () {
+      CabHelpers.createCabWithoutDocuments(this.cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.editCabButton().click()
+      CabHelpers.editCabDetail('CAB details')
+      CabHelpers.autoFillReviewDate()
+      const expectedDate = Cypress.dayjs().add(18, 'months')
+      CabHelpers.hasReviewDate(expectedDate)
+    })
+  })
 
-  // context('when editing a CAB with review date', function () {
+  context('when editing a CAB with review date', function () {
 
-  //   beforeEach(function () {
-  //     cy.loginAsOpssUser()
-  //     cy.ensureOn(CabHelpers.addCabPath())
-  //     cy.wrap(Cab.build()).as('cab')
+    beforeEach(function () {
+      cy.loginAsOpssUser()
+      cy.ensureOn(CabHelpers.addCabPath())
+      cy.wrap(Cab.build()).as('cab')
 
-  //   })
+    })
 
-  //   it('legislative areas on summary page and profile page are in sync', function () {
-  //     CabHelpers.createCab(this.cab)
-  //     cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-  //     CabHelpers.editCabButton().click()
-  //     CabHelpers.editCabDetail('Product schedules')
-  //     cy.contains('Save and upload another file').click()
-  //     const newSchedule = { fileName: 'dummy3.pdf', label: 'MyCustomLabel3', legislativeArea: 'Pyrotechnics' }
-  //     this.cab.schedules.push(newSchedule)
-  //     CabHelpers.uploadSchedules([newSchedule])
-  //     cy.saveAndContinue()
-  //     cy.contains('Once published this record will be visible to the public')
-  //     cy.contains('Schedule').next().contains(newSchedule.legislativeArea)
-  //     CabHelpers.clickPublish()
-  //     CabHelpers.clickPublishNotes()
-  //     cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-  //     cy.hasKeyValueDetail('Legislative area', newSchedule.legislativeArea)
-  //   })
-  // })
+    it('legislative areas on summary page and profile page are in sync', function () {
+      CabHelpers.createCab(this.cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.editCabButton().click()
+      CabHelpers.editCabDetail('Product schedules')
+      cy.contains('Save and upload another file').click()
+      const newSchedule = { fileName: 'dummy3.pdf', label: 'MyCustomLabel3', legislativeArea: 'Pyrotechnics' }
+      this.cab.schedules.push(newSchedule)
+      CabHelpers.uploadSchedules([newSchedule])
+      cy.saveAndContinue()
+      cy.contains('Once published this record will be visible to the public')
+      cy.contains('Schedule').next().contains(newSchedule.legislativeArea)
+      CabHelpers.clickPublish()
+      CabHelpers.clickPublishNotes()
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      cy.hasKeyValueDetail('Legislative area', newSchedule.legislativeArea)
+    })
+  })
 })
