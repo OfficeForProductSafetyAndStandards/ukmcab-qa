@@ -88,14 +88,14 @@ export const enterCabDetails = (cab) => {
     cy.get('#CabNumberVisibility').select('Display for all users')
   }
   if (cab.appointmentDate) {
-    setAppointmentDate(date(cab.appointmentDate).DD, date(cab.appointmentDate).MM, date(cab.appointmentDate).YYYY)
+   setAppointmentDate(date(cab.appointmentDate).DD, date(cab.appointmentDate).MM, date(cab.appointmentDate).YYYY)
   }
   if (cab.reviewDate) {
-    // cab.reviewDate = futureDate
-    setReviewDate(date(cab.reviewDate).DD, date(cab.reviewDate).MM, date(cab.reviewDate).YYYY)
+   // cab.reviewDate = futureDate
+   setReviewDate(date(cab.reviewDate).DD, date(cab.reviewDate).MM, date(cab.reviewDate).YYYY)
   }
-  if (cab.ukasRef) {
-    cy.get('#UKASReference').invoke('val', cab.ukasRef)
+  if (cab.ukasRef) {      
+      cy.get('#UKASReference').invoke('val', cab.ukasRef)
   }
   cy.continue()
 }
@@ -124,10 +124,10 @@ export const enterContactDetails = (cab) => {
 }
 
 export const enterBodyDetails = (cab) => {
-  cy.wrap(cab.testingLocations).each((location, index, locations) => {
-    Cypress._.times(locations - 1, cy.contains('a', 'Add another registered test location').click())
-    cy.get('.test-location select').eq(index).select(location)
-  })
+    cy.wrap(cab.testingLocations).each((location, index, locations) => {
+        Cypress._.times(locations - 1, cy.contains('a', 'Add another registered test location').click())
+        cy.get('.test-location select').eq(index).select(location)
+    })
   cab.bodyTypes.forEach(bodyType => {
     cy.get(`input[value='${bodyType}']`).check()
   })
@@ -344,9 +344,9 @@ export const getTestCabWithReviewDate = () => {
 }
 
 export const getTestCabWithCabNumberAndUkasRef = () => {
-  return getAllPublishedCabs().then(cabs => {
-    return cabs.find(c => c.cabNumber !== null && c.ukasRef !== null)
-  })
+    return getAllPublishedCabs().then(cabs => {
+        return cabs.find(c => c.cabNumber !== null && c.ukasRef !== null)
+    })
 }
 
 export const getTestCabWithDocuments = () => {
