@@ -6,7 +6,7 @@ import X2JS from  'x2js'
 
 describe('UKMCAB RSS Feed', function() {
 
-  let searchInput = 'emission'
+  let searchInput = 'amtri'
 
   it('works for search results', function() {
     SearchHelpers.publishedSearchResults(searchInput, {orderby: 'LastUpdatedDate desc'}).then(results => {

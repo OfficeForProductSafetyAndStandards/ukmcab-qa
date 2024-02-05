@@ -181,7 +181,7 @@ describe('Editing a CAB', () => {
       CabHelpers.editCabButton().click()
       cy.cancel()
       cy.location().then(loc => {
-        expect(loc.pathname).contains(CabHelpers.cabProfilePage(this.cab))
+        expect(loc.pathname).to.eq(CabHelpers.cabProfilePage(this.cab))
       })
     })
 

@@ -244,7 +244,8 @@ describe("Request to Unarchive a CAB", () => {
     beforeEach(function () {
       cy.wrap(Cab.buildWithoutDocuments()).as("cab");
       UserManagementHelpers.getTestUsers().then((users) => {
-        cy.wrap(users.UkasUser).as("ukasUser");
+        cy.wrap(users.UkasUser).as("ukasUser"
+        );
       });
     });
 
