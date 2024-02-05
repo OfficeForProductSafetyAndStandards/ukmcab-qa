@@ -30,7 +30,7 @@ describe('Creating a new CAB', () => {
     it('displays error if Cab Ukas ref already exists', function () {
       CabHelpers.getTestCabWithCabNumberAndUkasRef().then(cab => {
         cab.reviewDate = null // old data has invalid dates
-        cab.ukasRef = "1694626215621"
+        cab.ukasRef = "1707085598389"
         CabHelpers.enterCabDetails(cab)
         cy.hasError('UKAS reference (optional)', 'This UKAS reference number already exists')
       })
