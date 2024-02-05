@@ -9,7 +9,7 @@
     "cypress": "^13.6.3",
     "cypress-mochawesome-reporter": "^3.5.1",
     "dayjs": "^1.11.7",
-    "notifications-node-client": "^5.2.3",
+    "notifications-node-client": "^8.0.0",
     "x2js": "^3.4.4"
   },
   "scripts": {

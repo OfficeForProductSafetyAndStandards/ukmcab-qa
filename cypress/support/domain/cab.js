@@ -1,181 +1,207 @@
-import { cabProfilePage } from "../helpers/cab-helpers"
-import { CabNumberVisibility } from "./cab-number-visibility"
+import { cabProfilePage } from "../helpers/cab-helpers";
+import { CabNumberVisibility } from "./cab-number-visibility";
 export default class Cab {
-
   constructor(cabData) {
-    this._cabData = cabData
-    this.id = cabData.id
-    this.accreditationSchedules = cabData.accreditationSchedules
-    this.addressLine1 = cabData.AddressLine1
-    this.addressLine2 = cabData.AddressLine2
-    this.auditLog = cabData.AuditLog
-    this.townCity = cabData.TownCity
-    this.county = cabData.County
-    this.postcode = cabData.Postcode
-    this.country = cabData.Country
-    this.appointmentDate = cabData.AppointmentDate && Cypress.dayjs(cabData.AppointmentDate)
-    this.cabId = cabData.CABId
-    this.cabNumber = cabData.CABNumber
-    this.cabNumberVisibility = cabData.CabNumberVisibility
-    this.bodyTypes = cabData.BodyTypes
-    this.email = cabData.Email
-    this.legislativeAreas = cabData.LegislativeAreas
-    this.lastUpdatedDate = new Date(cabData.LastUpdatedDate)
-    this._name = cabData.Name
-    this.phone = cabData.Phone
-    this.pointOfContactName = cabData.PointOfContactName
-    this.pointOfContactEmail = cabData.PointOfContactEmail
-    this.pointOfContactPhone = cabData.PointOfContactPhone
-    this.registeredOfficeLocation = cabData.RegisteredOfficeLocation
-    this.reviewDate = cabData.RenewalDate && Cypress.dayjs(cabData.RenewalDate)
-    this.testingLocations = cabData.TestingLocations
-    this._schedules = cabData.Schedules
-    this._documents = cabData.Documents
-    this.ukasRef = cabData.UKASReference
-    this.website = cabData.Website
-    this.status = cabData.Status
-    this.isPointOfContactPublicDisplay = cabData.IsPointOfContactPublicDisplay
-    this.urlSlug = cabData.URLSlug
+    this._cabData = cabData;
+    this.id = cabData.id;
+    this.accreditationSchedules = cabData.accreditationSchedules;
+    this.addressLine1 = cabData.AddressLine1;
+    this.addressLine2 = cabData.AddressLine2;
+    this.auditLog = cabData.AuditLog;
+    this.townCity = cabData.TownCity;
+    this.county = cabData.County;
+    this.postcode = cabData.Postcode;
+    this.country = cabData.Country;
+    this.appointmentDate =
+      cabData.AppointmentDate && Cypress.dayjs(cabData.AppointmentDate);
+    this.cabId = cabData.CABId;
+    this.cabNumber = cabData.CABNumber;
+    this.cabNumberVisibility = cabData.CabNumberVisibility;
+    this.bodyTypes = cabData.BodyTypes;
+    this.email = cabData.Email;
+    this.legislativeAreas = cabData.LegislativeAreas;
+    this.lastUpdatedDate = new Date(cabData.LastUpdatedDate);
+    this._name = cabData.Name;
+    this.phone = cabData.Phone;
+    this.pointOfContactName = cabData.PointOfContactName;
+    this.pointOfContactEmail = cabData.PointOfContactEmail;
+    this.pointOfContactPhone = cabData.PointOfContactPhone;
+    this.registeredOfficeLocation = cabData.RegisteredOfficeLocation;
+    this.reviewDate = cabData.RenewalDate && Cypress.dayjs(cabData.RenewalDate);
+    this.testingLocations = cabData.TestingLocations;
+    this._schedules = cabData.Schedules;
+    this._documents = cabData.Documents;
+    this.ukasRef = cabData.UKASReference;
+    this.website = cabData.Website;
+    this.status = cabData.Status;
+    this.isPointOfContactPublicDisplay = cabData.IsPointOfContactPublicDisplay;
+    this.urlSlug = cabData.URLSlug;
   }
 
   get isRecent() {
-    return Math.abs(new Date(this.lastUpdatedDate) - new Date()) < 86400000
+    return Math.abs(new Date(this.lastUpdatedDate) - new Date()) < 86400000;
   }
 
   get name() {
-    return this._name
+    return this._name;
   }
 
   set name(newName) {
-    this._name = newName
-    if(newName) {
-      this.urlSlug = newName.replace(/[^a-zA-Z0-9 ]/g, "").replace(/\s+/g, '-').toLowerCase()
+    this._name = newName;
+    if (newName) {
+      this.urlSlug = newName
+        .replace(/[^a-zA-Z0-9 ]/g, "")
+        .replace(/\s+/g, "-")
+        .toLowerCase();
     }
   }
 
   get publishedDate() {
-    return Cypress.dayjs(this.auditLog.find(entry => entry.Action === 'Published').DateTime)
+    return Cypress.dayjs(
+      this.auditLog.find((entry) => entry.Action === "Published").DateTime
+    );
   }
 
   get createdDate() {
-    return Cypress.dayjs(this.auditLog.find(entry => entry.Action === 'Created').DateTime)
+    return Cypress.dayjs(
+      this.auditLog.find((entry) => entry.Action === "Created").DateTime
+    );
   }
 
   get url() {
-    return cabProfilePage(this)
+    return cabProfilePage(this);
   }
 
   get oldSchemeUrl() {
-    return `/search/cab-profile/${this.cabId}`
+    return `/search/cab-profile/${this.cabId}`;
   }
 
   get isDraft() {
-    return this.status === "Draft"
+    return this.status === "Draft";
   }
 
   get isArchived() {
-    return this.status === "Archived"
+    return this.status === "Archived";
   }
 
   get isPublished() {
-    return this.status === "Published"
+    return this.status === "Published";
   }
 
   get schedules() {
-    return this._schedules?.map(schedule => {
+    return this._schedules?.map((schedule) => {
       return {
         label: schedule.Label,
         legislativeArea: schedule.LegislativeArea,
         fileName: schedule.FileName,
         blobName: schedule.BlobName,
-        uploadDateTime: schedule.UploadDateTime
-      }
-    })
+        uploadDateTime: schedule.UploadDateTime,
+      };
+    });
   }
 
   get documents() {
-    return this._documents?.map(document => {
+    return this._documents?.map((document) => {
       return {
         fileName: document.FileName,
         blobName: document.BlobName,
         category: document.Category,
-        uploadDateTime: document.UploadDateTime
-      }
-    })
+        uploadDateTime: document.UploadDateTime,
+      };
+    });
   }
 
   get addressLines() {
-    return [this.addressLine1, this.addressLine2, this.townCity, this.county, this.postcode, this.country].filter(Boolean)
+    return [
+      this.addressLine1,
+      this.addressLine2,
+      this.townCity,
+      this.county,
+      this.postcode,
+      this.country,
+    ].filter(Boolean);
   }
 
-  pointOfContactDetailsDisplayStatus() {this.documents
-    return this.isPointOfContactPublicDisplay ? 'Public' : 'Restricted'
+  pointOfContactDetailsDisplayStatus() {
+    this.documents;
+    return this.isPointOfContactPublicDisplay ? "Public" : "Restricted";
   }
 
   static build() {
-    const uniqueId = Date.now()
-    const name = `Test Cab ${uniqueId}`
+    const uniqueId = Date.now();
+    const name = `Test Cab ${uniqueId}`;
     return new this({
       Name: name,
-      AddressLine1: 'Cannon House',
-      AddressLine2: 'The Priory Queensway',
-      TownCity: 'Birmingham',
-      Postcode: 'B4 7LR',
-      County: 'West Midlands',
-      Country: 'United Kingdom',
-      Website: 'http://www.gov.uk',
-      Email: 'email@gov.uk',
-      Phone: '+44 (0) 121 345 1200',
-      PointOfContactName: 'John Smith',
-      PointOfContactEmail: 'email@gov.uk',
-      PointOfContactPhone: '+44 (0) 121 345 1200',
+      AddressLine1: "Cannon House",
+      AddressLine2: "The Priory Queensway",
+      TownCity: "Birmingham",
+      Postcode: "B4 7LR",
+      County: "West Midlands",
+      Country: "United Kingdom",
+      Website: "https://www.gov.uk",
+      Email: "email@gov.uk",
+      Phone: "+44 (0) 121 345 1200",
+      PointOfContactName: "John Smith",
+      PointOfContactEmail: "email@gov.uk",
+      PointOfContactPhone: "+44 (0) 121 345 1200",
       IsPointOfContactPublicDisplay: true,
       CabNumberVisibility: CabNumberVisibility.Public,
-      RegisteredOfficeLocation: 'United Kingdom',
-      TestingLocations: ['United Kingdom', 'Belgium'],
-      BodyTypes: ['Approved body', 'NI Notified body'],
-      LegislativeAreas: ['Cableway installation', 'Ecodesign'],
-      Schedules: [{ FileName: 'dummy.pdf', Label: 'MyCustomLabel', LegislativeArea: 'Lifts' }],
-      Documents: [{ FileName: 'dummy2.pdf', Category: 'Appointment' }],
+      RegisteredOfficeLocation: "United Kingdom",
+      TestingLocations: ["United Kingdom", "Belgium"],
+      BodyTypes: ["Approved body", "NI Notified body"],
+      LegislativeAreas: ["Cableway installation", "Ecodesign"],
+      Schedules: [
+        {
+          FileName: "dummy.pdf",
+          Label: "MyCustomLabel",
+          LegislativeArea: "Lifts",
+        },
+      ],
+      Documents: [{ FileName: "dummy2.pdf", Category: "Appointment" }],
       CABNumber: uniqueId,
-      AppointmentDate: Cypress.dayjs().subtract(5, 'days'),
-      RenewalDate: Cypress.dayjs().add(10, 'days'),
+      AppointmentDate: Cypress.dayjs().subtract(5, "days"),
+      RenewalDate: Cypress.dayjs().add(10, "days"),
       UKASReference: uniqueId,
-      URLSlug: name.replace(/[^a-zA-Z0-9 ]/g, "").replace(/\s+/g, '-').toLowerCase()
-    })
+      URLSlug: name
+        .replace(/[^a-zA-Z0-9 ]/g, "")
+        .replace(/\s+/g, "-")
+        .toLowerCase(),
+    });
   }
 
   static buildWithoutDocuments() {
-    const uniqueId = Date.now()
-    const name = `Test Cab ${uniqueId}`
+    const uniqueId = Date.now();
+    const name = `Test Cab ${uniqueId}`;
     return new this({
       Name: name,
-      AddressLine1: 'Cannon House',
-      AddressLine2: 'The Priory Queensway',
-      TownCity: 'Birmingham',
-      Postcode: 'B4 7LR',
-      County: 'West Midlands',
-      Country: 'United Kingdom',
-      Website: 'http://www.gov.uk',
-      Email: 'email@gov.uk',
-      Phone: '+44 (0) 121 345 1200',
-      PointOfContactName: 'John Smith',
-      PointOfContactEmail: 'email@gov.uk',
-      PointOfContactPhone: '+44 (0) 121 345 1200',
+      AddressLine1: "Cannon House",
+      AddressLine2: "The Priory Queensway",
+      TownCity: "Birmingham",
+      Postcode: "B4 7LR",
+      County: "West Midlands",
+      Country: "United Kingdom",
+      Website: "https://www.gov.uk",
+      Email: "email@gov.uk",
+      Phone: "+44 (0) 121 345 1200",
+      PointOfContactName: "John Smith",
+      PointOfContactEmail: "email@gov.uk",
+      PointOfContactPhone: "+44 (0) 121 345 1200",
       IsPointOfContactPublicDisplay: true,
       CabNumberVisibility: CabNumberVisibility.Public,
-      RegisteredOfficeLocation: 'United Kingdom',
-      TestingLocations: ['United Kingdom', 'Belgium'],
-      BodyTypes: ['Approved body', 'NI Notified body'],
-      LegislativeAreas: ['Cableway installation', 'Ecodesign'],
+      RegisteredOfficeLocation: "United Kingdom",
+      TestingLocations: ["United Kingdom", "Belgium"],
+      BodyTypes: ["Approved body", "NI Notified body"],
+      LegislativeAreas: ["Cableway installation", "Ecodesign"],
       Schedules: [],
       Documents: [],
       CABNumber: uniqueId,
-      AppointmentDate: Cypress.dayjs().subtract(5, 'days'),
-      RenewalDate: Cypress.dayjs().add(10, 'days'),
+      AppointmentDate: Cypress.dayjs().subtract(5, "days"),
+      RenewalDate: Cypress.dayjs().add(10, "days"),
       UKASReference: uniqueId,
-      URLSlug: name.replace(/[^a-zA-Z0-9 ]/g, "").replace(/\s+/g, '-').toLowerCase()
-    })
+      URLSlug: name
+        .replace(/[^a-zA-Z0-9 ]/g, "")
+        .replace(/\s+/g, "-")
+        .toLowerCase(),
+    });
   }
-
 }
