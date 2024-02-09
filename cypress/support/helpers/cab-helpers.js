@@ -93,7 +93,7 @@ export const setReviewDate = (day, month, year) => {
 };
 
 export const autoFillReviewDate = () => {
-  cy.contains("button", "Add suggested review date").click();
+  cy.contains("button", "Add 18 months from today").click();
 };
 export const isSummaryPage = (cab) => {
   cy.contains("CAB profile");
@@ -637,7 +637,6 @@ export const opssArchiveCAB = (name) => {
     "OPSS E2E TEST for Archive internal/user notes"
   );
   cy.get(".govuk-button-group").contains("Archive").click();
-  cy.logout();
 };
 
 export const ukasRequestToUnarchiveAndPublishCab = (name) => {

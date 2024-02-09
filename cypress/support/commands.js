@@ -97,6 +97,10 @@ Cypress.Commands.add("hasKeyValueDetail", (key, value) => {
   cy.get(".govuk-summary-list__row").contains(key).next().contains(value);
 });
 
+Cypress.Commands.add("hasStatus", (value) => {
+  cy.get(".cab-detail-date-meta").contains(value);
+});
+
 // checks error is present both at field level and form level
 Cypress.Commands.add("hasError", (fieldLabel, error, inline = true) => {
   cy.contains(".govuk-form-group", fieldLabel).contains(error);

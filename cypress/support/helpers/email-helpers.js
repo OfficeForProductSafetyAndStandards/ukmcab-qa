@@ -119,6 +119,18 @@ export class EmailNotification {
     );
   }
 
+  isDeclineRequestToPublishConfirmationEmail(cabName) {
+    return (
+      this.subject === `Request to publish CAB ${cabName} has been declined`
+    );
+  }
+
+  isApproveRequestToPublishConfirmationEmail() {
+    return (
+      this.subject === `CAB published`
+    );
+  }
+
   isApproveRequestToUnarchiveAndSaveAsDraftConfirmationEmail(cabName) {
     return (
       this.subject === `Request to unarchive CAB ${cabName} has been approved`
