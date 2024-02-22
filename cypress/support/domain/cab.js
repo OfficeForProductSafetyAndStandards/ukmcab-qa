@@ -205,28 +205,28 @@ export default class Cab {
                 },
               ]
             },
-            //{
-            //  PurposeOfAppointment: {
-            //    Id: "e20c0935-0c7e-4342-8483-e0b43c0d6a3e",
-            //    Name: "Categories of machine specified in Schedule 2, Part 4 of the regulation",
-            //  },
-            //  Category: {
-            //    Id: "34237582-8856-11ee-b9d1-0242ac120002",
-            //    Name: "Hand-fed surface planing machinery for woodworking",
-            //  },
-            //  Subcategory: null,
-            //  ProductAndProcedures: [
-            //    {
-            //      Product: null,
-            //      Procedures: [
-            //        {
-            //          Id: "c7b7a13e-848b-11ee-b962-0242ac120002",
-            //          Name: "Part 9 - Type examination",
-            //        }
-            //      ]
-            //    },
-            //  ]
-            //}
+            {
+              PurposeOfAppointment: {
+                Id: "e20c0935-0c7e-4342-8483-e0b43c0d6a3e",
+                Name: "Categories of machine specified in Schedule 2, Part 4 of the regulation",
+              },
+              Category: {
+                Id: "34237582-8856-11ee-b9d1-0242ac120002",
+                Name: "Hand-fed surface planing machinery for woodworking",
+              },
+              Subcategory: null,
+              ProductAndProcedures: [
+                {
+                  Product: null,
+                  Procedures: [
+                    {
+                      Id: "c7b7a13e-848b-11ee-b962-0242ac120002",
+                      Name: "Part 9 - Type examination",
+                    }
+                  ]
+                },
+              ]
+            }
           ]
         },
         {
