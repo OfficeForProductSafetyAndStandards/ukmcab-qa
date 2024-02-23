@@ -20,6 +20,7 @@ export default class Cab {
     this.bodyTypes = cabData.BodyTypes;
     this.email = cabData.Email;
     this.legislativeAreas = cabData.LegislativeAreas;
+    this.documentLegislativeAreas = cabData.DocumentLegislativeAreas;
     this.lastUpdatedDate = new Date(cabData.LastUpdatedDate);
     this._name = cabData.Name;
     this.phone = cabData.Phone;
@@ -150,11 +151,119 @@ export default class Cab {
       TestingLocations: ["United Kingdom", "Belgium"],
       BodyTypes: ["Approved body", "NI Notified body"],
       LegislativeAreas: ["Cableway installation", "Ecodesign"],
+      DocumentLegislativeAreas: [
+        {
+          Name: "Machinery",
+          Id: "cdbed358-8536-11ee-b9d1-0242ac120002",
+          IsProvisional: false,
+          AppointmentDate: Cypress.dayjs().subtract(5, "days"),
+          ReviewDate: Cypress.dayjs().add(10, "days"),
+          Reason: "My reason",
+          ScopeOfAppointments: [
+            {
+              PurposeOfAppointment: {
+                Name: "Categories of machine specified in Schedule 2, Part 4 of the regulation",
+              },
+              Category: {
+                Name: "Machinery for underground working",
+              },
+              Subcategory: null, 
+              ProductAndProcedures: [
+                {
+                  Product: {
+                    Name: "Locomotives and brake-vans",
+                  },
+                  Procedures: [
+                    {
+                      Name: "Part 9 - Type examination",
+                    },
+                    {
+                      Name: "Part 10 - Full quality assurance",
+                    }
+                  ]
+                },
+                {
+                  Product: {
+                    Name: "Hydraulic-powered roof supports",
+                  },
+                  Procedures: [
+                    {
+                      Name: "Part 9 - Type examination",
+                    },
+                    {
+                      Name: "Part 10 - Full quality assurance",
+                    }
+                  ]
+                },
+              ]
+            },
+            {
+              PurposeOfAppointment: {
+                Name: "Categories of machine specified in Schedule 2, Part 4 of the regulation",
+              },
+              Category: {
+                Name: "Hand-fed surface planing machinery for woodworking",
+              },
+              Subcategory: null,
+              ProductAndProcedures: [
+                {
+                  Product: null,
+                  Procedures: [
+                    {
+                      Name: "Part 9 - Type examination",
+                    }
+                  ]
+                },
+              ]
+            }
+          ]
+        },
+        {
+          Name: "Measuring instruments",
+          IsProvisional: true,
+          AppointmentDate: null,
+          ReviewDate: null,
+          Reason: null,
+          ScopeOfAppointments: [
+            {
+              PurposeOfAppointment: null,
+              Category: {
+                Name: "MI-006 Automatic weighing machines",
+              },
+              Subcategory: {
+                Name: "Mechanical systems",
+              },
+              ProductAndProcedures: [
+                {
+                  Product: {
+                    Name: "Automatic catch weighers",
+                  },
+                  Procedures: [
+                    {
+                      Name: "Module B Type examination",
+                    },
+                  ]
+                },
+                {
+                  Product: {
+                    Name: "Automatic rail weigh-bridges",
+                  },
+                  Procedures: [
+                    {
+                      Name: "Module D Conformity to type based on quality assurance of the production process",
+                    },
+                  ]
+                },
+              ]
+            },
+          ]
+        }
+      ],
       Schedules: [
         {
           FileName: "dummy.pdf",
           Label: "MyCustomLabel",
-          LegislativeArea: "Lifts",
+          LegislativeArea: "Measuring instruments",
         },
       ],
       Documents: [{ FileName: "dummy2.pdf", Category: "Appointment" }],
