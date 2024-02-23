@@ -190,20 +190,20 @@ export const enterBodyDetails = (cab) => {
 export const enterLegislativeAreas = (cab) => {
 
   cab.documentLegislativeAreas?.forEach((legislativeArea, laIndex) => {
-    cy.get(`input[value='${legislativeArea.Id}']`).check();
+    cy.get('label').contains(legislativeArea.Name).click();
     cy.continue();
 
     legislativeArea.ScopeOfAppointments.forEach((scopeOfAppointment, soaIndex) => {
       if (scopeOfAppointment.PurposeOfAppointment != null) {
-        cy.get(`input[value='${scopeOfAppointment.PurposeOfAppointment.Id}']`).check();
+        cy.get('label').contains(scopeOfAppointment.PurposeOfAppointment.Name).click();
         cy.continue();
       }
       if (scopeOfAppointment.Category != null) {
-        cy.get(`input[value='${scopeOfAppointment.Category.Id}']`).check();
+        cy.get('label').contains(scopeOfAppointment.Category.Name).click();
         cy.continue();
       }
       if (scopeOfAppointment.Subcategory != null) {
-        cy.get(`input[value='${scopeOfAppointment.Subcategory.Id}']`).check();
+        cy.get('label').contains(scopeOfAppointment.Subcategory.Name).click();
         cy.continue();
       }
 
@@ -211,7 +211,7 @@ export const enterLegislativeAreas = (cab) => {
       var hasProducts = false;
       scopeOfAppointment.ProductAndProcedures.forEach((productAndProcedure) => {
         if (productAndProcedure.Product != null) {
-          cy.get(`input[value='${productAndProcedure.Product.Id}']`).check();
+          cy.get('label').contains(productAndProcedure.Product.Name).click();
           hasProducts = true;
         }
       });
@@ -236,7 +236,7 @@ export const enterLegislativeAreas = (cab) => {
         }
 
         productAndProcedure.Procedures.forEach((procedure) => {
-          cy.get(`input[value='${procedure.Id}']`).check();
+          cy.get('label').contains(procedure.Name).click();
         });
 
         // If we are on the last product of current SoA and there are more SoAs in list, click the "Add more" button.

@@ -162,43 +162,35 @@ export default class Cab {
           ScopeOfAppointments: [
             {
               PurposeOfAppointment: {
-                Id: "e20c0935-0c7e-4342-8483-e0b43c0d6a3e",
                 Name: "Categories of machine specified in Schedule 2, Part 4 of the regulation",
               },
               Category: {
-                Id: "34237c6c-8856-11ee-b9d1-0242ac120002",
                 Name: "Machinery for underground working",
               },
               Subcategory: null, 
               ProductAndProcedures: [
                 {
                   Product: {
-                    Id: "fbaf9cfc-885b-11ee-b9d1-0242ac120002",
                     Name: "Locomotives and brake-vans",
                   },
                   Procedures: [
                     {
-                      Id: "c7b7a13e-848b-11ee-b962-0242ac120002",
                       Name: "Part 9 - Type examination",
                     },
                     {
-                      Id: "c7b778da-848b-11ee-b962-0242ac120002",
                       Name: "Part 10 - Full quality assurance",
                     }
                   ]
                 },
                 {
                   Product: {
-                    Id: "fbafa454-885b-11ee-b9d1-0242ac120002",
                     Name: "Hydraulic-powered roof supports",
                   },
                   Procedures: [
                     {
-                      Id: "c7b7a13e-848b-11ee-b962-0242ac120002",
                       Name: "Part 9 - Type examination",
                     },
                     {
-                      Id: "c7b778da-848b-11ee-b962-0242ac120002",
                       Name: "Part 10 - Full quality assurance",
                     }
                   ]
@@ -207,11 +199,9 @@ export default class Cab {
             },
             {
               PurposeOfAppointment: {
-                Id: "e20c0935-0c7e-4342-8483-e0b43c0d6a3e",
                 Name: "Categories of machine specified in Schedule 2, Part 4 of the regulation",
               },
               Category: {
-                Id: "34237582-8856-11ee-b9d1-0242ac120002",
                 Name: "Hand-fed surface planing machinery for woodworking",
               },
               Subcategory: null,
@@ -220,7 +210,6 @@ export default class Cab {
                   Product: null,
                   Procedures: [
                     {
-                      Id: "c7b7a13e-848b-11ee-b962-0242ac120002",
                       Name: "Part 9 - Type examination",
                     }
                   ]
@@ -231,7 +220,6 @@ export default class Cab {
         },
         {
           Name: "Measuring instruments",
-          Id: "92728722-d721-4da0-8d9a-f22f3829a551",
           IsProvisional: true,
           AppointmentDate: null,
           ReviewDate: null,
@@ -240,34 +228,28 @@ export default class Cab {
             {
               PurposeOfAppointment: null,
               Category: {
-                Id: "3aad4982-6876-4820-ad1f-90110eb3800f",
                 Name: "MI-006 Automatic weighing machines",
               },
               Subcategory: {
-                Id: "93075630-4824-4ce7-950e-b48e2346fbae",
                 Name: "Mechanical systems",
               },
               ProductAndProcedures: [
                 {
                   Product: {
-                    Id: "c08f56b4-f4fc-4125-8e0d-cd58b2f1f08b",
                     Name: "Automatic catch weighers",
                   },
                   Procedures: [
                     {
-                      Id: "e22ac592-5836-4085-b167-bf6bfe5683c0",
                       Name: "Module B Type examination",
                     },
                   ]
                 },
                 {
                   Product: {
-                    Id: "30f75726-1712-47e2-af17-af14601ae87d",
                     Name: "Automatic rail weigh-bridges",
                   },
                   Procedures: [
                     {
-                      Id: "1768deda-37f5-40de-b01d-0fca8d175e95",
                       Name: "Module D Conformity to type based on quality assurance of the production process",
                     },
                   ]
