@@ -263,7 +263,7 @@ export default class Cab {
         {
           FileName: "dummy.pdf",
           Label: "MyCustomLabel",
-          LegislativeArea: "Measuring instruments",
+          LegislativeArea: "Machinery",
         },
       ],
       Documents: [{ FileName: "dummy2.pdf", Category: "Appointment" }],
