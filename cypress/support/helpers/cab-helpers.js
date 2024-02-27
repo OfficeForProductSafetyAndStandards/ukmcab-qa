@@ -706,6 +706,7 @@ export const createAndSubmitCabForApproval = (name, cab) => {
   cy.continue();
   enterContactDetails(cab);
   enterBodyDetails(cab);
+  enterLegislativeAreas(cab)
   skipThisStep();
   skipThisStep();
   cy.get(".govuk-button-group").contains("Submit for approval").click();
