@@ -240,14 +240,24 @@ describe('Creating a new CAB', () => {
     beforeEach(function () {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
-      CabHelpers.enterBodyDetails(this.cab)
+      cy.wrap(this.cab.testingLocations).each((location, index, locations) => {
+        Cypress._.times(
+          locations - 1,
+          cy.contains("a", "Add another registered test location").click()
+        );
+        cy.get(".test-location select").eq(index).select(location);
+      });
+      this.cab.bodyTypes.forEach((bodyType) => {
+        cy.get(`input[value='${bodyType}']`).check();
+      });
       CabHelpers.saveAsDraft()
+      cy.contains('a', this.cab.name).click()
+      cy.contains('Edit').click()
+      CabHelpers.editCabDetail('Product schedules')
     })
 
-    it.skip('forces user to add legislative area if legislative area is not previously created', function () {
-      CabHelpers.uploadFiles([{ fileName: 'dummy.pdf' }])
-      cy.saveAndContinue()
-      cy.hasError('Legislative area', 'Select a legislative area')
+    it('forces user to add legislative area if legislative area is not previously created', function () {
+      cy.contains('Legislative area')
     })
   })
 
