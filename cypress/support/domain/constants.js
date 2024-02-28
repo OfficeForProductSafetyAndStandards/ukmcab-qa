@@ -11,6 +11,14 @@ class Constants {
     return `The request to unarchive CAB ${name} has been approved and it has been saved as a draft.`;
   }
 
+  static ApprovedReason_PublishedCAB(name) {
+    return `The request to publish CAB ${name} has been approved.`;
+  }
+
+  static DeclinedReason_PublishedCAB(name) {
+    return `The request to approve CAB ${name} has been declined for the following reason:`;
+  }
+
   static PublishedReason_UnarchiveAndPublishCAB(name) {
     return `The request to unarchive and publish CAB ${name} has been approved.`;
   }

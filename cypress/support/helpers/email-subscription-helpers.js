@@ -163,6 +163,19 @@ export const assertApproveRequestToUnarchiveAndPublishEmailIsSent = (
   });
 };
 
+
+export const assertApproveRequestToPublishEmailIsSent = (
+  email,
+  cabName
+) => {
+  getLastUserEmail(email).then((_email) => {
+    expect(
+      _email.isApproveRequestToPublishConfirmationEmail()
+    ).to.be.true;
+  });
+};
+
+
 export const assertApproveRequestToUnarchiveAndSaveAsDraftEmailIsSent = (
   email,
   cabName
@@ -181,6 +194,17 @@ export const assertDeclineRequestToUnarchiveAndPublishEmailIsSent = (
   getLastUserEmail(email).then((_email) => {
     expect(
       _email.isDeclineRequestToUnarchiveAndPublishConfirmationEmail(cabName)
+    ).to.be.true;
+  });
+};
+
+export const assertDeclineRequestToPublishEmailIsSent = (
+  email,
+  cabName
+) => {
+  getLastUserEmail(email).then((_email) => {
+    expect(
+      _email.isDeclineRequestToPublishConfirmationEmail(cabName)
     ).to.be.true;
   });
 };

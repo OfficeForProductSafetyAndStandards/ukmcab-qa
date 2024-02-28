@@ -49,6 +49,7 @@ export const createCab = (cab) => {
   enterCabDetails(cab);
   enterContactDetails(cab);
   enterBodyDetails(cab);
+  enterLegislativeAreas(cab)
   uploadSchedules(cab.schedules);
   cy.saveAndContinue();
   uploadDocuments(cab.documents);
@@ -63,6 +64,7 @@ export const createCabWithoutDocuments = (cab) => {
   enterCabDetails(cab);
   enterContactDetails(cab);
   enterBodyDetails(cab);
+  enterLegislativeAreas(cab)
   skipThisStep();
   skipThisStep();
   clickPublish();
@@ -93,7 +95,7 @@ export const setReviewDate = (day, month, year) => {
 };
 
 export const autoFillReviewDate = () => {
-  cy.contains("button", "Add suggested review date").click();
+  cy.contains("button", "Add 18 months from today").click();
 };
 export const isSummaryPage = (cab) => {
   cy.contains("CAB profile");
@@ -184,10 +186,102 @@ export const enterBodyDetails = (cab) => {
   cab.bodyTypes.forEach((bodyType) => {
     cy.get(`input[value='${bodyType}']`).check();
   });
-  cab.legislativeAreas?.forEach((area) => {
-    cy.get(`input[value='${area}']`).check();
-  });
   cy.continue();
+};
+
+export const enterLegislativeAreas = (cab) => {
+
+  cab.documentLegislativeAreas?.forEach((legislativeArea, laIndex) => {
+    cy.get('label').contains(legislativeArea.Name).click();
+    cy.continue();
+
+    legislativeArea.ScopeOfAppointments.forEach((scopeOfAppointment, soaIndex) => {
+      if (scopeOfAppointment.PurposeOfAppointment != null) {
+        cy.get('label').contains(scopeOfAppointment.PurposeOfAppointment.Name).click();
+        cy.continue();
+      }
+      if (scopeOfAppointment.Category != null) {
+        cy.get('label').contains(scopeOfAppointment.Category.Name).click();
+        cy.continue();
+      }
+      if (scopeOfAppointment.Subcategory != null) {
+        cy.get('label').contains(scopeOfAppointment.Subcategory.Name).click();
+        cy.continue();
+      }
+
+      // Select the products, if any.
+      var hasProducts = false;
+      scopeOfAppointment.ProductAndProcedures.forEach((productAndProcedure) => {
+        if (productAndProcedure.Product != null) {
+          cy.get('label').contains(productAndProcedure.Product.Name).click();
+          hasProducts = true;
+        }
+      });
+      if (hasProducts) {
+        cy.continue();
+      }
+
+      // Select procedures for each product.
+      scopeOfAppointment.ProductAndProcedures.forEach((productAndProcedure, prodIndex) => {
+        // This block is needed to stop cypress selecting checkboxes before the screen is fully loaded when the current element (e.g. product) has same procedure choices as previous element.
+        if (productAndProcedure.Product != null) {
+          cy.contains('p', `${productAndProcedure.Product.Name}`).should('exist');
+        }
+        else if (scopeOfAppointment.Subcategory != null) {
+          cy.contains('p', `${scopeOfAppointment.Subcategory.Name}`).should('exist');
+        }
+        else if (scopeOfAppointment.Category != null) {
+          cy.contains('p', `${scopeOfAppointment.Category.Name}`).should('exist');
+        }
+        else if (scopeOfAppointment.PurposeOfAppointment != null) {
+          cy.contains('p', `${scopeOfAppointment.PurposeOfAppointment.Name}`).should('exist');
+        }
+
+        productAndProcedure.Procedures.forEach((procedure) => {
+          cy.get('label').contains(procedure.Name).click();
+        });
+
+        // If we are on the last product of current SoA and there are more SoAs in list, click the "Add more" button.
+        if (prodIndex == scopeOfAppointment.ProductAndProcedures.length - 1 && soaIndex < legislativeArea.ScopeOfAppointments.length - 1) {
+          cy.contains('button', 'Add more to this legislative area').click();
+        }
+        else {
+          // Otherwise click Continue to go to next product or Additional Info screen.
+          cy.continue();
+        }
+      });
+    });
+
+    // Additional information screen.
+    cy.get(`input[value='${legislativeArea.IsProvisional ? "True" : "False"}']`).check();
+    if (legislativeArea.AppointmentDate != null) {
+      // Note: "cy.get("#AppointmentDate.Day")" doesn't work even though that is the id!;
+      cy.get("input[name='AppointmentDate.Day']").invoke("val", date(legislativeArea.AppointmentDate).DD);
+      cy.get("input[name='AppointmentDate.Month']").invoke("val", date(legislativeArea.AppointmentDate).MM);
+      cy.get("input[name='AppointmentDate.Year']").invoke("val", date(legislativeArea.AppointmentDate).YYYY);
+    }
+    if (legislativeArea.ReviewDate != null) {
+      cy.get("input[name='ReviewDate.Day']").invoke("val", date(legislativeArea.ReviewDate).DD);
+      cy.get("input[name='ReviewDate.Month']").invoke("val", date(legislativeArea.ReviewDate).MM);
+      cy.get("input[name='ReviewDate.Year']").invoke("val", date(legislativeArea.ReviewDate).YYYY);
+    }
+    if (legislativeArea.Reason != null) {
+      cy.get("#Reason").invoke("val", legislativeArea.Reason);
+    }
+    cy.continue();
+
+    // Legislative areas review screen.
+    cy.contains('span', 'Legislative area added').should('exist');
+
+    // If there are more legislative areas to add, click the "Add legislative area" link/button.
+    if (laIndex < cab.documentLegislativeAreas.length - 1) {
+      cy.contains('a', 'Add legislative area').click();
+    }
+    else {
+      // Otherwise click Continue.
+      cy.continue();
+    }
+  });
 };
 
 export const uploadSchedules = (schedules) => {
@@ -288,20 +382,24 @@ export const hasDetailsConfirmation = (cab) => {
     valueOrNotProvided(cab.testingLocations?.join(""))
   );
   cy.hasKeyValueDetail("Body type", cab.bodyTypes.join(""));
-  cy.hasKeyValueDetail(
-    "Legislative area",
-    valueOrNotProvided(cab.legislativeAreas?.join(""))
-  );
+  // cy.hasKeyValueDetail(
+  //   "Legislative area",
+  //   valueOrNotProvided(cab.legislativeAreas?.join(""))
+  // );
+
+  cab.documentLegislativeAreas?.forEach((legislativeArea, index) => {
+    cy.get('.govuk-details__summary-text').eq(index).contains(legislativeArea.Name)
+  })
 
   if (cab.schedules) {
     cab.schedules.forEach((schedule) => {
-      cy.contains("Schedule")
+      cy.contains("Schedule (optional)")
         .next()
         .contains("a", schedule.label ?? schedule.fileName);
-      cy.contains("Schedule").next().contains(schedule.legislativeArea);
+      cy.contains("Schedule (optional)").next().contains(schedule.legislativeArea);
     });
   } else {
-    cy.hasKeyValueDetail("Schedule", "Not provided");
+    cy.hasKeyValueDetail("Schedule (optional)", "Not provided");
   }
 
   if (cab.documents) {
@@ -614,6 +712,7 @@ export const createAndSubmitCabForApproval = (name, cab) => {
   cy.continue();
   enterContactDetails(cab);
   enterBodyDetails(cab);
+  enterLegislativeAreas(cab)
   skipThisStep();
   skipThisStep();
   cy.get(".govuk-button-group").contains("Submit for approval").click();
@@ -637,7 +736,6 @@ export const opssArchiveCAB = (name) => {
     "OPSS E2E TEST for Archive internal/user notes"
   );
   cy.get(".govuk-button-group").contains("Archive").click();
-  cy.logout();
 };
 
 export const ukasRequestToUnarchiveAndPublishCab = (name) => {

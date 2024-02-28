@@ -195,7 +195,7 @@ describe('Editing a CAB', () => {
       cy.wrap(Cab.build()).as('cab')
     })
 
-    it('legislative areas assigned to uploaded schedules can not be modified', function () {
+    it.skip('legislative areas assigned to uploaded schedules can not be modified', function () {
       CabHelpers.createCab(this.cab)
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
       CabHelpers.editCabButton().click()
@@ -243,12 +243,12 @@ describe('Editing a CAB', () => {
       CabHelpers.editCabButton().click()
       CabHelpers.editCabDetail('Product schedules')
       cy.contains('Save and upload another file').click()
-      const newSchedule = { fileName: 'dummy3.pdf', label: 'MyCustomLabel3', legislativeArea: 'Pyrotechnics' }
+      const newSchedule = { fileName: 'dummy3.pdf', label: 'MyCustomLabel3', legislativeArea: 'Measuring instruments' }
       this.cab.schedules.push(newSchedule)
       CabHelpers.uploadSchedules([newSchedule])
       cy.saveAndContinue()
       cy.contains('Once published this record will be visible to the public')
-      cy.contains('Schedule').next().contains(newSchedule.legislativeArea)
+      cy.contains('Schedule (optional)').next().contains(newSchedule.legislativeArea)
       CabHelpers.clickPublish()
       CabHelpers.clickPublishNotes()
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))

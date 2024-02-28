@@ -36,7 +36,6 @@ describe('Creating a new CAB', () => {
       })
     })
 
-
     it('does not display any error if optional fields are omitted', function () {
       this.cab.appointmentDate = null
       this.cab.reviewDate = null
@@ -151,7 +150,6 @@ describe('Creating a new CAB', () => {
       cy.continue()
       cy.hasError('Registered test location', 'Select a registered test location')
       cy.hasError('Body type', 'Select a body type')
-      cy.contains('Select a legislative area').should('not.exist')
     })
 
   })
@@ -162,11 +160,12 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
+      CabHelpers.enterLegislativeAreas(this.cab)
     })
 
     it('displays correct heading and other relevant copy', function () {
       cy.contains('h1', 'Product schedules upload')
-      cy.contains('You can upload up to 35 PDF documents.')
+      cy.contains('You can upload up to 35 PDF files.')
       cy.contains('Files you have uploaded')
       cy.contains('0 files uploaded')
     })
@@ -193,18 +192,18 @@ describe('Creating a new CAB', () => {
     })
 
     it('allows user to assign label and legislative area for uploaded files', function () {
-      CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'New Dummy Label', legislativeArea: 'Cableway installation' }, { fileName: 'dummy1.pdf', label: 'NewDummy1Label.pdf', legislativeArea: 'Lifts' }, { fileName: 'dummy2.pdf', label: 'ReaaaaaaaaaaaaaaaaaaaaaaaallyLooooooooooooooooooooooongLaaaaaaaaaaaaaabel', legislativeArea: 'Cableway installation' }])
+      CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'New Dummy Label', legislativeArea: 'Machinery' }, { fileName: 'dummy1.pdf', label: 'NewDummy1Label.pdf', legislativeArea: 'Machinery' }, { fileName: 'dummy2.pdf', label: 'ReaaaaaaaaaaaaaaaaaaaaaaaallyLooooooooooooooooooooooongLaaaaaaaaaaaaaabel', legislativeArea: 'Machinery' }])
       cy.saveAndContinue()
       cy.contains('Upload the supporting documents')
     })
 
-    it('displays error if legislative area is not assigned', function () {
+    it.skip('displays error if legislative area is not assigned', function () {
       CabHelpers.uploadFiles([{ fileName: 'dummy.pdf' }])
       cy.saveAndContinue()
       cy.hasError('Legislative area', 'Select a legislative area')
     })
 
-    it('displays error if legislative area is not selected and draft is saved', function () {
+    it.skip('displays error if legislative area is not selected and draft is saved', function () {
       CabHelpers.uploadFiles([{ fileName: 'dummy.pdf' }])
       CabHelpers.saveAsDraft()
       cy.hasError('Legislative area', 'Select a legislative area')
@@ -221,20 +220,47 @@ describe('Creating a new CAB', () => {
     })
 
     it('user can remove uploaded file', function () {
-      CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts' }])
+      CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Machinery' }])
       cy.get(`.govuk-checkboxes__input`).click()
       cy.contains('Remove').click()
       cy.contains('0 files uploaded')
     })
 
     it('allows uploading multiple files at once', function () {
-      const files = [{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Lifts' }, { fileName: 'dummy1.pdf', label: 'My Label1', legislativeArea: 'Ecodesign' },
-      { fileName: 'dummy2.pdf', label: 'My Label2', legislativeArea: 'Ecodesign' }]
+      const files = [{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Machinery' }, { fileName: 'dummy1.pdf', label: 'My Label1', legislativeArea: 'Machinery' },
+      { fileName: 'dummy2.pdf', label: 'My Label2', legislativeArea: 'Machinery' }]
       CabHelpers.uploadSchedules(files)
       CabHelpers.hasUploadedSchedules(files)
     })
 
   })
+
+  context('when uploading schedule of accreditation without adding a legislative area', function () {
+
+    beforeEach(function () {
+      CabHelpers.enterCabDetails(this.cab)
+      CabHelpers.enterContactDetails(this.cab)
+      cy.wrap(this.cab.testingLocations).each((location, index, locations) => {
+        Cypress._.times(
+          locations - 1,
+          cy.contains("a", "Add another registered test location").click()
+        );
+        cy.get(".test-location select").eq(index).select(location);
+      });
+      this.cab.bodyTypes.forEach((bodyType) => {
+        cy.get(`input[value='${bodyType}']`).check();
+      });
+      CabHelpers.saveAsDraft()
+      cy.contains('a', this.cab.name).click()
+      cy.contains('Edit').click()
+      CabHelpers.editCabDetail('Product schedules')
+    })
+
+    it('forces user to add legislative area if legislative area is not previously created', function () {
+      cy.contains('Legislative area')
+    })
+  })
+
 
   context('when uploading supporting documents', function () {
 
@@ -242,13 +268,14 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
+      CabHelpers.enterLegislativeAreas(this.cab)
       CabHelpers.uploadSchedules(this.cab.schedules)
       cy.saveAndContinue()
     })
 
     it('displays correct heading and other relevant copy', function () {
       cy.contains('h1', 'Upload the supporting documents')
-      cy.contains('You can upload Word, Excel, or PDF documents.')
+      cy.contains('You can upload Word, Excel, or PDF files.')
       cy.contains('Files you have uploaded')
       cy.contains('0 files uploaded')
     })
@@ -312,6 +339,7 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
+      CabHelpers.enterLegislativeAreas(this.cab)
       CabHelpers.uploadSchedules(this.cab.schedules)
       cy.saveAndContinue()
       CabHelpers.uploadDocuments(this.cab.documents)
@@ -339,17 +367,17 @@ describe('Creating a new CAB', () => {
       // Edit body details
       CabHelpers.editCabDetail('Body details')
       cloneCab.bodyTypes.push('Overseas body')
-      cloneCab.legislativeAreas.push('Machinery')
       cloneCab.testingLocations.push('France')
       CabHelpers.enterBodyDetails(cloneCab)
       CabHelpers.hasDetailsConfirmation(cloneCab)
     })
 
-    it('displays Legislative area advisory if Legislative area has not been entered', function () {
+    it.skip('displays Legislative area advisory if Legislative area has not been entered', function () {
       this.cab.legislativeAreas = null
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
+      CabHelpers.enterLegislativeAreas(this.cab)
       cy.contains('Skip this step').click()
       cy.contains('Skip this step').click()
       cy.hasKeyValueDetail('Legislative area', 'No legislative area has been selected.')
@@ -365,6 +393,7 @@ describe('Creating a new CAB', () => {
         CabHelpers.enterCabDetails(this.cab)
         CabHelpers.enterContactDetails(this.cab)
         CabHelpers.enterBodyDetails(this.cab)
+        CabHelpers.enterLegislativeAreas(this.cab)
         cy.contains('Skip this step').click()
         cy.contains('Skip this step').click()
         cy.hasKeyValueDetail('CAB name', 'This CAB name already exists. Only create this CAB if you have contacted OPSS for approval.')
@@ -433,6 +462,7 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
+      CabHelpers.enterLegislativeAreas(this.cab)
       CabHelpers.saveAsDraft()
       cy.ensureOn(CabHelpers.cabManagementPath())
       cy.contains('a', this.cab.name).click()

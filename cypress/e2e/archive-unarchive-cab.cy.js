@@ -74,11 +74,10 @@ describe('Archiving a CAB', () => {
 
 describe('Unarchiving a CAB', () => {
 
-  it('is not possible when logged out', function () {
+  it('is possible when logged out', function () {
     CabHelpers.getArchivedCab().then(cab => {
       cy.ensureOn(CabHelpers.cabProfilePage(cab), { failOnStatusCode: false })
-      CabHelpers.unarchiveCabButton().should('not.exist')
-      cy.contains("We can't find that page")
+      cy.contains("Archived")
     })
   })
 

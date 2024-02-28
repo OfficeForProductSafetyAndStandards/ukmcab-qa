@@ -16,6 +16,7 @@ describe('Ukas submitting a new CAB for Approval', () => {
       cy.continue();
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
+      CabHelpers.enterLegislativeAreas(this.cab)
       CabHelpers.skipThisStep()
       CabHelpers.skipThisStep()
       CabHelpers.clickSubmitForApproval()
@@ -45,6 +46,7 @@ describe('Ukas submitting a new CAB for Approval', () => {
       cy.continue();
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
+      CabHelpers.enterLegislativeAreas(this.cab)
       CabHelpers.skipThisStep()
       CabHelpers.skipThisStep()
       CabHelpers.clickSubmitForApproval()
