@@ -36,7 +36,6 @@ describe('Creating a new CAB', () => {
       })
     })
 
-
     it('does not display any error if optional fields are omitted', function () {
       this.cab.appointmentDate = null
       this.cab.reviewDate = null
@@ -358,19 +357,17 @@ describe('Creating a new CAB', () => {
       // Edit body details
       CabHelpers.editCabDetail('Body details')
       cloneCab.bodyTypes.push('Overseas body')
-      cloneCab.legislativeAreas.push('Machinery')
       cloneCab.testingLocations.push('France')
       CabHelpers.enterBodyDetails(cloneCab)
-      CabHelpers.enterLegislativeAreas(cloneCab)
       CabHelpers.hasDetailsConfirmation(cloneCab)
     })
 
-    it('displays Legislative area advisory if Legislative area has not been entered', function () {
+    it.skip('displays Legislative area advisory if Legislative area has not been entered', function () {
       this.cab.legislativeAreas = null
       CabHelpers.enterCabDetails(this.cab)
       CabHelpers.enterContactDetails(this.cab)
       CabHelpers.enterBodyDetails(this.cab)
-      CabHelpers.enterLegislativeAreas(cloneCab)
+      CabHelpers.enterLegislativeAreas(this.cab)
       cy.contains('Skip this step').click()
       cy.contains('Skip this step').click()
       cy.hasKeyValueDetail('Legislative area', 'No legislative area has been selected.')

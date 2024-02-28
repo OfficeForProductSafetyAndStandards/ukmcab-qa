@@ -23,6 +23,7 @@ describe('Ukas submitting a new CAB for Approval', () => {
       cy.url().as('draftUrl')
       cy.hasStatus('Pending approval to publish CAB')
     })
+    
     it('OPSS approve CAB', function () {
       cy.loginAsOpssUser();
       CabHelpers.opssApprovesCAB(this.draftUrl, uniqueId);

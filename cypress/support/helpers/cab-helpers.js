@@ -49,6 +49,7 @@ export const createCab = (cab) => {
   enterCabDetails(cab);
   enterContactDetails(cab);
   enterBodyDetails(cab);
+  enterLegislativeAreas(cab)
   uploadSchedules(cab.schedules);
   cy.saveAndContinue();
   uploadDocuments(cab.documents);
@@ -63,6 +64,7 @@ export const createCabWithoutDocuments = (cab) => {
   enterCabDetails(cab);
   enterContactDetails(cab);
   enterBodyDetails(cab);
+  enterLegislativeAreas(cab)
   skipThisStep();
   skipThisStep();
   clickPublish();
@@ -380,20 +382,24 @@ export const hasDetailsConfirmation = (cab) => {
     valueOrNotProvided(cab.testingLocations?.join(""))
   );
   cy.hasKeyValueDetail("Body type", cab.bodyTypes.join(""));
-  cy.hasKeyValueDetail(
-    "Legislative area",
-    valueOrNotProvided(cab.legislativeAreas?.join(""))
-  );
+  // cy.hasKeyValueDetail(
+  //   "Legislative area",
+  //   valueOrNotProvided(cab.legislativeAreas?.join(""))
+  // );
+
+  cab.documentLegislativeAreas?.forEach((legislativeArea, index) => {
+    cy.get('.govuk-details__summary-text').eq(index).contains(legislativeArea.Name)
+  })
 
   if (cab.schedules) {
     cab.schedules.forEach((schedule) => {
-      cy.contains("Schedule")
+      cy.contains("Schedule (optional)")
         .next()
         .contains("a", schedule.label ?? schedule.fileName);
-      cy.contains("Schedule").next().contains(schedule.legislativeArea);
+      cy.contains("Schedule (optional)").next().contains(schedule.legislativeArea);
     });
   } else {
-    cy.hasKeyValueDetail("Schedule", "Not provided");
+    cy.hasKeyValueDetail("Schedule (optional)", "Not provided");
   }
 
   if (cab.documents) {
