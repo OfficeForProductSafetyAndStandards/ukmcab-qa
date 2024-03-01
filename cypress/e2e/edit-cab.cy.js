@@ -228,6 +228,32 @@ describe('Editing a CAB', () => {
     })
   })
 
+  context('when editing a CAB as OPSS and accessing it as UKAS', function () {
+
+    beforeEach(function () {
+      cy.loginAsOpssUser()
+      cy.ensureOn(CabHelpers.addCabPath())
+      cy.wrap(Cab.buildWithoutDocuments()).as('cab')
+    })
+
+    it('verify draft cab created by OPSS not accessible by UKAS user', function () {
+      CabHelpers.createCabWithoutDocuments(this.cab)
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.editCabButton().click()
+      CabHelpers.editCabDetail('CAB details')
+      CabHelpers.autoFillReviewDate()
+      CabHelpers.saveAsDraft()
+      cy.logout()
+      cy.loginAsUkasUser()
+      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+      CabHelpers.editCabButton().click()
+      cy.contains('This CAB profile cannot be edited as it\'s been created by an OPSS user.')
+      cy.contains('a', 'Approve').should('not.exist')
+      cy.contains('a', 'Decline').should('not.exist')
+      cy.hasStatus('Published')
+    })
+  })
+
   context('when editing a CAB with review date', function () {
 
     beforeEach(function () {
