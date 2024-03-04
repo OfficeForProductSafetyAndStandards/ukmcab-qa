@@ -369,7 +369,7 @@ export const hasDetailsConfirmation = (cab) => {
     valueOrNotProvided(cab.pointOfContactPhone)
   );
   cy.hasKeyValueDetail(
-    "Display of point of contact details",
+    "Display point of contact details",
     cab.pointOfContactDetailsDisplayStatus()
   );
   cy.hasKeyValueDetail(
