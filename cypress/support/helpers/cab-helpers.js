@@ -271,7 +271,7 @@ export const enterLegislativeAreas = (cab) => {
     cy.continue();
 
     // Legislative areas review screen.
-    cy.contains('span', 'Legislative area added').should('exist');
+    cy.contains('span', 'Legislative areas').should('exist');
 
     // If there are more legislative areas to add, click the "Add legislative area" link/button.
     if (laIndex < cab.documentLegislativeAreas.length - 1) {
