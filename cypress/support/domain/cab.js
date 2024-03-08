@@ -155,7 +155,7 @@ export default class Cab {
         {
           Name: "Machinery",
           Id: "cdbed358-8536-11ee-b9d1-0242ac120002",
-          IsProvisional: false,
+          IsProvisional: "No",
           AppointmentDate: Cypress.dayjs().subtract(5, "days"),
           ReviewDate: Cypress.dayjs().add(10, "days"),
           Reason: "My reason",
@@ -220,7 +220,7 @@ export default class Cab {
         },
         {
           Name: "Measuring instruments",
-          IsProvisional: true,
+          IsProvisional: "Yes",
           AppointmentDate: null,
           ReviewDate: null,
           Reason: null,
@@ -305,7 +305,7 @@ export default class Cab {
         {
           Name: "Machinery",
           Id: "cdbed358-8536-11ee-b9d1-0242ac120002",
-          IsProvisional: false,
+          IsProvisional: "No",
           AppointmentDate: Cypress.dayjs().subtract(5, "days"),
           ReviewDate: Cypress.dayjs().add(10, "days"),
           Reason: "My reason",

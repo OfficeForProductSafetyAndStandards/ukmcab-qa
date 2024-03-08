@@ -253,7 +253,7 @@ export const enterLegislativeAreas = (cab) => {
     });
 
     // Additional information screen.
-    cy.get(`input[value='${legislativeArea.IsProvisional ? "True" : "False"}']`).check();
+    cy.get('label').contains(legislativeArea.IsProvisional).click();
     if (legislativeArea.AppointmentDate != null) {
       // Note: "cy.get("#AppointmentDate.Day")" doesn't work even though that is the id!;
       cy.get("input[name='AppointmentDate.Day']").invoke("val", date(legislativeArea.AppointmentDate).DD);
