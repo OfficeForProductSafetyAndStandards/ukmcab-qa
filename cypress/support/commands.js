@@ -72,7 +72,7 @@ Cypress.Commands.add("getSearchResults", (keywords, options = {}) => {
   keywords =
     keywords === ""
       ? "*"
-      : `Name:(${keywords})^3 TownCity:(${keywords}) Postcode:("${keywords}") HiddenText:("${keywords}") CABNumber:("${keywords}")^4 LegislativeAreas:(${keywords})^6`;
+      : `Name:(${keywords})^3 TownCity:(${keywords}) Postcode:("${keywords}") HiddenText:("${keywords}") CABNumber:("${keywords}")^4 DocumentLegislativeAreas/LegislativeAreaName:(${keywords})^6`;
   cy.request({
     method: "POST",
     headers: {
