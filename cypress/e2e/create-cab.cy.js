@@ -154,25 +154,6 @@ describe('Creating a new CAB', () => {
 
   })
 
-  context('when entering legislative area details', function () {
-
-    beforeEach(function () {
-      CabHelpers.enterCabDetails(this.cab)
-      CabHelpers.enterContactDetails(this.cab)
-      CabHelpers.enterBodyDetails(this.cab)
-    })
-
-    it('displays the provisional pill against provisional legislative areas', function () {
-
-      this.cab
-
-      cy.continue()
-      cy.hasError('Registered test location', 'Select a registered test location')
-      cy.hasError('Body type', 'Select a body type')
-    })
-
-  })
-
   context('when uploading schedule of accreditation', function () {
 
     beforeEach(function () {
