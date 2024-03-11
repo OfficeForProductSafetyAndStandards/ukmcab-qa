@@ -19,7 +19,7 @@ describe("Request to Unarchive a CAB", () => {
     it("UKAS creates and submits for approval a request to publish a cab", function () {
       cy.loginAsUkasUser();
       CabHelpers.createAndSubmitCabForApproval(name, this.cab);
-      cy.hasStatus('Pending approval to publish CAB')
+      cy.hasStatus("Pending approval to publish CAB");
       cy.url().as("draftUrl");
       cy.logout();
     });
@@ -28,7 +28,7 @@ describe("Request to Unarchive a CAB", () => {
       cy.loginAsOpssUser();
       CabHelpers.opssApprovesCAB(this.draftUrl, uniqueId);
       cy.ensureOn(CabHelpers.cabProfileUrlPathByCabName(name));
-      cy.hasStatus('Published')
+      cy.hasStatus("Published");
     });
 
     it("OPSS archives CAB", function () {
@@ -67,7 +67,7 @@ describe("Request to Unarchive a CAB", () => {
       cy.contains("tr", "Test Opss Admin User")
         .first()
         .within(() => {
-          cy.get("td").last().find("a").click();
+          cy.get("td").eq(1).find("a").click();
         });
       cy.get("p").contains("Completed").should("exist");
       cy.get("dd")
@@ -127,7 +127,7 @@ describe("Request to Unarchive a CAB", () => {
       cy.contains("tr", `${this.ukasUser.firstname} ${this.ukasUser.lastname}`)
         .first()
         .within(() => {
-          cy.get("td").last().find("a").click();
+          cy.get("td").eq(1).find("a").click();
         });
       cy.get("p").contains("Unassigned").should("exist");
       cy.get("dd").contains(name).should("exist");
@@ -153,10 +153,10 @@ describe("Request to Unarchive a CAB", () => {
     it("UKAS receives notification for declined request to unarchive and publish CAB", function () {
       cy.loginAsUkasUser();
       cy.ensureOn(CabHelpers.notificationCompletedUrlPath());
-      cy.contains("tr", "Unarchive CAB req...")
+      cy.contains("tr", "Unarchive CAB request")
         .first()
         .within(() => {
-          cy.get("td").last().find("a").click();
+          cy.get("td").eq(1).find("a").click();
         });
       cy.get("p").contains("Completed").should("exist");
       cy.get("dd").contains(declinedReason).should("exist");
@@ -224,7 +224,7 @@ describe("Request to Unarchive a CAB", () => {
       cy.contains("tr", "CAB unarchived")
         .first()
         .within(() => {
-          cy.get("td").last().find("a").click();
+          cy.get("td").eq(1).find("a").click();
         });
       cy.get("p").contains("Completed").should("exist");
       cy.get("dd")
@@ -237,7 +237,7 @@ describe("Request to Unarchive a CAB", () => {
       cy.ensureOn(this.draftUrl);
       cy.url().should(
         "eq",
-        `https://ukmcab-stage.beis.gov.uk/admin/cab/summary/${cabId}`
+        `https://ukmcab-dev.beis.gov.uk/admin/cab/summary/${cabId}`
       );
     });
   });
@@ -249,8 +249,7 @@ describe("Request to Unarchive a CAB", () => {
     beforeEach(function () {
       cy.wrap(Cab.buildWithoutDocuments()).as("cab");
       UserManagementHelpers.getTestUsers().then((users) => {
-        cy.wrap(users.UkasUser).as("ukasUser"
-        );
+        cy.wrap(users.UkasUser).as("ukasUser");
       });
     });
 
@@ -297,10 +296,10 @@ describe("Request to Unarchive a CAB", () => {
     it("UKAS receives notification for declined request to unarchive and save as draft CAB", function () {
       cy.loginAsUkasUser();
       cy.ensureOn(CabHelpers.notificationCompletedUrlPath());
-      cy.contains("tr", "Unarchive CAB req...")
+      cy.contains("tr", "Unarchive CAB request")
         .first()
         .within(() => {
-          cy.get("td").last().find("a").click();
+          cy.get("td").eq(1).find("a").click();
         });
       cy.get("p").contains("Completed").should("exist");
       cy.get("dd")
