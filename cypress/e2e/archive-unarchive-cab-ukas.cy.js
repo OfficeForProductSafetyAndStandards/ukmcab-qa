@@ -237,7 +237,7 @@ describe("Request to Unarchive a CAB", () => {
       cy.ensureOn(this.draftUrl);
       cy.url().should(
         "eq",
-        `https://ukmcab-dev.beis.gov.uk/admin/cab/summary/${cabId}`
+        `https://ukmcab-stage.beis.gov.uk/admin/cab/summary/${cabId}`
       );
     });
   });

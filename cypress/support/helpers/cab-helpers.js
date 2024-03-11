@@ -129,7 +129,7 @@ export const enterCabDetails = (cab) => {
   } else if (cab.cabNumberVisibility === CabNumberVisibility.Private) {
     cy.get("#CabNumberVisibility").select("Display for government users only");
   } else if (cab.cabNumberVisibility === CabNumberVisibility.Public) {
-    cy.get("#CabNumberVisibility").select("Display for all users");
+    cy.get("#CabNumberVisibility").select("Display for all users", { force: true });
   }
   if (cab.appointmentDate) {
     setAppointmentDate(
@@ -562,6 +562,10 @@ export const unarchiveCab = (cab, reason = "Test Unarchive reason") => {
   });
   cy.contains("Edit").click();
   cy.contains("Once published this record will be visible to the public.");
+};
+
+export const viewLegislativeAreas = () => {
+  cy.contains("#tab_legislative-areas", "Legislative areas").click();
 };
 
 export const viewSchedules = () => {
