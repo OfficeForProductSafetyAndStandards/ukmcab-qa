@@ -154,6 +154,25 @@ describe('Creating a new CAB', () => {
 
   })
 
+  context('when entering legislative area details', function () {
+
+    beforeEach(function () {
+      CabHelpers.enterCabDetails(this.cab)
+      CabHelpers.enterContactDetails(this.cab)
+      CabHelpers.enterBodyDetails(this.cab)
+    })
+
+    it('displays the provisional pill against provisional legislative areas', function () {
+
+      this.cab
+
+      cy.continue()
+      cy.hasError('Registered test location', 'Select a registered test location')
+      cy.hasError('Body type', 'Select a body type')
+    })
+
+  })
+
   context('when uploading schedule of accreditation', function () {
 
     beforeEach(function () {
@@ -474,5 +493,13 @@ describe('Creating a new CAB', () => {
       cy.get('a').contains(this.cab.name).should('not.exist')
     })
 
+    it('shows provisional pill next to all provisional legislative areas', function () {
+      CabHelpers.createCab(this.cab)
+      CabHelpers.hasCabPublishedConfirmation(this.cab)
+      cy.contains('a', 'View CAB').click()
+      CabHelpers.viewLegislativeAreas();
+      cy.contains('a', 'Measuring instruments').parent().next().contains('Provisional');
+      cy.contains('a', 'Machinery').parent().next().should('not.exist');
+    })
   })
 })

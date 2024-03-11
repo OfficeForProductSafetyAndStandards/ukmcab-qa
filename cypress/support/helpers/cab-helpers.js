@@ -564,6 +564,10 @@ export const unarchiveCab = (cab, reason = "Test Unarchive reason") => {
   cy.contains("Once published this record will be visible to the public.");
 };
 
+export const viewLegislativeAreas = () => {
+  cy.contains("#tab_legislative-areas", "Legislative areas").click();
+};
+
 export const viewSchedules = () => {
   cy.contains("#tab_product-schedules", "Product schedules").click();
 };
