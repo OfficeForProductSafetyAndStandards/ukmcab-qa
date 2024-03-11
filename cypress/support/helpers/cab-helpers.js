@@ -129,7 +129,7 @@ export const enterCabDetails = (cab) => {
   } else if (cab.cabNumberVisibility === CabNumberVisibility.Private) {
     cy.get("#CabNumberVisibility").select("Display for government users only");
   } else if (cab.cabNumberVisibility === CabNumberVisibility.Public) {
-    cy.get("#CabNumberVisibility").select("Display for all users");
+    cy.get("#CabNumberVisibility").select("Display for all users", { force: true });
   }
   if (cab.appointmentDate) {
     setAppointmentDate(

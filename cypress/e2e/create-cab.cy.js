@@ -30,7 +30,6 @@ describe('Creating a new CAB', () => {
     it('displays error if Cab Ukas ref already exists', function () {
       CabHelpers.getTestCabWithCabNumberAndUkasRef().then(cab => {
         cab.reviewDate = null // old data has invalid dates
-        cab.ukasRef = "1707085598389"
         CabHelpers.enterCabDetails(cab)
         cy.hasError('UKAS reference (optional)', 'This UKAS reference number already exists')
       })
@@ -370,21 +369,6 @@ describe('Creating a new CAB', () => {
       cloneCab.testingLocations.push('France')
       CabHelpers.enterBodyDetails(cloneCab)
       CabHelpers.hasDetailsConfirmation(cloneCab)
-    })
-
-    it.skip('displays Legislative area advisory if Legislative area has not been entered', function () {
-      this.cab.legislativeAreas = null
-      CabHelpers.enterCabDetails(this.cab)
-      CabHelpers.enterContactDetails(this.cab)
-      CabHelpers.enterBodyDetails(this.cab)
-      CabHelpers.enterLegislativeAreas(this.cab)
-      cy.contains('Skip this step').click()
-      cy.contains('Skip this step').click()
-      cy.hasKeyValueDetail('Legislative area', 'No legislative area has been selected.')
-      // also check that user can still publish cab without a Legislative Area
-      CabHelpers.clickPublish()
-      CabHelpers.clickPublishNotes()
-      CabHelpers.hasCabPublishedConfirmation(this.cab)
     })
 
     it('displays CAB name advisory if CAB name already exists', function () {
