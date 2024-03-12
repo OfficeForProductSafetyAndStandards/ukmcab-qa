@@ -9,7 +9,7 @@ describe('Creating a new CAB', () => {
     cy.ensureOn(CabHelpers.addCabPath())
     cy.wrap(Cab.build()).as('cab')
   })
-
+    
   context('when entering cab details', function () {
 
     it('displays error if mandatory details are not entered', function () {
@@ -153,6 +153,7 @@ describe('Creating a new CAB', () => {
 
   })
 
+
   context('when uploading schedule of accreditation', function () {
 
     beforeEach(function () {
@@ -161,12 +162,10 @@ describe('Creating a new CAB', () => {
       CabHelpers.enterBodyDetails(this.cab)
       CabHelpers.enterLegislativeAreas(this.cab)
     })
-
+   
     it('displays correct heading and other relevant copy', function () {
       cy.contains('h1', 'Product schedules upload')
       cy.contains('You can upload up to 35 PDF files.')
-      cy.contains('Files you have uploaded')
-      cy.contains('0 files uploaded')
     })
 
     it('displays error upon continuing without uploading schedule of accreditation', function () {
@@ -217,13 +216,48 @@ describe('Creating a new CAB', () => {
       cy.contains('Skip this step').click()
       cy.contains('Upload the supporting documents')
     })
-
-    it('user can remove uploaded file', function () {
-      CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Machinery' }])
-      cy.get(`.govuk-checkboxes__input`).click()
-      cy.contains('Remove').click()
-      cy.contains('0 files uploaded')
+    
+    it('show error on non selection of schedule on remove product schedule', function () {
+        CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Machinery' }])        
+        cy.contains('Remove').click()        
+        cy.contains('Select a schedule')        
     })
+
+    it('user can remove uploaded schedule without publish', function () {
+      CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Machinery' }])
+      cy.get(`.govuk-radios__input`).click()
+      cy.contains('Remove').click()      
+      cy.contains('0 files uploaded')
+      cy.contains('The product schedule has been removed.')      
+    })
+   
+    it('user can remove uploaded schedule with no legislative area without publish', function () {
+        CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: null }])
+        cy.get(`.govuk-radios__input`).click()
+        cy.contains('Remove').click()
+        cy.contains('0 files uploaded')
+        cy.contains('The product schedule has been removed.')
+    })   
+
+    
+    it('user can use schedule uploaded file again', function () {
+        CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Machinery' }])
+        cy.get(`.govuk-radios__input`).click()
+        cy.contains('Use file again').click()
+        cy.contains('The file has been used again.')
+    })
+    
+    
+    it('user can archive uploaded file', function () {
+        CabHelpers.createCab(this.cab)       
+        cy.get(`.govuk-radios__input`).click()
+        cy.contains('Archive').click()
+        cy.contains('Confirm').click()
+        cy.contains('0 files uploaded')
+        cy.contains('Archived product schedules')
+        cy.contains('The product schedule has been archived.')
+    })   
+    
 
     it('allows uploading multiple files at once', function () {
       const files = [{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Machinery' }, { fileName: 'dummy1.pdf', label: 'My Label1', legislativeArea: 'Machinery' },
@@ -231,9 +265,11 @@ describe('Creating a new CAB', () => {
       CabHelpers.uploadSchedules(files)
       CabHelpers.hasUploadedSchedules(files)
     })
+    
 
   })
 
+ 
   context('when uploading schedule of accreditation without adding a legislative area', function () {
 
     beforeEach(function () {
@@ -259,8 +295,7 @@ describe('Creating a new CAB', () => {
       cy.contains('Legislative area')
     })
   })
-
-
+ 
   context('when uploading supporting documents', function () {
 
     beforeEach(function () {
@@ -467,4 +502,5 @@ describe('Creating a new CAB', () => {
       cy.contains('a', 'Machinery').parent().next().should('not.exist');
     })
   })
+  
 })

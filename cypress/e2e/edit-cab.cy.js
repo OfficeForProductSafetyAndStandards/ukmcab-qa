@@ -1,6 +1,5 @@
 import * as CabHelpers from '../support/helpers/cab-helpers'
 import Cab from '../support/domain/cab'
-import { date } from '../support/helpers/formatters'
 
 describe('Editing a CAB', () => {
 
@@ -17,7 +16,7 @@ describe('Editing a CAB', () => {
       CabHelpers.editCabButton().should('not.exist')
     })
 
-  })
+  })  
 
   context('when logged in', function () {
 
@@ -27,6 +26,7 @@ describe('Editing a CAB', () => {
       cy.wrap(Cab.buildWithoutDocuments()).as('cab')
     })
 
+  
     it('allows editing a cab and publishing updated cab details', function () {
       CabHelpers.createCabWithoutDocuments(this.cab)
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
@@ -280,5 +280,231 @@ describe('Editing a CAB', () => {
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
       cy.hasKeyValueDetail('Legislative area', newSchedule.legislativeArea)
     })
+
   })
+ 
+
+    context('when editing a CAB, remove and archive product schedule with no legislative area assigned', function () {
+
+        beforeEach(function () {
+            cy.loginAsOpssUser()
+            cy.ensureOn(CabHelpers.addCabPath())
+            cy.wrap(Cab.buildWithoutDocuments()).as('cab')
+        })
+
+        it('user can upload and remove uploaded schedule with no legislative area assigned', function () {
+
+            CabHelpers.createCabWithoutDocuments(this.cab)
+            cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+            CabHelpers.editCabButton().click()
+            CabHelpers.editCabDetail('Product schedules')
+            cy.contains('Upload a file').click();
+            const newSchedule = { fileName: 'dummy.pdf', label: 'MyCustomLabel3', legislativeArea: null }
+            this.cab.schedules.push(newSchedule)
+            CabHelpers.uploadSchedules([newSchedule])
+            cy.get(`.govuk-radios__input`).click()
+            cy.contains('Remove').click()
+            cy.contains('Remove product schedule')
+            cy.contains('Confirm').click()
+            cy.contains('0 files uploaded')
+            cy.contains('The product schedule has been removed.')
+           
+        })
+
+        it('user can upload and archive uploaded schedule with no legislative area assigned', function () {
+
+            CabHelpers.createCabWithoutDocuments(this.cab)
+            cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+            CabHelpers.editCabButton().click()
+            CabHelpers.editCabDetail('Product schedules')
+            cy.contains('Upload a file').click();
+            const newSchedule = { fileName: 'dummy.pdf', label: 'MyCustomLabel3', legislativeArea: null }
+            this.cab.schedules.push(newSchedule)
+            CabHelpers.uploadSchedules([newSchedule])
+            cy.get(`.govuk-radios__input`).click()
+            cy.contains('Archive').click()
+            cy.contains('Archive product schedule')
+            cy.contains('Confirm').click()      
+            cy.contains('The product schedule has been archived.')
+
+        })
+
+        it('user can upload and remove archived uploaded schedule with no legislative area assigned', function () {
+
+            CabHelpers.createCabWithoutDocuments(this.cab)
+            cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+            CabHelpers.editCabButton().click()
+            CabHelpers.editCabDetail('Product schedules')
+            cy.contains('Upload a file').click();
+            const newSchedule = { fileName: 'dummy.pdf', label: 'MyCustomLabel3', legislativeArea: null }
+            this.cab.schedules.push(newSchedule)
+            CabHelpers.uploadSchedules([newSchedule])
+            cy.get(`.govuk-radios__input`).click()
+            cy.contains('Archive').click()
+            cy.contains('Archive product schedule')
+            cy.contains('Confirm').click()
+            cy.get("input[name='SelectedArchivedScheduleId']:first-of-type").check()
+            cy.get('button[id="RemoveArchived"]').click()            
+            cy.contains('Confirm').click()
+
+            cy.contains('The product schedule has been removed.')
+
+        })
+
+    })
+
+    
+    context('when editing a CAB, remove and archive product schedule with legislative area assigned', function () {
+
+        beforeEach(function () {
+            cy.loginAsOpssUser()
+            cy.ensureOn(CabHelpers.addCabPath())
+            cy.wrap(Cab.build()).as('cab')
+        })               
+
+        
+        it('user can remove uploaded schedule and show error on non selection of legislative area option', function () {
+
+            CabHelpers.createCab(this.cab)
+            cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+            CabHelpers.editCabButton().click()
+            CabHelpers.editCabDetail('Product schedules')
+            cy.get(`.govuk-radios__input`).click()
+            cy.contains('Remove').click()
+            cy.contains('Remove product schedule')                   
+            cy.contains('Confirm').click()
+            cy.contains('Select an option for the legislative area')
+        })
+
+        it('user can remove uploaded schedule and archive legislative area after publish', function () {
+
+            CabHelpers.createCab(this.cab)
+            cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+            CabHelpers.editCabButton().click()
+            CabHelpers.editCabDetail('Product schedules')
+            cy.get(`.govuk-radios__input`).click()
+            cy.contains('Remove').click()
+            cy.contains('Remove product schedule')       
+            cy.get(`.govuk-radios__input`).check('Archive')            
+            cy.contains('Confirm').click()
+            cy.contains('The product schedule has been removed and the legislative area has been archived.')
+        })
+
+         
+        
+        it('user can remove uploaded schedule and remove legislative area after publish', function () {
+
+            CabHelpers.createCab(this.cab)
+            cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+            CabHelpers.editCabButton().click()
+            CabHelpers.editCabDetail('Product schedules')
+            cy.get(`.govuk-radios__input`).click()
+            cy.contains('Remove').click()
+            cy.contains('Remove product schedule')
+            cy.get(`.govuk-radios__input`).check('Remove')
+            cy.contains('Confirm').click()
+            cy.contains('The product schedule and legislative area have been removed.')
+        })
+       
+         
+        it('user can remove uploaded schedule and set legislative area as provisional after publish', function () {
+
+            CabHelpers.createCab(this.cab)
+            cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+            CabHelpers.editCabButton().click()
+            CabHelpers.editCabDetail('Product schedules')
+            cy.get(`.govuk-radios__input`).click()
+            cy.contains('Remove').click()
+            cy.contains('Remove product schedule')
+            cy.get(`.govuk-radios__input`).check('MarkAsProvisional')
+            cy.contains('Confirm').click()
+            
+            cy.contains('The product schedule has been removed and the legislative area will be shown as provisional.')
+        })        
+      
+        it('user can archive uploaded schedule and archive legislative area after publish', function () {
+
+            CabHelpers.createCab(this.cab)
+            cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+            CabHelpers.editCabButton().click()
+            CabHelpers.editCabDetail('Product schedules')
+            cy.get(`.govuk-radios__input`).click()
+            cy.contains('Archive').click()
+            cy.contains('Archive product schedule')
+            cy.get(`.govuk-radios__input`).check('Archive')     
+            cy.contains('Confirm').click()
+            cy.contains('The product schedule and legislative area have been archived.')
+        })       
+
+        it('user can archive uploaded schedule and set legislative area as provisional after publish', function () {
+
+            CabHelpers.createCab(this.cab)
+            cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+            CabHelpers.editCabButton().click()
+            CabHelpers.editCabDetail('Product schedules')
+            cy.get(`.govuk-radios__input`).click()
+            cy.contains('Archive').click()
+            cy.contains('Archive product schedule')
+            cy.get(`.govuk-radios__input`).check('MarkAsProvisional')     
+            cy.contains('Confirm').click()
+            cy.contains('The product schedule has been archived and the legislative area will be shown as provisional.')
+        })
+         
+        
+        it('user can remove archived product schedule and archive legislative area after publish', function () {
+
+            CabHelpers.createCab(this.cab)
+            cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+            CabHelpers.editCabButton().click()
+            CabHelpers.editCabDetail('Product schedules')
+            cy.get(`.govuk-radios__input`).click()
+            cy.contains('Archive').click()
+            cy.contains('Archive product schedule')
+            cy.get(`.govuk-radios__input`).check('MarkAsProvisional')
+            cy.contains('Confirm').click()                        
+            cy.get("input[name='SelectedArchivedScheduleId']:first-of-type").check() 
+            cy.get('button[id="RemoveArchived"]').click()            
+            cy.get(`.govuk-radios__input`).check('Archive')  
+            cy.contains('Confirm').click()
+            cy.contains('The product schedule has been removed and the legislative area has been archived.')            
+        })
+
+       
+        it('user can remove archived product schedule and remove legislative area after publish', function () {
+
+            CabHelpers.createCab(this.cab)
+            cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+            CabHelpers.editCabButton().click()
+            CabHelpers.editCabDetail('Product schedules')
+            cy.get(`.govuk-radios__input`).click()
+            cy.contains('Archive').click()
+            cy.contains('Archive product schedule')
+            cy.get(`.govuk-radios__input`).check('MarkAsProvisional')
+            cy.contains('Confirm').click()
+            cy.get("input[name='SelectedArchivedScheduleId']:first-of-type").check()
+            cy.get('button[id="RemoveArchived"]').click()     
+            cy.get(`.govuk-radios__input`).check('Remove')
+            cy.contains('Confirm').click()
+            cy.contains('The product schedule and legislative area have been removed.')
+        })
+
+        it('user can remove archived product schedule and set legislative area as provisional after publish', function () {
+
+            CabHelpers.createCab(this.cab)
+            cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
+            CabHelpers.editCabButton().click()
+            CabHelpers.editCabDetail('Product schedules')
+            cy.get(`.govuk-radios__input`).click()
+            cy.contains('Archive').click()
+            cy.contains('Archive product schedule')
+            cy.get(`.govuk-radios__input`).check('MarkAsProvisional')
+            cy.contains('Confirm').click()
+            cy.get("input[name='SelectedArchivedScheduleId']:first-of-type").check()
+            cy.get('button[id="RemoveArchived"]').click()     
+            cy.get(`.govuk-radios__input`).check('MarkAsProvisional')
+            cy.contains('Confirm').click()
+            cy.contains('The product schedule has been removed and the legislative area will be shown as provisional.')
+        })    
+       
+    })   
 })
