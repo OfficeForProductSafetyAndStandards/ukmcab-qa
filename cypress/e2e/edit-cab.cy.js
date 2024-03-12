@@ -69,9 +69,9 @@ describe('Editing a CAB', () => {
       cy.hasError('Address line 1', 'Enter an address')
       cy.hasError('Town or city', 'Enter a town or city')
       cy.hasError('Postcode', 'Enter a postcode')
-      cy.hasError('Country', 'Enter a country')
+      cy.hasError('Country', 'Select a country')
       cy.hasError('Telephone', 'Enter a telephone number')
-      cy.hasError('Registered office location', 'Enter a registered office location')
+      cy.hasError('Registered office location', 'Select a registered office location')
     })
 
     it('allows saving an edited cab as draft with original cab still viewable', function () {
