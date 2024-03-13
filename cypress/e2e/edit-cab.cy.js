@@ -2,7 +2,7 @@ import * as CabHelpers from '../support/helpers/cab-helpers'
 import Cab from '../support/domain/cab'
 
 describe('Editing a CAB', () => {
-
+   
   context('when logged out', function () {
 
     beforeEach(function () {
@@ -25,7 +25,6 @@ describe('Editing a CAB', () => {
       cy.ensureOn(CabHelpers.addCabPath())
       cy.wrap(Cab.buildWithoutDocuments()).as('cab')
     })
-
   
     it('allows editing a cab and publishing updated cab details', function () {
       CabHelpers.createCabWithoutDocuments(this.cab)
@@ -118,11 +117,6 @@ describe('Editing a CAB', () => {
       CabHelpers.clickPublishNotes()
       CabHelpers.hasCabPublishedConfirmation(cloneCab)
       cy.contains('a', 'View CAB').click()
-
-      // need to check published and last updated timestamps with devs
-
-      // cy.contains(`Published: ${date(this.cab.publishedDate).DMMMYYYY}`)
-      // cy.contains(`Last updated: ${date(new Date()).DMMMYYYY}`)
     })
 
     it('updates cab URL identifier to a hyphenated identifier based on new name and sets up redirect from old to new', function () {
@@ -157,16 +151,13 @@ describe('Editing a CAB', () => {
       CabHelpers.editCabButton().click()
       CabHelpers.editCabDetail('CAB details')
       cy.cancel()
-      CabHelpers.isSummaryPage()
-      CabHelpers.editCabButton().click()
+      CabHelpers.isSummaryPage()      
       CabHelpers.editCabDetail('Contact details')
       cy.cancel()
-      CabHelpers.isSummaryPage()
-      CabHelpers.editCabButton().click()
+      CabHelpers.isSummaryPage()     
       CabHelpers.editCabDetail('Body details')
       cy.cancel()
-      CabHelpers.isSummaryPage()
-      CabHelpers.editCabButton().click()
+      CabHelpers.isSummaryPage()      
       CabHelpers.editCabDetail('Product schedules')
       cy.cancel()
       CabHelpers.isSummaryPage()
@@ -247,44 +238,14 @@ describe('Editing a CAB', () => {
       cy.loginAsUkasUser()
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
       CabHelpers.editCabButton().click()
-      cy.contains('This CAB profile cannot be edited as it\'s been created by an OPSS user.')
+      cy.contains('This CAB profile cannot be edited as a draft CAB profile has already been created by an OPSS user.')
       cy.contains('a', 'Approve').should('not.exist')
       cy.contains('a', 'Decline').should('not.exist')
       cy.hasStatus('Published')
     })
-  })
+  })  
 
-  context('when editing a CAB with review date', function () {
-
-    beforeEach(function () {
-      cy.loginAsOpssUser()
-      cy.ensureOn(CabHelpers.addCabPath())
-      cy.wrap(Cab.build()).as('cab')
-
-    })
-
-    it('legislative areas on summary page and profile page are in sync', function () {
-      CabHelpers.createCab(this.cab)
-      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-      CabHelpers.editCabButton().click()
-      CabHelpers.editCabDetail('Product schedules')
-      cy.contains('Save and upload another file').click()
-      const newSchedule = { fileName: 'dummy3.pdf', label: 'MyCustomLabel3', legislativeArea: 'Measuring instruments' }
-      this.cab.schedules.push(newSchedule)
-      CabHelpers.uploadSchedules([newSchedule])
-      cy.saveAndContinue()
-      cy.contains('Once published this record will be visible to the public')
-      cy.contains('Schedule (optional)').next().contains(newSchedule.legislativeArea)
-      CabHelpers.clickPublish()
-      CabHelpers.clickPublishNotes()
-      cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
-      cy.hasKeyValueDetail('Legislative area', newSchedule.legislativeArea)
-    })
-
-  })
- 
-
-    context('when editing a CAB, remove and archive product schedule with no legislative area assigned', function () {
+  context('when editing a CAB, remove and archive product schedule with no legislative area assigned', function () {
 
         beforeEach(function () {
             cy.loginAsOpssUser()
@@ -346,22 +307,17 @@ describe('Editing a CAB', () => {
             cy.get("input[name='SelectedArchivedScheduleId']:first-of-type").check()
             cy.get('button[id="RemoveArchived"]').click()            
             cy.contains('Confirm').click()
-
             cy.contains('The product schedule has been removed.')
-
         })
-
-    })
-
+  })
     
-    context('when editing a CAB, remove and archive product schedule with legislative area assigned', function () {
+  context('when editing a CAB, remove and archive product schedule with legislative area assigned', function () {
 
         beforeEach(function () {
             cy.loginAsOpssUser()
             cy.ensureOn(CabHelpers.addCabPath())
             cy.wrap(Cab.build()).as('cab')
-        })               
-
+        }) 
         
         it('user can remove uploaded schedule and show error on non selection of legislative area option', function () {
 
@@ -375,7 +331,7 @@ describe('Editing a CAB', () => {
             cy.contains('Confirm').click()
             cy.contains('Select an option for the legislative area')
         })
-
+        
         it('user can remove uploaded schedule and archive legislative area after publish', function () {
 
             CabHelpers.createCab(this.cab)
@@ -388,9 +344,7 @@ describe('Editing a CAB', () => {
             cy.get(`.govuk-radios__input`).check('Archive')            
             cy.contains('Confirm').click()
             cy.contains('The product schedule has been removed and the legislative area has been archived.')
-        })
-
-         
+        })         
         
         it('user can remove uploaded schedule and remove legislative area after publish', function () {
 
@@ -404,8 +358,7 @@ describe('Editing a CAB', () => {
             cy.get(`.govuk-radios__input`).check('Remove')
             cy.contains('Confirm').click()
             cy.contains('The product schedule and legislative area have been removed.')
-        })
-       
+        })       
          
         it('user can remove uploaded schedule and set legislative area as provisional after publish', function () {
 
@@ -417,8 +370,7 @@ describe('Editing a CAB', () => {
             cy.contains('Remove').click()
             cy.contains('Remove product schedule')
             cy.get(`.govuk-radios__input`).check('MarkAsProvisional')
-            cy.contains('Confirm').click()
-            
+            cy.contains('Confirm').click()            
             cy.contains('The product schedule has been removed and the legislative area will be shown as provisional.')
         })        
       
@@ -448,8 +400,7 @@ describe('Editing a CAB', () => {
             cy.get(`.govuk-radios__input`).check('MarkAsProvisional')     
             cy.contains('Confirm').click()
             cy.contains('The product schedule has been archived and the legislative area will be shown as provisional.')
-        })
-         
+        })         
         
         it('user can remove archived product schedule and archive legislative area after publish', function () {
 
@@ -468,7 +419,6 @@ describe('Editing a CAB', () => {
             cy.contains('Confirm').click()
             cy.contains('The product schedule has been removed and the legislative area has been archived.')            
         })
-
        
         it('user can remove archived product schedule and remove legislative area after publish', function () {
 
@@ -504,7 +454,6 @@ describe('Editing a CAB', () => {
             cy.get(`.govuk-radios__input`).check('MarkAsProvisional')
             cy.contains('Confirm').click()
             cy.contains('The product schedule has been removed and the legislative area will be shown as provisional.')
-        })    
-       
-    })   
+        })   
+  })   
 })

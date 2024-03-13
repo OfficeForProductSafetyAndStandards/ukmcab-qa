@@ -711,15 +711,6 @@ export const editCabDetail = (heading) => {
     .click();
 };
 
-export const editProductSchedules = (heading) => {
-  cy.get(".cab-summary-header")
-    .contains(heading)
-    .parents(".govuk-summary-list__key")
-    .next()
-    .contains("a", "Edit")
-    .click();
-};
-
 export const upload = () => {
   cy.contains("button", "Upload").click();
 };
