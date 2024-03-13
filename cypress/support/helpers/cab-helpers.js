@@ -602,7 +602,7 @@ export const getTestCabWithCabNumberAndUkasRef = () => {
 
 export const getTestCabWithDocuments = () => {
   return getAllPublishedCabs().then((cabs) => {
-    return cabs.find(
+    return cabs.reverse().find(
       (c) => c.documents && c.documents.length > 0 && c.schedules.length > 0 && c.isRecent
     );
   });
