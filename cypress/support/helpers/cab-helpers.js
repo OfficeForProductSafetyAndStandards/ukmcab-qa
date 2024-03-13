@@ -498,17 +498,17 @@ export const filenames = (files) => {
 
 export const hasUploadedSchedules = (files) => {
   cy.wrap(files).each((file, index) => {
-    cy.get(".govuk-checkboxes__item")
+    cy.get(".govuk-radios__item")
       .eq(index)
       .should("contain", `${index + 1}. ${file.fileName}`);
-    cy.get(".govuk-checkboxes__item")
+    cy.get(".govuk-radios__item")
       .eq(index)
       .next("div")
       .find("div")
       .first()
       .find("input")
       .should("have.value", file.label);
-    cy.get(".govuk-checkboxes__item")
+    cy.get(".govuk-radios__item")
       .eq(index)
       .next("div")
       .find("select")
@@ -707,6 +707,15 @@ export const unarchiveCabButton = () => {
 };
 
 export const editCabDetail = (heading) => {
+  cy.get(".cab-summary-header")
+    .contains(heading)
+    .parents(".govuk-summary-list__key")
+    .next()
+    .contains("a", "Edit")
+    .click();
+};
+
+export const editProductSchedules = (heading) => {
   cy.get(".cab-summary-header")
     .contains(heading)
     .parents(".govuk-summary-list__key")
