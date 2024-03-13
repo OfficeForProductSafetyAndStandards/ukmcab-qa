@@ -253,56 +253,55 @@ describe('CAB profile page', function () {
         })
     })
 
-    // context('for CABs with Cab number visibility set to public(default)', function () {
-    //
-    //     it('displays Cab(Body) number for public and internal users', function () {
-    //         const cab = Cab.buildWithoutDocuments()
-    //         cy.loginAsOpssUser()
-    //         CabHelpers.createCabWithoutDocuments(cab)
-    //         cy.ensureOn(CabHelpers.cabProfilePage(cab))
-    //         cy.hasKeyValueDetail('CAB number', cab.cabNumber)
-    //         cy.logout()
-    //         cy.ensureOn(CabHelpers.cabProfilePage(cab))
-    //         cy.hasKeyValueDetail('Body number', cab.cabNumber)
-    //     })
-    // })
-    //
-    // context('for CABs with Cab number visibility set to internal(Display for all internal)', function () {
-    //
-    //     it('displays Cab(Body) number for UKAS/OPSS users but not for Public users', function () {
-    //         const cab = Cab.buildWithoutDocuments()
-    //         cab.cabNumberVisibility = CabNumberVisibility.Internal
-    //         cy.loginAsOpssUser()
-    //         CabHelpers.createCabWithoutDocuments(cab)
-    //         cy.ensureOn(CabHelpers.cabProfilePage(cab))
-    //         cy.hasKeyValueDetail('CAB number', cab.cabNumber)
-    //         cy.logout()
-    //         cy.loginAsUkasUser()
-    //         cy.ensureOn(CabHelpers.cabProfilePage(cab))
-    //         cy.hasKeyValueDetail('CAB number', cab.cabNumber)
-    //         cy.logout()
-    //         cy.ensureOn(CabHelpers.cabProfilePage(cab))
-    //         cy.contains('Body number').should('not.exist')
-    //     })
-    // })
-    //
-    // context('for CABs with Cab number visibility set to private(Display for only internal gov users)', function () {
-    //
-    //     it('displays Cab(Body) number for OPSS users but not for Public/UKAS users', function () {
-    //         const cab = Cab.buildWithoutDocuments()
-    //         cab.cabNumberVisibility = CabNumberVisibility.Private
-    //         cy.loginAsOpssUser()
-    //         CabHelpers.createCabWithoutDocuments(cab)
-    //         cy.ensureOn(CabHelpers.cabProfilePage(cab))
-    //         cy.hasKeyValueDetail('CAB number', cab.cabNumber)
-    //         cy.logout()
-    //         cy.loginAsUkasUser()
-    //         cy.ensureOn(CabHelpers.cabProfilePage(cab))
-    //         cy.contains('CAB number').should('not.exist')
-    //         cy.logout()
-    //         cy.ensureOn(CabHelpers.cabProfilePage(cab))
-    //         cy.contains('Body number').should('not.exist')
-    //     })
-    // })
+    context('for CABs with Cab number visibility set to public(default)', function () {
 
+        it('displays Cab(Body) number for public and internal users', function () {
+            const cab = Cab.buildWithoutDocuments()
+            cy.loginAsOpssUser()
+            CabHelpers.createCabWithoutDocuments(cab)
+            cy.ensureOn(CabHelpers.cabProfilePage(cab))
+            cy.hasKeyValueDetail('CAB number', cab.cabNumber)
+            cy.logout()
+            cy.ensureOn(CabHelpers.cabProfilePage(cab))
+            cy.hasKeyValueDetail('Body number', cab.cabNumber)
+        })
+    })
+
+    context('for CABs with Cab number visibility set to internal(Display for all internal)', function () {
+
+        it('displays Cab(Body) number for UKAS/OPSS users but not for Public users', function () {
+            const cab = Cab.buildWithoutDocuments()
+            cab.cabNumberVisibility = CabNumberVisibility.Internal
+            cy.loginAsOpssUser()
+            CabHelpers.createCabWithoutDocuments(cab)
+            cy.ensureOn(CabHelpers.cabProfilePage(cab))
+            cy.hasKeyValueDetail('CAB number', cab.cabNumber)
+            cy.logout()
+            cy.loginAsUkasUser()
+            cy.ensureOn(CabHelpers.cabProfilePage(cab))
+            cy.hasKeyValueDetail('CAB number', cab.cabNumber)
+            cy.logout()
+            cy.ensureOn(CabHelpers.cabProfilePage(cab))
+            cy.contains('Body number').should('not.exist')
+        })
+    })
+
+    context('for CABs with Cab number visibility set to private(Display for only internal gov users)', function () {
+
+        it('displays Cab(Body) number for OPSS users but not for Public/UKAS users', function () {
+            const cab = Cab.buildWithoutDocuments()
+            cab.cabNumberVisibility = CabNumberVisibility.Private
+            cy.loginAsOpssUser()
+            CabHelpers.createCabWithoutDocuments(cab)
+            cy.ensureOn(CabHelpers.cabProfilePage(cab))
+            cy.hasKeyValueDetail('CAB number', cab.cabNumber)
+            cy.logout()
+            cy.loginAsUkasUser()
+            cy.ensureOn(CabHelpers.cabProfilePage(cab))
+            cy.contains('CAB number').should('not.exist')
+            cy.logout()
+            cy.ensureOn(CabHelpers.cabProfilePage(cab))
+            cy.contains('Body number').should('not.exist')
+        })
+    })
 })
