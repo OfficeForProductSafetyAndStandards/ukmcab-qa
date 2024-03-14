@@ -321,7 +321,7 @@ export const enterLegislativeAreas = (cab) => {
 
     // If there are more legislative areas to add, click the "Add legislative area" link/button.
     if (laIndex < cab.documentLegislativeAreas.length - 1) {
-      cy.contains("a", "Add legislative area").click();
+      cy.get('button').contains('Add legislative area').click()
     } else {
       // Otherwise click Continue.
       cy.continue();
