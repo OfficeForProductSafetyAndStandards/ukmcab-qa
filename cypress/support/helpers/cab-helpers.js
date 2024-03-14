@@ -7,6 +7,9 @@ export const serviceManagementPath = () => {
 export const cabManagementPath = () => {
   return "/admin/cab-management";
 };
+export const cabDocumentsListPath = () => {
+  return "/admin/cab/documents-list";
+};
 export const cabProfilePage = (cab) => {
   return `/search/cab-profile/${cab.urlSlug}`;
 };
