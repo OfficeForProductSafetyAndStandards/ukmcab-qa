@@ -10,6 +10,9 @@ export const cabManagementPath = () => {
 export const cabDocumentsListPath = () => {
   return "/admin/cab/documents-list";
 };
+export const cabSchedulesListPath = () => {
+  return "/admin/cab/schedules-list";
+};
 export const cabProfilePage = (cab) => {
   return `/search/cab-profile/${cab.urlSlug}`;
 };
