@@ -506,7 +506,7 @@ export const hasUploadedSchedules = (files) => {
   cy.wrap(files).each((file, index) => {
     cy.get(".govuk-radios__item")
       .eq(index)
-      .should("contain", `${index + 1}. ${file.fileName}`);
+      .contains(`${index + 1}. ${file.fileName}`);
     cy.get(".govuk-radios__item")
       .eq(index)
       .next("div")
