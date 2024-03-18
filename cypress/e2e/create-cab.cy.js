@@ -296,32 +296,6 @@ describe('Creating a new CAB', () => {
         })
     })
 
-    //TO COMPLETE
-    context('when uploading schedule of accreditation without adding a legislative area', function () {
-
-        beforeEach(function () {
-            CabHelpers.enterCabDetails(this.cab)
-            CabHelpers.enterContactDetails(this.cab)
-            cy.wrap(this.cab.testingLocations).each((location, index, locations) => {
-                Cypress._.times(
-                    locations - 1,
-                    cy.contains("a", "Add another registered test location").click()
-                );
-                cy.get(".test-location select").eq(index).select(location);
-            });
-            this.cab.bodyTypes.forEach((bodyType) => {
-                cy.get(`input[value='${bodyType}']`).check();
-            });
-            CabHelpers.saveAsDraft()
-            cy.contains('a', this.cab.name).click()
-            cy.contains('Edit').click()
-            CabHelpers.editCabDetail('Product schedules')
-        })
-        it('what to do here', function () {
-
-        }) 
-    })
-
     context('when uploading supporting documents', function () {
 
         beforeEach(function () {
