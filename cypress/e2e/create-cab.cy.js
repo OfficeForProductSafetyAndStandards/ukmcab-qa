@@ -358,7 +358,7 @@ describe('Creating a new CAB', () => {
 
         it('allows skipping supporting document upload', function () {
             cy.contains('Skip this step').click()
-            cy.contains('Once published this record will be visible to the public')
+            cy.contains('Everyone can see a CAB profile when it is published.')
         })
 
         it('user can remove uploaded file', function () {
