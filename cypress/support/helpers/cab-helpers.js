@@ -459,7 +459,7 @@ export const hasDetailsConfirmation = (cab) => {
     cy.hasKeyValueDetail("Document", "Not provided");
   }
 
-  cy.contains("Once published this record will be visible to the public.");
+    cy.contains("Everyone can see a CAB profile when it is published.");
 };
 
 export const hasCabPublishedConfirmation = (cab) => {
@@ -610,7 +610,7 @@ export const unarchiveCab = (cab, reason = "Test Unarchive reason") => {
     unarchiveCabButton().click();
   });
   cy.contains("Edit").click();
-  cy.contains("Once published this record will be visible to the public.");
+    cy.contains("Everyone can see a CAB profile when it is published.");
 };
 
 export const viewLegislativeAreas = () => {

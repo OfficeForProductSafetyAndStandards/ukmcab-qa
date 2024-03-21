@@ -196,7 +196,7 @@ describe('Editing a CAB', () => {
         cy.get(`input[value='${schedule.legislativeArea}']`).should('be.checked').and('be.disabled')
       })
       cy.continue()
-      cy.contains('Once published this record will be visible to the public')
+        cy.contains('Everyone can see a CAB profile when it is published.')
     })
   })
 
