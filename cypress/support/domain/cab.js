@@ -243,17 +243,7 @@ export default class Cab {
                       Name: "Module B Type examination",
                     },
                   ]
-                },
-                {
-                  Product: {
-                    Name: "Automatic rail weigh-bridges",
-                  },
-                  Procedures: [
-                    {
-                      Name: "Module D Conformity to type based on quality assurance of the production process",
-                    },
-                  ]
-                },
+                }
               ]
             },
           ]

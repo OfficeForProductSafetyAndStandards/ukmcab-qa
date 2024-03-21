@@ -236,7 +236,7 @@ export const enterLegislativeAreas = (cab) => {
         }
 
         // Select procedures for each product.
-        scopeOfAppointment.ProductAndProcedures.forEach(
+        scopeOfAppointment.ProductAndProcedures.reverse().forEach(
           (productAndProcedure, prodIndex) => {
             // This block is needed to stop cypress selecting checkboxes before the screen is fully loaded when the current element (e.g. product) has same procedure choices as previous element.
             if (productAndProcedure.Product != null) {
@@ -459,7 +459,7 @@ export const hasDetailsConfirmation = (cab) => {
     cy.hasKeyValueDetail("Document", "Not provided");
   }
 
-  cy.contains("Once published this record will be visible to the public.");
+  cy.contains("Everyone can see a CAB profile when it is published.");
 };
 
 export const hasCabPublishedConfirmation = (cab) => {
