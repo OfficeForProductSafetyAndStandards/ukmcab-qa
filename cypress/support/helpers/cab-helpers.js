@@ -311,8 +311,8 @@ export const enterLegislativeAreas = (cab) => {
         date(legislativeArea.ReviewDate).YYYY
       );
     }
-    if (legislativeArea.Reason != null) {
-      cy.get("#Reason").invoke("val", legislativeArea.Reason);
+    if (legislativeArea.Usernotes != null) {
+      cy.get("#UserNotes").invoke("val", legislativeArea.Usernotes);
     }
     cy.continue();
 

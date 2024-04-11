@@ -158,7 +158,7 @@ export default class Cab {
           IsProvisional: "No",
           AppointmentDate: Cypress.dayjs().subtract(5, "days"),
           ReviewDate: Cypress.dayjs().add(10, "days"),
-          Reason: "My reason",
+          Usernotes: "My reason",
           ScopeOfAppointments: [
             {
               PurposeOfAppointment: {
@@ -298,7 +298,7 @@ export default class Cab {
           IsProvisional: "No",
           AppointmentDate: Cypress.dayjs().subtract(5, "days"),
           ReviewDate: Cypress.dayjs().add(10, "days"),
-          Reason: "My reason",
+          Usernotes: "My reason",
           ScopeOfAppointments: [
             {
               PurposeOfAppointment: {
