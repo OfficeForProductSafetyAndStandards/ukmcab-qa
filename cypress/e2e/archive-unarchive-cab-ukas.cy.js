@@ -25,8 +25,23 @@ describe("Request to Unarchive a CAB", () => {
     });
 
     it("OPSS approves and publish CAB requested by UKAS", function () {
-      cy.loginAsOpssUser();
-      CabHelpers.opssApprovesCAB(this.draftUrl, uniqueId);
+      cy.loginAsOpssOgdUser();
+      cy.ensureOn(this.draftUrl)
+      CabHelpers.editCabButton().click()
+      cy.contains('a', 'Review').click()
+      CabHelpers.approveLegislativeAreas(this.cab)
+      cy.logout()
+      cy.loginAsOpssUser()
+      cy.ensureOn(this.draftUrl)
+      cy.contains('a', 'Review').click()
+      CabHelpers.approveLegislativeAreas(this.cab)
+      cy.get('#approveCab').click()
+      cy.get('#CABNumber').type(Date.now().toString())
+      cy.get('#CabNumberVisibility').select('Display for all signed-in users')
+      cy.get('#UserNotes').type('OPSS TEST E2E User notes approve')
+      cy.get('#Reason').type('OPSS TEST E2E Reason approve')
+      cy.get('#approve').click()
+      cy.get('h1').should('contain', 'CAB management')
       cy.ensureOn(CabHelpers.cabProfileUrlPathByCabName(name));
       cy.hasStatus("Published");
     });
@@ -97,8 +112,25 @@ describe("Request to Unarchive a CAB", () => {
     });
 
     it("OPSS approves and publish CAB requested by UKAS", function () {
-      cy.loginAsOpssUser();
-      CabHelpers.opssApprovesCAB(this.draftUrl, uniqueId);
+      cy.loginAsOpssOgdUser();
+      cy.ensureOn(this.draftUrl)
+      CabHelpers.editCabButton().click()
+      cy.contains('a', 'Review').click()
+      CabHelpers.approveLegislativeAreas(this.cab)
+      cy.logout()
+      cy.loginAsOpssUser()
+      cy.ensureOn(this.draftUrl)
+      cy.contains('a', 'Review').click()
+      CabHelpers.approveLegislativeAreas(this.cab)
+      cy.get('#approveCab').click()
+      cy.get('#CABNumber').type(Date.now().toString())
+      cy.get('#CabNumberVisibility').select('Display for all signed-in users')
+      cy.get('#UserNotes').type('OPSS TEST E2E User notes approve')
+      cy.get('#Reason').type('OPSS TEST E2E Reason approve')
+      cy.get('#approve').click()
+      cy.get('h1').should('contain', 'CAB management')
+      cy.ensureOn(CabHelpers.cabProfileUrlPathByCabName(name));
+      cy.hasStatus("Published");
     });
 
     it("OPSS archive CAB", function () {
@@ -187,8 +219,25 @@ describe("Request to Unarchive a CAB", () => {
     });
 
     it("OPSS approves and publish CAB requested by UKAS", function () {
-      cy.loginAsOpssUser();
-      CabHelpers.opssApprovesCAB(this.draftUrl, uniqueId);
+      cy.loginAsOpssOgdUser();
+      cy.ensureOn(this.draftUrl)
+      CabHelpers.editCabButton().click()
+      cy.contains('a', 'Review').click()
+      CabHelpers.approveLegislativeAreas(this.cab)
+      cy.logout()
+      cy.loginAsOpssUser()
+      cy.ensureOn(this.draftUrl)
+      cy.contains('a', 'Review').click()
+      CabHelpers.approveLegislativeAreas(this.cab)
+      cy.get('#approveCab').click()
+      cy.get('#CABNumber').type(Date.now().toString())
+      cy.get('#CabNumberVisibility').select('Display for all signed-in users')
+      cy.get('#UserNotes').type('OPSS TEST E2E User notes approve')
+      cy.get('#Reason').type('OPSS TEST E2E Reason approve')
+      cy.get('#approve').click()
+      cy.get('h1').should('contain', 'CAB management')
+      cy.ensureOn(CabHelpers.cabProfileUrlPathByCabName(name));
+      cy.hasStatus("Published");
     });
 
     it("OPSS archive CAB", function () {
@@ -261,8 +310,25 @@ describe("Request to Unarchive a CAB", () => {
     });
 
     it("OPSS approves and publish CAB requested by UKAS", function () {
-      cy.loginAsOpssUser();
-      CabHelpers.opssApprovesCAB(this.draftUrl, uniqueId);
+      cy.loginAsOpssOgdUser();
+      cy.ensureOn(this.draftUrl)
+      CabHelpers.editCabButton().click()
+      cy.contains('a', 'Review').click()
+      CabHelpers.approveLegislativeAreas(this.cab)
+      cy.logout()
+      cy.loginAsOpssUser()
+      cy.ensureOn(this.draftUrl)
+      cy.contains('a', 'Review').click()
+      CabHelpers.approveLegislativeAreas(this.cab)
+      cy.get('#approveCab').click()
+      cy.get('#CABNumber').type(Date.now().toString())
+      cy.get('#CabNumberVisibility').select('Display for all signed-in users')
+      cy.get('#UserNotes').type('OPSS TEST E2E User notes approve')
+      cy.get('#Reason').type('OPSS TEST E2E Reason approve')
+      cy.get('#approve').click()
+      cy.get('h1').should('contain', 'CAB management')
+      cy.ensureOn(CabHelpers.cabProfileUrlPathByCabName(name));
+      cy.hasStatus("Published");
     });
 
     it("OPSS archive CAB", function () {

@@ -41,6 +41,12 @@ Cypress.Commands.add("loginAsUkasUser", () => {
   });
 });
 
+Cypress.Commands.add("loginAsOpssOgdUser", () => {
+  cy.fixture("users").then((users) => {
+    cy.loginAs(users.OpssOgdUser);
+  });
+});
+
 // TODO: OTHER USERS YET TO COME
 
 Cypress.Commands.add("logout", () => {

@@ -7,7 +7,7 @@ import Constants from "/cypress/support/domain/constants";
 describe('Ukas submitting a new CAB for Approval', () => {
 
   beforeEach(function () {
-    cy.wrap(Cab.build()).as('cab')
+    cy.wrap(Cab.buildWithoutDocuments()).as('cab')
   })
 
   context('Ukas submits cab for approval and opss approve', function () {
@@ -27,9 +27,17 @@ describe('Ukas submitting a new CAB for Approval', () => {
       cy.url().as('draftUrl')
       cy.get('.cab-status-tag--pending-approval').should('contain', 'Pending approval to publish CAB')
     })
-    it('OPSS approve CAB', function () {
-      cy.loginAsOpssUser();
+    it('OPSS OGD approves Legislative Areas pending approval and OPSS admin publishes CAB', function () {
+      cy.loginAsOpssOgdUser();
       cy.ensureOn(this.draftUrl)
+      CabHelpers.editCabButton().click()
+      cy.contains('a','Review').click()
+      CabHelpers.approveLegislativeAreas(this.cab)
+      cy.logout()
+      cy.loginAsOpssUser()
+      cy.ensureOn(this.draftUrl)
+      cy.contains('a','Review').click()
+      CabHelpers.approveLegislativeAreas(this.cab)
       cy.get('#approveCab').click()
       cy.get('#CABNumber').type(Date.now().toString())
       cy.get('#CabNumberVisibility').select('Display for all signed-in users')
@@ -64,8 +72,16 @@ describe('Ukas submitting a new CAB for Approval', () => {
       cy.get('.cab-status-tag--pending-approval').should('contain', 'Pending approval to publish CAB')
     })
     it('OPSS decline CAB', function () {
-      cy.loginAsOpssUser();
+      cy.loginAsOpssOgdUser();
       cy.ensureOn(this.draftUrl)
+      CabHelpers.editCabButton().click()
+      cy.contains('a','Review').click()
+      CabHelpers.approveLegislativeAreas(this.cab)
+      cy.logout()
+      cy.loginAsOpssUser()
+      cy.ensureOn(this.draftUrl)
+      cy.contains('a','Review').click()
+      CabHelpers.approveLegislativeAreas(this.cab)
       cy.get('#declineCab').click()
       cy.get('#DeclineReason').type('OPSS TEST E2E Decline Reason')
       cy.get('#decline').click()

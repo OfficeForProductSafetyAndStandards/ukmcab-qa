@@ -236,7 +236,7 @@ export const enterLegislativeAreas = (cab) => {
         }
 
         // Select procedures for each product.
-        scopeOfAppointment.ProductAndProcedures.forEach(
+        scopeOfAppointment.ProductAndProcedures.reverse().forEach(
           (productAndProcedure, prodIndex) => {
             // This block is needed to stop cypress selecting checkboxes before the screen is fully loaded when the current element (e.g. product) has same procedure choices as previous element.
             if (productAndProcedure.Product != null) {
@@ -311,8 +311,8 @@ export const enterLegislativeAreas = (cab) => {
         date(legislativeArea.ReviewDate).YYYY
       );
     }
-    if (legislativeArea.Reason != null) {
-      cy.get("#Reason").invoke("val", legislativeArea.Reason);
+    if (legislativeArea.Usernotes != null) {
+      cy.get("#UserNotes").invoke("val", legislativeArea.Usernotes);
     }
     cy.continue();
 
@@ -327,6 +327,14 @@ export const enterLegislativeAreas = (cab) => {
       cy.continue();
     }
   });
+};
+
+export const approveLegislativeAreas = (cab) => {
+  cab.documentLegislativeAreas?.forEach((legislativeArea, laIndex) => {
+    cy.get('span').contains(`${legislativeArea.Name}`).parent().next().contains('Review').click()
+    cy.contains('label','Approve').click()
+    cy.continue()
+  })
 };
 
 export const uploadSchedules = (schedules) => {
@@ -458,8 +466,7 @@ export const hasDetailsConfirmation = (cab) => {
   } else {
     cy.hasKeyValueDetail("Document", "Not provided");
   }
-
-    cy.contains("Everyone can see a CAB profile when it is published.");
+  cy.contains("Everyone can see a CAB profile when it is published.");
 };
 
 export const hasCabPublishedConfirmation = (cab) => {
@@ -610,7 +617,7 @@ export const unarchiveCab = (cab, reason = "Test Unarchive reason") => {
     unarchiveCabButton().click();
   });
   cy.contains("Edit").click();
-    cy.contains("Everyone can see a CAB profile when it is published.");
+  cy.contains("Everyone can see a CAB profile when it is published.");
 };
 
 export const viewLegislativeAreas = () => {

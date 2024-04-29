@@ -158,7 +158,7 @@ export default class Cab {
           IsProvisional: "No",
           AppointmentDate: Cypress.dayjs().subtract(5, "days"),
           ReviewDate: Cypress.dayjs().add(10, "days"),
-          Reason: "My reason",
+          Usernotes: "My reason",
           ScopeOfAppointments: [
             {
               PurposeOfAppointment: {
@@ -243,17 +243,7 @@ export default class Cab {
                       Name: "Module B Type examination",
                     },
                   ]
-                },
-                {
-                  Product: {
-                    Name: "Automatic rail weigh-bridges",
-                  },
-                  Procedures: [
-                    {
-                      Name: "Module D Conformity to type based on quality assurance of the production process",
-                    },
-                  ]
-                },
+                }
               ]
             },
           ]
@@ -308,7 +298,7 @@ export default class Cab {
           IsProvisional: "No",
           AppointmentDate: Cypress.dayjs().subtract(5, "days"),
           ReviewDate: Cypress.dayjs().add(10, "days"),
-          Reason: "My reason",
+          Usernotes: "My reason",
           ScopeOfAppointments: [
             {
               PurposeOfAppointment: {

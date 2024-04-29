@@ -152,6 +152,42 @@ describe('Creating a new CAB', () => {
         })
     })
 
+    context('when entering Legislative area details', function () {
+
+        beforeEach(function () {
+            CabHelpers.enterCabDetails(this.cab)
+            CabHelpers.enterContactDetails(this.cab)
+            CabHelpers.enterBodyDetails(this.cab)
+            // CabHelpers.enterLegislativeAreas(this.cab)
+        })
+
+        it('throws appropriate errors at every step of the LA creation journey', function () {
+            cy.continue();
+            cy.hasError('Legislative area', 'Select a legislative area')
+            cy.get("label").contains('Machinery').click();
+            cy.continue();
+            cy.continue();
+            cy.hasError('Purpose of appointment', 'Select a purpose of appointment')
+            cy.get("label").contains('Categories of machine').click();
+            cy.continue();
+            cy.continue();
+            cy.hasError('Product category', 'Select a product category')
+            cy.get("label").contains('Band-saws').click();
+            cy.continue();
+            cy.continue();
+            cy.hasError('Product', 'Select a product')
+            cy.get("label").contains('Sawing machinery with fixed blade(s) during cutting, having a fixed or reciprocating-movement bed or support for the workpiece').click();
+            cy.continue();
+            cy.continue();
+            cy.hasError('Applicable conformity assessment procedure', 'Select an applicable conformity assessment procedure')
+            cy.get("label").contains('Part 9 - Type examination').click();
+            cy.continue();
+            cy.continue();
+            cy.hasError('Is this a provisional legislative area?', 'Select if this is a provisional legislative area')
+        })
+
+    })
+
     context('when uploading schedule of accreditation for unpublished CAB', function () {
 
         beforeEach(function () {
@@ -358,7 +394,7 @@ describe('Creating a new CAB', () => {
 
         it('allows skipping supporting document upload', function () {
             cy.contains('Skip this step').click()
-            cy.contains('Everyone can see a CAB profile when it is published.')
+            cy.contains('Everyone can see a CAB profile when it is published')
         })
 
         it('user can remove uploaded file', function () {
