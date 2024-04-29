@@ -466,7 +466,6 @@ export const hasDetailsConfirmation = (cab) => {
   } else {
     cy.hasKeyValueDetail("Document", "Not provided");
   }
-
   cy.contains("Everyone can see a CAB profile when it is published.");
 };
 
