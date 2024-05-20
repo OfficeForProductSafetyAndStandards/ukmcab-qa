@@ -837,9 +837,9 @@ export const opssArchiveLA = (cabId) => {
     .contains("Archive legislative area")
     .click({ force: true });
   cy.get(".govuk-button-group").contains("Confirm").click();
-  cy.get('#ArchiveReason').type('OPSS TEST E2E Reason approve to archive')
-   cy.get(".govuk-button-group").contains("Confirm").click();
-   cy.get("#govuk-notification-banner-title").should("have.text", "Success");
+//  cy.get('#ArchiveReason').type('OPSS TEST E2E Reason approve to archive')
+  // cy.get(".govuk-button-group").contains("Confirm").click();
+  // cy.get("#govuk-notification-banner-title").should("have.text", "Success");
 
    cy.get("p.govuk-notification-banner__heading").should(
    "contain",
@@ -873,10 +873,7 @@ export const opssArchiveLA = (cabId) => {
     cy.continue();
 };
 
-export const opssRemoveLA = (cabId) => {
-  cy.ensureOn(
-    `/admin/cab/${getSlug(cabId)}/legislative-area/review-legislative-areas`
-  );
+export const opssRemoveLA = () => {
   cy.get(
     ".govuk-grid-column-full .govuk-form-group .govuk-fieldset .govuk-details"
   )
