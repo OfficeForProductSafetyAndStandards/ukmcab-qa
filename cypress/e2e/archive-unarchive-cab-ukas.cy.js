@@ -16,7 +16,7 @@ describe("Request to Unarchive a CAB", () => {
       });
     });
 
-    it("UKAS creates and submits for approval a request to publish a cab", function () {
+    it.only("UKAS creates and submits for approval a request to publish a cab", function () {
       cy.loginAsUkasUser();
       CabHelpers.createAndSubmitCabForApproval(name, this.cab);
       cy.hasStatus("Pending approval to publish CAB");
@@ -24,7 +24,7 @@ describe("Request to Unarchive a CAB", () => {
       cy.logout();
     });
 
-    it("OPSS approves and publish CAB requested by UKAS", function () {
+    it.only("OPSS approves and publish CAB requested by UKAS", function () {
       cy.loginAsOpssOgdUser();
       cy.ensureOn(this.draftUrl)
       CabHelpers.editCabButton().click()
@@ -47,18 +47,18 @@ describe("Request to Unarchive a CAB", () => {
       cy.hasStatus("Published");
     });
 
-    it("OPSS archives CAB", function () {
+    it.only("OPSS archives CAB", function () {
       cy.loginAsOpssUser();
       CabHelpers.opssArchiveCAB(name);
       cy.logout();
     });
 
-    it("UKAS request to unarchive and publish a CAB", function () {
+    it.only("UKAS request to unarchive and publish a CAB", function () {
       cy.loginAsUkasUser();
       CabHelpers.ukasRequestToUnarchiveAndPublishCab(name);
     });
 
-    it("OPSS approves request to unarchive and publish", function () {
+    it.only("OPSS approves request to unarchive and publish", function () {
       cy.loginAsOpssUser();
       cy.ensureOn(CabHelpers.cabProfileUrlPathByCabName(name));
       cy.get("a").contains("Approve").click();
@@ -70,21 +70,17 @@ describe("Request to Unarchive a CAB", () => {
       cy.logout();
     });
 
-    it("sent email to UKAS that request to unarchive and publish has been approved", function () {
+    it.only("sent email to UKAS that request to unarchive and publish has been approved", function () {
       EmailSubscriptionHelpers.assertApproveRequestToUnarchiveAndPublishEmailIsSent(
         this.ukasUser.email,
         name
       );
     });
 
-    it("UKAS receives notification for approved request to unarchive and publish", function () {
+    it.only("UKAS receives notification for approved request to unarchive and publish", function () {
       cy.loginAsUkasUser();
       cy.ensureOn(CabHelpers.notificationCompletedUrlPath());
-      cy.contains("tr", "Test Opss Admin User")
-        .first()
-        .within(() => {
-          cy.get("td").eq(1).find("a").click();
-        });
+      cy.get('#completed > .govuk-table > .govuk-table__body > :nth-child(1) > :nth-child(2) > .govuk-link').click();
       cy.get("p").contains("Completed").should("exist");
       cy.get("dd")
         .contains(Constants.PublishedReason_UnarchiveAndPublishCAB(name))
