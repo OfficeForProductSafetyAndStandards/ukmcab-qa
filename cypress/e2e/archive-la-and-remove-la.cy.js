@@ -37,6 +37,7 @@ describe("Request to Archive an LA and to Remove an LA", () => {
       cy.logout()
       cy.loginAsOpssUser()
       cy.ensureOn(this.draftUrl)
+      CabHelpers.editCabButton().click()
       cy.contains('a', 'Review').click()
       CabHelpers.approveLegislativeAreas(this.cab)
       cy.get('#approveCab').click()
@@ -52,6 +53,9 @@ describe("Request to Archive an LA and to Remove an LA", () => {
 
     it("OPSS archives an LA", function () {
       cy.loginAsOpssUser();
+      cy.ensureOn(this.draftUrl)
+      CabHelpers.editCabButton().click()
+      CabHelpers.editCabDetail('Legislative areas')
       CabHelpers.opssArchiveLA(cabId);
       cy.logout();
     });
@@ -89,6 +93,7 @@ describe("Request to Archive an LA and to Remove an LA", () => {
       cy.logout()
       cy.loginAsOpssUser()
       cy.ensureOn(this.draftUrl)
+      CabHelpers.editCabButton().click()
       cy.contains('a', 'Review').click()
       CabHelpers.approveLegislativeAreas(this.cab)
       cy.get('#approveCab').click()

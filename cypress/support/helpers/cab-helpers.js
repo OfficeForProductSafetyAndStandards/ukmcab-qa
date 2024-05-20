@@ -333,7 +333,7 @@ export const approveLegislativeAreas = (cab) => {
   cab.documentLegislativeAreas?.forEach((legislativeArea, laIndex) => {
     cy.get('span').contains(`${legislativeArea.Name}`).parent().next().contains('Review').click()
     cy.contains('label','Approve').click()
-    cy.continue()
+    cy.confirm()
   })
 };
 
@@ -821,9 +821,9 @@ export const ukasRequestToUnarchiveAndSaveAsDraftCab = (name) => {
 };
 
 export const opssArchiveLA = (cabId) => {
-  cy.ensureOn(
-    `/admin/cab/${getSlug(cabId)}/legislative-area/review-legislative-areas`
-  );
+  // cy.ensureOn(
+    // `/admin/cab/${getSlug(cabId)}/legislative-area/review-legislative-areas`
+  // );
   cy.get(
     ".govuk-grid-column-full .govuk-form-group .govuk-fieldset .govuk-details"
   )
@@ -837,12 +837,14 @@ export const opssArchiveLA = (cabId) => {
     .contains("Archive legislative area")
     .click({ force: true });
   cy.get(".govuk-button-group").contains("Confirm").click();
-  cy.get("#govuk-notification-banner-title").should("have.text", "Success");
+  cy.get('#ArchiveReason').type('OPSS TEST E2E Reason approve to archive')
+   cy.get(".govuk-button-group").contains("Confirm").click();
+   cy.get("#govuk-notification-banner-title").should("have.text", "Success");
 
-  cy.get("p.govuk-notification-banner__heading").should(
-    "contain",
-    "The legislative area has been archived."
-  );
+   cy.get("p.govuk-notification-banner__heading").should(
+   "contain",
+     "The legislative area has been archived."
+   );
 
   cy.get(".govuk-grid-column-full .govuk-form-group")
     .first()
@@ -868,6 +870,7 @@ export const opssArchiveLA = (cabId) => {
         "Machinery"
       );
     });
+    cy.continue();
 };
 
 export const opssRemoveLA = (cabId) => {
