@@ -109,6 +109,9 @@ describe("Request to Archive an LA and to Remove an LA", () => {
 
     it("OPSS removes an LA", function () {
       cy.loginAsOpssUser();
+      cy.ensureOn(this.draftUrl)
+      CabHelpers.editCabButton().click();
+      CabHelpers.editCabDetail('Legislative areas');
       CabHelpers.opssRemoveLA(cabId);
       cy.logout();
     });
