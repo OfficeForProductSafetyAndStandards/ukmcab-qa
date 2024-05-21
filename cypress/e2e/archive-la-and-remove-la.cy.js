@@ -93,8 +93,8 @@ describe("Request to Archive an LA and to Remove an LA", () => {
       cy.logout()
       cy.loginAsOpssUser()
       cy.ensureOn(this.draftUrl)
-      CabHelpers.editCabButton().click()
-      cy.contains('a', 'Review').click()
+      CabHelpers.editCabButton().click();
+      cy.contains('a', 'Review').click();
       CabHelpers.approveLegislativeAreas(this.cab)
       cy.get('#approveCab').click()
       cy.get('#CABNumber').type(Date.now().toString())

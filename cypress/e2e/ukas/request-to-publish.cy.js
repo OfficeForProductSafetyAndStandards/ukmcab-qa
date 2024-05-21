@@ -31,12 +31,13 @@ describe('Ukas submitting a new CAB for Approval', () => {
       cy.loginAsOpssOgdUser();
       cy.ensureOn(this.draftUrl)
       CabHelpers.editCabButton().click()
-      cy.contains('a','Review').click()
-      CabHelpers.approveLegislativeAreas(this.cab)
-      cy.logout()
-      cy.loginAsOpssUser()
-      cy.ensureOn(this.draftUrl)
-      cy.contains('a','Review').click()
+      cy.contains('a','Review').click();
+      CabHelpers.approveLegislativeAreas(this.cab);
+      cy.logout();
+      cy.loginAsOpssUser();
+      cy.ensureOn(this.draftUrl);
+      CabHelpers.editCabButton().click();
+      cy.get('#reviewLa').click();
       CabHelpers.approveLegislativeAreas(this.cab)
       cy.get('#approveCab').click()
       cy.get('#CABNumber').type(Date.now().toString())
@@ -80,6 +81,7 @@ describe('Ukas submitting a new CAB for Approval', () => {
       cy.logout()
       cy.loginAsOpssUser()
       cy.ensureOn(this.draftUrl)
+      CabHelpers.editCabButton().click();
       cy.contains('a','Review').click()
       CabHelpers.approveLegislativeAreas(this.cab)
       cy.get('#declineCab').click()
@@ -99,8 +101,12 @@ describe('Ukas submitting a new CAB for Approval', () => {
       cy.ensureOn(CabHelpers.notificationCompletedUrlPath());
       cy.contains("tr", "Test Opss Admin User")
           .first()
+          .should('contain.text', 'Test Opss Admin User')
           .within(() => {
-            cy.get("td").eq(1).find("a").click();
+            cy.get('td')
+                .eq(1)
+                .find('a.govuk-link')
+                .click();
           });
       cy.get("p").contains("Completed").should("exist");
       cy.get("dd")
