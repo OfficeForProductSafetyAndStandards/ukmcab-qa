@@ -1,4 +1,4 @@
-import { contactUsUrl } from '../support/helpers/url-helpers'
+import { contactUsUrl } from '../../support/helpers/url-helpers'
 describe('Phase Banner', () => {
 
   it('displays correctly', () => {

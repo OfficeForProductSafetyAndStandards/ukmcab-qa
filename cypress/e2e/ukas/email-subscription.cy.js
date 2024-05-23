@@ -1,9 +1,9 @@
-import { searchUrl } from '../support/helpers/url-helpers'
-import { searchCab } from '../support/helpers/search-helpers'
-import { getLastUserEmail } from "../support/helpers/email-helpers"
-import Cab from '../support/domain/cab'
-import * as CabHelpers from '../support/helpers/cab-helpers'
-import * as EmailSubscriptionHelpers from '../support/helpers/email-subscription-helpers'
+import { searchUrl } from '../../support/helpers/url-helpers'
+import { searchCab } from '../../support/helpers/search-helpers'
+import { getLastUserEmail } from "../../support/helpers/email-helpers"
+import Cab from '../../support/domain/cab'
+import * as CabHelpers from '../../support/helpers/cab-helpers'
+import * as EmailSubscriptionHelpers from '../../support/helpers/email-subscription-helpers'
 
 describe('Email subscription', function () {
 

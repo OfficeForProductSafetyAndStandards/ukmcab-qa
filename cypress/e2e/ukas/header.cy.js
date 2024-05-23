@@ -1,7 +1,7 @@
-import { header } from '../support/helpers/common-helpers'
-import { loginPath } from '../support/helpers/login-helpers'
-import { userProfilePath } from '../support/helpers/user-management-helpers'
-import { serviceManagementPath } from '../support/helpers/user-management-helpers'
+import { header } from '../../support/helpers/common-helpers'
+import { loginPath } from '../../support/helpers/login-helpers'
+import { userProfilePath } from '../../support/helpers/user-management-helpers'
+import { serviceManagementPath } from '../../support/helpers/user-management-helpers'
 
 describe('Header', function() {
 

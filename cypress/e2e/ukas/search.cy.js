@@ -1,8 +1,8 @@
-import { header } from "../support/helpers/common-helpers"
-import * as SearchHelpers from '../support/helpers/search-helpers'
-import * as CabHelpers from "../support/helpers/cab-helpers"
-import Cab from '../support/domain/cab'
-import { valueOrNotProvided } from "../support/helpers/formatters"
+import { header } from "../../support/helpers/common-helpers"
+import * as SearchHelpers from '../../support/helpers/search-helpers'
+import * as CabHelpers from "../../support/helpers/cab-helpers"
+import Cab from '../../support/domain/cab'
+import { valueOrNotProvided } from "../../support/helpers/formatters"
 
 describe('CAB Search', () => {
 

@@ -1,8 +1,8 @@
-import * as CabHelpers from "../support/helpers/cab-helpers";
-import * as UserManagementHelpers from "../support/helpers/user-management-helpers";
-import * as EmailSubscriptionHelpers from "../support/helpers/email-subscription-helpers";
-import Cab from "../support/domain/cab";
-import Constants from "../support/domain/constants";
+import * as CabHelpers from "../../support/helpers/cab-helpers";
+import * as UserManagementHelpers from "../../support/helpers/user-management-helpers";
+import * as EmailSubscriptionHelpers from "../../support/helpers/email-subscription-helpers";
+import Cab from "../../support/domain/cab";
+import Constants from "../../support/domain/constants";
 
 describe("Request to Unarchive a CAB", () => {
   context("and publish; Approved", function () {
@@ -42,7 +42,7 @@ describe("Request to Unarchive a CAB", () => {
       cy.get('#UserNotes').type('OPSS TEST E2E User notes approve')
       cy.get('#Reason').type('OPSS TEST E2E Reason approve')
       cy.get('#approve').click()
-      cy.get('h1').should('contain', 'CAB management')
+      cy.get('h1').should('contain', 'Draft management')
       cy.ensureOn(CabHelpers.cabProfileUrlPathByCabName(name));
       cy.hasStatus("Published");
     });
@@ -138,7 +138,7 @@ describe("Request to Unarchive a CAB", () => {
       cy.get('#UserNotes').type('OPSS TEST E2E User notes approve')
       cy.get('#Reason').type('OPSS TEST E2E Reason approve')
       cy.get('#approve').click()
-      cy.get('h1').should('contain', 'CAB management')
+      cy.get('h1').should('contain', 'Draft management')
       cy.ensureOn(CabHelpers.cabProfileUrlPathByCabName(name));
       cy.hasStatus("Published");
     });
@@ -246,7 +246,7 @@ describe("Request to Unarchive a CAB", () => {
       cy.get('#UserNotes').type('OPSS TEST E2E User notes approve')
       cy.get('#Reason').type('OPSS TEST E2E Reason approve')
       cy.get('#approve').click()
-      cy.get('h1').should('contain', 'CAB management')
+      cy.get('h1').should('contain', 'Draft management')
       cy.ensureOn(CabHelpers.cabProfileUrlPathByCabName(name));
       cy.hasStatus("Published");
     });
@@ -338,7 +338,7 @@ describe("Request to Unarchive a CAB", () => {
       cy.get('#UserNotes').type('OPSS TEST E2E User notes approve')
       cy.get('#Reason').type('OPSS TEST E2E Reason approve')
       cy.get('#approve').click()
-      cy.get('h1').should('contain', 'CAB management')
+      cy.get('h1').should('contain', 'Draft management')
       cy.ensureOn(CabHelpers.cabProfileUrlPathByCabName(name));
       cy.hasStatus("Published");
     });

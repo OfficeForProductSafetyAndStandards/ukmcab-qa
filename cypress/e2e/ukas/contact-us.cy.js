@@ -1,6 +1,6 @@
-import { contactUsUrl, privacyUrl, termsUrl, searchUrl } from "../support/helpers/url-helpers";
-import { getLastUserEmail } from "../support/helpers/email-helpers";
-import { footer } from '../support/helpers/common-helpers'
+import { contactUsUrl, privacyUrl, termsUrl, searchUrl } from "../../support/helpers/url-helpers";
+import { getLastUserEmail } from "../../support/helpers/email-helpers";
+import { footer } from '../../support/helpers/common-helpers'
 
 describe('Contact us page', function() {
 

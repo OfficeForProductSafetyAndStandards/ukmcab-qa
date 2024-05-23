@@ -1,4 +1,4 @@
-import * as UserManagementHelpers from '../support/helpers/user-management-helpers'
+import * as UserManagementHelpers from '../../support/helpers/user-management-helpers'
 
 describe('User Profile', () => {
 

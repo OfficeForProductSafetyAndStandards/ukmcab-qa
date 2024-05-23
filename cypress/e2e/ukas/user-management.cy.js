@@ -1,8 +1,8 @@
-import * as UserManagementHelpers from '../support/helpers/user-management-helpers'
-import { contactUsUrl } from '../support/helpers/url-helpers'
-import { shouldBeLoggedIn, shouldBeLoggedOut } from '../support/helpers/common-helpers'
-import { getLastUserEmail } from "../support/helpers/email-helpers";
-import * as AccountRequestHelpers from '../support/helpers/account-request-helpers'
+import * as UserManagementHelpers from '../../support/helpers/user-management-helpers'
+import { contactUsUrl } from '../../support/helpers/url-helpers'
+import { shouldBeLoggedIn, shouldBeLoggedOut } from '../../support/helpers/common-helpers'
+import { getLastUserEmail } from "../../support/helpers/email-helpers";
+import * as AccountRequestHelpers from '../../support/helpers/account-request-helpers'
 
 describe('User Management', () => {
 

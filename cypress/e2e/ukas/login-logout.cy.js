@@ -1,4 +1,4 @@
-import { header, basicAuthCreds, shouldBeLoggedOut } from '../support/helpers/common-helpers'
+import { header, basicAuthCreds, shouldBeLoggedOut } from '../../support/helpers/common-helpers'
 
 describe('Login/Logout', () => {
 

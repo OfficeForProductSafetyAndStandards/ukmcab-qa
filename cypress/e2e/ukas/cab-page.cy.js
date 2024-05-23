@@ -1,8 +1,8 @@
-import * as CabHelpers from '../support/helpers/cab-helpers'
-import Cab from '../support/domain/cab'
-import {date, valueOrNotProvided} from '../support/helpers/formatters'
-import {searchPath} from '../support/helpers/search-helpers'
-import {CabNumberVisibility} from '../support/domain/cab-number-visibility'
+import * as CabHelpers from '../../support/helpers/cab-helpers'
+import Cab from '../../support/domain/cab'
+import {date, valueOrNotProvided} from '../../support/helpers/formatters'
+import {searchPath} from '../../support/helpers/search-helpers'
+import {CabNumberVisibility} from '../../support/domain/cab-number-visibility'
 
 describe('CAB profile page', function () {
 

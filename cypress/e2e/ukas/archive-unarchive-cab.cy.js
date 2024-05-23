@@ -1,8 +1,8 @@
-import * as CabHelpers from '../support/helpers/cab-helpers'
-import { getEmailsLink } from '../support/helpers/email-subscription-helpers'
-import Cab from '../support/domain/cab'
-import * as EmailSubscriptionHelpers from '../support/helpers/email-subscription-helpers'
-import * as UserManagementHelpers from '../support/helpers/user-management-helpers'
+import * as CabHelpers from '../../support/helpers/cab-helpers'
+import { getEmailsLink } from '../../support/helpers/email-subscription-helpers'
+import Cab from '../../support/domain/cab'
+import * as EmailSubscriptionHelpers from '../../support/helpers/email-subscription-helpers'
+import * as UserManagementHelpers from '../../support/helpers/user-management-helpers'
 
 
 describe('Archiving a CAB', () => {

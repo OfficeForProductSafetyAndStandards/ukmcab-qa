@@ -1,4 +1,4 @@
-import * as EmailHelpers from '../support/helpers/email-helpers'
+import * as EmailHelpers from '../../support/helpers/email-helpers'
 describe('Feedback form', () => {
   
   beforeEach(() => {

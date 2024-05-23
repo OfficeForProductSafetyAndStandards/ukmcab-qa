@@ -1,6 +1,6 @@
-import * as CabHelpers from '../support/helpers/cab-helpers'
-import Cab from '../support/domain/cab'
-import { date } from '../support/helpers/formatters'
+import * as CabHelpers from '../../support/helpers/cab-helpers'
+import Cab from '../../support/domain/cab'
+import { date } from '../../support/helpers/formatters'
 
 describe('Creating a new CAB', () => {
 

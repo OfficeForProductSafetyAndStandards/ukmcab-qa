@@ -1,4 +1,4 @@
-import { cookiesUrl } from "../support/helpers/url-helpers"
+import { cookiesUrl } from "../../support/helpers/url-helpers"
 describe('Cookies', () => {
 
   const cookiesBanner = () => { return cy.get('.govuk-cookie-banner') }

@@ -1,5 +1,5 @@
-import * as UserManagementHelpers from '../support/helpers/user-management-helpers'
-import * as AccountRequestHelpers from '../support/helpers/account-request-helpers'
+import * as UserManagementHelpers from '../../support/helpers/user-management-helpers'
+import * as AccountRequestHelpers from '../../support/helpers/account-request-helpers'
 
 describe('User account request', () => {
 

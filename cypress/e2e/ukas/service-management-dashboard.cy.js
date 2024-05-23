@@ -1,6 +1,6 @@
-import {addCabPath, cabManagementPath} from '../support/helpers/cab-helpers'
-import {serviceManagementPath, userManagementPath} from '../support/helpers/user-management-helpers'
-import {searchPath} from '../support/helpers/search-helpers'
+import {addCabPath, cabManagementPath} from '../../support/helpers/cab-helpers'
+import {serviceManagementPath, userManagementPath} from '../../support/helpers/user-management-helpers'
+import {searchPath} from '../../support/helpers/search-helpers'
 
 function verifyCabManagementLinks() {
     cy.contains('a', 'Manage CABs').should('have.attr', 'href', `${cabManagementPath()}?tabName=all`);

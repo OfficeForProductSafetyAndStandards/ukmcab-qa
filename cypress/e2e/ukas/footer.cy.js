@@ -1,5 +1,5 @@
-import { footer } from '../support/helpers/common-helpers'
-import { contactUsUrl, privacyUrl, termsUrl, cookiesUrl } from "../support/helpers/url-helpers";
+import { footer } from '../../support/helpers/common-helpers'
+import { contactUsUrl, privacyUrl, termsUrl, cookiesUrl } from "../../support/helpers/url-helpers";
 
 describe('Footer', function() {
   

@@ -1,5 +1,5 @@
-import * as CabHelpers from '../support/helpers/cab-helpers'
-import Cab from '../support/domain/cab'
+import * as CabHelpers from '../../support/helpers/cab-helpers'
+import Cab from '../../support/domain/cab'
 
 describe('Editing a CAB', () => {
    
