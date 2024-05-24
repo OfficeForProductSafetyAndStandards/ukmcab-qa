@@ -7,7 +7,7 @@ describe('Error pages', () => {
 
   it('401 displays!', function() {
     cy.ensureOn('/__diag/cmd/http-error-handling/permissiondenied')
-    cy.contains("Forbidden You do not have appropriate permissions to access this area or perform this operation.")
+    cy.contains("You do not have permission to access this page")
   })
 
   it('404 displays!', function() {

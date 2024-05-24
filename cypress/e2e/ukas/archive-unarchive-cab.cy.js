@@ -66,7 +66,6 @@ describe('Archiving a CAB', () => {
       cy.log(`email is: ${this.user.email} `)
       EmailSubscriptionHelpers.assertDraftCabDeletionEmailIsSent(this.user.email)
       cy.ensureOn(CabHelpers.cabManagementPath())
-      cy.get('#Filter').select('Draft', { force: true })
       cy.contains(this.cab.name).should('not.exist')
     })
   })
@@ -97,7 +96,6 @@ describe('Unarchiving a CAB', () => {
       CabHelpers.unarchiveCab(this.cab)
       // cy.location('pathname').should('equal', CabHelpers.cabSummaryPage(this.cab.cabId)) // summary page is displayed
       cy.ensureOn(CabHelpers.cabManagementPath())
-      cy.get('#Filter').select('Draft', { force: true })
       cy.get('a').contains(this.cab.name)
       cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
       CabHelpers.unarchiveCabButton().should('not.exist')

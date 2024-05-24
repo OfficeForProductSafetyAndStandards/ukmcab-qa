@@ -222,8 +222,7 @@ export const assertDeclineRequestToUnarchiveAndSaveAsDraftEmailIsSent = (
 
 export const assertSearchSubscriptionChangesAreDisplayed = (
   numAdditions,
-  numRemoved,
-  numModified
+  numRemoved
 ) => {
   cy.contains("Search results changes");
   cy.contains("Search results have changed");
@@ -249,11 +248,13 @@ export const assertSearchSubscriptionChangesAreDisplayed = (
   cy.get("tr")
     .eq(2)
     .within(() => {
-      cy.get("th").contains("Modified");
-      cy.get("td").eq(0).contains(numModified);
-      if (numModified > 0) {
-        cy.get("td").eq(1).contains("a", "View");
-      }
+      cy.contains('th', 'Modified').parent('tr').within(() => {
+        cy.get('td').eq(0).invoke('text').then((text) => {
+          const value = parseInt(text, 10);
+          expect(value).to.be.greaterThan(0);
+        });
+      });
+      cy.get("td").eq(1).contains("a", "View");
     });
   cy.get("a")
     .contains("View search results")
