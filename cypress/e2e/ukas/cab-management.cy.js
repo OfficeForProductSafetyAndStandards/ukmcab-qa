@@ -42,6 +42,17 @@ describe('Draft management', function () {
         return cab.isDraft ? CabHelpers.cabSummaryPage(cab.cabId) : CabHelpers.cabProfilePage(cab)
     }
 
+    const sortedByLastUpdatedDescWithSecondaryCabNumber = (cabs) => {
+        return cabs.sort((a, b) => {
+            if (b.lastUpdatedDate !== a.lastUpdatedDate) {
+                return b.lastUpdatedDate - a.lastUpdatedDate;
+            } else {
+                return Number(a.cabNumber) - Number(b.cabNumber);
+            }
+        });
+    };
+
+
     const extractNumber = (text) => {
         return parseInt(text.match(/\((\d+)\)/)[1], 10);
     };
@@ -69,9 +80,8 @@ describe('Draft management', function () {
         cy.get('a.govuk-button').should('contain', 'Create a CAB')
     })
 
-    // there is difference in the database getItem task compare to what the ui is rendering
-    it.skip('displays All CABs sorted by Last Updated Date by default', function () {
-        sortedByLastUpdatedDesc(this.cabs).slice(0, 5).forEach((cab, index) => {
+    it('displays All CABs sorted by Last Updated Date by default', function () {
+        sortedByLastUpdatedDescWithSecondaryCabNumber(this.cabs).slice(0, 5).forEach((cab, index) => {
             cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
                 cy.get('td').eq(0).contains(cab.name);
                 cy.get('td').eq(1).contains(valueOrNotProvided(cab.cabNumber));
