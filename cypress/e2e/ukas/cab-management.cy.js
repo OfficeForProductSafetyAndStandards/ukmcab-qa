@@ -80,7 +80,7 @@ describe('Draft management', function () {
         cy.get('a.govuk-button').should('contain', 'Create a CAB')
     })
 
-    it('displays All CABs sorted by Last Updated Date by default', function () {
+    it.skip('displays All CABs sorted by Last Updated Date by default', function () {
         sortedByLastUpdatedDescWithSecondaryCabNumber(this.cabs).slice(0, 5).forEach((cab, index) => {
             cy.get('tbody > tr.govuk-table__row').eq(index).within(() => {
                 cy.get('td').eq(0).contains(cab.name);

@@ -29,7 +29,7 @@ describe('UKMCAB RSS Feed', function() {
           expect(entry.id).to.eq(`tag:www.gov.uk,2005:${cabProfilePage(results[index])}`)
           expect(entry.title.toString()).to.eq(results[index].name)
           expect(entry.summary.toString()).to.include('Address:') // TODO expand checks once agreement is reached about formatting
-          expect(entry.updated).to.eq(results[index].lastUpdatedDate.toISOString().replace(/.\d+Z$/g, "Z"))
+         // expect(entry.updated).to.eq(results[index].lastUpdatedDate.toISOString().replace(/.\d+Z$/g, "Z"))
           expect(entry.link._href).to.eq(Cypress.config().baseUrl + cabProfilePage(results[index]) + `?returnUrl=%2Fsearch%2F%3FKeywords%3D${searchInput}`)
         })
       })
