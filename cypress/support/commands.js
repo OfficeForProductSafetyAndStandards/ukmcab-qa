@@ -1,5 +1,6 @@
 import { basicAuthCreds } from "../support/helpers/common-helpers";
 import { header } from "./helpers/common-helpers";
+import 'cypress-axe';
 
 Cypress.Commands.add("ensureOn", (urlPath, options = {}) => {
   cy.location().then((loc) => {
@@ -118,4 +119,12 @@ Cypress.Commands.add("getCabslug", (name) => {
     .replace(/[^a-zA-Z0-9 ]/g, "")
     .replace(/\s+/g, "-")
     .toLowerCase();
+});
+
+Cypress.Commands.add('injectAxe', () => {
+  cy.injectAxe();
+});
+
+Cypress.Commands.add('checkA11y', (context, options = {}, violationCallback) => {
+  cy.checkA11y(context, options, violationCallback);
 });
