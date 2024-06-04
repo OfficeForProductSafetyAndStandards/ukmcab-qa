@@ -43,6 +43,7 @@ describe('Ukas submitting a new CAB for Approval', () => {
             cy.get('#CABNumber').type(Date.now().toString())
             cy.get('#CabNumberVisibility').select('Display for all signed-in users')
             cy.get('#UserNotes').type('OPSS TEST E2E User notes approve')
+            cy.contains('Enter the reason for publishing this CAB. This will be shown to all users in the CAB history page.').should('exist');
             cy.get('#Reason').type('OPSS TEST E2E Reason approve')
             cy.get('#approve').click()
             cy.get('h1').should('contain', 'Draft management')
