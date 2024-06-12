@@ -16,7 +16,7 @@
 // Import commands.js using ES2015 syntax:
 import './commands'
 import './hooks'
-
+import 'cypress-axe-core';
 var chaiDatetime = require('chai-datetime');
 chai.use(chaiDatetime);
 
