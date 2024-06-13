@@ -22,3 +22,7 @@ export const shouldBeLoggedIn = () => {
 export const shouldBeLoggedOut = () => {
   header().contains('a', 'Sign in')
 }
+
+export const helpPath = () => {
+  return "/help";
+};

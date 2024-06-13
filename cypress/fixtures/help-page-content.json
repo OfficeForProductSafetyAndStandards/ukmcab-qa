@@ -1,0 +1,154 @@
+{
+  "mainHeader": "How to use the UK Market Conformity Assessment Bodies (UKMCAB) service",
+  "subHeaders": [
+    {
+      "header": "An introduction to the UKMCAB service",
+      "text": [
+        "The UKMCAB service is the definitive source and a register of UK Government appointed Conformity Assessment Bodies (CABs) who can certify goods for both the Great Britain and Northern Ireland markets.",
+        "As the UK exited the EU, an alternative to the previously used NANDO system was required. NANDO is the EU service that provides the same functionality across all member countries and organisations.",
+        "In March 2019, a UK version of NANDO was created, on GOV.UK, however it lacked functionality, specifically around the process for CAB creation and approvals from the various organisations and departments involved. These requirements, and others, are intended to be delivered with the bespoke developed UKMCAB service.",
+        "For more information about the service, visit our About page."
+      ]
+    },
+    {
+      "header": "What is the Public Beta?",
+      "text": [
+        "UKMCAB is currently in the Public Beta phase. This is where a web site or a service is continually developed to an agreed set of requirements and is delivered in shorter phases of multiple releases. This ensures that the service is always developing, unlike many traditional technology projects where updates can take months and years to reach the user. The service is tested and improved with the help of users who offer feedback or agree to participate in user research. Both of which can influence how the future service is changed.",
+        "The Public Beta is the minimum viable product. It is what is required from the site to meet the basic needs of the business owners and the users. In the case of the UKMCAB service the Public Beta is to replace the existing interim site with the same level of functionality.",
+        "From the Public Beta the project will continuously release updates through a series of phases which will deliver larger areas of functionality, such as approvals processes."
+      ]
+    },
+    {
+      "header": "Who should use the UKMCAB service?",
+      "text": [
+        "Any organisation that is supplying or manufacturing goods for the UK and NI markets which need to be certified as meeting a set of regulatory standards. This could be anything from maritime equipment to gas appliances, from toys to explosives.",
+        "Those organisations who carry out the above certification will also need to ensure they are on this service, and that their details and legislative areas are up to date so that they can be found by others who wish to use their services.",
+        "The system is also for use by those who monitor, review and update the service itself, these areas being the UK Accreditation Service (UKAS), other government departments (OGDs) involved in the approval and certification of these organisations and responsibility for the legislative areas that require accreditation from companies, and the Office for Product Safety and Standards (OPSS)."
+      ]
+    },
+    {
+      "header": "When to use the UKMCAB service",
+      "text": [
+        "For the organisations registered on the service, their details will be submitted for approval by the UK Accreditation Service (UKAS) when they have completed their accreditation. They are required to keep their details up to date.",
+        "For organisations who wish to manufacture and/or supply goods to the UK that require certification, they will use the service to find companies approved to carry out the necessary testing and approvals to allow them to be certified to manufacture or supply those goods.",
+        "For the organisations and governmental departments involved in the management of the service, they should use the service whenever they need to add or update Conformity Assessment Bodies (CABs), or when they receive notifications to review submitted CAB records and updates for approval."
+      ]
+    },
+    {
+      "header": "How does an organisation get listed on the UKMCAB service?",
+      "text": [
+        "is the organisation who carry out the certification process for the government. In the first instance, contact them to understand more about how the process works, and what you will need to do in order to become accredited and therefore listed on the UKMCAB service."
+      ]
+    },
+    {
+      "header": "Organisations with administration access to the UKMCAB service",
+      "text": [
+        "UK Accreditation Service (UKAS), other government departments (OGDs) involved in the approval and certification of these organisations and responsibility for the legislative areas that require accreditation from companies, and the Office for Product Safety and Standards (OPSS) who manage the service.",
+        "Generally, UKAS request the addition of new Conformity Assessment Bodies (CABs), OGDs review and approve them, and OPSS have final review and publishing abilities on the service."
+      ]
+    },
+    {
+      "header": "How does the Office for Product Safety and Standards (OPSS) use the service?",
+      "text": [
+        "OPSS are responsible for developing and operating the service.",
+        "OPSS are also responsible for managing Conformity Assessment Bodies (CABs) in some legislative areas within the system, and are the final approval stage in the process of accepting CABs onto the service."
+      ]
+    },
+    {
+      "header": "How is the information entered into the UKMCAB service used by the Office for Product Safety and Standards (OPSS)?",
+      "text": [
+        "Please see the Privacy and Terms of Use statements for more information about how your data and privacy is managed.",
+        "For the data entered into the service, this is used to display the relevant information regarding Conformity Assessment Bodies (CABs) to those searching the service. Some fields are used purely for searching and are not viewable by public users, as are the supporting documents often supplied by the UK Accreditation Service (UKAS) and other government departments (OGDs). While these are not publicly viewable, they are retained with the records, within the service, and only viewable by those managing the CABs and the service.",
+        "Data will be used for internal reporting and analysis to improve the system, for example to identify where there are regulatory areas missing CABs or where CABs are not being returned in the search results correctly"
+      ]
+    },
+    {
+      "header": "How do the other government departments (OGDs) use the service?",
+      "text": [
+        "Please see the Privacy and Terms of Use statements for more information about how your data and privacy is managed.",
+        "OGDs will use the service to manage approvals and archive requests for Conformity Assessment Bodies (CAB) records.",
+        "They may also request reports and analysis from the Office for Product Safety and Standards (OPSS) to understand CAB coverage for their legislative areas and for other purposes relating to their business and operation."
+      ]
+    },
+    {
+      "header": "How does the United Kingdom Accreditation Service (UKAS) use the service?",
+      "text": [
+        "Please see the Privacy and Terms of Use statements for more information about how your data and privacy is managed.",
+        "UKAS will use the service to create Conformity Assessment Bodies (CAB) records, manage approvals and archive requests, and to request entries are archived for the legislative areas that they hold responsibility for.",
+        "They may also request reports and analysis from the Office for Product Safety and Standards (OPSS) to understand CAB coverage, usage and for other purposes relating to their business and operation."
+      ]
+    },
+    {
+      "header": "My company details were submitted some time ago and they are not showing in the search results",
+      "text": [
+        "If you have submitted your company details and they are not showing please send us an email using the Contact page quoting your CAB name and number if available."
+      ]
+    },
+    {
+      "header": "How to stop receiving email notifications",
+      "text": [
+        "Email notifications from search results and Conformity Assessment Bodies (CAB) profile pages can be unsubscribed to by selecting the unsubscribe link on the email.",
+        "Feed notifications from search results and CAB profile pages can be unsubscribed from by simply deleting them from your feed reader of choice."
+      ]
+    },
+    {
+      "header": "Accessing your account as a registered user",
+      "text": [
+        "When you sign into your account using the Sign in link in the header you will be taken to the Gov One Login page. At this point you can either create a new Gov One Login account or sign in with your existing account. If you create a new Gov One Login account your access to UKMCAB will be approved by OPSS and you should receive notification by email within 72 hours."
+      ]
+    },
+    {
+      "header": "Why does the search sometimes show results in a random order?",
+      "text": [
+        "The reason to randomise entries is to ensure that there is a fair distribution of bodies, and a body entered with a name of “A1” will not always appear first.",
+        "When a blank search is performed, i.e. no search term is entered, all the CAB records in the system are displayed. Blank searches can be performed by the user by pressing search with no search term entered or filters selected, or by simply navigating to the search page from another page.",
+        "Each morning these search results are randomised. This means that if a blank search is performed in the morning and the afternoon, the results will be in the same order. If that blank search is performed the following day, the results will be in a different order.",
+        "The randomisation is not performed at every search as this can increase server load, cause problems with moving to the next page of the returned results for each user, as well as other technical reasons.",
+        "When a search term is entered, the sort order defaults to relevancy. When another sort order is selected, that search order takes precedence."
+      ]
+    },
+    {
+      "header": "What Cookies do you use? / Where is your Cookies statement?",
+      "text": [
+        "Please read our cookies policy."
+      ]
+    },
+    {
+      "header": "How accessible is UKMCAB service? / Where is your Accessibility statement?",
+      "text": [
+        "Please read our accessibility policy."
+      ]
+    },
+    {
+      "header": "What are the terms and conditions of using the UKMCAB service? / Where is your Terms of Use statement?",
+      "text": [
+        "Please read our terms and conditions policy."
+      ]
+    },
+    {
+      "header": "What are the privacy rules for using the UKMCAB service? / Where is your Privacy statement?",
+      "text": [
+        "Please read our privacy policy."
+      ]
+    },
+    {
+      "header": "How do I contact those responsible for the UKMCAB service?",
+      "text": [
+        "Contact us.",
+        "Please reference the UKMCAB service when emailing and clearly state what the email is regarding. Suggestions for changes to the services are also welcome using this email service."
+      ]
+    },
+    {
+      "header": "Glossary of Government departments",
+      "text": [
+        "DLUHC - Department for Levelling Up, Housing and Communities",
+        "DFTR - Department for Transport - GOV.UK",
+        "MCGA - Maritime and Coastguard Agency",
+        "MHRA - Medicines and Healthcare products Regulatory Agency",
+        "OGD - Other government department",
+        "OPSS - Office for Product Safety and Standards - GOV.UK",
+        "UKAS - The UK Accreditation Body - Creating Confidence"
+      ]
+    }
+  ]
+}
