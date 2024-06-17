@@ -905,3 +905,14 @@ export const opssRemoveLA = () => {
             ).should("contain", "No legislative area has been added.");
         });
 };
+
+export const editCabName = (cab) => {
+    cy.get("#Name").invoke("val", cab.name);
+    cy.continue();
+};
+
+export const addLegislativeAreaButton = () => {
+    return cy.get('button[name="submitType"][value="AddLegislativeArea"]');
+};
+
+
