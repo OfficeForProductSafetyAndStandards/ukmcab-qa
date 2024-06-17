@@ -189,3 +189,14 @@ export const getLastUserEmail = (emailAddress) => {
     return emails.find((email) => email.emailAddress === emailAddress) ?? null;
   });
 };
+
+export const getLastUserEmailUsingSentAt = (emailAddress) => {
+  return getSandboxEmails().then((emails) => {
+    const filteredEmails = emails.filter((email) => email.emailAddress === emailAddress);
+    if (filteredEmails.length === 0) {
+      return null;
+    }
+    filteredEmails.sort((a, b) => new Date(b.sentAt) - new Date(a.sentAt));
+    return filteredEmails[0];
+  });
+};

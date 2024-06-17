@@ -101,15 +101,10 @@ describe('Email subscription', function () {
             EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email)
             getLastUserEmail(this.email).then(_email => {
                 cy.ensureOn(_email.links[1]) // second link is view subscription changes
-                EmailSubscriptionHelpers.assertSearchSubscriptionChangesAreDisplayed(0, 0)
+                EmailSubscriptionHelpers.assertSearchSubscriptionChangesAreDisplayed(0, 0, 1)
             })
             cy.contains('a', 'View').click()
-            cy.get('h1.govuk-heading-l').invoke('text').then((text) => {
-                const value = parseInt(text.match(/\d+/)[0], 10);
-                expect(value).to.be.greaterThan(0);
-                const remainingText = text.replace(/\d+/, '').trim();
-                expect(remainingText).to.equal('modifications to search results');
-            });
+            cy.contains(`1 modifications to search results`)
             cy.contains(this.cab.addressLines.join(', '))
 
             // add a new cab to trigger notification
@@ -121,10 +116,10 @@ describe('Email subscription', function () {
             EmailSubscriptionHelpers.assertSearchUpdateSubscriptionEmailIsSent(this.email)
             getLastUserEmail(this.email).then(_email => {
                 cy.ensureOn(_email.links[1]) // second link is view subscription changes
-                EmailSubscriptionHelpers.assertSearchSubscriptionChangesAreDisplayed(1, 0)
+                EmailSubscriptionHelpers.assertSearchSubscriptionChangesAreDisplayed(1, 0, 0)
             })
             cy.contains('a', 'View').click()
-            cy.contains(`1 additions to search results`);
+            cy.contains(`1 additions to search results`)
             cy.contains(newCab.name)
         })
     })
