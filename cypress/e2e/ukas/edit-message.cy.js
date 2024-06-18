@@ -113,15 +113,15 @@ describe('CAB profile cannot be edited message', () => {
 
         it('and i approve as an OGD user ', function () {
             cy.loginAsOpssOgdUser();
-            cy.ensureOn(this.publishedDraftUrl)
-            CabHelpers.editCabButton().click()
-            cy.contains('a', 'Review').click()
+            cy.ensureOn(this.publishedDraftUrl);
+            CabHelpers.editCabButton().click();
+            cy.contains('a', 'Review').click();
             CabHelpers.approveLegislativeAreas(this.cab)
             cy.logout();
         });
 
         it('and i review and approve as OPSS admin user ', function () {
-            cy.loginAsOpssUser()
+            cy.loginAsOpssUser();
             cy.ensureOn(this.publishedDraftUrl)
             CabHelpers.editCabButton().click();
             cy.contains('a', 'Review').click()
@@ -151,6 +151,14 @@ describe('CAB profile cannot be edited message', () => {
             cy.loginAsOpssUser();
             cy.ensureOn(this.publishedDraftUrl);
             profileCannotBeEdited();
+            cy.logout();
+        });
+
+        it('then the message is not display for OGD user', function () {
+            cy.loginAsOpssOgdUser();
+            cy.ensureOn(this.publishedDraftUrl);
+            CabHelpers.editCabButton().should('exist');
+            cy.logout();
         });
     });
 });
