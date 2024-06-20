@@ -66,7 +66,7 @@ describe('CAB profile cannot be edited message', () => {
             cy.logout();
         });
 
-        it('message is displayed for OPSS Admin user pending OGD user approval for when published cab (name) is edited', function () {
+        it('message should not display for OPSS Admin when published cab (name) is edited, and the OPSS admin should able to edit', function () {
             cy.loginAsUkasUser();
             cy.ensureOn(this.draftUrl);
             CabHelpers.editCabButton().click();
@@ -77,7 +77,7 @@ describe('CAB profile cannot be edited message', () => {
             cy.logout();
             cy.loginAsOpssUser();
             cy.ensureOn(this.draftUrl);
-            profileCannotBeEdited();
+            CabHelpers.editCabButton().should('exist');
         });
 
         it('message is displayed for UKAS user pending OGD user approval when published cab is edited', function () {
