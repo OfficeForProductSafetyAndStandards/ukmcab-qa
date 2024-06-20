@@ -4,7 +4,6 @@ import Cab from "../../support/domain/cab";
 import 'cypress-axe'
 import {terminalAndCsvLog} from "../../support/helpers/accessibilityHelper";
 
-
 describe('UKMCAB Accessibility Tests ', function () {
 
     const checkAccessibility = (standardOptions, terminalLogArg) => {
