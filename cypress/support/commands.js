@@ -1,6 +1,5 @@
 import {basicAuthCreds} from "../support/helpers/common-helpers";
 import {header} from "./helpers/common-helpers";
-import 'cypress-axe';
 
 Cypress.Commands.add("ensureOn", (urlPath, options = {}) => {
     cy.location().then((loc) => {
@@ -119,82 +118,4 @@ Cypress.Commands.add("getCabslug", (name) => {
         .replace(/[^a-zA-Z0-9 ]/g, "")
         .replace(/\s+/g, "-")
         .toLowerCase();
-});
-
-const severityIndicators = {
-    minor: '⚪️',
-    moderate: '🟡',
-    serious: '🟠',
-    critical: '🔴',
-}
-
-function callback(violations) {
-    violations.forEach(violation => {
-        const nodes = Cypress.$(violation.nodes.map(node => node.target).join(','))
-
-        Cypress.log({
-            name: `${severityIndicators[violation.impact]} A11Y`,
-            consoleProps: () => violation,
-            $el: nodes,
-            message: `[${violation.help}](${violation.helpUrl})`
-        })
-
-        violation.nodes.forEach(({target}) => {
-            Cypress.log({
-                name: '🔧',
-                consoleProps: () => violation,
-                $el: Cypress.$(target.join(',')),
-                message: target
-            })
-        })
-    });
-}
-
-Cypress.Commands.add("checkAccessibility", () => {
-    cy.injectAxe();
-    cy.checkA11y(null, null, callback);
-
-});
-
-Cypress.Commands.add("checkAccessibility", () => {
-    cy.injectAxe();
-    cy.wait(500);
-    cy.checkA11y(null, null, (violations) => {
-        if (violations.length) {
-            cy.task('log', `${violations.length} accessibility violation${violations.length === 1 ? '' : 's'} detected`);
-
-            const violationTable = violations.map((violation, index) => {
-                return {
-                    index: index + 1,
-                    impact: violation.impact,
-                    description: violation.description,
-                    count: violation.nodes.length,
-                };
-            });
-
-            cy.task('table', violationTable);
-        }
-    });
-});
-
-Cypress.Commands.add("checkAccessibilityWithSpecificA11yTag", (context = null, options = {}, violationCallback = null) => {
-    cy.injectAxe();
-    cy.checkA11y(context, options, (violations) => {
-        if (violations.length) {
-            cy.task('log', 'Accessibility violations detected:');
-            violations.forEach(({id, impact, description, nodes}) => {
-                cy.task('log', `${impact} - ${description} (${id})`);
-                cy.task('table', nodes.map(node => {
-                    return {
-                        target: node.target.join(', '),
-                        html: node.html,
-                        failureSummary: node.failureSummary
-                    };
-                }));
-            });
-            if (violationCallback) {
-                violationCallback(violations);
-            }
-        }
-    });
 });

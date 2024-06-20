@@ -1,6 +1,7 @@
 const {defineConfig} = require("cypress");
 const {CosmosClient} = require("@azure/cosmos");
 const NotifyClient = require("notifications-node-client").NotifyClient; // GOV UK Notify
+const fs = require('fs');
 
 module.exports = defineConfig({
     projectId: "mdthva",
@@ -56,8 +57,7 @@ module.exports = defineConfig({
                     return deletedItem.resource;
                 },
                 async getEmails(email) {
-                    return (await notifyClient.getNotifications()).data
-                        .notifications;
+                    return (await notifyClient.getNotifications()).data.notifications;
                 },
                 log(message) {
                     console.log(message);
@@ -67,6 +67,19 @@ module.exports = defineConfig({
                     console.table(message);
                     return null;
                 },
+                writeCsv({filePath, content}) {
+                    fs.writeFileSync(filePath, content);
+                    return null;
+                },
+                getUniqueFileName({baseName}) {
+                    let counter = 1;
+                    let fileName = `${baseName}.csv`;
+                    while (fs.existsSync(fileName)) {
+                        fileName = `${baseName}-${counter}.csv`;
+                        counter++;
+                    }
+                    return fileName;
+                }
             });
         },
     },

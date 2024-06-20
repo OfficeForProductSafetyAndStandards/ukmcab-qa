@@ -20,7 +20,7 @@
     "cypress:open:stage": "cypress open --config baseUrl=https://ukmcab-stage.beis.gov.uk",
     "cypress:run:dev": "cypress run --browser chrome",
     "cypress:run:stage": "cypress run --browser chrome --config baseUrl=https://ukmcab-stage.beis.gov.uk",
-    "cypress:run:a11y:stage": "cypress run --browser chrome --config baseUrl=https://ukmcab-stage.beis.gov.uk --spec cypress/e2e/ukas/accessibility-tests.cy.js",
+    "cypress:run:a11y:stage": "npx cypress run --browser chrome --config baseUrl=https://ukmcab-stage.beis.gov.uk --spec cypress/e2e/ukas/accessibility-tests.cy.js",
     "merge:reports": "mochawesome-merge cypress/reports/*.json > cypress/reports/report.json",
     "generate:report": "marge cypress/reports/report.json -o cypress/reports"
   },
