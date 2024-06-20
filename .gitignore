@@ -6,3 +6,4 @@ screenshots
 downloads
 cypress/reports
 /.vs
+/cypress/a11y-violations/

@@ -5,8 +5,11 @@
   "main": "cypress.config.js",
   "devDependencies": {
     "@azure/cosmos": "^3.17.1",
+    "axe-core": "^4.9.1",
     "chai-datetime": "^1.8.0",
     "cypress": "^13.6.3",
+    "cypress-axe": "^1.5.0",
+    "cypress-axe-core": "^2.0.0",
     "cypress-mochawesome-reporter": "^3.5.1",
     "dayjs": "^1.11.7",
     "notifications-node-client": "^8.0.0",
@@ -16,7 +19,10 @@
     "cypress:open:dev": "cypress open",
     "cypress:open:stage": "cypress open --config baseUrl=https://ukmcab-stage.beis.gov.uk",
     "cypress:run:dev": "cypress run --browser chrome",
-    "cypress:run:stage": "cypress run --browser chrome --config baseUrl=https://ukmcab-stage.beis.gov.uk"
+    "cypress:run:stage": "cypress run --browser chrome --config baseUrl=https://ukmcab-stage.beis.gov.uk",
+    "cypress:run:a11y:stage": "npx cypress run --browser chrome --config baseUrl=https://ukmcab-stage.beis.gov.uk --spec cypress/e2e/ukas/accessibility-tests.cy.js",
+    "merge:reports": "mochawesome-merge cypress/reports/*.json > cypress/reports/report.json",
+    "generate:report": "marge cypress/reports/report.json -o cypress/reports"
   },
   "repository": {
     "type": "git",
