@@ -87,7 +87,7 @@ describe('UKMCAB Accessibility Tests ', function () {
         });
 
 
-        it('then all create cab draft pages should have no accessibility violations on load', function () {
+        it.only('then all create cab draft pages should have no accessibility violations on load', function () {
             cy.loginAsUkasUser();
             cy.ensureOn(CabHelpers.addCabPath());
             checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);

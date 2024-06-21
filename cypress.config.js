@@ -2,6 +2,7 @@ const {defineConfig} = require("cypress");
 const {CosmosClient} = require("@azure/cosmos");
 const NotifyClient = require("notifications-node-client").NotifyClient; // GOV UK Notify
 const fs = require('fs');
+const path = require('path');
 
 module.exports = defineConfig({
     projectId: "mdthva",
@@ -28,6 +29,26 @@ module.exports = defineConfig({
             const key = config.env.DB_KEY;
             const client = new CosmosClient({endpoint, key});
             const notifyClient = new NotifyClient(config.env.NOTIFY_API_KEY);
+
+            const getUniqueFileName = (baseName) => {
+                let counter = 1;
+                let fileName = `${baseName}.csv`;
+                while (fs.existsSync(fileName)) {
+                    fileName = `${baseName}-${counter}.csv`;
+                    counter++;
+                }
+                return fileName;
+            };
+
+            const writeCsv = ({ filePath, content }) => {
+                const dir = path.dirname(filePath);
+                if (!fs.existsSync(dir)) {
+                    fs.mkdirSync(dir, { recursive: true });
+                }
+                fs.writeFileSync(filePath, content);
+                return null;
+            };
+
             on("task", {
                 async getItems() {
                     return await (
@@ -67,19 +88,8 @@ module.exports = defineConfig({
                     console.table(message);
                     return null;
                 },
-                writeCsv({filePath, content}) {
-                    fs.writeFileSync(filePath, content);
-                    return null;
-                },
-                getUniqueFileName({baseName}) {
-                    let counter = 1;
-                    let fileName = `${baseName}.csv`;
-                    while (fs.existsSync(fileName)) {
-                        fileName = `${baseName}-${counter}.csv`;
-                        counter++;
-                    }
-                    return fileName;
-                }
+                getUniqueFileName,
+                writeCsv
             });
         },
     },
