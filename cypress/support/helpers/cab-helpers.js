@@ -312,14 +312,18 @@ export const enterLegislativeAreas = (cab) => {
                 date(legislativeArea.ReviewDate).YYYY
             );
         }
-        if (legislativeArea.Usernotes != null) {
+        // TODO user note is now driven by edit review date. New test should be added for a user note page
+/*        if (legislativeArea.Usernotes != null) {
             cy.get("#UserNotes").invoke("val", legislativeArea.Usernotes);
         }
         cy.continue();
 
         // Legislative areas review screen.
         cy.contains("span", "Legislative areas").should("exist");
-
+*/
+        cy.continue();
+        // Legislative areas review screen.
+        cy.contains("span", "Legislative areas").should("exist");
         // If there are more legislative areas to add, click the "Add legislative area" link/button.
         if (laIndex < cab.documentLegislativeAreas.length - 1) {
             cy.get('button').contains('Add legislative area').click()
