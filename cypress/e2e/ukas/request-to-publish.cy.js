@@ -3,19 +3,23 @@ import Cab from '/cypress/support/domain/cab'
 import * as EmailSubscriptionHelpers from "/cypress/support/helpers/email-subscription-helpers";
 import * as UserManagementHelpers from "../../support/helpers/user-management-helpers";
 import Constants from "/cypress/support/domain/constants";
+import {getSlug} from "/cypress/support/helpers/cab-helpers";
 
 describe('Ukas submitting a new CAB for Approval', () => {
+    let cabProfileName;
 
     beforeEach(function () {
         cy.wrap(Cab.buildWithoutDocuments()).as('cab')
     })
 
     context('Ukas submits cab for approval and opss approve', function () {
-        it('Ukas submit cab for approval', function () {
+        it.only('Ukas submit cab for approval', function () {
             cy.loginAsUkasUser()
-            cy.ensureOn(CabHelpers.addCabPath())
+            cy.ensureOn(CabHelpers.addCabPath());
+            const uniqueId = Date.now();
+            cabProfileName = `Request to publish tests - ${uniqueId}`;
             cy.get('#CABNumber').should('be.disabled'); //Check cab number is disabled
-            cy.get('#Name').type('Test ukas create cab');
+            cy.get('#Name').type(cabProfileName);
             cy.continue();
             CabHelpers.enterContactDetails(this.cab)
             CabHelpers.enterBodyDetails(this.cab)
@@ -27,7 +31,7 @@ describe('Ukas submitting a new CAB for Approval', () => {
             cy.url().as('draftUrl')
             cy.get('.cab-status-tag--pending-approval').should('contain', 'Pending approval to publish CAB')
         })
-        it('OPSS OGD approves Legislative Areas pending approval and OPSS admin publishes CAB', function () {
+        it.only('OPSS OGD approves Legislative Areas pending approval and OPSS admin publishes CAB', function () {
             cy.loginAsOpssOgdUser();
             cy.ensureOn(this.draftUrl)
             CabHelpers.editCabButton().click()
@@ -51,6 +55,21 @@ describe('Ukas submitting a new CAB for Approval', () => {
             cy.get('#Reason').type('OPSS TEST E2E Reason approve')
             cy.get('#approve').click()
             cy.get('h1').should('contain', 'Draft management')
+        })
+
+        it.only('it should display warning messages for signed-in users on published CABs where a draft CAB exists', function () {
+            cy.loginAsOpssUser();
+            cy.ensureOn(this.draftUrl);
+            CabHelpers.editCabButton().click();
+            CabHelpers.editCabDetail('CAB details');
+            this.cab.name = `Create a draft from published ${Date.now()}`
+            CabHelpers.editCabName(this.cab);
+            CabHelpers.saveAsDraft();
+            cy.get('h1').should('contain', 'Draft management');
+            cy.ensureOn(CabHelpers.cabProfileUrlPathByCabName(cabProfileName));
+            cy.contains('A Draft CAB exists for this record.').should('exist');
+            cy.get('#tab_usernotes').click();
+            cy.contains('Government user notes need to be added to the Draft record.').should('exist');
         })
     })
 
