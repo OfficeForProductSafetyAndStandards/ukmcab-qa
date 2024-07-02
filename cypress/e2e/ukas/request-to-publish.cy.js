@@ -13,7 +13,7 @@ describe('Ukas submitting a new CAB for Approval', () => {
     })
 
     context('Ukas submits cab for approval and opss approve', function () {
-        it.only('Ukas submit cab for approval', function () {
+        it('Ukas submit cab for approval', function () {
             cy.loginAsUkasUser()
             cy.ensureOn(CabHelpers.addCabPath());
             const uniqueId = Date.now();
@@ -30,8 +30,9 @@ describe('Ukas submitting a new CAB for Approval', () => {
             cy.get('#viewCab').click()
             cy.url().as('draftUrl')
             cy.get('.cab-status-tag--pending-approval').should('contain', 'Pending approval to publish CAB')
-        })
-        it.only('OPSS OGD approves Legislative Areas pending approval and OPSS admin publishes CAB', function () {
+        });
+
+        it('OPSS OGD approves Legislative Areas pending approval and OPSS admin publishes CAB', function () {
             cy.loginAsOpssOgdUser();
             cy.ensureOn(this.draftUrl)
             CabHelpers.editCabButton().click()
@@ -55,9 +56,9 @@ describe('Ukas submitting a new CAB for Approval', () => {
             cy.get('#Reason').type('OPSS TEST E2E Reason approve')
             cy.get('#approve').click()
             cy.get('h1').should('contain', 'Draft management')
-        })
+        });
 
-        it.only('it should display warning messages for signed-in users on published CABs where a draft CAB exists', function () {
+        it('it should display warning messages for signed-in users on published CABs where a draft CAB exists', function () {
             cy.loginAsOpssUser();
             cy.ensureOn(this.draftUrl);
             CabHelpers.editCabButton().click();
@@ -70,8 +71,8 @@ describe('Ukas submitting a new CAB for Approval', () => {
             cy.contains('A Draft CAB exists for this record.').should('exist');
             cy.get('#tab_usernotes').click();
             cy.contains('Government user notes need to be added to the Draft record.').should('exist');
-        })
-    })
+        });
+    });
 
     context('Ukas submits cab for approval and opss decline', function () {
         beforeEach(function () {
