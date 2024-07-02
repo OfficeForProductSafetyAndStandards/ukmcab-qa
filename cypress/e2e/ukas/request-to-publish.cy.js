@@ -41,6 +41,10 @@ describe('Ukas submitting a new CAB for Approval', () => {
             CabHelpers.approveLegislativeAreas(this.cab)
             cy.get('#approveCab').click()
             cy.get('#CABNumber').type(Date.now().toString())
+            cy.generateRandomNumber(5).then((randomNumber) => {
+                const dateNow = Date.now().toString();
+                cy.get('#PreviousCABNumbers').type(`${dateNow},${randomNumber}`);
+            });
             cy.get('#CabNumberVisibility').select('Display for all signed-in users')
             cy.get('#UserNotes').type('OPSS TEST E2E User notes approve')
             cy.contains('Enter the reason for publishing this CAB. This will be shown to all users in the CAB history page.').should('exist');

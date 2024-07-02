@@ -119,3 +119,12 @@ Cypress.Commands.add("getCabslug", (name) => {
         .replace(/\s+/g, "-")
         .toLowerCase();
 });
+
+Cypress.Commands.add('generateRandomNumber', (numDigits) => {
+    const min = Math.pow(10, numDigits - 1);
+    const max = Math.pow(10, numDigits) - 1;
+    const randomNum = Math.floor(min + Math.random() * (max - min + 1)).toString();
+    return cy.wrap(randomNum);
+});
+
+

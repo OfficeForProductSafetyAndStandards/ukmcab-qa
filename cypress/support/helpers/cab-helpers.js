@@ -312,15 +312,14 @@ export const enterLegislativeAreas = (cab) => {
                 date(legislativeArea.ReviewDate).YYYY
             );
         }
-        // TODO user note is now driven by edit review date. New test should be added for a user note page
-/*        if (legislativeArea.Usernotes != null) {
-            cy.get("#UserNotes").invoke("val", legislativeArea.Usernotes);
-        }
-        cy.continue();
+        /*        if (legislativeArea.Usernotes != null) {
+                    cy.get("#UserNotes").invoke("val", legislativeArea.Usernotes);
+                }
+                cy.continue();
 
-        // Legislative areas review screen.
-        cy.contains("span", "Legislative areas").should("exist");
-*/
+                // Legislative areas review screen.
+                cy.contains("span", "Legislative areas").should("exist");
+        */
         cy.continue();
         // Legislative areas review screen.
         cy.contains("span", "Legislative areas").should("exist");
@@ -920,3 +919,32 @@ export const addLegislativeAreaButton = () => {
 };
 
 
+export const editLegislativeAreaReviewDate = (newDate, legislativeAreaName) => {
+    cy.get(
+        ".govuk-grid-column-full .govuk-form-group .govuk-fieldset .govuk-details"
+    )
+        .should("be.visible")
+        .click();
+    cy.get(".govuk-details__summary").should("be.visible");
+    cy.get(
+        ".govuk-grid-column-full .govuk-form-group .govuk-fieldset .govuk-details .govuk-details__text .govuk-button"
+    )
+        .contains("Edit legislative area additional information")
+        .should("exist")
+        .click({force: true});
+    cy.get('.govuk-heading-l').contains(`${legislativeAreaName}: additional information`);
+
+    cy.get("input[name='ReviewDate.Day']").invoke(
+        "val",
+        date(newDate).DD
+    );
+    cy.get("input[name='ReviewDate.Month']").invoke(
+        "val",
+        date(newDate).MM
+    );
+    cy.get("input[name='ReviewDate.Year']").invoke(
+        "val",
+        date(newDate).YYYY
+    );
+    cy.saveAndContinue();
+};
