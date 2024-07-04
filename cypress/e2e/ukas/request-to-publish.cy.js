@@ -3,7 +3,6 @@ import Cab from '/cypress/support/domain/cab'
 import * as EmailSubscriptionHelpers from "/cypress/support/helpers/email-subscription-helpers";
 import * as UserManagementHelpers from "../../support/helpers/user-management-helpers";
 import Constants from "/cypress/support/domain/constants";
-import {getSlug} from "/cypress/support/helpers/cab-helpers";
 
 describe('Ukas submitting a new CAB for Approval', () => {
     let cabProfileName;
@@ -20,6 +19,8 @@ describe('Ukas submitting a new CAB for Approval', () => {
             cabProfileName = `Request to publish tests - ${uniqueId}`;
             cy.get('#CABNumber').should('be.disabled'); //Check cab number is disabled
             cy.get('#Name').type(cabProfileName);
+            cy.get('#PreviousCABNumbers').should('be.disabled');
+            cy.contains('Previous CAB numbers can be added on approval').should('exist');
             cy.continue();
             CabHelpers.enterContactDetails(this.cab)
             CabHelpers.enterBodyDetails(this.cab)
@@ -86,6 +87,8 @@ describe('Ukas submitting a new CAB for Approval', () => {
             cy.ensureOn(CabHelpers.addCabPath())
             cy.get('#CABNumber').should('be.disabled'); //Check cab number is disabled
             cy.get('#Name').type('Test ukas create cab for decline');
+            cy.get('#PreviousCABNumbers').should('be.disabled');
+            cy.contains('Previous CAB numbers can be added on approval').should('exist');
             cy.continue();
             CabHelpers.enterContactDetails(this.cab)
             CabHelpers.enterBodyDetails(this.cab)
