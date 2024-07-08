@@ -950,5 +950,5 @@ export const editLegislativeAreaReviewDate = (newDate, legislativeAreaName) => {
 };
 
 export const publish = () => {
-    cy.contains("button,a", "Save as draft").click();
+    cy.contains("button,a", "Publish").click();
 };
