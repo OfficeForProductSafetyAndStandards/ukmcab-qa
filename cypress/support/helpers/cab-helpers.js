@@ -948,3 +948,7 @@ export const editLegislativeAreaReviewDate = (newDate, legislativeAreaName) => {
     );
     cy.saveAndContinue();
 };
+
+export const publish = () => {
+    cy.contains("button,a", "Save as draft").click();
+};
