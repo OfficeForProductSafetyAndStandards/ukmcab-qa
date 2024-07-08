@@ -12,6 +12,13 @@ describe('UKMCAB Accessibility Tests ', function () {
         cy.checkA11y(null, standardOptions, terminalLogArg, true);
     }
 
+    const wcag22aaStandardOption = {
+        runOnly: {
+            type: 'tag',
+            values: ['wcag22aa']
+        }
+    }
+
     const wcag21aaStandardOption = {
         runOnly: {
             type: 'tag',

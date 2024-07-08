@@ -19,6 +19,7 @@
   "scripts": {
     "cypress:open:dev": "cypress open",
     "cypress:open:stage": "cypress open --config baseUrl=https://ukmcab-stage.beis.gov.uk",
+    "cypress:open:pp": "cypress open --config baseUrl=https://ukmcab-pp.beis.gov.uk",
     "cypress:run:dev": "cypress run --browser chrome",
     "cypress:run:stage": "cypress run --browser chrome --config baseUrl=https://ukmcab-stage.beis.gov.uk",
     "cypress:run:a11y:stage": "npx cypress run --browser chrome --config baseUrl=https://ukmcab-stage.beis.gov.uk --spec cypress/e2e/ukas/accessibility-tests.cy.js",
