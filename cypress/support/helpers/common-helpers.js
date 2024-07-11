@@ -26,3 +26,13 @@ export const shouldBeLoggedOut = () => {
 export const helpPath = () => {
   return "/help";
 };
+
+export const aboutPath = () => {
+  return "/about";
+};
+
+export const updatesPath = () => {
+  return "/updates";
+};
+
+

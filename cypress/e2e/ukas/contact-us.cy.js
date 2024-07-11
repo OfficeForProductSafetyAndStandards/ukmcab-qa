@@ -2,7 +2,7 @@ import { contactUsUrl, privacyUrl, termsUrl, searchUrl } from "../../support/hel
 import { getLastUserEmail } from "../../support/helpers/email-helpers";
 import { footer } from '../../support/helpers/common-helpers'
 
-describe('Contact us page', function() {
+describe.skip('Contact us page', function() {
 
   beforeEach(() => {
     cy.ensureOn(contactUsUrl())

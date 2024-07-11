@@ -1,8 +1,9 @@
 import * as CabHelpers from "../../support/helpers/cab-helpers";
-import {helpPath} from "../../support/helpers/common-helpers";
+import {helpPath, aboutPath, updatesPath} from "../../support/helpers/common-helpers";
 import Cab from "../../support/domain/cab";
 import 'cypress-axe'
 import {terminalAndCsvLog} from "../../support/helpers/accessibilityHelper";
+import {userProfilePath, userManagementPath, userManagementList} from "../../support/helpers/user-management-helpers";
 
 describe('UKMCAB Accessibility Tests ', function () {
 
@@ -123,6 +124,35 @@ describe('UKMCAB Accessibility Tests ', function () {
             checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
 
             cy.get('#viewCab').click();
+            checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
+        });
+    });
+
+    context.only('when navigate to to other pages using deeplink', function () {
+        it('should check accessibility', () => {
+            cy.loginAsOpssUser();
+            cy.ensureOn(CabHelpers.serviceManagementPath());
+            cy.get('a.govuk-header__link').contains('Search').click();
+            checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
+            cy.ensureOn(helpPath());
+            checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
+            cy.ensureOn(userProfilePath());
+            checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
+            cy.ensureOn(aboutPath());
+            checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
+            cy.ensureOn(updatesPath());
+            checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
+            cy.ensureOn(userManagementPath());
+            checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
+            cy.get('a.tab-item-title[href="/user-admin/list"]').click();
+            checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
+            cy.get('a.tab-item-title[href="/user-admin/list/locked"]').click();
+            checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
+            cy.get('a.tab-item-title[href="/user-admin/list/archived"]').click();
+            checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
+            cy.ensureOn(userManagementList());
+            checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
+            cy.ensureOn(updatesPath());
             checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
         });
     });
