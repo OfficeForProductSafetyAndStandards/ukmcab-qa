@@ -227,7 +227,7 @@ describe("Request to Unarchive a CAB", () => {
             });
         });
 
-        it.only("UKAS creates and submits for approval a request to publish a cab", function () {
+        it("UKAS creates and submits for approval a request to publish a cab", function () {
             cy.loginAsUkasUser();
             CabHelpers.createAndSubmitCabForApproval(name, this.cab);
             cy.url()
@@ -238,7 +238,7 @@ describe("Request to Unarchive a CAB", () => {
             cy.logout();
         });
 
-        it.only("OPSS approves and publish CAB requested by UKAS", function () {
+        it("OPSS approves and publish CAB requested by UKAS", function () {
             cy.loginAsOpssOgdUser();
             cy.ensureOn(this.draftUrl)
             CabHelpers.editCabButton().click()
@@ -265,18 +265,18 @@ describe("Request to Unarchive a CAB", () => {
             cy.hasStatus("Published");
         });
 
-        it.only("OPSS archive CAB", function () {
+        it("OPSS archive CAB", function () {
             cy.loginAsOpssUser();
             CabHelpers.opssArchiveCAB(name);
             cy.logout();
         });
 
-        it.only("UKAS request to unarchive CAB and save as draft", function () {
+        it("UKAS request to unarchive CAB and save as draft", function () {
             cy.loginAsUkasUser();
             CabHelpers.ukasRequestToUnarchiveAndSaveAsDraftCab(name);
         });
 
-        it.only("OPSS approves request to unarchive and save as draft", function () {
+        it("OPSS approves request to unarchive and save as draft", function () {
             cy.loginAsOpssUser();
             cy.ensureOn(CabHelpers.cabProfileUrlPathByCabName(name));
             cy.get("a").contains("Approve").click();
