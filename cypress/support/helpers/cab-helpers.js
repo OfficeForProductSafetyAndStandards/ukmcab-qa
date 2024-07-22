@@ -125,10 +125,9 @@ export const enterCabDetails = (cab) => {
     cy.get("#CabNumberVisibility option").then(($options) => {
         const options = Cypress._.map($options, "innerText");
         expect(options).to.eql([
-            "Select an option",
-            "Display for all users",
-            "Display for all signed-in users",
             "Display for government users only",
+            "Display for all signed-in users",
+            "Display for all users",
         ]);
     });
     if (cab.cabNumberVisibility === CabNumberVisibility.Internal) {
