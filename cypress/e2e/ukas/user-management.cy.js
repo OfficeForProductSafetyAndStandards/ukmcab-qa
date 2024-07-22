@@ -1,5 +1,5 @@
 import * as UserManagementHelpers from '../../support/helpers/user-management-helpers'
-import { contactUsUrl } from '../../support/helpers/url-helpers'
+import { contactUs } from '../../support/helpers/url-helpers'
 import { shouldBeLoggedIn, shouldBeLoggedOut } from '../../support/helpers/common-helpers'
 import { getLastUserEmail } from "../../support/helpers/email-helpers";
 import * as AccountRequestHelpers from '../../support/helpers/account-request-helpers'
@@ -167,7 +167,7 @@ describe('User Management', () => {
       cy.login(this.lockedUser)
       shouldBeLoggedOut()
       cy.contains('Your account is locked. If you need support, use the UKMCAB contact page.')
-      cy.contains('a', 'UKMCAB contact page').should('have.attr', 'href', contactUsUrl())
+      cy.contains('a', 'UKMCAB contact page').should('have.attr', 'href', contactUs())
       getLastUserEmail(this.lockedUser.contactEmail).then(_email => {
         expect(_email.isRecent).to.be.true
         expect(_email.isAccountLockedEmail()).to.be.true
@@ -221,7 +221,7 @@ describe('User Management', () => {
       cy.login(this.user)
       shouldBeLoggedOut()
       cy.contains('Your account has been archived. If you need support, use the UKMCAB contact page.')
-      cy.contains('a', 'UKMCAB contact page').should('have.attr', 'href', contactUsUrl())
+      cy.contains('a', 'UKMCAB contact page').should('have.attr', 'href', contactUs())
       getLastUserEmail(this.user.contactEmail).then(_email => {
         expect(_email.isRecent).to.be.true
         expect(_email.isAccountArchivedEmail()).to.be.true
