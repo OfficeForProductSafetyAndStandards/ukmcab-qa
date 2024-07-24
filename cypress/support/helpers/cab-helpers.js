@@ -34,6 +34,15 @@ export const notificationUnassignedUrlPath = () => {
     return `/admin/notifications#Unassigned`;
 };
 
+export const notificationAssignedGroupUrlPath = () => {
+    return `/admin/notifications#assigned-group`;
+}
+
+export const notificationAssignedMeUrlPath = () => {
+    return `/admin/notifications#assigned-me`;
+}
+
+
 export const cabProfileUrlPathByCabName = (name) => {
     return `/search/cab-profile/${getSlug(name)}`;
 };

@@ -127,4 +127,25 @@ Cypress.Commands.add('generateRandomNumber', (numDigits) => {
     return cy.wrap(randomNum);
 });
 
+Cypress.Commands.add('clickOnCabFromNotificationTable', (tab, subject, cabName) => {
+    let matchFound = false;
+    /// tabs: Unassigned, completed, assigned-group and assigned-me
+    cy.get(`#${tab} .govuk-table__body .govuk-table__row`).each(($row) => {
+        const subjectText = $row.find('td:nth-child(2) .govuk-link').text().trim();
+        let cabNameText = $row.find('td:nth-child(3)').text().trim();
+        cabNameText = cabNameText.replace('CAB name', '').trim();
+        if (subjectText === subject && cabNameText === cabName) {
+            matchFound = true;
+            cy.wrap($row).find('td:nth-child(2) .govuk-link').click();
+            return false;
+        }
+    }).then(() => {
+        if (!matchFound) {
+            cy.log(`No match found for Subject: "${subject}" and CAB Name: "${cabName}"`);
+            throw new Error(`No match found for Subject: "${subject}" and CAB Name: "${cabName}"`);
+        }
+    });
+});
+
+
 
