@@ -103,6 +103,14 @@ Cypress.Commands.add("hasKeyValueDetail", (key, value) => {
     cy.get(".govuk-summary-list__row").contains(key).next().contains(value);
 });
 
+Cypress.Commands.add("hasKeyArrayValueDetail", (key, value) => {
+    cy.get('.govuk-summary-list__row').contains('.govuk-summary-list__key', key).parent().within(() => {
+        cy.contains('.govuk-summary-list__value .govuk-body', value).should('exist');
+    });
+});
+
+
+
 Cypress.Commands.add("hasStatus", (value) => {
     cy.get(".cab-detail-date-meta").contains(value);
 });

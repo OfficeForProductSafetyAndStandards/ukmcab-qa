@@ -70,7 +70,7 @@ describe('CAB profile cannot be edited message', () => {
             cy.logout();
         });
 
-        it('message should not display for OPSS Admin when published cab (name) is edited, and the OPSS admin should able to edit', function () {
+        it('message should not display for OPSS Admin when published cab (name) is edited by UKAS user, and the OPSS admin should able to edit', function () {
             cy.loginAsUkasUser();
             cy.ensureOn(this.draftUrl);
             CabHelpers.editCabButton().click();

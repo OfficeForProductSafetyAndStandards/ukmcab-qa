@@ -441,16 +441,11 @@ export const hasDetailsConfirmation = (cab) => {
         "Registered office location",
         cab.registeredOfficeLocation
     );
+    cab.testingLocations?.forEach(locations => {
+        cy.hasKeyArrayValueDetail("Registered test location", locations);
+    })
 
-    cy.hasKeyValueDetail(
-        "Registered test location",
-        valueOrNotProvided(cab.testingLocations?.join(""))
-    );
     cy.hasKeyValueDetail("Body type", cab.bodyTypes.join(""));
-    // cy.hasKeyValueDetail(
-    //   "Legislative area",
-    //   valueOrNotProvided(cab.legislativeAreas?.join(""))
-    // );
 
     cab.documentLegislativeAreas?.forEach((legislativeArea, index) => {
         cy.get(".govuk-details__summary-text")
