@@ -485,9 +485,11 @@ describe('Creating a new CAB', () => {
             CabHelpers.saveAsDraft()
             cy.ensureOn(CabHelpers.cabManagementPath())
             cy.contains('a', this.cab.name).click()
-            cy.contains('Provide all mandatory information before you are able to publish this record.')
-            cy.contains('Edit').click()
-            cy.get('button').contains('Publish').should('be.disabled')
+            cy.contains('This CAB profile will only become publishable when an active legislative area is added.');
+            cy.contains('Edit').click();
+            cy.contains('Provide all mandatory information before you are able to publish this record.');
+            cy.contains('This CAB profile will only become publishable when an active legislative area is added.');
+            cy.get('button').contains('Publish').should('be.disabled');
         })
 
         it('displays custom file labels on cab page if provided', function () {
