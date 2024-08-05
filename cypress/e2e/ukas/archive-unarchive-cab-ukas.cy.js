@@ -3,11 +3,14 @@ import * as UserManagementHelpers from "../../support/helpers/user-management-he
 import * as EmailSubscriptionHelpers from "../../support/helpers/email-subscription-helpers";
 import Cab from "../../support/domain/cab";
 import Constants from "../../support/domain/constants";
+import {generateRandomSentence} from "../../support/helpers/common-helpers";
 
 describe("Request to Unarchive a CAB", () => {
     context("and publish; Approved", function () {
         const uniqueId = Date.now();
         const name = `Test Cab ${uniqueId}`;
+        let reasonText;
+
 
         beforeEach(function () {
             cy.wrap(Cab.buildWithoutDocuments()).as("cab");
@@ -59,13 +62,23 @@ describe("Request to Unarchive a CAB", () => {
 
         it("UKAS request to unarchive and publish a CAB", function () {
             cy.loginAsUkasUser();
-            CabHelpers.ukasRequestToUnarchiveAndPublishCab(name);
+            reasonText = generateRandomSentence(284);
+            CabHelpers.ukasRequestToUnarchiveAndPublishCab(name, reasonText);
         });
 
         it("OPSS approves request to unarchive and publish", function () {
             cy.loginAsOpssUser();
             cy.ensureOn(CabHelpers.cabProfileUrlPathByCabName(name));
             cy.contains(`${this.ukasUser.firstname} ${this.ukasUser.lastname} from ${this.ukasUser.role.toUpperCase()} has requested that this CAB is unarchived and published for the following reason:`);
+            const partialLinkText = reasonText.substring(0, 30);
+            cy.get('details.govuk-details').each(($el) => {
+                cy.wrap($el).find('summary').then(($summary) => {
+                    if ($summary.text().includes(partialLinkText)) {
+                        cy.wrap($summary).click();
+                        cy.wrap($el).find('.govuk-details__text').should('contain', reasonText);
+                    }
+                });
+            });
             cy.get("a").contains("Approve").click();
             cy.contains(`${this.ukasUser.firstname} ${this.ukasUser.lastname} from ${this.ukasUser.role.toUpperCase()} has requested that this CAB is unarchived and published`);
             cy.get("#IsPublish").check();
@@ -161,7 +174,8 @@ describe("Request to Unarchive a CAB", () => {
 
         it("UKAS request to unarchive and publish a CAB", function () {
             cy.loginAsUkasUser();
-            CabHelpers.ukasRequestToUnarchiveAndPublishCab(name);
+            const text = "E2E TEST - UKAS request to unarchive and publish reasons"
+            CabHelpers.ukasRequestToUnarchiveAndPublishCab(name, text);
         });
 
         it("sends an email from UKAS for request to unarchive and publish a CAB", function () {

@@ -803,12 +803,12 @@ export const opssArchiveCAB = (name) => {
     cy.get(".govuk-button-group").contains("Archive").click();
 };
 
-export const ukasRequestToUnarchiveAndPublishCab = (name) => {
+export const ukasRequestToUnarchiveAndPublishCab = (name, reasonText) => {
     cy.ensureOn(`/search/cab-profile/${getSlug(name)}`);
     cy.get("a").contains("Request to unarchive").click();
     cy.get("#IsPublish").check();
     cy.get("#Reason").type(
-        "E2E TEST - UKAS request to unarchive and publish reasons"
+        reasonText
     );
     cy.get(".govuk-button-group").contains("Confirm").click();
     cy.logout();
