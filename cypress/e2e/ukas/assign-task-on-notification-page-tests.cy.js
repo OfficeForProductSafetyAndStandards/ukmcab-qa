@@ -146,6 +146,10 @@ describe('Assign tasks on notification page tests', () => {
             cy.get('select#SelectedAssignee').select('Deselect assignee');
             cy.contains('button', 'Update').click();
             cy.get('h1.govuk-heading-l').should('have.text', 'Notifications for UKAS');
+            cy.ensureOn(CabHelpers.notificationUnassignedUrlPath());
+            cy.clickOnCabFromNotificationTable('Unassigned', 'CAB declined', cabProfileName);
+            cy.contains('a', 'Back').click();
+            cy.url().should('include', 'Unassigned');
         });
     });
 

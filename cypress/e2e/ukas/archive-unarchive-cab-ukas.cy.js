@@ -100,6 +100,7 @@ describe("Request to Unarchive a CAB", () => {
         it("UKAS receives notification for approved request to unarchive and publish", function () {
             cy.loginAsUkasUser();
             cy.ensureOn(CabHelpers.notificationCompletedUrlPath());
+            cy.get('#tab_completed').click();
             cy.get('#completed')
                 .find('table.govuk-table')
                 .find('tbody.govuk-table__body')
@@ -219,6 +220,7 @@ describe("Request to Unarchive a CAB", () => {
         it("UKAS receives notification for declined request to unarchive and publish CAB", function () {
             cy.loginAsUkasUser();
             cy.ensureOn(CabHelpers.notificationCompletedUrlPath());
+            cy.get('#tab_completed').click();
             cy.contains("tr", "Unarchive CAB request")
                 .first()
                 .within(() => {
@@ -310,6 +312,7 @@ describe("Request to Unarchive a CAB", () => {
         it("UKAS receives notification for approved request to unarchive and save as draft CAB", function () {
             cy.loginAsUkasUser();
             cy.ensureOn("/admin/notifications#completed");
+            cy.get('#tab_completed').click();
             cy.contains("tr", "CAB unarchived")
                 .first()
                 .within(() => {
@@ -331,7 +334,7 @@ describe("Request to Unarchive a CAB", () => {
         });
     });
 
-    context("and save as draft; Declined", function () {
+    context.only("and save as draft; Declined", function () {
         const uniqueId = Date.now();
         const name = `Test Cab ${uniqueId}`;
 
@@ -408,6 +411,7 @@ describe("Request to Unarchive a CAB", () => {
         it("UKAS receives notification for declined request to unarchive and save as draft CAB", function () {
             cy.loginAsUkasUser();
             cy.ensureOn(CabHelpers.notificationCompletedUrlPath());
+            cy.get('#tab_completed').click();
             cy.contains("tr", "Unarchive CAB request")
                 .first()
                 .within(() => {

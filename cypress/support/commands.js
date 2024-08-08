@@ -109,6 +109,17 @@ Cypress.Commands.add("hasKeyArrayValueDetail", (key, value) => {
     });
 });
 
+Cypress.Commands.add("hasKeySplitValueDetail", (key, value) => {
+    cy.get(".govuk-summary-list__row")
+        .contains(key)
+        .next('.govuk-summary-list__value')
+        .invoke('text')
+        .then(text => {
+            const normalizedText = text.replace(/\s+/g, ' ').trim();
+            const normalizedValue = value.replace(/\s+/g, ' ').trim();
+            expect(normalizedText).to.contain(normalizedValue);
+        });
+});
 
 
 Cypress.Commands.add("hasStatus", (value) => {

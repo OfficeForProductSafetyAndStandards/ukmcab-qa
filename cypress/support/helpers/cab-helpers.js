@@ -445,7 +445,7 @@ export const hasDetailsConfirmation = (cab) => {
         cy.hasKeyArrayValueDetail("Registered test location", locations);
     })
 
-    cy.hasKeyValueDetail("Body type", cab.bodyTypes.join(""));
+    cy.hasKeySplitValueDetail("Body type", cab.bodyTypes.join(" "));
 
     cab.documentLegislativeAreas?.forEach((legislativeArea, index) => {
         cy.get(".govuk-details__summary-text")

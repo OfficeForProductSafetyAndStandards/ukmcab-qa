@@ -6,7 +6,7 @@ export const bottomPagination = () => { return cy.get('.search-results-paginatio
 
 export const searchCab = (searchInput) => {
   cy.ensureOn(searchPath())
-  cy.get('#Keywords').invoke('val', searchInput).next('button').click()
+  cy.get('#Keywords').invoke('val', searchInput).next('button').click({ force: true })
 }
 
 export const displayedSearchResults = () => {

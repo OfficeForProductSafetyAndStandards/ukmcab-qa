@@ -43,6 +43,27 @@ describe('Ukas submitting a new CAB for Approval', () => {
             cy.loginAsOpssUser();
             cy.ensureOn(this.draftUrl);
             CabHelpers.editCabButton().click();
+
+            // add Government user note-UKMCAB-2027
+            const governmentUserNote = 'lets test the government user note';
+            cy.contains('a', 'Add note').click();
+            cy.contains('h1', 'Government user note').should('be.visible');
+            cy.contains('These notes will be only be seen by government users that are signed in to the UKMCAB service.').should('be.visible');
+            cy.get('textarea#Note').type(governmentUserNote);
+            cy.contains('button', 'Save').click();
+            cy.contains('a', 'View government user notes (1)').should('be.visible');
+
+            // verify user is able to delete government -UKMCAB-2027
+            cy.contains('a', 'View government user notes (1)').click();
+            cy.contains('h2', 'Government user notes').should('be.visible');
+            cy.contains('a', 'View').click();
+            cy.contains(governmentUserNote).should('exist');
+            cy.contains('a', 'Delete').click();
+            cy.contains('Are you sure you want to delete this government user note?').should('be.visible');
+            cy.get('input[name="delete"]').click();
+            cy.contains('There are no notes').should('be.visible');
+            cy.contains('a', 'Back').click();
+
             cy.get('#reviewLa').click();
             CabHelpers.approveLegislativeAreas(this.cab)
             cy.get('#approveCab').click()
