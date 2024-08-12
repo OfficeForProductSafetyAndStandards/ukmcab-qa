@@ -474,7 +474,7 @@ describe('Editing a CAB', () => {
             cy.wrap(Cab.buildWithoutDocuments()).as('cab');
         });
 
-        it.only('then it should display a page with "User notes" and "Reason" fields fo UKAS User', function () {
+        it('then it should display a page with "User notes" and "Reason" fields fo UKAS User', function () {
             cy.loginAsUkasUser();
             cy.ensureOn(CabHelpers.addCabPath());
             cy.get('#CABNumber').should('be.disabled');
@@ -493,7 +493,7 @@ describe('Editing a CAB', () => {
             cy.logout();
         });
 
-        it.only('then it should display a page with "User notes" and "Reason" fields fo OGD(OPSS) and OPSS Admin User', function () {
+        it('then it should display a page with "User notes" and "Reason" fields fo OGD(OPSS) and OPSS Admin User', function () {
             cy.loginAsOpssOgdUser();
             cy.ensureOn(this.draftUrl)
             CabHelpers.editCabButton().click();

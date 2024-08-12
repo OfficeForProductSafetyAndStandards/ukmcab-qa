@@ -71,6 +71,7 @@ export const createCab = (cab) => {
     uploadDocuments(cab.documents);
     cy.saveAndContinue();
     hasDetailsConfirmation(cab);
+    setPublishType();
     clickPublish();
     clickPublishNotes();
 };
@@ -83,6 +84,7 @@ export const createCabWithoutDocuments = (cab) => {
     enterLegislativeAreas(cab);
     skipThisStep();
     skipThisStep();
+    setPublishType();
     clickPublish();
     clickPublishNotes();
 };
@@ -358,6 +360,9 @@ export const uploadSchedules = (schedules) => {
         if (schedule.legislativeArea) {
             setLegislativeArea(schedule.fileName, schedule.legislativeArea);
         }
+        if (schedule.createdBy) {
+            setCreatedBy(schedule.fileName, schedule.createdBy);
+        }
     });
 };
 
@@ -515,25 +520,28 @@ export const filenames = (files) => {
 };
 
 export const hasUploadedSchedules = (files) => {
-    cy.wrap(files).each((file, index) => {
-        cy.get(".govuk-radios__item")
-            .eq(index)
-            .contains(`${index + 1}. ${file.fileName}`);
-        cy.get(".govuk-radios__item")
-            .eq(index)
-            .next("div")
-            .find("div")
-            .first()
-            .find("input")
-            .should("have.value", file.label);
-        cy.get(".govuk-radios__item")
-            .eq(index)
-            .next("div")
-            .find("select")
-            .find(":selected")
-            .should("have.text", file.legislativeArea);
+    cy.wrap(files).each((file) => {
+        cy.get(`input[type='hidden'][value='${file.fileName}']`)
+            .should('exist')
+            .then((hiddenInput) => {
+                cy.wrap(hiddenInput)
+                    .closest('.document-list')
+                    .within(() => {
+                        cy.get('input[name*="Label"]')
+                            .should('have.value', file.label);
+                        cy.get('select[name*="LegislativeArea"]')
+                            .find('option:selected')
+                            .should('have.text', file.legislativeArea);
+                        if (file.createdBy) {
+                            cy.get('select[name*="CreatedBy"]')
+                                .find('option:selected')
+                                .should('have.text', file.createdBy);
+                        }
+                    });
+            });
     });
 };
+
 
 export const hasUploadedFileNames = (files) => {
     cy.get("tbody tr").each(($row, index) => {
@@ -554,6 +562,9 @@ export const uploadedFile1 = (filename) => {
     return cy.get(`input[value='${filename}']:visible`).parent().next("div");
 };
 
+export const uploadedFile2 = (filename) => {
+    return cy.get(`input[value='${filename}']:visible`).parent().next("div").next("div");
+};
 export const uploadedFile = (filename) => {
     return cy.get(`input[value='${filename}']:visible`);
 };
@@ -571,6 +582,10 @@ export const setFileLabel = (filename, newFileName) => {
 
 export const setLegislativeArea = (filename, value) => {
     uploadedFile1(filename).find("select").select(value);
+};
+
+export const setCreatedBy = (filename, value) => {
+    uploadedFile2(filename).find("select").select(value);
 };
 
 export const setCategory = (filename, value) => {
@@ -955,3 +970,12 @@ export const editLegislativeAreaReviewDate = (newDate, legislativeAreaName) => {
 export const publish = () => {
     cy.contains("button,a", "Publish").click();
 };
+
+export const setPublishType = (publishType = 'major') => {
+    const selector = publishType === 'minor' ? "#SelectedPublishType" : "#SelectedPublishType-2";
+    cy.get('label[for="SelectedPublishType"]').should('contain', 'Publish as a minor change (this will not update the �Last published date� for the CAB, the site feed, or any email subscriptions that the CAB appears in)');
+    cy.get('label[for="SelectedPublishType-2"]').should('contain', 'Publish as a major change');
+    cy.get(selector).click();
+};
+
+
