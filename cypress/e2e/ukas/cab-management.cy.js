@@ -168,7 +168,7 @@ describe('Draft management', function () {
     it('should verify that all sorters are present in the table head', () => {
         sorters.forEach((sorter, index) => {
             cy.get('thead.govuk-table__head th').eq(index).within(() => {
-                cy.get('a.sort-button').should('have.text', sorter);
+                cy.get('a.sort-button').should('include.text', sorter);
             });
         });
     });

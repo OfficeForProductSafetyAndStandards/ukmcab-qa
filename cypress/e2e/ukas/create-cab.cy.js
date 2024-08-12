@@ -1,6 +1,6 @@
 import * as CabHelpers from '../../support/helpers/cab-helpers'
 import Cab from '../../support/domain/cab'
-import { date } from '../../support/helpers/formatters'
+import {date} from '../../support/helpers/formatters'
 
 describe('Creating a new CAB', () => {
 
@@ -208,7 +208,7 @@ describe('Creating a new CAB', () => {
         })
 
         it('displays error if schedule of accreditation is not a PDF file', function () {
-            CabHelpers.uploadFiles([{ fileName: 'dummy.docx' }])
+            CabHelpers.uploadFiles([{fileName: 'dummy.docx'}])
             cy.hasError('Select PDF files', "dummy.docx can't be uploaded. Files must be in PDF format to be uploaded.")
         })
 
@@ -217,13 +217,13 @@ describe('Creating a new CAB', () => {
                 fileName: 'dummy.pdf',
                 label: 'My Label',
                 legislativeArea: 'Lifts'
-            }, { fileName: 'dummy.pdf' }])
+            }, {fileName: 'dummy.pdf'}])
             cy.hasError('Select PDF files', "dummy.pdf has already been uploaded. Select the existing file and the Use file again option, or upload a different file.")
         })
 
         //regression
         it.skip('displays error if schedule of accreditation file size is greater than 10MB', function () {
-            CabHelpers.uploadFiles([{ fileName: 'dummy-pdf-10mb-plus.pdf' }])
+            CabHelpers.uploadFiles([{fileName: 'dummy-pdf-10mb-plus.pdf'}])
             cy.hasError('Select PDF files', "dummy-pdf-10mb-plus.pdf can't be uploaded. Select a PDF file 10 megabytes or less.")
         })
 
@@ -246,13 +246,13 @@ describe('Creating a new CAB', () => {
         })
 
         it.skip('displays error if legislative area is not assigned', function () {
-            CabHelpers.uploadFiles([{ fileName: 'dummy.pdf' }])
+            CabHelpers.uploadFiles([{fileName: 'dummy.pdf'}])
             cy.saveAndContinue()
             cy.hasError('Legislative area', 'Select a legislative area')
         })
 
         it.skip('displays error if legislative area is not selected and draft is saved', function () {
-            CabHelpers.uploadFiles([{ fileName: 'dummy.pdf' }])
+            CabHelpers.uploadFiles([{fileName: 'dummy.pdf'}])
             CabHelpers.saveAsDraft()
             cy.hasError('Legislative area', 'Select a legislative area')
         })
@@ -268,13 +268,13 @@ describe('Creating a new CAB', () => {
         })
 
         it('show error on non selection of schedule on remove product schedule', function () {
-            CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Machinery' }])
+            CabHelpers.uploadSchedules([{fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Machinery'}])
             cy.contains('Remove').click()
             cy.contains('Select a schedule')
         })
 
         it('user can remove uploaded schedule without publish', function () {
-            CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Machinery' }])
+            CabHelpers.uploadSchedules([{fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Machinery'}])
             cy.get(`.govuk-radios__input`).click()
             cy.contains('Remove').click()
             cy.contains('0 files uploaded')
@@ -282,7 +282,7 @@ describe('Creating a new CAB', () => {
         })
 
         it('user can remove uploaded schedule with no legislative area without publish', function () {
-            CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: null }])
+            CabHelpers.uploadSchedules([{fileName: 'dummy.pdf', label: 'My Label', legislativeArea: null}])
             cy.get(`.govuk-radios__input`).click()
             cy.contains('Remove').click()
             cy.contains('0 files uploaded')
@@ -290,25 +290,39 @@ describe('Creating a new CAB', () => {
         })
 
         it('user can use schedule uploaded file again', function () {
-            CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Machinery' }])
+            CabHelpers.uploadSchedules([{fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Machinery'}])
             cy.get(`.govuk-radios__input`).click()
             cy.contains('Use file again').click()
             cy.contains('The file has been used again.')
         })
 
         it('user cannot archive file', function () {
-            CabHelpers.uploadSchedules([{ fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Machinery' }])
+            CabHelpers.uploadSchedules([{fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Machinery'}])
             cy.get(`.govuk-radios__input`).click()
             cy.contains('Archive product schedule').should('not.exist')
         })
 
         it('allows uploading multiple files at once', function () {
-            const files = [{
-                fileName: 'dummy.pdf',
-                label: 'My Label',
-                legislativeArea: 'Machinery'
-            }, { fileName: 'dummy1.pdf', label: 'My Label1', legislativeArea: 'Machinery' },
-            { fileName: 'dummy2.pdf', label: 'My Label2', legislativeArea: 'Machinery' }]
+            const files = [
+                {
+                    fileName: 'dummy.pdf',
+                    label: 'My Label',
+                    legislativeArea: 'Machinery',
+                    createdBy: 'OPSS'
+                },
+                {
+                    fileName: 'dummy1.pdf',
+                    label: 'My Label1',
+                    legislativeArea: 'Machinery',
+                    createdBy: 'UKAS'
+                },
+                {
+                    fileName: 'dummy2.pdf',
+                    label: 'My Label2',
+                    legislativeArea: 'Machinery',
+                    createdBy: 'OPSS'
+                }
+            ];
             CabHelpers.uploadSchedules(files)
             CabHelpers.hasUploadedSchedules(files)
         })
@@ -356,32 +370,32 @@ describe('Creating a new CAB', () => {
         })
 
         it('displays error is uploading file is not a DOC, XLSX or PDF', function () {
-            CabHelpers.uploadFiles([{ fileName: 'dummy.txt' }])
+            CabHelpers.uploadFiles([{fileName: 'dummy.txt'}])
             cy.hasError('Select files', "dummy.txt can't be uploaded. Files must be in PDF format to be uploaded.")
         })
 
         //regression
         it.skip('displays error if document file size is greater than 10MB', function () {
-            CabHelpers.uploadFiles([{ fileName: 'dummy-pdf-10mb-plus.pdf' }])
+            CabHelpers.uploadFiles([{fileName: 'dummy-pdf-10mb-plus.pdf'}])
             cy.hasError('Select a file', "dummy-pdf-10mb-plus.pdf can't be uploaded. Select a Word, Excel or PDF file 10 megabytes or less.")
         })
 
         //regression
         it.skip('only allows upto 10 files to be uploaded', function () {
-            const files = [{ fileName: 'dummy2.pdf', category: 'Appointment' }, {
+            const files = [{fileName: 'dummy2.pdf', category: 'Appointment'}, {
                 fileName: 'dummy3.pdf',
                 category: 'Appointment'
-            }, { fileName: 'dummy4.pdf', category: 'Appointment' }, {
+            }, {fileName: 'dummy4.pdf', category: 'Appointment'}, {
                 fileName: 'dummy5.pdf',
                 category: 'Appointment'
-            }, { fileName: 'dummy6.pdf', category: 'Appointment' },
-            { fileName: 'dummy7.pdf', category: 'Appointment' }, {
-                fileName: 'dummy8.pdf',
-                category: 'Appointment'
-            }, { fileName: 'dummy.doc', category: 'Appointment' }, {
-                fileName: 'dummy.xlsx',
-                category: 'Appointment'
-            }, { fileName: 'dummy.xls', category: 'Appointment' }]
+            }, {fileName: 'dummy6.pdf', category: 'Appointment'},
+                {fileName: 'dummy7.pdf', category: 'Appointment'}, {
+                    fileName: 'dummy8.pdf',
+                    category: 'Appointment'
+                }, {fileName: 'dummy.doc', category: 'Appointment'}, {
+                    fileName: 'dummy.xlsx',
+                    category: 'Appointment'
+                }, {fileName: 'dummy.xls', category: 'Appointment'}]
             CabHelpers.uploadDocuments(files)
             CabHelpers.hasUploadedFileNames(files)
             cy.contains('Save and upload another file').should('not.exist')
@@ -398,7 +412,7 @@ describe('Creating a new CAB', () => {
         })
 
         it('user can remove uploaded file', function () {
-            CabHelpers.uploadFiles([{ fileName: 'dummy3.pdf' }])
+            CabHelpers.uploadFiles([{fileName: 'dummy3.pdf'}])
             cy.get('.govuk-checkboxes__input').click()
             cy.contains('Remove').click()
             cy.contains('0 files uploaded')

@@ -33,6 +33,7 @@ describe('Ukas submitting a new CAB for Approval', () => {
             cy.get('.cab-status-tag--pending-approval').should('contain', 'Pending approval to publish CAB')
         });
 
+
         it('OPSS OGD approves Legislative Areas pending approval and OPSS admin publishes CAB', function () {
             cy.loginAsOpssOgdUser();
             cy.ensureOn(this.draftUrl)
@@ -107,7 +108,9 @@ describe('Ukas submitting a new CAB for Approval', () => {
             cy.loginAsUkasUser()
             cy.ensureOn(CabHelpers.addCabPath())
             cy.get('#CABNumber').should('be.disabled'); //Check cab number is disabled
-            cy.get('#Name').type('Test ukas create cab for decline');
+            const uniqueId = Date.now();
+            cabProfileName = `opssDecline${uniqueId}`;
+            cy.get('#Name').type(cabProfileName);
             cy.get('#PreviousCABNumbers').should('be.disabled');
             cy.contains('Previous CAB numbers can be added on approval').should('exist');
             cy.continue();
@@ -141,25 +144,18 @@ describe('Ukas submitting a new CAB for Approval', () => {
         it("email is sent to UKAS that request to publish has been declined", function () {
             EmailSubscriptionHelpers.assertDeclineRequestToPublishEmailIsSent(
                 this.ukasUser.email,
-                "Test ukas create cab for decline"
+                cabProfileName
             );
         });
 
         it("UKAS receives notification for declined request to publish", function () {
             cy.loginAsUkasUser();
+            cy.ensureOn(CabHelpers.notificationUrlPath());
             cy.ensureOn(CabHelpers.notificationUnassignedUrlPath());
-            cy.contains("tr", "Test Opss Admin User")
-                .first()
-                .should('contain.text', 'Test Opss Admin User')
-                .within(() => {
-                    cy.get('td')
-                        .eq(1)
-                        .find('a.govuk-link')
-                        .click();
-                });
+            cy.clickOnCabFromNotificationTable('Unassigned', 'CAB declined', cabProfileName);
             cy.get("p").contains("Unassigned").should("exist");
             cy.get("dd")
-                .contains(Constants.DeclinedReason_PublishedCAB("Test ukas create cab for decline"))
+                .contains(Constants.DeclinedReason_PublishedCAB(cabProfileName))
                 .should("exist");
         });
     })

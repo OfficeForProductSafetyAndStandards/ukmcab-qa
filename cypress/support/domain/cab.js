@@ -95,6 +95,7 @@ export default class Cab {
             return {
                 label: schedule.Label,
                 legislativeArea: schedule.LegislativeArea,
+                createdBy:schedule.CreatedBy,
                 fileName: schedule.FileName,
                 blobName: schedule.BlobName,
                 uploadDateTime: schedule.UploadDateTime,
@@ -254,7 +255,8 @@ export default class Cab {
                 {
                     FileName: "dummy.pdf",
                     Label: "MyCustomLabel",
-                    LegislativeArea: "Machinery"
+                    LegislativeArea: "Machinery",
+                    CreatedBy: "OPSS"
                 },
             ],
             Documents: [{FileName: "dummy2.pdf", Category: "Appointment"}],
