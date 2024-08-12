@@ -119,7 +119,7 @@ describe('Ability for product schedules to be marked with an owner', () => {
             cy.logout();
         })
 
-        it('then the OGS and OPSS should not see the warning message on the Product Schedule page', function () {
+        it('then the OGD and OPSS should not see the warning message on the Product Schedule page', function () {
             cy.loginAsOpssOgdUser();
             cy.ensureOn(this.draftUrl)
             productScheduleIsNotCreatedByUkas();

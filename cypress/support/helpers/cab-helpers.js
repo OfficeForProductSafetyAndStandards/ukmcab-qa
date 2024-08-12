@@ -973,7 +973,7 @@ export const publish = () => {
 
 export const setPublishType = (publishType = 'major') => {
     const selector = publishType === 'minor' ? "#SelectedPublishType" : "#SelectedPublishType-2";
-    cy.get('label[for="SelectedPublishType"]').should('contain', 'Publish as a minor change (this will not update the �Last published date� for the CAB, the site feed, or any email subscriptions that the CAB appears in)');
+    cy.get('label[for="SelectedPublishType"]').should('contain', 'Publish as a minor change (this will not update the \'Last published date\' for the CAB, the site feed, or any email subscriptions that the CAB appears in)');
     cy.get('label[for="SelectedPublishType-2"]').should('contain', 'Publish as a major change');
     cy.get(selector).click();
 };
