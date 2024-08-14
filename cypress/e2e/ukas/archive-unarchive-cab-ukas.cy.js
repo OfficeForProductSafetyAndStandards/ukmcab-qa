@@ -152,6 +152,7 @@ describe("Request to Unarchive a CAB", () => {
             CabHelpers.editCabButton().click()
             cy.contains('a', 'Review').click()
             CabHelpers.approveLegislativeAreas(this.cab)
+            CabHelpers.setPublishType();
             cy.get('#approveCab').click()
             cy.get('#CABNumber').type(Date.now().toString())
             cy.generateRandomNumber(5).then((randomNumber) => {
@@ -266,6 +267,7 @@ describe("Request to Unarchive a CAB", () => {
             CabHelpers.editCabButton().click()
             cy.contains('a', 'Review').click()
             CabHelpers.approveLegislativeAreas(this.cab)
+            CabHelpers.setPublishType();
             cy.get('#approveCab').click()
             cy.get('#CABNumber').type(Date.now().toString())
             cy.generateRandomNumber(5).then((randomNumber) => {
@@ -364,6 +366,7 @@ describe("Request to Unarchive a CAB", () => {
             CabHelpers.editCabButton().click()
             cy.contains('a', 'Review').click()
             CabHelpers.approveLegislativeAreas(this.cab)
+            CabHelpers.setPublishType();
             cy.get('#approveCab').click()
             cy.get('#CABNumber').type(Date.now().toString())
             cy.generateRandomNumber(5).then((randomNumber) => {

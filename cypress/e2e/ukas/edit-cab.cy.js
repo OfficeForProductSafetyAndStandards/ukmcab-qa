@@ -49,6 +49,7 @@ describe('Editing a CAB', () => {
             CabHelpers.editCabDetail('Contact details')
             CabHelpers.enterContactDetails(cloneCab)
             CabHelpers.hasDetailsConfirmation(cloneCab)
+            CabHelpers.setPublishType();
             CabHelpers.clickPublish()
             CabHelpers.clickPublishNotes()
             CabHelpers.hasCabPublishedConfirmation(cloneCab)
@@ -104,6 +105,7 @@ describe('Editing a CAB', () => {
             CabHelpers.editCabButton().click()
             CabHelpers.editCabDetail('CAB details')
             CabHelpers.enterCabDetails(this.cab)
+            CabHelpers.setPublishType();
             CabHelpers.clickPublish()
             CabHelpers.clickPublishNotes()
             cy.ensureOn(CabHelpers.cabManagementPath())
@@ -123,6 +125,7 @@ describe('Editing a CAB', () => {
             CabHelpers.editCabDetail('Contact details')
             CabHelpers.enterContactDetails(cloneCab)
             CabHelpers.hasDetailsConfirmation(cloneCab)
+            CabHelpers.setPublishType();
             CabHelpers.clickPublish()
             CabHelpers.clickPublishNotes()
             CabHelpers.hasCabPublishedConfirmation(cloneCab)
@@ -142,6 +145,7 @@ describe('Editing a CAB', () => {
             CabHelpers.editCabDetail('Contact details')
             CabHelpers.enterContactDetails(cloneCab)
             CabHelpers.hasDetailsConfirmation(cloneCab)
+            CabHelpers.setPublishType();
             CabHelpers.clickPublish()
             CabHelpers.clickPublishNotes()
             CabHelpers.hasCabPublishedConfirmation(cloneCab)

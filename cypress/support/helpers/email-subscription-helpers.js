@@ -37,6 +37,7 @@ export const updateCabToTriggerSubscription = (cab) => {
     CabHelpers.editCabDetail("CAB details");
     cloneCab.name = `Test Cab Edited ${uniqueId}`;
     CabHelpers.enterCabDetails(cloneCab);
+    CabHelpers.setPublishType();
     CabHelpers.clickPublish();
     CabHelpers.clickPublishNotes();
     CabHelpers.hasCabPublishedConfirmation(cloneCab);

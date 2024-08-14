@@ -103,7 +103,7 @@ describe('Ability for product schedules to be marked with an owner', () => {
             cy.loginAsUkasUser()
             cy.ensureOn(CabHelpers.addCabPath());
             const uniqueId = Date.now();
-            cabProfileName = `mark-ukas-as-the-product-schedules-owner-2-${uniqueId}`;
+            cabProfileName = `mark-opss-as-the-product-schedules-owner-${uniqueId}`;
             cy.get('#Name').type(cabProfileName);
             cy.continue();
             CabHelpers.enterContactDetails(this.cab)
