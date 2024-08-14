@@ -550,6 +550,7 @@ describe('Creating a new CAB', () => {
             cy.ensureOn(CabHelpers.cabManagementPath())
             cy.contains('a', this.cab.name).click()
             cy.contains('Edit').click()
+            CabHelpers.setPublishType();
             CabHelpers.clickPublish()
             CabHelpers.clickPublishNotes()
             CabHelpers.hasCabPublishedConfirmation(this.cab)

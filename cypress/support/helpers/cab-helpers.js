@@ -100,6 +100,16 @@ export const draftCab = (cab) => {
     saveAsDraft();
 };
 
+
+export const createUnpublishedCabWithoutDocuments = (cab) => {
+    cy.ensureOn(addCabPath());
+    enterCabDetails(cab);
+    enterContactDetails(cab);
+    enterBodyDetails(cab);
+    enterLegislativeAreas(cab);
+    skipThisStep();
+    skipThisStep();
+};
 export const setAppointmentDate = (day, month, year) => {
     cy.get("#AppointmentDateDay").invoke("val", day);
     cy.get("#AppointmentDateMonth").invoke("val", month);

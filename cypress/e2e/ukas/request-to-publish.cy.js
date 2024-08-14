@@ -67,6 +67,7 @@ describe('Ukas submitting a new CAB for Approval', () => {
 
             cy.get('#reviewLa').click();
             CabHelpers.approveLegislativeAreas(this.cab)
+            CabHelpers.setPublishType();
             cy.get('#approveCab').click()
             cy.get('#CABNumber').type(Date.now().toString())
             cy.generateRandomNumber(5).then((randomNumber) => {
