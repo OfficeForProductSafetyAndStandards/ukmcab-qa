@@ -95,6 +95,39 @@ describe('Ukas submitting a new CAB for Approval', () => {
             cy.contains('A Draft CAB exists for this record.').should('exist');
             cy.get('#tab_usernotes').click();
             cy.contains('Government user notes need to be added to the Draft record.').should('exist');
+            cy.get('#tab_history').click();
+            cy.get('h2.govuk-heading-l').contains('History').should('exist');
+
+            // Quick tests on history tab and also to confirm that user note and reason both displays correctly
+            cy.get('thead.govuk-table__head').within(() => {
+                cy.get('th').eq(0).should('have.text', 'Date and time');
+                cy.get('th').eq(1).should('have.text', 'User');
+                cy.get('th').eq(2).should('have.text', 'User group');
+                cy.get('th').eq(3).should('have.text', 'Action');
+                cy.get('th').eq(4).should('have.text', 'Reason');
+            });
+            cy.contains('button', 'View').click();
+            cy.contains('History details').should('be.visible');
+
+            cy.get('th.govuk-table__header').contains('User notes and changes').parent().within(() => {
+                cy.get('td.govuk-table__cell').invoke('text').then((text) => {
+                    // Ensure the text doesn't contain HTML tags and is displayed as pure text
+                    expect(text).to.contain('OPSS TEST E2E User notes approve');
+                    expect(text).to.contain('Changes:');
+                    expect(text).to.contain('Appointment date: Not provided');
+                    expect(text).to.contain('Added CAB review date');
+                    expect(text).to.contain('Major publish');
+                    expect(text).not.to.contain('<p');
+                });
+            });
+
+            cy.get('th.govuk-table__header').contains('Reason').parent().within(() => {
+                cy.get('td.govuk-table__cell').invoke('text').then((text) => {
+                    // Ensure the text doesn't contain HTML tags and is displayed as pure text
+                    expect(text).to.contain('OPSS TEST E2E Reason approve');
+                    expect(text).not.to.contain('<p');
+                });
+            });
         });
     });
 

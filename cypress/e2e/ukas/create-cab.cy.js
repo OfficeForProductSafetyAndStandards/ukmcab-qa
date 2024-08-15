@@ -231,15 +231,18 @@ describe('Creating a new CAB', () => {
             CabHelpers.uploadSchedules([{
                 fileName: 'dummy.pdf',
                 label: 'New Dummy Label',
-                legislativeArea: 'Machinery'
+                legislativeArea: 'Machinery',
+                createdBy: 'OPSS'
             }, {
                 fileName: 'dummy1.pdf',
                 label: 'NewDummy1Label.pdf',
-                legislativeArea: 'Machinery'
+                legislativeArea: 'Machinery',
+                createdBy: 'OPSS'
             }, {
                 fileName: 'dummy2.pdf',
                 label: 'ReaaaaaaaaaaaaaaaaaaaaaaaallyLooooooooooooooooooooooongLaaaaaaaaaaaaaabel',
-                legislativeArea: 'Machinery'
+                legislativeArea: 'Machinery',
+                createdBy: 'UKAS'
             }])
             cy.saveAndContinue()
             cy.contains('Upload the supporting documents')
