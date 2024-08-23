@@ -384,25 +384,25 @@ describe('Creating a new CAB', () => {
         })
 
         //regression
-        it.skip('only allows upto 10 files to be uploaded', function () {
-            const files = [{fileName: 'dummy2.pdf', category: 'Appointment'}, {
-                fileName: 'dummy3.pdf',
-                category: 'Appointment'
-            }, {fileName: 'dummy4.pdf', category: 'Appointment'}, {
-                fileName: 'dummy5.pdf',
-                category: 'Appointment'
-            }, {fileName: 'dummy6.pdf', category: 'Appointment'},
-                {fileName: 'dummy7.pdf', category: 'Appointment'}, {
-                    fileName: 'dummy8.pdf',
-                    category: 'Appointment'
-                }, {fileName: 'dummy.doc', category: 'Appointment'}, {
-                    fileName: 'dummy.xlsx',
-                    category: 'Appointment'
-                }, {fileName: 'dummy.xls', category: 'Appointment'}]
-            CabHelpers.uploadDocuments(files)
-            CabHelpers.hasUploadedFileNames(files)
-            cy.contains('Save and upload another file').should('not.exist')
-        })
+        it.skip('only allows up to 10 files to be uploaded', function () {
+            const files = [
+                { fileName: 'dummy2.pdf', category: 'Appointment', publications: 'All users (public)' },
+                { fileName: 'dummy3.pdf', category: 'Appointment', publications: 'Internal users' },
+                { fileName: 'dummy4.pdf', category: 'Appointment', publications: 'All users (public)' },
+                { fileName: 'dummy5.pdf', category: 'Appointment', publications: 'Internal users' },
+                { fileName: 'dummy6.pdf', category: 'Appointment', publications: 'All users (public)' },
+                { fileName: 'dummy7.pdf', category: 'Appointment', publications: 'Internal users' },
+                { fileName: 'dummy8.pdf', category: 'Appointment', publications: 'All users (public)' },
+                { fileName: 'dummy.doc', category: 'Appointment', publications: 'Internal users' },
+                { fileName: 'dummy.xlsx', category: 'Appointment', publications: 'All users (public)' },
+                { fileName: 'dummy.xls', category: 'Appointment', publications: 'Internal users' }
+            ];
+
+            CabHelpers.uploadDocuments(files);
+            CabHelpers.hasUploadedFileNames(files);
+            cy.contains('Save and upload another file').should('not.exist');
+        });
+
 
         it('cancelling file upload returns user back to List page', function () {
             cy.contains('Cancel').click()
@@ -416,9 +416,21 @@ describe('Creating a new CAB', () => {
 
         it('user can remove uploaded file', function () {
             CabHelpers.uploadFiles([{fileName: 'dummy3.pdf'}])
-            cy.get('.govuk-checkboxes__input').click()
+            cy.contains('Replace').should('exist');
+            cy.contains('Use again').should('exist');
             cy.contains('Remove').click()
             cy.contains('0 files uploaded')
+        })
+
+        it('publication should be mandatory', function () {
+            CabHelpers.uploadFiles([{fileName: 'dummy3.pdf',category: 'Recommendations'}])
+            cy.saveAndContinue();
+            cy.get("span.govuk-error-message[data-valmsg-for='UploadedFiles[0].Publication']")
+                .should('have.text', 'Select a publication');
+            cy.get('.govuk-error-summary__title')
+                .should('have.text', 'There is a problem');
+            cy.get('.govuk-error-summary__title')
+                .should('have.text', 'There is a problem');
         })
     })
 

@@ -204,28 +204,31 @@ describe('CAB profile page', function () {
         })
 
         it('displays viewable and downloadable list of supporting documents', function () {
-            supportingDocumentsTab().click()
+            supportingDocumentsTab().click();
             cy.contains('.cab-detail-section', 'Supporting documents').within(() => {
                 this.cab.documents.sort((a, b) => a.fileName.localeCompare(b.fileName)).forEach((document, index) => {
-                    // Known cypress issue with dowbload links timeout  - https://github.com/cypress-io/cypress/issues/14857
+                    // Known Cypress issue with download links timeout - https://github.com/cypress-io/cypress/issues/14857
                     cy.window().then((win) => {
                         setTimeout(() => {
-                            win.location.reload()
-                        }, 5000)
-                    })
-                    cy.get('.govuk-summary-list__row').eq(index).within(() => {
-                        cy.get('dt').contains(document.fileName)
+                            win.location.reload();
+                        }, 5000);
+                    });
+
+                    cy.get('.govuk-grid-row').eq(index + 1).within(() => {
+                        cy.get('.govuk-grid-column-full').eq(0).contains(document.fileName);
                         if (document.fileName.endsWith('.pdf')) {
-                            cy.get('dd').eq(0).contains('a', 'View').should('have.attr', 'target', '_blank').invoke('attr', 'href').should('match', /^\/search\/cab-schedule-view/)
+                            cy.get('a').contains('View').should('have.attr', 'target', '_blank')
+                                .invoke('attr', 'href').should('match', /^\/search\/cab-schedule-view/);
                         } else {
-                            cy.get('dd').eq(0).contains('a', 'View').should('not.exist')
+                            cy.get('a').contains('View').should('not.exist');
                         }
-                        cy.get('dd').eq(1).contains('a', 'Download').click()
-                        cy.readFile(`cypress/downloads/${document.fileName}`)
-                    })
-                })
-            })
-        })
+                        cy.get('a').contains('Download').click();
+                        cy.readFile(`cypress/downloads/${document.fileName}`);
+                    });
+                });
+            });
+        });
+
 
         it('displays paginated Cab history ordered by latest first', function () {
             CabHelpers.viewHistory()
