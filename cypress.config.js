@@ -23,6 +23,8 @@ module.exports = defineConfig({
         defaultCommandTimeout: 10000,
         chromeWebSecurity: false,
         experimentalRunAllSpecs: true,
+        experimentalMemoryManagement: true,
+        //numTestsKeptInMemory: 1,
         setupNodeEvents(on, config) {
             require("cypress-mochawesome-reporter/plugin")(on);
             const endpoint = config.env.DB_URL;
@@ -40,10 +42,10 @@ module.exports = defineConfig({
                 return fileName;
             };
 
-            const writeCsv = ({ filePath, content }) => {
+            const writeCsv = ({filePath, content}) => {
                 const dir = path.dirname(filePath);
                 if (!fs.existsSync(dir)) {
-                    fs.mkdirSync(dir, { recursive: true });
+                    fs.mkdirSync(dir, {recursive: true});
                 }
                 fs.writeFileSync(filePath, content);
                 return null;

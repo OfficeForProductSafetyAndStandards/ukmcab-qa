@@ -95,7 +95,7 @@ export default class Cab {
             return {
                 label: schedule.Label,
                 legislativeArea: schedule.LegislativeArea,
-                createdBy:schedule.CreatedBy,
+                createdBy: schedule.CreatedBy,
                 fileName: schedule.FileName,
                 blobName: schedule.BlobName,
                 uploadDateTime: schedule.UploadDateTime,
@@ -109,6 +109,7 @@ export default class Cab {
                 fileName: document.FileName,
                 blobName: document.BlobName,
                 category: document.Category,
+                publications: document.Publications,
                 uploadDateTime: document.UploadDateTime,
             };
         });
@@ -259,7 +260,7 @@ export default class Cab {
                     CreatedBy: "OPSS"
                 },
             ],
-            Documents: [{FileName: "dummy2.pdf", Category: "Appointment"}],
+            Documents: [{FileName: "dummy2.pdf", Category: "Appointment", Publications: "Internal users"}],
             CABNumber: uniqueId,
             AppointmentDate: Cypress.dayjs().subtract(5, "days"),
             RenewalDate: Cypress.dayjs().add(10, "days"),

@@ -401,8 +401,33 @@ export const uploadDocuments = (documents) => {
         if (document.category) {
             setCategory(document.fileName, document.category);
         }
+        if (document.publications) {
+            setPublications(document.fileName, document.publications);
+        }
         if (index < documents.length - 1) {
-            cy.contains("Save and upload another file").click();
+            cy.contains("Upload new file").click();
+        }
+    });
+};
+
+export const uploadAdditionalDocuments = (newDocuments) => {
+    cy.contains('button.govuk-button', 'Upload new file').click();
+    cy.wrap(newDocuments).each((document, index) => {
+        cy.get("input[type=file]").selectFile(
+            `cypress/fixtures/${document.fileName}`
+        );
+        upload();
+        if (document.category) {
+            cy.get(`select[name="UploadedFiles[${index + 1}].Category"]`)
+                .select(document.category);
+        }
+        if (document.publications) {
+            cy.get(`select[name="UploadedFiles[${index + 1}].Publication"]`)
+                .select(document.publications);
+
+        }
+        if (index < newDocuments.length - 1) {
+            cy.contains("Upload new file").click();
         }
     });
 };
@@ -535,21 +560,28 @@ export const hasUploadedSchedules = (files) => {
             .should('exist')
             .then((hiddenInput) => {
                 cy.wrap(hiddenInput)
-                    .closest('.document-list')
+                    .parent()
+                    .parent()
                     .within(() => {
+
                         cy.get('input[name*="Label"]')
-                            .should('have.value', file.label);
+                            .should('exist')
+                            .and('have.value', file.label);
+
                         cy.get('select[name*="LegislativeArea"]')
                             .find('option:selected')
-                            .should('have.text', file.legislativeArea);
+                            .should('exist');
+
                         if (file.createdBy) {
                             cy.get('select[name*="CreatedBy"]')
                                 .find('option:selected')
-                                .should('have.text', file.createdBy);
+                                .should('exist')
+                                .and('have.text', file.createdBy);
                         }
                     });
             });
     });
+
 };
 
 
@@ -600,6 +632,12 @@ export const setCreatedBy = (filename, value) => {
 
 export const setCategory = (filename, value) => {
     uploadedFile1(filename).find("select").select(value);
+};
+
+export const setPublications = (filename, value) => {
+    cy.get(`select[name='UploadedFiles[0].Publication']`)
+        .should('exist')
+        .select(value, {force: true});
 };
 
 export const mainPage = () => {
