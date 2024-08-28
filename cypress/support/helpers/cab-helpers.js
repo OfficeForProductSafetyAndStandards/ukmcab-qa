@@ -684,6 +684,10 @@ export const unarchiveCab = (cab, reason = "Test Unarchive reason") => {
             .and("contains", "search/cab-profile");
         unarchiveCabButton().click();
     });
+    cy.get('summary.govuk-details__summary.la-single-tag')
+        .within(() => {
+            cy.get('.cab-status-tag.govuk-tag--blue').should('contain.text', 'Draft');
+        });
     cy.contains("Edit").click();
     cy.contains("Everyone can see a CAB profile when it is published.");
 };

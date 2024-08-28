@@ -94,6 +94,8 @@ describe('Ability for supporting documents to be marked as viewable by the publi
             cy.get('#reviewLa').click();
             CabHelpers.approveLegislativeAreas(this.cab);
             setPublishType();
+            cy.contains('Support documents with a Publication value of All users (public) will be publicly viewable.')
+                .should('exist');
             clickPublish();
             cy.get('#CABNumber').type(Date.now().toString());
             cy.get('#UserNotes').type('OPSS TEST E2E User notes approve');
@@ -189,6 +191,8 @@ describe('Ability for supporting documents to be marked as viewable by the publi
             ];
             uploadAdditionalDocuments(newDocuments);
             cy.saveAndContinue();
+            cy.contains('Support documents with a Publication value of All users (public) will be publicly viewable.')
+                .should('exist');
             setPublishType('minor');
             clickPublish();
             cy.contains('button.govuk-button', 'Publish').click();
