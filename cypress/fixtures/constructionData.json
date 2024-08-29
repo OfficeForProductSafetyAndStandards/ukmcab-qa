@@ -1,0 +1,5014 @@
+{
+  "products": [
+    {
+      "product": "Select all",
+      "details": {
+        "referenceNumber": [],
+        "publicReference": []
+      }
+    },
+    {
+      "product": "Adhesives for non-pressure thermoplastic piping systems — Specifications",
+      "details": {
+        "referenceNumber": [
+          "EN 14680:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Adhesives for thermoplastic piping systems for fluids under pressure — Specifications",
+      "details": {
+        "referenceNumber": [
+          "EN 14814:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Adhesives for tiles — Requirements, evaluation of conformity, classification and designation",
+      "details": {
+        "referenceNumber": [
+          "EN 12004:2007+A1:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Admixtures for concrete, mortar and grout — Part 2: Concrete admixtures — Definitions, requirements, conformity, marking and labelling",
+      "details": {
+        "referenceNumber": [
+          "EN 934-2:2009+A1:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Admixtures for concrete, mortar and grout — Part 3: Admixtures for masonry mortar — Definitions, requirements, conformity and marking and labelling",
+      "details": {
+        "referenceNumber": [
+          "EN 934-3:2009+A1:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Admixtures for concrete, mortar and grout — Part 4: Admixtures for grout for prestressing tendons — Definitions, requirements, conformity, marking and labelling",
+      "details": {
+        "referenceNumber": [
+          "EN 934-4:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Admixtures for concrete, mortar and grout — Part 5: Admixtures for sprayed concrete — Definitions, requirements, conformity, marking and labelling",
+      "details": {
+        "referenceNumber": [
+          "EN 934-5:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Agglomerated stone — Modular tiles for flooring and stairs (internal and external)",
+      "details": {
+        "referenceNumber": [
+          "EN 15285:2008",
+          "EN 15285:2008/AC:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Agglomerated stone — Slabs and tiles for wall finishes (internal and external)",
+      "details": {
+        "referenceNumber": [
+          "EN 15286:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Aggregates for bituminous mixtures and surface treatments for roads, airfields and other trafficked areas",
+      "details": {
+        "referenceNumber": [
+          "EN 13043:2002",
+          "EN 13043:2002/AC:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Aggregates for concrete",
+      "details": {
+        "referenceNumber": [
+          "EN 12620:2002+A1:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Aggregates for mortar",
+      "details": {
+        "referenceNumber": [
+          "EN 13139:2002",
+          "EN 13139:2002/AC:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Aggregates for railway ballast",
+      "details": {
+        "referenceNumber": [
+          "EN 13450:2002",
+          "EN 13450:2002/AC:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Aggregates for unbound and hydraulically bound materials for use in civil engineering work and road construction",
+      "details": {
+        "referenceNumber": [
+          "EN 13242:2002+A1:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Air admittance valves for drainage systems — Requirements, tests methods and evaluation of conformity",
+      "details": {
+        "referenceNumber": [
+          "EN 12380:2002"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Aluminium and aluminium alloys — Structural products for construction works — Technical conditions for inspection and delivery",
+      "details": {
+        "referenceNumber": [
+          "EN 15088:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Anti-flooding devices for buildings — Part 1: Requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 13564-1:2002"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Anti-glare systems for roads — Part 1: Performance and characteristics",
+      "details": {
+        "referenceNumber": [
+          "EN 12676-1:2000",
+          "EN 12676-1:2000/A1:2003"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Anti-seismic devices",
+      "details": {
+        "referenceNumber": [
+          "EN 15129:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Armourstone — Part 1: Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 13383-1:2002",
+          "EN 13383-1:2002/AC:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Baths for domestic purposes",
+      "details": {
+        "referenceNumber": [
+          "EN 14516:2006+A1:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Bidets — Functional requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 14528:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Binders for magnesite screeds — Caustic magnesia and magnesium chloride — Part 1: Definitions, requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 14016-1:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Binders, composite binders and factory made mixtures for floor screeds based on calcium sulfate — Part 1: Definitions and requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 13454-1:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Bitumen and bituminous binders — Framework for specifying cationic bituminous emulsions",
+      "details": {
+        "referenceNumber": [
+          "EN 13808:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Bitumen and bituminous binders — Framework for specifying cut-back and fluxed bituminous binders",
+      "details": {
+        "referenceNumber": [
+          "EN 15322:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Bitumen and bituminous binders — Specification framework for polymer modified bitumens",
+      "details": {
+        "referenceNumber": [
+          "EN 14023:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Bitumen and bituminous binders — Specifications for hard paving grade bitumens",
+      "details": {
+        "referenceNumber": [
+          "EN 13924:2006",
+          "EN 13924:2006/AC:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Bitumen and bituminous binders — Specifications for paving grade bitumens",
+      "details": {
+        "referenceNumber": [
+          "EN 12591:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Bitumen shingles with mineral and/or synthetic reinforcements — Product specification and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 544:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Bituminous mixtures — Material specifications — Part 1: Asphalt Concrete",
+      "details": {
+        "referenceNumber": [
+          "EN 13108-1:2006",
+          "EN 13108-1:2006/AC:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Bituminous mixtures — Material specifications — Part 2: Asphalt Concrete for very thin layers",
+      "details": {
+        "referenceNumber": [
+          "EN 13108-2:2006",
+          "EN 13108-2:2006/AC:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Bituminous mixtures — Material specifications — Part 3: Soft Asphalt",
+      "details": {
+        "referenceNumber": [
+          "EN 13108-3:2006",
+          "EN 13108-3:2006/AC:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Bituminous mixtures — Material specifications — Part 4: Hot Rolled Asphalt",
+      "details": {
+        "referenceNumber": [
+          "EN 13108-4:2006",
+          "EN 13108-4:2006/AC:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Bituminous mixtures — Material specifications — Part 5: Stone Mastic Asphalt",
+      "details": {
+        "referenceNumber": [
+          "EN 13108-5:2006",
+          "EN 13108-5:2006/AC:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Bituminous mixtures — Material specifications — Part 6: Mastic Asphalt",
+      "details": {
+        "referenceNumber": [
+          "EN 13108-6:2006",
+          "EN 13108-6:2006/AC:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Bituminous mixtures — Material specifications — Part 7: Porous Asphalt",
+      "details": {
+        "referenceNumber": [
+          "EN 13108-7:2006",
+          "EN 13108-7:2006/AC:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Building hardware — Controlled door closing devices — Requirements and test method",
+      "details": {
+        "referenceNumber": [
+          "EN 1154:1996",
+          "EN 1154:1996/A1:2002",
+          "EN 1154:1996/A1:2002/AC:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Building hardware — Door coordinator devices — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 1158:1997",
+          "EN 1158:1997/A1:2002/AC:2006",
+          "EN 1158:1997/A1:2002"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Building hardware — Electrically powered hold- open devices for swing doors — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 1155:1997",
+          "EN 1155:1997/A1:2002",
+          "EN 1155:1997/A1:2002/AC:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Building hardware — Emergency exit devices operated by a lever handle or push pad, for use on escape routes — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 179:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Building hardware — Locks and latches — Electromechanically operated locks and striking plates — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 14846:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Building hardware — Locks and latches — Mechanically operated locks, latches and locking plates — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 12209:2003",
+          "EN 12209:2003/AC:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Building hardware — Panic exit devices operated by a horizontal bar, for use on escape routes — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 1125:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Building hardware — Single-axis hinges — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 1935:2002",
+          "EN 1935:2002/AC:2003"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Building lime — Part 1: Definitions, specifications and conformity criteria",
+      "details": {
+        "referenceNumber": [
+          "EN 459-1:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Calcium aluminate cement — Composition, specifications and conformity criteria",
+      "details": {
+        "referenceNumber": [
+          "EN 14647:2005",
+          "EN 14647:2005/AC:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Cast iron pipes and fittings, their joints and accessories for the evacuation of water from buildings — Requirements, test methods and quality assurance",
+      "details": {
+        "referenceNumber": [
+          "EN 877:1999",
+          "EN 877:1999/A1:2006",
+          "EN 877:1999/A1:2006/AC:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Cement — Composition, specifications and conformity criteria for very low heat special cements",
+      "details": {
+        "referenceNumber": [
+          "EN 14216:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Cement — Part 1: Composition, specifications and conformity criteria for common cements",
+      "details": {
+        "referenceNumber": [
+          "EN 197-1:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Ceramic tiles — Definitions, classification, characteristics, evaluation of conformity and marking",
+      "details": {
+        "referenceNumber": [
+          "EN 14411:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Chimneys — Clay/ceramic flue blocks for single wall chimneys — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 1806:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Chimneys — Clay/ceramic flue liners — Part 1: Flue liners operating under dry conditions — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 1457-1:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Chimneys — Clay/ceramic flue liners — Part 2: Flue liners operating under wet conditions — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 1457-2:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Chimneys — Clay/ceramic outer walls for system chimneys — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 13069:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Chimneys — Components — Concrete flue blocks",
+      "details": {
+        "referenceNumber": [
+          "EN 1858:2008+A1:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Chimneys — Components — Concrete flue liners",
+      "details": {
+        "referenceNumber": [
+          "EN 1857:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Chimneys — Components — Concrete outer wall elements",
+      "details": {
+        "referenceNumber": [
+          "EN 12446:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Chimneys — Requirements and test methods for clay/ceramic flue terminals",
+      "details": {
+        "referenceNumber": [
+          "EN 13502:2002"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Chimneys — Requirements and test methods for metal chimneys and material independent air supply ducts for roomsealed heating applications — Part 1: Vertical air/flue terminals for C6- type appliances",
+      "details": {
+        "referenceNumber": [
+          "EN 14989-1:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Chimneys — Requirements and test methods for metal chimneys and material independent air supply ducts for roomsealed heating applications — Part 2: Flue and air supply ducts for room sealed appliances",
+      "details": {
+        "referenceNumber": [
+          "EN 14989-2:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Chimneys — Requirements for metal chimneys — Part 1: System chimney products",
+      "details": {
+        "referenceNumber": [
+          "EN 1856-1:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Chimneys — Requirements for metal chimneys — Part 2: Metal flue liners and connecting flue pipes",
+      "details": {
+        "referenceNumber": [
+          "EN 1856-2:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Chimneys — System chimneys with clay/ceramic flue liners — Part 1: Requirements and test methods for sootfire resistance",
+      "details": {
+        "referenceNumber": [
+          "EN 13063-1:2005+A1:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Chimneys — System chimneys with clay/ceramic flue liners — Part 2: Requirements and test methods under wet conditions",
+      "details": {
+        "referenceNumber": [
+          "EN 13063-2:2005+A1:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Chimneys — System chimneys with clay/ceramic flue liners — Part 3: Requirements and test methods for air flue system chimneys",
+      "details": {
+        "referenceNumber": [
+          "EN 13063-3:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Chimneys — System chimneys with plastic flue liners — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 14471:2013+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Clay pavers — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 1344:2013",
+          "EN 1344:2013/AC:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Clay roofing tiles and fittings — Product definitions and specifications",
+      "details": {
+        "referenceNumber": [
+          "EN 1304:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Cold formed welded structural hollow sections of non-alloy and fine grain steels — Part 1: Technical delivery conditions",
+      "details": {
+        "referenceNumber": [
+          "EN 10219-1:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Concrete kerb units — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 1340:2003",
+          "EN 1340:2003/AC:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Concrete manholes and inspection chambers, unreinforced, steel fibre and reinforced",
+      "details": {
+        "referenceNumber": [
+          "EN 1917:2002",
+          "EN 1917:2002/AC:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Concrete pavements — Part 3: Specifications for dowels to be used in concrete pavements",
+      "details": {
+        "referenceNumber": [
+          "EN 13877-3:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Concrete paving blocks — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 1338:2003",
+          "EN 1338:2003/AC:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Concrete paving flags — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 1339:2003",
+          "EN 1339:2003/AC:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Concrete pipes and fittings, unreinforced, steel fibre and reinforced",
+      "details": {
+        "referenceNumber": [
+          "EN 1916:2002",
+          "EN 1916:2002/AC:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Concrete roofing tiles and fittings for roof covering and wall cladding — Product specifications",
+      "details": {
+        "referenceNumber": [
+          "EN 490:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Copper and copper alloys — Seamless, round copper tubes for water and gas in sanitary and heating applications",
+      "details": {
+        "referenceNumber": [
+          "EN 1057:2006+A1:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Corrugated bitumen sheets — Product specification and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 534:2006+A1:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Corrugated safety metal hose assemblies for the connection of domestic appliances using gaseous fuels",
+      "details": {
+        "referenceNumber": [
+          "EN 14800:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Curtain walling — Product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 13830:2003"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Decorative wall coverings — Roll and panel form",
+      "details": {
+        "referenceNumber": [
+          "EN 15102:2007+A1:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Domestic gas-fired forced convection air heaters for space heating not exceeding a net heat input of 70 kW, without a fan to assist transportation of combustion air and/or combustion products",
+      "details": {
+        "referenceNumber": [
+          "EN 778:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Domestic gas-fired forced convection air heaters for space heating, with fan-assisted burners not exceeding a net heat input of 70 kW",
+      "details": {
+        "referenceNumber": [
+          "EN 1319:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Drainage channels for vehicular and pedestrian areas — Classification, design and testing requirements, marking and evaluation of conformity",
+      "details": {
+        "referenceNumber": [
+          "EN 1433:2002",
+          "EN 1433:2002/A1:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Ductile iron pipes, fittings, accessories and their joints for gas pipelines — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 969:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Ductile iron pipes, fittings, accessories and their joints for sewerage applications — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 598:2007+A1:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Elastomeric seals — Materials requirements for pipe joint seals used in water and drainage applications — Part 1: Vulcanized rubber",
+      "details": {
+        "referenceNumber": [
+          "EN 681-1:1996",
+          "EN 681-1:1996/A2:2002",
+          "EN 681-1:1996/A3:2005",
+          "EN 681-1:1996/A1:1998"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Elastomeric Seals — Materials requirements for pipe joint seals used in water and drainage applications — Part 2: Thermoplastic elastomer",
+      "details": {
+        "referenceNumber": [
+          "EN 681-2:2000",
+          "EN 681-2:2000/A1:2002",
+          "EN 681-2:2000/A2:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Elastomeric seals — Materials requirements for pipe joint seals used in water and drainage applications — Part 3: Cellular materials of vulcanized rubber",
+      "details": {
+        "referenceNumber": [
+          "EN 681-3:2000",
+          "EN 681-3:2000/A1:2002",
+          "EN 681-3:2000/A2:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Elastomeric seals — Materials requirements for pipe joint seals used in water and drainage applications — Part 4: Cast polyurethane sealing elements",
+      "details": {
+        "referenceNumber": [
+          "EN 681-4:2000",
+          "EN 681-4:2000/A1:2002",
+          "EN 681-4:2000/A2:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Elastomeric Seals — Materials requirements for seals used in pipes and fittings carrying gas and hydrocarbon fluids",
+      "details": {
+        "referenceNumber": [
+          "EN 682:2002",
+          "EN 682:2002/A1:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Execution of steel structures and aluminium structures — Part 1: Requirements for conformity assessment of structural components",
+      "details": {
+        "referenceNumber": [
+          "EN 1090-1:2009+A1:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "External blinds — Performance requirements including safety",
+      "details": {
+        "referenceNumber": [
+          "EN 13561:2004+A1:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fibre cement pipes for drains and sewers — Part 2: Manholes and inspection chambers",
+      "details": {
+        "referenceNumber": [
+          "EN 588-2:2001"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fibre-cement flat sheets — Product specification and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 12467:2012+A2:2018"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fibre-cement profiled sheets and fittings — Product specification and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 494:2012+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fibre-cement slates and fittings — Product specification and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 492:2012+A2:2018"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fibres for concrete — Part 1: Steel fibres — Definitions, specifications and conformity",
+      "details": {
+        "referenceNumber": [
+          "EN 14889-1:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fibres for concrete — Part 2: Polymer fibres — Definitions, specifications and conformity",
+      "details": {
+        "referenceNumber": [
+          "EN 14889-2:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fibrous gypsum plaster casts — Definitions, requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 13815:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fire detection and fire alarm systems — Part 10: Flame detectors — Point detectors",
+      "details": {
+        "referenceNumber": [
+          "EN 54-10:2002",
+          "EN 54-10:2002/A1:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fire detection and fire alarm systems — Part 11: Manual call points",
+      "details": {
+        "referenceNumber": [
+          "EN 54-11:2001",
+          "EN 54-11:2001/A1:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fire detection and fire alarm systems — Part 12: Smoke detectors — Line detectors using an optical beam",
+      "details": {
+        "referenceNumber": [
+          "EN 54-12:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fire detection and fire alarm systems — Part 16: Voice alarm control and indicating equipment",
+      "details": {
+        "referenceNumber": [
+          "EN 54-16:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fire detection and fire alarm systems — Part 17: Short-circuit isolators",
+      "details": {
+        "referenceNumber": [
+          "EN 54-17:2005",
+          "EN 54-17:2005/AC:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fire detection and fire alarm systems — Part 18: Input/output devices",
+      "details": {
+        "referenceNumber": [
+          "EN 54-18:2005",
+          "EN 54-18:2005/AC:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fire detection and fire alarm systems — Part 2: Control and indicating equipment",
+      "details": {
+        "referenceNumber": [
+          "EN 54-2:1997",
+          "EN 54-2:1997/AC:1999",
+          "EN 54-2:1997/A1:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fire detection and fire alarm systems — Part 20: Aspirating smoke detectors",
+      "details": {
+        "referenceNumber": [
+          "EN 54-20:2006",
+          "EN 54-20:2006/AC:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fire detection and fire alarm systems — Part 21: Alarm transmission and fault warning routing equipment",
+      "details": {
+        "referenceNumber": [
+          "EN 54-21:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fire detection and fire alarm systems — Part 23: Fire alarm devices — Visual alarm devices",
+      "details": {
+        "referenceNumber": [
+          "EN 54-23:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fire detection and fire alarm systems — Part 24: Components of voice alarm systems — Loudspeakers",
+      "details": {
+        "referenceNumber": [
+          "EN 54-24:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fire detection and fire alarm systems — Part 25: Components using radio links",
+      "details": {
+        "referenceNumber": [
+          "EN 54-25:2008",
+          "EN 54-25:2008/AC:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fire detection and fire alarm systems — Part 3: Fire alarm devices — Sounders",
+      "details": {
+        "referenceNumber": [
+          "EN 54-3:2001",
+          "EN 54-3:2001/A2:2006",
+          "EN 54-3:2001/A1:2002"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fire detection and fire alarm systems — Part 4: Power supply equipment",
+      "details": {
+        "referenceNumber": [
+          "EN 54-4:1997",
+          "EN 54-4:1997/AC:1999",
+          "EN 54-4:1997/A1:2002",
+          "EN 54-4:1997/A2:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fire detection and fire alarm systems — Part 5: Heat detectors — Point heat detectors",
+      "details": {
+        "referenceNumber": [
+          "EN 54-5:2017+A1:2018"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fire detection and fire alarm systems — Part 7: Smoke detectors — Point smoke detectors that operate using scattered light, transmitted light or ionization",
+      "details": {
+        "referenceNumber": [
+          "EN 54-7:2018"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Components for automatic sprinkler and water spray systems — Part 3: Dry alarm valve assemblies",
+      "details": {
+        "referenceNumber": [
+          "EN 12259-3:2000",
+          "EN 12259-3:2000/A1:2001",
+          "EN 12259-3:2000/A2:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Components for gas extinguishing systems — Part 1: Requirements and test methods for electrical automatic control and delay devices",
+      "details": {
+        "referenceNumber": [
+          "EN 12094-1:2003"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Components for gas extinguishing systems — Part 10: Requirements and test methods for pressure gauges and pressure switches",
+      "details": {
+        "referenceNumber": [
+          "EN 12094-10:2003"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Components for gas extinguishing systems — Part 11: Requirements and test methods for mechanical weighing devices",
+      "details": {
+        "referenceNumber": [
+          "EN 12094-11:2003"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Components for gas extinguishing systems — Part 12: Requirements and test methods for pneumatic alarm devices",
+      "details": {
+        "referenceNumber": [
+          "EN 12094-12:2003"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Components for gas extinguishing systems — Part 13: Requirements and test methods for check valves and non-return valves",
+      "details": {
+        "referenceNumber": [
+          "EN 12094-13:2001",
+          "EN 12094-13:2001/AC:2002"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Components for gas extinguishing systems — Part 2: Requirements and test methods for non-electrical automatic control and delay devices",
+      "details": {
+        "referenceNumber": [
+          "EN 12094-2:2003"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Components for gas extinguishing systems — Part 3: Requirements and test methods for manual triggering and stop devices",
+      "details": {
+        "referenceNumber": [
+          "EN 12094-3:2003"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Components for gas extinguishing systems — Part 4: Requirements and test methods for container valve assemblies and their actuators",
+      "details": {
+        "referenceNumber": [
+          "EN 12094-4:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Components for gas extinguishing systems — Part 5: Requirements and test methods for high and low pressure selector valves and their actuators",
+      "details": {
+        "referenceNumber": [
+          "EN 12094-5:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Components for gas extinguishing systems — Part 6: Requirements and test methods for non-electrical disable devices",
+      "details": {
+        "referenceNumber": [
+          "EN 12094-6:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Components for gas extinguishing systems — Part 7: Requirements and test methods for nozzles for CO2 systems",
+      "details": {
+        "referenceNumber": [
+          "EN 12094-7:2000",
+          "EN 12094-7:2000/A1:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Components for gas extinguishing systems — Part 8: Requirements and test methods for connectors",
+      "details": {
+        "referenceNumber": [
+          "EN 12094-8:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Components for gas extinguishing systems — Part 9: Requirements and test methods for special fire detectors",
+      "details": {
+        "referenceNumber": [
+          "EN 12094-9:2003"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Components for sprinkler and water spray systems — Part 1: Sprinklers",
+      "details": {
+        "referenceNumber": [
+          "EN 12259-1:1999 + A1:2001",
+          "EN 12259-1:1999 + A1:2001/A2:2004",
+          "EN 12259-1:1999 + A1:2001/A3:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Components for sprinkler and water spray systems — Part 2: Wet alarm valve assemblies",
+      "details": {
+        "referenceNumber": [
+          "EN 12259-2:1999",
+          "EN 12259-2:1999/A1:2001",
+          "EN 12259-2:1999/AC:2002",
+          "EN 12259-2:1999/A2:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Components for sprinkler and water spray systems — Part 4: Water motor alarms",
+      "details": {
+        "referenceNumber": [
+          "EN 12259-4:2000",
+          "EN 12259-4:2000/A1:2001"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Components for sprinkler and water spray systems — Part 5: Water flow detectors",
+      "details": {
+        "referenceNumber": [
+          "EN 12259-5:2002"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Hose systems — Part 1: Hose reels with semi-rigid hose",
+      "details": {
+        "referenceNumber": [
+          "EN 671-1:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed firefighting systems — Hose systems — Part 2: Hose systems with lay-flat hose",
+      "details": {
+        "referenceNumber": [
+          "EN 671-2:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed ladders for manholes",
+      "details": {
+        "referenceNumber": [
+          "EN 14396:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed, vertical road traffic signs — Part 1: Fixed signs",
+      "details": {
+        "referenceNumber": [
+          "EN 12899-1:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed, vertical road traffic signs — Part 2: Transilluminated traffic bollards (TTB)",
+      "details": {
+        "referenceNumber": [
+          "EN 12899-2:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fixed, vertical road traffic signs — Part 3: Delineator posts and retroreflectors",
+      "details": {
+        "referenceNumber": [
+          "EN 12899-3:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Flexible sheets for waterproofing — Bitumen damp proof courses — Definitions and characteristics",
+      "details": {
+        "referenceNumber": [
+          "EN 14967:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Flexible sheets for waterproofing — Bitumen damp proof sheets including bitumen basement tanking sheets — Definitions and characteristics",
+      "details": {
+        "referenceNumber": [
+          "EN 13969:2004",
+          "EN 13969:2004/A1:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Flexible sheets for waterproofing — Bitumen water vapour control layers — Definitions and characteristics",
+      "details": {
+        "referenceNumber": [
+          "EN 13970:2004",
+          "EN 13970:2004/A1:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Flexible sheets for waterproofing — Definitions and characteristics of underlays — Part 1: Underlays for discontinuous roofing",
+      "details": {
+        "referenceNumber": [
+          "EN 13859-1:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Flexible sheets for waterproofing — Definitions and characteristics of underlays — Part 2: Underlays for walls",
+      "details": {
+        "referenceNumber": [
+          "EN 13859-2:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Flexible sheets for waterproofing — Plastic and rubber damp proof courses — Definitions and characteristics",
+      "details": {
+        "referenceNumber": [
+          "EN 14909:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Flexible sheets for waterproofing — Plastic and rubber damp proof sheets including plastic and rubber basement tanking sheet — Definitions and characteristics",
+      "details": {
+        "referenceNumber": [
+          "EN 13967:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Flexible sheets for waterproofing — Plastic and rubber sheets for roof waterproofing — Definitions and characteristics",
+      "details": {
+        "referenceNumber": [
+          "EN 13956:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Flexible sheets for waterproofing — Plastic and rubber vapour control layers — Definitions and characteristics",
+      "details": {
+        "referenceNumber": [
+          "EN 13984:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Flexible sheets for waterproofing — Reinforced bitumen sheets for roof waterproofing — Definitions and characteristics",
+      "details": {
+        "referenceNumber": [
+          "EN 13707:2004+A2:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Flexible sheets for waterproofing — Reinforced bitumen sheets for waterproofing of concrete bridge decks and other trafficked areas of concrete — Definitions and characteristics",
+      "details": {
+        "referenceNumber": [
+          "EN 14695:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Flued oil stoves with vaporizing burners",
+      "details": {
+        "referenceNumber": [
+          "EN 1:1998",
+          "EN 1:1998/A1:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fly ash for concrete — Part 1: Definition, specifications and conformity criteria",
+      "details": {
+        "referenceNumber": [
+          "EN 450-1:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Free hanging heating and cooling surfaces for water with a temperature below 120 oC — Part 1: Pre-fabricated ceiling mounted radiant panels for space heating — Technical specifications and requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 14037-1:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Free-standing chimneys — Part 5: Material for brick liners — Product specifications",
+      "details": {
+        "referenceNumber": [
+          "EN 13084-5:2005",
+          "EN 13084-5:2005/AC:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Free-standing chimneys — Part 7: Product specifications of cylindrical steel fabrications for use in single wall steel chimneys and steel liners",
+      "details": {
+        "referenceNumber": [
+          "EN 13084-7:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Fully supported metal sheet and strip for roofing, external cladding and internal lining — Product specification and requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 14783:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "General purpose adhesives for structural assembly — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 15274:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Geosynthetic barriers — Characteristics required for use as a fluid barrier in the construction of tunnels and underground structures",
+      "details": {
+        "referenceNumber": [
+          "EN 13491:2004",
+          "EN 13491:2004/A1:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Geosynthetic Barriers — Characteristics required for use in the construction of canals",
+      "details": {
+        "referenceNumber": [
+          "EN 13362:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Geosynthetic barriers — Characteristics required for use in the construction of liquid waste disposal sites, transfer stations or secondary containment",
+      "details": {
+        "referenceNumber": [
+          "EN 13492:2004",
+          "EN 13492:2004/A1:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Geosynthetic barriers — Characteristics required for use in the construction of reservoirs and dams",
+      "details": {
+        "referenceNumber": [
+          "EN 13361:2004",
+          "EN 13361:2004/A1:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Geosynthetic barriers — Characteristics required for use in the construction of solid waste storage and disposal sites",
+      "details": {
+        "referenceNumber": [
+          "EN 13493:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Geosynthetic barriers — Characteristics required for use in transportation infrastructure",
+      "details": {
+        "referenceNumber": [
+          "EN 15382:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Geotextiles and geotextile-related products — Characteristics required for the use in the construction of reservoirs and dams",
+      "details": {
+        "referenceNumber": [
+          "EN 13254:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Geotextiles and geotextile-related products — Characteristics required for use in drainage systems",
+      "details": {
+        "referenceNumber": [
+          "EN 13252:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Geotextiles and geotextile-related products — Characteristics required for use in earthworks, foundations and retaining structures",
+      "details": {
+        "referenceNumber": [
+          "EN 13251:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Geotextiles and geotextile-related products — Characteristics required for use in erosion control works (coastal protection, bank revetments",
+      "details": {
+        "referenceNumber": [
+          "EN 13253:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Geotextiles and geotextile-related products — Characteristics required for use in liquid waste containment projects",
+      "details": {
+        "referenceNumber": [
+          "EN 13265:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Geotextiles and geotextile-related products — Characteristics required for use in pavements and asphalt overlays",
+      "details": {
+        "referenceNumber": [
+          "EN 15381:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Geotextiles and geotextile-related products — Characteristics required for use in solid waste disposals",
+      "details": {
+        "referenceNumber": [
+          "EN 13257:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Geotextiles and geotextile-related products — Characteristics required for use in the construction of canals",
+      "details": {
+        "referenceNumber": [
+          "EN 13255:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Geotextiles and geotextile-related products — Characteristics required for use in the construction of railways",
+      "details": {
+        "referenceNumber": [
+          "EN 13250:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Geotextiles and geotextile-related products — Characteristics required for use in the construction of roads and other trafficked areas (excluding railways and asphalt inclusion)",
+      "details": {
+        "referenceNumber": [
+          "EN 13249:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Geotextiles and geotextile-related products — Characteristics required for use in the construction of tunnels and underground structures",
+      "details": {
+        "referenceNumber": [
+          "EN 13256:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Glass in building — Basic alkaline earth silicate glass products — Part 2: Evaluation of conformity/Product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 14178-2:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Glass in Building — Basic alumino silicate glass products — Part 2: Product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 15681-2:2017"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Glass in building — Basic soda lime silicate glass products — Part 9: Evaluation of conformity/ Product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 572-9:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Glass in building — Chemically strengthened soda lime silicate glass — Part 2: Evaluation of conformity/Product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 12337-2:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Glass in building — Coated glass — Part 4: Evaluation of conformity/Product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 1096-4:2018"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Glass in building — Heat soaked thermally toughened alkaline earth silicate safety glass — Part 2: Evaluation of conformity/Product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 15682-2:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Glass in building — Heat soaked thermally toughened soda lime silicate safety glass — Part 2: Evaluation of conformity/Product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 14179-2:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Glass in building — Heat strengthened soda lime silicate glass — Part 2: Evaluation of conformity/ Product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 1863-2:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Glass in building — Insulating glass units — Part 5: Product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 1279-5:2018"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Glass in building — Laminated glass and laminated safety glass — Evaluation of conformity/Product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 14449:2005",
+          "EN 14449:2005/AC:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Glass in building — Mirrors from silver-coated float glass for internal use — Part 2: Evaluation of conformity; product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 1036-2:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Glass in building — Mirrors from silver-coated float glass for internal use — Part 2: Evaluation of conformity; product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 1051-2:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Glass in building — Special basic products — Borosilicate glasses — Part 1-2: Evaluation of conformity/Product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 1748-1-2:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Glass in building — Special basic products — Glass ceramics — Part 2-2: Evaluation of conformity/Product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 1748-2-2:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Glass in building — Thermally toughened alkaline earth silicate safety glass — Part 2: Evaluation of conformity/Product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 14321-2:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Glass in building — Thermally toughened borosilicate safety glass — Part 2: Evaluation of conformity/Product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 13024-2:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Glass in building — Thermally toughened soda lime silicate channel shaped safety glass — Part 2: Evaluation of conformity/Product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 15683-2:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Glass in building — Thermally toughened soda lime silicate safety glass — Part 2: Evaluation of conformity/Product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 12150-2:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Grease separators — Part 1: Principles of design, performance and testing, marking and quality control",
+      "details": {
+        "referenceNumber": [
+          "EN 1825-1:2004",
+          "EN 1825-1:2004/AC:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Ground granulated blast furnace slag for use in concrete, mortar and grout — Part 1: Definitions, specifications and conformity criteria",
+      "details": {
+        "referenceNumber": [
+          "EN 15167-1:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Gypsum based adhesives for gypsum blocks — Definitions, requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 12860:2001",
+          "EN 12860:2001/AC:2002"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Gypsum based adhesives for thermal/acoustic insulation composite panels and plasterboards — Definitions, requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 14496:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Gypsum binders and gypsum plasters — Part 1: Definitions and requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 13279-1:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Gypsum blocks — Definitions, requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 12859:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Gypsum board products from reprocessing — Definitions, requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 14190:2014"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Gypsum board thermal/acoustic insulation composite panels — Definitions, requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 13950:2014"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Gypsum boards with fibrous reinforcement — Definitions, requirements and test methods — Part 1: Gypsum boards with mat reinforcement",
+      "details": {
+        "referenceNumber": [
+          "EN 15283-1:2008+A1:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Gypsum boards with fibrous reinforcement — Definitions, requirements and test methods — Part 2: Gypsum fibre boards",
+      "details": {
+        "referenceNumber": [
+          "EN 15283-2:2008+A1:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Gypsum elements for suspended ceilings — Definitions, requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 14246:2006",
+          "EN 14246:2006/AC:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Gypsum plasterboards — Definitions, requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 520:2004+A1:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "High-pressure decorative laminates (HPL) — Sheets based on thermosetting resins (Usually called Laminates) — Part 7: Compact laminate and HPL composite panels for internal and external wall and ceiling finishes",
+      "details": {
+        "referenceNumber": [
+          "EN 438-7:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "High-strength structural bolting assemblies for preloading — Part 1: General requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 14399-1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Hot finished structural hollow sections of non- alloy and fine grain steels — Part 1: Technical delivery conditions",
+      "details": {
+        "referenceNumber": [
+          "EN 10210-1:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Hot rolled products of structural steels — Part 1: General technical delivery conditions",
+      "details": {
+        "referenceNumber": [
+          "EN 10025-1:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Hydraulic binder for non-structural applications — Definition, specifications and conformity criteria",
+      "details": {
+        "referenceNumber": [
+          "EN 15368:2008+A1:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Hydraulic road binders — Part 1: Rapid hardening hydraulic road binders — Composition, specifications and conformity criteria",
+      "details": {
+        "referenceNumber": [
+          "EN 13282-1:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Industrial, commercial, garage doors and gates — Product standard, performance characteristics",
+      "details": {
+        "referenceNumber": [
+          "EN 13241:2003+A2:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Inset appliances including open fires fired by solid fuels — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 13229:2001",
+          "EN 13229:2001/AC:2006",
+          "EN 13229:2001/A2:2004/AC:2007",
+          "EN 13229:2001/A2:2004",
+          "EN 13229:2001/A1:2003"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Joint fillers and sealants — Part 1: Specifications for hot applied sealants",
+      "details": {
+        "referenceNumber": [
+          "EN 14188-1:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Joint fillers and sealants — Part 2: Specifications for cold applied sealants",
+      "details": {
+        "referenceNumber": [
+          "EN 14188-2:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Joint fillers and sealants — Part 3: Specifications for preformed joint seals",
+      "details": {
+        "referenceNumber": [
+          "EN 14188-3:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Jointing materials for gypsum plasterboards — Definitions, requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 13963:2005",
+          "EN 13963:2005/AC:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Joints for the connection of steel tubes and fittings for the conveyance of water and other aqueous liquids",
+      "details": {
+        "referenceNumber": [
+          "EN 10311:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Kerbs of natural stone for external paving — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 1343:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Kitchen sinks — Functional requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 13310:2003"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Leak detection systems — Part 1: General principles",
+      "details": {
+        "referenceNumber": [
+          "EN 13160-1:2003"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Light transmitting flat multiwall polycarbonate (PC) sheets for internal and external use in roofs, walls and ceilings — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 16153:2013+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Light transmitting flat solid polycarbonate (PC) sheets for internal and external use in roofs, walls and ceilings — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 16240:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Light transmitting single skin profiled plastics sheets for internal and external roofs, walls and ceilings — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 1013:2012+A1:2014"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Light weight fill and thermal insulation products for civil engineering applications (CEA) — Expanded clay lightweight aggregate products (LWA)",
+      "details": {
+        "referenceNumber": [
+          "EN 15732:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Lighting columns — Part 4: Requirements for reinforced and prestressed concrete lighting columns",
+      "details": {
+        "referenceNumber": [
+          "EN 40-4:2005",
+          "EN 40-4:2005/AC:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Lighting columns — Part 5: Requirements for steel lighting columns",
+      "details": {
+        "referenceNumber": [
+          "EN 40-5:2002"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Lighting columns — Part 6: Requirements for aluminium lighting columns",
+      "details": {
+        "referenceNumber": [
+          "EN 40-6:2002"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Lighting columns — Part 7: Requirements for fibre reinforced polymer composite lighting columns",
+      "details": {
+        "referenceNumber": [
+          "EN 40-7:2002"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Lightweight aggregates — Part 1: Lightweight aggregates for concrete, mortar and grout",
+      "details": {
+        "referenceNumber": [
+          "EN 130551:2002",
+          "EN 13055-1:2002/AC:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Lightweight aggregates — Part 2: Lightweight aggregates for bituminous mixtures and surface treatments and for unbound and bound applications",
+      "details": {
+        "referenceNumber": [
+          "EN 13055-2:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Liquid-applied water impermeable products for use beneath ceramic tiling bonded with adhesives — Requirements, test methods, evaluation of conformity, classification and designation",
+      "details": {
+        "referenceNumber": [
+          "EN 14891:2012",
+          "EN 14891:2012/AC:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Manually operated ball valves and closed bottom taper plug valves for gas installations for buildings",
+      "details": {
+        "referenceNumber": [
+          "EN 331:1998",
+          "EN 331:1998/A1:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Masonry cement — Part 1: Composition, specifications and conformity criteria",
+      "details": {
+        "referenceNumber": [
+          "EN 413-1:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Mechanical fasteners for gypsum plasterboard systems — Definitions, requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 14566:2008+A1:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Metal beads and feature profiles for use with gypsum plasterboards — Definitions, requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 14353:2007+A1:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Metal framing components for gypsum plasterboard systems — Definitions, requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 14195:2005",
+          "EN 14195:2005/AC:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Metal lath and beads — Definitions, requirements and test methods — Part 1: Internal plastering",
+      "details": {
+        "referenceNumber": [
+          "EN 13658-1:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Metal lath and beads — Definitions, requirements and test methods — Part 2: External rendering",
+      "details": {
+        "referenceNumber": [
+          "BS, EN 13658-2:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Multi-burner gas-fired overhead radiant tube heater systems for non domestic use — Part 3: System F — Safety",
+      "details": {
+        "referenceNumber": [
+          "EN 777-3:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Multi-burner gas-fired overhead radiant tube heater systems for non-domestic use — Part 1: System D — Safety",
+      "details": {
+        "referenceNumber": [
+          "EN 777-1:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Multi-burner gas-fired overhead radiant tube heater systems for non-domestic use — Part 2: System E — Safety",
+      "details": {
+        "referenceNumber": [
+          "EN 777-2:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Multi-burner gas-fired overhead radiant tube heater systems for non-domestic use — Part 4: System H — Safety",
+      "details": {
+        "referenceNumber": [
+          "EN 777-4:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Multi-firing sauna stoves fired by natural wood logs — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 15821:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Natural stone products — Modular tiles — Requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 12057:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Natural stone products — Slabs for cladding — Requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 1469:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Natural stone products — Slabs for floors and stairs — Requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 12058:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Non-alloy steel tubes and fittings for the conveyance of aqueous liquids including water for human consumption — Technical delivery conditions",
+      "details": {
+        "referenceNumber": [
+          "EN 10224:2002",
+          "EN 10224:2002/A1:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Non-Alloy steel tubes suitable for welding and threading — Technical delivery conditions",
+      "details": {
+        "referenceNumber": [
+          "EN 10255:2004+A1:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Non-domestic forced convection gas-fired air heaters for space heating not exceeding a net heat input of 300 kW incorporating a fan to assist transportation of combustion air or combustion products",
+      "details": {
+        "referenceNumber": [
+          "EN 1020:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Non-domestic gas-fired forced convection air heaters for space heating not exceeding a net heat input of 300 kW, without a fan to assist transportation of combustion air and/or combustion products",
+      "details": {
+        "referenceNumber": [
+          "EN 621:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Non-preloaded structural bolting assemblies — Part 1: General requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 15048-1:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Overfill prevention devices for static tanks for liquid petroleum fuels",
+      "details": {
+        "referenceNumber": [
+          "EN 13616:2004",
+          "EN 13616:2004/AC:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Pedestrian doorsets, industrial, commercial, garage doors and openable windows — Product standard, performance characteristics — Fire resisting and/or smoke control characteristics",
+      "details": {
+        "referenceNumber": [
+          "EN 16034:2014"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Pigments for the colouring of building materials based on cement and/or lime — Specifications and methods of test",
+      "details": {
+        "referenceNumber": [
+          "EN 12878:2005",
+          "EN 12878:2005/AC:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Pillar fire hydrants",
+      "details": {
+        "referenceNumber": [
+          "EN 14384:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Pipes and fittings of longitudinally welded hot- dip galvanized steel pipes with spigot and socket for waste water systems — Part 1: Requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 1123-1:1999",
+          "EN 1123-1:1999/A1:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Pipes and fittings of longitudinally welded stainless steel pipes with spigot and socket for waste water systems — Part 1: Requirements, testing, quality control",
+      "details": {
+        "referenceNumber": [
+          "EN 1124-1:1999",
+          "EN 1124-1:1999/A1:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Plastics — Unplasticized poly(vinyl chloride) (PVC-U) profiles for building applications — Part 2: PVC-U profiles and PVC-UE profiles for internal and external wall and ceiling finishes",
+      "details": {
+        "referenceNumber": [
+          "EN 13245-2:2008",
+          "EN 13245-2:2008/AC:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Polymer modified bituminous thick coatings for waterproofing — Definitions and requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 15814:2011+A2:2014"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Power, control and communication cables — Cables for general applications in construction works subject to reaction to fire requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 50575:2014",
+          "EN 50575:2014/A1:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Beam-and-block floor systems — Part 1: Beams",
+      "details": {
+        "referenceNumber": [
+          "EN 15037-1:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Beam-and-block floor systems — Part 2: Concrete blocks",
+      "details": {
+        "referenceNumber": [
+          "EN 15037-2:2009+A1:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Beam-and-block floor systems — Part 3: Clay blocks",
+      "details": {
+        "referenceNumber": [
+          "EN 15037-3:2009+A1:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Beam-and-block floor systems — Part 4: Expanded polystyrene blocks",
+      "details": {
+        "referenceNumber": [
+          "EN 15037-4:2010+A1:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Beam-and-block floor systems — Part 5: Lightweight blocks for simple formwork",
+      "details": {
+        "referenceNumber": [
+          "EN 15037-5:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Box culverts",
+      "details": {
+        "referenceNumber": [
+          "EN 14844:2006+A2:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Bridge elements",
+      "details": {
+        "referenceNumber": [
+          "EN 15050:2007+A1:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Elements for fences",
+      "details": {
+        "referenceNumber": [
+          "EN 12839:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Floor plates for floor systems",
+      "details": {
+        "referenceNumber": [
+          "EN 13747:2005+A2:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Floor slats for livestock",
+      "details": {
+        "referenceNumber": [
+          "EN 12737:2004+A1:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Foundation elements",
+      "details": {
+        "referenceNumber": [
+          "EN 14991:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Foundation piles",
+      "details": {
+        "referenceNumber": [
+          "EN 12794:2005+A1:2007",
+          "EN 12794:2005+A1:2007/AC:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Hollow core slabs",
+      "details": {
+        "referenceNumber": [
+          "EN 1168:2005+A3:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Linear structural elements",
+      "details": {
+        "referenceNumber": [
+          "EN 13225:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Masts and poles",
+      "details": {
+        "referenceNumber": [
+          "EN 12843:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Normal weight and lightweight concrete shuttering blocks — Product properties and performance",
+      "details": {
+        "referenceNumber": [
+          "EN 15435:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Precast concrete garages — Part 1: Requirements for reinforced garages monolithic or consisting of single sections with room dimensions",
+      "details": {
+        "referenceNumber": [
+          "EN 13978-1:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Retaining wall elements",
+      "details": {
+        "referenceNumber": [
+          "EN 15258:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Ribbed floor elements",
+      "details": {
+        "referenceNumber": [
+          "EN 13224:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Special roof elements",
+      "details": {
+        "referenceNumber": [
+          "EN 13693:2004+A1:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Stairs",
+      "details": {
+        "referenceNumber": [
+          "EN 14843:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Wall elements",
+      "details": {
+        "referenceNumber": [
+          "EN 14992:2007+A1:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Precast concrete products — Wood-chip concrete shuttering blocks — Product properties and performance",
+      "details": {
+        "referenceNumber": [
+          "EN 15498:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Prefabricated accessories for roofing — Individual roof lights of plastics — Product specification and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 1873:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Prefabricated accessories for roofing — Installations for roof access — Walkways, treads and steps",
+      "details": {
+        "referenceNumber": [
+          "EN 516:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Prefabricated accessories for roofing — Permanently fixed roof ladders — Product specification and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 12951:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Prefabricated accessories for roofing — Roof safety hooks",
+      "details": {
+        "referenceNumber": [
+          "EN 517:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Prefabricated gypsum plasterboard panels with a cellular paperboard core — Definitions, requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 13915:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Prefabricated reinforced components of autoclaved aerated concrete",
+      "details": {
+        "referenceNumber": [
+          "EN 12602:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Prefabricated reinforced components of lightweight aggregate concrete with open structure with structural or non-structural reinforcement",
+      "details": {
+        "referenceNumber": [
+          "EN 1520:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Preformed plasterboard cornices — Definitions, requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 14209:2017"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Products and systems for the protection and repair of concrete structures — Definitions, requirements, quality control and evaluation of conformity — Part 2: Surface protection systems for concrete",
+      "details": {
+        "referenceNumber": [
+          "EN 1504-2:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Products and systems for the protection and repair of concrete structures — Definitions, requirements, quality control and evaluation of conformity — Part 3: Structural and non- structural repair",
+      "details": {
+        "referenceNumber": [
+          "EN 1504-3:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Products and systems for the protection and repair of concrete structures — Definitions, requirements, quality control and evaluation of conformity — Part 4: Structural bonding",
+      "details": {
+        "referenceNumber": [
+          "EN 1504-4:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Products and systems for the protection and repair of concrete structures — Definitions, requirements, quality control and evaluation of conformity — Part 5: Concrete injection",
+      "details": {
+        "referenceNumber": [
+          "EN 1504-5:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Products and systems for the protection and repair of concrete structures — Definitions, requirements, quality control and evaluation of conformity — Part 6: Anchoring of reinforcing steel bar",
+      "details": {
+        "referenceNumber": [
+          "EN 1504-6:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Products and systems for the protection and repair of concrete structures — Definitions, requirements, quality control and evaluation of conformity — Part 7: Reinforcement corrosion protection",
+      "details": {
+        "referenceNumber": [
+          "EN 1504-7:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Radiators and convectors — Part 1: Technical specifications and requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 442-1:2014"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Residential cookers fired by solid fuel — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 12815:2001/AC:2006",
+          "EN 12815:2001/A1:2004/AC:2007",
+          "EN 12815:2001/A1:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Residential independent boilers fired by solid fuel — Nominal heat output up to 50 kW — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 12809:2001",
+          "EN 12809:2001/A1:2004",
+          "EN 12809:2001/A1:2004/AC:2007",
+          "EN 12809:2001/AC:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Residential space heating appliances fired by wood pellets — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 14785:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Resilient, textile and laminate floor coverings — Essential characteristics",
+      "details": {
+        "referenceNumber": [
+          "EN 14041:2004",
+          "EN 14041:2004/AC:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Rigid underlays for discontinuous roofing — Definitions and characteristics",
+      "details": {
+        "referenceNumber": [
+          "EN 14964:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Road marking materials — Drop on materials — Glass beads, antiskid aggregates and mixtures of the two",
+      "details": {
+        "referenceNumber": [
+          "EN 1423:2012",
+          "EN 1423:2012/AC:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Road marking materials — Retroreflecting road studs — Part 1: Initial performance requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 1463-1:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Road restraint systems — Part 5:Product requirements and evaluation of conformity for vehicle restraint system",
+      "details": {
+        "referenceNumber": [
+          "EN 1317-5:2007+A2:2012",
+          "EN 1317-5:2007+A2:2012/AC:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Road traffic noise reducing devices — Specifications",
+      "details": {
+        "referenceNumber": [
+          "EN 14388:2005",
+          "EN 14388:2005/AC:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Road vertical signs — Variable message traffic signs — Part 1: Product standard",
+      "details": {
+        "referenceNumber": [
+          "EN 12966-1:2005+A1:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Roof coverings — Continuous rooflights of plastics with or without upstands — Classification, requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 14963:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Roomheaters fired by solid fuel — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 13240:2001",
+          "EN 13240:2001/A2:2004",
+          "EN 13240:2001/AC:2006",
+          "EN 13240:2001/A2:2004/AC:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Safety gas connection valves for metal hose assemblies used for the connection of domestic appliances using gaseous fuel",
+      "details": {
+        "referenceNumber": [
+          "EN 15069:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Sanitary appliances — Communal washing troughs",
+      "details": {
+        "referenceNumber": [
+          "EN 14296:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Sanitary appliances — Specification for whirlpool baths",
+      "details": {
+        "referenceNumber": [
+          "EN 12764:2004+A1:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Sanitary appliances — Wash basins — Functional requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 14688:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Screed material and floor screeds — Screed material — Properties and requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 13813:2002"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Sealants for non-structural use in joints in buildings and pedestrian walkways — Part 1: Sealants for facade elements",
+      "details": {
+        "referenceNumber": [
+          "EN 15651-1:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Sealants for non-structural use in joints in buildings and pedestrian walkways — Part 2: Sealants for glazing",
+      "details": {
+        "referenceNumber": [
+          "EN 15651-2:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Sealants for non-structural use in joints in buildings and pedestrian walkways — Part 3: Sealants for sanitary joints",
+      "details": {
+        "referenceNumber": [
+          "EN 15651-3:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Sealants for non-structural use in joints in buildings and pedestrian walkways — Part 4: Sealants for pedestrian walkways",
+      "details": {
+        "referenceNumber": [
+          "EN 15651-4:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Self-supporting double skin metal faced insulating panels — Factory made products — Specifications",
+      "details": {
+        "referenceNumber": [
+          "EN 14509:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Self-supporting metal sheet for roofing, external cladding and internal lining — Product specification and requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 14782:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Separator systems for light liquids (e.g. oil and petrol) — Part 1: Principles of product design, performance and testing, marking and quality control",
+      "details": {
+        "referenceNumber": [
+          "EN 858-1:2002",
+          "EN 858-1:2002/A1:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Setts of natural stone for external paving — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 1342:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Shower enclosures — Functional requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 14428:2004+A1:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Shower trays for domestic purposes",
+      "details": {
+        "referenceNumber": [
+          "EN 14527:2006+A1:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Shutters — Performance requirements including safety",
+      "details": {
+        "referenceNumber": [
+          "EN 13659:2004+A1:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Silica fume for concrete — Part 1: Definitions, requirements and conformity criteria",
+      "details": {
+        "referenceNumber": [
+          "EN 13263-1:2005+A1:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Single burner gas-fired overhead radiant tube heaters for non-domestic use — Part 1: Safety",
+      "details": {
+        "referenceNumber": [
+          "EN 416-1:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Slabs of natural stone for external paving — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 1341:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Slate and stone for discontinuous roofing and external cladding — Part 1: Specifications for slate and carbonate slate",
+      "details": {
+        "referenceNumber": [
+          "EN 12326-1:2014"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Slow heat release appliances fired by solid fuel — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 15250:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Slurry surfacing — Requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 12273:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Small wastewater treatment systems for up to 50 PT — Part 1: Prefabricated septic tanks",
+      "details": {
+        "referenceNumber": [
+          "EN 12566-1:2000",
+          "EN 12566-1:2000/A1:2003"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Small wastewater treatment systems for up to 50 PT — Part 3: Packaged and/or site assembled domestic wastewater treatment plants",
+      "details": {
+        "referenceNumber": [
+          "EN 12566-3:2005+A2:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Small wastewater treatment systems for up to 50 PT — Part 4: Septic tanks assembled in situ from prefabricated kits",
+      "details": {
+        "referenceNumber": [
+          "EN 12566-4:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Small wastewater treatment systems for up to 50 PT — Part 6: Prefabricated treatment units for septic tank effluent",
+      "details": {
+        "referenceNumber": [
+          "EN 12566-6:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Small wastewater treatment systems for up to 50 PT — Part 7: Prefabricated tertiary treatment units",
+      "details": {
+        "referenceNumber": [
+          "EN 12566-7:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Smoke alarm devices",
+      "details": {
+        "referenceNumber": [
+          "EN 14604:2005",
+          "EN 14604:2005/AC:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Smoke and heat control systems — Part 1: Specification for smoke barriers",
+      "details": {
+        "referenceNumber": [
+          "EN 12101-1:2005",
+          "EN 12101-1:2005/A1:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Smoke and heat control systems — Part 10: Power supplies",
+      "details": {
+        "referenceNumber": [
+          "EN 12101-10:2005",
+          "EN 12101-10:2005/AC:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Smoke and heat control systems — Part 2: Specification for natural smoke and heat exhaust ventilators",
+      "details": {
+        "referenceNumber": [
+          "EN 12101-2:2003"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Smoke and heat control systems — Part 3: Specification for powered smoke and heat control ventilators (Fans)",
+      "details": {
+        "referenceNumber": [
+          "EN 12101-3:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Smoke and heat control systems — Part 6: Specification for pressure differential systems — Kits",
+      "details": {
+        "referenceNumber": [
+          "EN 12101-6:2005",
+          "EN 12101-6:2005/AC:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Smoke and heat control systems — Part 7: Smoke duct sections",
+      "details": {
+        "referenceNumber": [
+          "EN 12101-7:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Smoke and heat control systems — Part 8: Smoke control dampers",
+      "details": {
+        "referenceNumber": [
+          "EN 12101-8:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Solid wood panelling and cladding — Characteristics, evaluation of conformity and marking",
+      "details": {
+        "referenceNumber": [
+          "EN 14915:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Specification for ancillary components for masonry — Part 1: Wall ties, tension straps, hangers and brackets",
+      "details": {
+        "referenceNumber": [
+          "EN 845-1:2013+A1:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Specification for ancillary components for masonry — Part 2: Lintels",
+      "details": {
+        "referenceNumber": [
+          "EN 845-2:2013+A1:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Specification for ancillary components for masonry — Part 3: Bed joint reinforcement of steel meshwork",
+      "details": {
+        "referenceNumber": [
+          "EN 845-3:2013+A1:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Specification for masonry units — Part 1: Clay masonry units",
+      "details": {
+        "referenceNumber": [
+          "EN 771-1:2011+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Specification for masonry units — Part 2: Calcium silicate masonry units",
+      "details": {
+        "referenceNumber": [
+          "EN 771-2:2011+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Specification for masonry units — Part 3: Aggregate concrete masonry units (Dense and lightweight aggregates)",
+      "details": {
+        "referenceNumber": [
+          "EN 771-3:2011+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Specification for masonry units — Part 4: Autoclaved aerated concrete masonry units",
+      "details": {
+        "referenceNumber": [
+          "EN 771-4:2011+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Specification for masonry units — Part 5: Manufactured stone masonry units",
+      "details": {
+        "referenceNumber": [
+          "EN 771-5:2011+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Specification for masonry units — Part 6: Natural stone masonry units",
+      "details": {
+        "referenceNumber": [
+          "EN 771-6:2011+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Specification for mortar for masonry — Part 1: Rendering and plastering mortar",
+      "details": {
+        "referenceNumber": [
+          "EN 998-1:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Specification for mortar for masonry — Part 2: Masonry mortar",
+      "details": {
+        "referenceNumber": [
+          "EN 998-2:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Specifications for external renders and internal plasters based on organic binders",
+      "details": {
+        "referenceNumber": [
+          "EN 15824:2017"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Stainless steels — Part 4: Technical delivery conditions for sheet/plate and strip of corrosion resisting steels for construction purposes",
+      "details": {
+        "referenceNumber": [
+          "EN 10088-4:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Stainless steels — Part 5: Technical delivery conditions for bars, rods, wire, sections and bright products of corrosion resisting steels for construction purposes",
+      "details": {
+        "referenceNumber": [
+          "EN 10088-5:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Static thermoplastic tanks for above ground storage of domestic heating oils, kerosene and diesel fuels — Blow moulded and rotationally moulded polyethylene tanks and rotationally moulded tanks made of anionically polymerized polyamide 6 — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 13341:2005+A1:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Steel castings for structural uses",
+      "details": {
+        "referenceNumber": [
+          "EN 10340:2007",
+          "EN 10340:2007/AC:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Steel strip sheaths for prestressing tendons — Terminology, requirements, quality control",
+      "details": {
+        "referenceNumber": [
+          "EN 523:2003"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Steels for quenching and tempering for construction purposes — Technical delivery conditions",
+      "details": {
+        "referenceNumber": [
+          "EN 10343:2009"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Steps for underground man entry chambers — Requirements, marking, testing and evaluation of conformity",
+      "details": {
+        "referenceNumber": [
+          "EN 13101:2002"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Stretched ceilings — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 14716:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Structural adhesives — Characterisation of anaerobic adhesives for co-axial metallic assembly in building and civil engineering structures",
+      "details": {
+        "referenceNumber": [
+          "EN 15275:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Structural bearings — Part 3: Elastomeric bearings",
+      "details": {
+        "referenceNumber": [
+          "EN 1337-3:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Structural bearings — Part 4: Roller bearings",
+      "details": {
+        "referenceNumber": [
+          "EN 1337-4:2004",
+          "EN 1337-4:2004/AC:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Structural bearings — Part 5: Pot bearings",
+      "details": {
+        "referenceNumber": [
+          "EN 1337-5:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Structural bearings — Part 6: Rocker bearings",
+      "details": {
+        "referenceNumber": [
+          "EN 1337-6:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Structural bearings — Part 7: Spherical and cylindrical PTFE bearings",
+      "details": {
+        "referenceNumber": [
+          "EN 1337-7:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Structural bearings — Part 8: Guide Bearings and Restraint Bearings",
+      "details": {
+        "referenceNumber": [
+          "EN 1337-8:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Structural finger jointed solid timber — Performance requirements and minimum production requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 15497:2014"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Structural timber — Wood poles for overhead lines",
+      "details": {
+        "referenceNumber": [
+          "EN 14229:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Supersulfated cement — Composition, specifications and conformity criteria",
+      "details": {
+        "referenceNumber": [
+          "EN 15743:2010+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Surface dressing — Requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 12271:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Surfaces for sports areas — Indoor surfaces for multi-sports use — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 14904:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Suspended ceilings — Requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 13964:2014"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Terrazzo tiles — Part 1: Terrazzo tiles for internal use",
+      "details": {
+        "referenceNumber": [
+          "EN 13748-1:2004",
+          "EN 13748-1:2004/A1:2005",
+          "EN 13748-1:2004/AC:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Terrazzo tiles — Part 2: Terrazzo tiles for external use",
+      "details": {
+        "referenceNumber": [
+          "EN 13748-2:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulating products for building equipment and industrial installations — In-situ formed dispensed rigid polyurethane (PUR) and polyisocyanurate foam (PIR) products — Part 1: Specification for the rigid foam dispensed system before installation",
+      "details": {
+        "referenceNumber": [
+          "EN 14319-1:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulating products for building equipment and industrial installations — In-situ formed sprayed rigid polyurethane (PUR) and polyisocyanurate foam (PIR) products — Part 1: Specification for the rigid foam spray system before installation",
+      "details": {
+        "referenceNumber": [
+          "EN 14320-1:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulating products for buildings — In- situ formed dispensed rigid polyurethane (PUR) and polyisocyanurate (PIR) foam products — Part 1: Specification for the rigid foam dispensed system before installation",
+      "details": {
+        "referenceNumber": [
+          "EN 14318-1:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulating products for buildings — In- situ formed sprayed rigid polyurethane (PUR) and polyisocyanurate (PIR) foam products — Part 1: Specification for the rigid foam spray system before installation",
+      "details": {
+        "referenceNumber": [
+          "EN 14315-1:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation and light weight fill products for civil engineering applications — Factory made products of expanded polystyrene (EPS) — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 14933:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation and light weight fill products for civil engineering applications — Factory made products of extruded polystyrene foam (XPS) — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 14934:2007"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for building equipment and industrial installations — Factory made calcium silicate (CS) products — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 14306:2009+A1:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for building equipment and industrial installations — Factory made cellular glass (CG) products — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 14305:2009+A1:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for building equipment and industrial installations — Factory made expanded perlite (EP) and exfoliated vermiculite (EV) products — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 15501:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for building equipment and industrial installations — Factory made extruded polystyrene foam (XPS) products — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 14307:2009+A1:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for building equipment and industrial installations — Factory made flexible elastomeric foam (FEF) products — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 14304:2009+A1:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for building equipment and industrial installations — Factory made mineral wool (MW) products — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 14303:2009+A1:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for building equipment and industrial installations — Factory made phenolic foam (PF) products — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 14314:2009+A1:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for building equipment and industrial installations — Factory made polyethylene foam (PEF) products — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 14313:2009+A1:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for building equipment and industrial installations — Factory made products of expanded polystyrene (EPS) — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 14309:2009+A1:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for building equipment and industrial installations — Factory made rigid polyurethane foam (PUR) and polyisocyanurate foam (PIR) products — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 14308:2009+A1:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for building equipment and industrial installations — In-situ thermal insulation formed from exfoliated vermiculite (EV) products — Part 1: Specification for bonded and loose-fill products before installation",
+      "details": {
+        "referenceNumber": [
+          "EN 15600-1:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for building equipment and industrial installations — In-situ thermal insulation formed from expanded perlite (EP) products — Part 1: Specification for bonded and loose-fill products before installation",
+      "details": {
+        "referenceNumber": [
+          "EN 15599-1:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for buildings — Factory made cellular glass (CG) products — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 13167:2012+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for buildings — Factory made expanded perlite board (EPB) products — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 13169:2012+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for buildings — Factory made expanded polystyrene (EPS) products — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 13163:2012+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for buildings — Factory made extruded polystyrene foam (XPS) products — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 13164:2012+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for buildings — Factory made mineral wool (MW) products — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 13162:2012+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for buildings — Factory made phenolic foam (PF) products — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 13166:2012+A2:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for buildings — Factory made products of expanded cork (ICB) — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 13170:2012+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for buildings — Factory made products of polyethylene foam (PEF) — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 16069:2012+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for buildings — Factory made rigid polyurethane foam (PU) products — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 13165:2012+A2:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for buildings — Factory made wood fibre (WF) products — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 13171:2012+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for buildings — Factory made wood wool (WW) products — Specification",
+      "details": {
+        "referenceNumber": [
+          "EN 13168:2012+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for buildings — In- situ formed expanded clay lightweight aggregate products — Part 1: Specification for the loose-fill products before installation",
+      "details": {
+        "referenceNumber": [
+          "EN 14063-1:2004",
+          "EN 14063-1:2004/AC:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for buildings — In- situ formed loose-fill mineral wool (MW) products — Part 1: Specification for the loose-fill products before installation",
+      "details": {
+        "referenceNumber": [
+          "EN 14064-1:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for buildings — In- situ thermal insulation formed from exfoliated vermiculite (EV) products — Part 1: Specification for bonded and loose-fill products before installation",
+      "details": {
+        "referenceNumber": [
+          "EN 14317-1:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Thermal insulation products for buildings — In- situ thermal insulation formed from expanded perlite (EP) products — Part 1: Specification for bonded and loose-fill products before installation",
+      "details": {
+        "referenceNumber": [
+          "EN 14316-1:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Timber structures — Connectors — Requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 14545:2008"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Timber structures — Dowel-type fasteners — Requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 14592:2008+A1:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Timber structures — Glued laminated timber and glued solid timber — Requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 14080:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Timber structures — Product requirements for prefabricated structural members assembled with punched metal plate fasteners",
+      "details": {
+        "referenceNumber": [
+          "EN 14250:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Timber structures — Strength graded structural timber with rectangular cross section — Part 1: General requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 14081-1:2005+A1:2011"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Timber structures — Structural laminated veneer lumber — Requirements",
+      "details": {
+        "referenceNumber": [
+          "EN 14374:2004"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Traffic control equipment — Signal heads",
+      "details": {
+        "referenceNumber": [
+          "EN 12368:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Traffic control equipment — Warning and safety light devices",
+      "details": {
+        "referenceNumber": [
+          "EN 12352:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Underground fire hydrants",
+      "details": {
+        "referenceNumber": [
+          "EN 14339:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Ventilation for buildings — Fire dampers",
+      "details": {
+        "referenceNumber": [
+          "EN 15650:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Vitrified clay pipe systems for drains and sewers — Part 1: Requirements for pipes, fittings and joints",
+      "details": {
+        "referenceNumber": [
+          "EN 295-1:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Vitrified clay pipe systems for drains and sewers — Part 4: Requirements for adaptors, connectors and flexible couplings",
+      "details": {
+        "referenceNumber": [
+          "EN 295-4:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Vitrified clay pipe systems for drains and sewers — Part 5: Requirements for perforated pipes and fittings",
+      "details": {
+        "referenceNumber": [
+          "EN 295-5:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Vitrified clay pipe systems for drains and sewers — Part 7: Requirements for pipes and joints for pipe jacking",
+      "details": {
+        "referenceNumber": [
+          "EN 295-7:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Vitrified clay pipes systems for drain and sewers — Part 6: Requirements for components of manholes and inspection chambers",
+      "details": {
+        "referenceNumber": [
+          "EN 295-6:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Wall-hung urinals — Functional requirements and test methods",
+      "details": {
+        "referenceNumber": [
+          "EN 13407:2006"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Wastewater lifting plants for buildings and sites — Principles of construction and testing — Part 1: Lifting plants for wastewater containing faecal matter",
+      "details": {
+        "referenceNumber": [
+          "EN 12050-1:2001"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Wastewater lifting plants for buildings and sites — Principles of construction and testing — Part 2: Lifting plants for faecal-free wastewater",
+      "details": {
+        "referenceNumber": [
+          "EN 12050-2:2000"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Wastewater lifting plants for buildings and sites — Principles of construction and testing — Part 3: Lifting plants for wastewater containing faecal matter for limited applications",
+      "details": {
+        "referenceNumber": [
+          "EN 12050-3:2000"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Wastewater lifting plants for buildings and sites — Principles of construction and testing — Part 4: Non-return valves for faecal-free wastewater and wastewater containing faecal matter",
+      "details": {
+        "referenceNumber": [
+          "EN 12050-4:2000"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "WC and urinal flushing cisterns",
+      "details": {
+        "referenceNumber": [
+          "EN 14055:2010"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "WC pans and WC suites with integral trap",
+      "details": {
+        "referenceNumber": [
+          "EN 997:2012",
+          "EN 997:2012/AC:2012"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Welded stainless steel tubes for the conveyance of aqueous liquids including water for human consumption — Technical delivery conditions",
+      "details": {
+        "referenceNumber": [
+          "EN 10312:2002",
+          "EN 10312:2002/A1:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Welding consumables — General product standard for filler metals and fluxes for fusion welding of metallic materials",
+      "details": {
+        "referenceNumber": [
+          "EN 13479:2017"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Windows and doors — Product standard, performance characteristics — Part 1: Windows and external pedestrian doorsets",
+      "details": {
+        "referenceNumber": [
+          "EN 14351-1:2006+A2:2016"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Wood flooring and parquet — Characteristics, evaluation of conformity and marking",
+      "details": {
+        "referenceNumber": [
+          "EN 14342:2013"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Wood-based panels for use in construction — Characteristics, evaluation of conformity and marking",
+      "details": {
+        "referenceNumber": [
+          "EN 13986:2004+A1:2015"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    },
+    {
+      "product": "Workshop fabricated steel tanks — Part 2: Horizontal cylindrical single skin and double skin tanks for the aboveground storage of flammable and non-flammable water polluting liquids",
+      "details": {
+        "referenceNumber": [
+          "EN 12285-2:2005"
+        ],
+        "publicReference": [
+          "0035/21"
+        ]
+      }
+    }
+  ]
+}
