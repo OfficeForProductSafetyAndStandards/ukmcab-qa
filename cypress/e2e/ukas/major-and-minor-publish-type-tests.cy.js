@@ -47,12 +47,11 @@ describe('OPSS admin can choose to publish a record without updating the last up
                 });
             });
 
-
-            const currentDate = new Intl.DateTimeFormat('en-GB', {
-                day: '2-digit',
-                month: 'short',
-                year: 'numeric'
-            }).format(new Date());
+            const date = new Date();
+            const day = date.getDate();
+            const month = date.toLocaleString('en-US', {month: 'short'});
+            const year = date.getFullYear();
+            const currentDate = `${day} ${month} ${year}`;
 
             cy.get('.cab-detail-date-meta').each(($el) => {
                 const text = $el.text();
