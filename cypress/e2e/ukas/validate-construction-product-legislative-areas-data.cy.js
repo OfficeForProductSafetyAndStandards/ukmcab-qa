@@ -154,4 +154,56 @@ describe('Validate construction products from JSON file on demand', () => {
 
     });
 
+
+    it('user should be able to use Show all selected feature', () => {
+        cy.loginAsUkasUser();
+        cy.ensureOn(draftUrl);
+
+        const selectedProducts = [];
+        for (let i = 0; i < 6; i++) {
+            cy.get('input[id^="PageSelectedDesignatedStandardIds-"]').last().check();
+            cy.get('label[for^="PageSelectedDesignatedStandardIds-"]').last().then(($label) => {
+                const productText = $label.text().split('Details')[0].trim();
+                const product = {
+                    product: productText,
+                };
+
+                selectedProducts.push(product);
+                cy.log(`Selected Product #${i + 1}: ${JSON.stringify(product, null, 2)}`);
+            });
+
+            cy.contains('button', 'Next').click();
+            cy.wait(1000);
+        }
+
+        cy.then(() => {
+            const finalSelectedProductsJson = JSON.stringify(selectedProducts, null, 2);
+            cy.log(`Final JSON Output: ${finalSelectedProductsJson}`);
+            cy.get('button[type="submit"]').contains('Show all selected').click();
+            cy.get('button[type="submit"]').contains('Clear show all selected').should('exist');
+            cy.get('.pagination-detail-container')
+                .should('contain.text', 'Showing 1 - 6 of 6 designated standards');
+            cy.get('div.govuk-checkboxes__item').each(($item, index) => {
+                cy.wrap($item).find('label.govuk-checkboxes__label.govuk-label').then(($label) => {
+                    const labelText = $label.text().trim();
+                    if (labelText.includes('Select all')) {
+                        return;
+                    }
+                    const expectedProduct = selectedProducts[index - 1];
+                    expect(labelText).to.contains(expectedProduct.product);
+                });
+            });
+        });
+
+        cy.get('button[type="submit"]').contains('Clear show all selected').click();
+        cy.get('button[type="submit"]').contains('Show all selected').should('exist');
+
+    });
+
 });
+
+
+
+
+
+
