@@ -1,0 +1,55 @@
+{
+  "ppes": {
+    "productType": [
+      "Equipment providing buoyancy aid",
+      "Equipment providing chest and groin protection",
+      "Equipment providing eye protection",
+      "Equipment providing face protection",
+      "Equipment providing foot leg and anti-slip protection",
+      "Equipment providing general body protection (clothing)",
+      "Equipment providing hand and arm protection",
+      "Equipment providing head protection",
+      "Equipment providing hearing protection",
+      "Equipment providing respiratory system protection"
+    ],
+    "risks": [
+      "Equipment providing protection against cold [> -50 °C]",
+      "Equipment providing protection against cold [cold > -50 °C] [extreme cold < -50 °C]",
+      "Equipment providing protection against heat [< 100 °C]",
+      "Equipment providing protection against heat [> 100 °C and fire and flame]",
+      "Protective equipment against bullet wounds or knife stabs",
+      "Protective equipment against drowning",
+      "Protective equipment against electric shock",
+      "Protective equipment against electrical and magnetic fields and waves",
+      "Protective equipment against falls from heights",
+      "Protective equipment against hand-held chain-saws",
+      "Protective equipment against harmful biological agents",
+      "Protective equipment against harmful noise",
+      "Protective equipment against high-pressure jets",
+      "Protective equipment against ionising radiation",
+      "Protective equipment against mechanical risks",
+      "Protective equipment against non-ionising radiation",
+      "Protective equipment against slipping",
+      "Protective equipment against static compression",
+      "Protective equipment against substances and mixtures which are hazardous to health",
+      "Protective equipment against vibrations",
+      "Protective equipment against chemical agents",
+      "Protective equipment against risks arising from a sports activity"
+    ],
+    "specialisedAreas": [
+      "Body armour",
+      "Protective clothing against static electricity",
+      "Protective clothing for motorcycle riders",
+      "Firefighters suits",
+      "High visibility clothing",
+      "Protective clothing for use in welding and allied processes",
+      "Protective equipment for diving",
+      "Protective equipment for use in potentially explosive atmospheres"
+    ],
+    "assessmentProcedures": [
+      "Annex V – Module B Type examination",
+      "Annex VII – Module C2 Conformity to type based on internal production control plus supervised product checks at random intervals",
+      "Annex VIII – Module D Conformity to type based on quality assurance of the production process"
+    ]
+  }
+}

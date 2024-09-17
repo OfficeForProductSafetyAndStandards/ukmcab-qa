@@ -421,8 +421,8 @@ describe('Creating a new CAB', () => {
             cy.contains('Remove').click()
             cy.contains('0 files uploaded')
         })
-
-        it('publication should be mandatory', function () {
+//Test not valid again after fixes to UKMCAB-2077 - "Publication" should be mandatory, with a default value of "Internal."
+        it.skip('publication should be mandatory', function () {
             CabHelpers.uploadFiles([{fileName: 'dummy3.pdf',category: 'Recommendations'}])
             cy.saveAndContinue();
             cy.get("span.govuk-error-message[data-valmsg-for='UploadedFiles[0].Publication']")

@@ -108,7 +108,7 @@ describe('Ability for supporting documents to be marked as viewable by the publi
             cy.get('.govuk-grid-row.display-from-desktop').within(() => {
                 cy.contains('h3', 'File').should('exist');
                 cy.contains('h3', 'Category').should('exist');
-                cy.contains('h3', 'Publications').should('exist');
+                cy.contains('h3', 'Publication').should('exist');
                 cy.contains('h3', 'Actions').should('exist');
             });
             verifySupportingDocumentInProfilePage(this.cab.documents, 'All users (public)');
@@ -167,7 +167,7 @@ describe('Ability for supporting documents to be marked as viewable by the publi
             cy.get('.govuk-grid-row.display-from-desktop').within(() => {
                 cy.contains('h3', 'File').should('exist');
                 cy.contains('h3', 'Category').should('exist');
-                cy.contains('h3', 'Publications').should('exist');
+                cy.contains('h3', 'Publication').should('exist');
                 cy.contains('h3', 'Actions').should('exist');
             });
             verifySupportingDocumentInProfilePage(this.cab.documents, 'Internal users');
