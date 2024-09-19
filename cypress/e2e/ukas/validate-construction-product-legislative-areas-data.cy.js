@@ -82,6 +82,20 @@ describe('Validate construction products from JSON file on demand', () => {
         });
     });
 
+    it('test search results', () => {
+        cy.loginAsUkasUser();
+        cy.ensureOn(draftUrl);
+        cy.get('#SearchTerm').type("Thermal insulation products for building equipment and industrial installations");
+        cy.get('#search-keyword-button').click();
+        cy.get('.pagination-detail-container')
+            .should('contain', 'Showing 1 - 12 of 12 designated standards');
+        cy.contains('a.govuk-link', 'Cancel')
+            .should('exist')
+            .and('have.attr', 'href')
+            .and('not.be.empty');
+    });
+
+
     it('pagination tests', () => {
         cy.loginAsUkasUser();
         cy.ensureOn(draftUrl);

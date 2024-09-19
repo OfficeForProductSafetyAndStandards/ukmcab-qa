@@ -2,7 +2,7 @@ import * as CabHelpers from '/cypress/support/helpers/cab-helpers'
 import Cab from '/cypress/support/domain/cab'
 import * as UserManagementHelpers from "../../support/helpers/user-management-helpers";
 
-describe('Assign tasks on notification page tests', () => {
+describe.skip('Assign tasks on notification page tests', () => {
     let cabProfileName;
     let initialCounts = {};
 

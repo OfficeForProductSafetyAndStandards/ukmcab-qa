@@ -152,7 +152,7 @@ export default class Cab {
             CabNumberVisibility: CabNumberVisibility.Public,
             RegisteredOfficeLocation: "United Kingdom",
             TestingLocations: ["United Kingdom", "Belgium"],
-            BodyTypes: ["Approved body", "NI Notified body"],
+            BodyTypes: ["Approved body", "Designated body", "NI Notified body"],
             LegislativeAreas: ["Cableway installation", "Ecodesign"],
             DocumentLegislativeAreas: [
                 {
@@ -293,7 +293,7 @@ export default class Cab {
             CabNumberVisibility: CabNumberVisibility.Public,
             RegisteredOfficeLocation: "United Kingdom",
             TestingLocations: ["United Kingdom", "Belgium"],
-            BodyTypes: ["Approved body", "NI Notified body"],
+            BodyTypes: ["Approved body", "Designated body", "NI Notified body"],
             LegislativeAreas: ["Cableway installation", "Ecodesign"],
             DocumentLegislativeAreas: [
                 {

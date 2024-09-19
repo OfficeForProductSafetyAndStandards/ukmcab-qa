@@ -156,6 +156,31 @@ describe('PPE Product Test', () => {
         cy.logout();
         cy.ensureOn(`/search/cab-profile/${cabName}`);
         CabHelpers.viewLegislativeAreas();
-        //to verify PPE LA
+        cy.contains('a.govuk-link', 'Personal protective equipment')
+            .click();
+        cy.contains('a.govuk-link', testPpeData.productType[0])
+            .should('exist')
+            .click();
+        cy.contains('a.govuk-link', testPpeData.risks[0])
+            .should('exist')
+            .click();
+        cy.contains('a.govuk-link', testPpeData.specialisedAreas[0])
+            .should('exist')
+            .click();
+        testPpeData.productType.forEach((productType) => {
+            cy.contains(productType).should('exist');
+        });
+
+        testPpeData.risks.forEach((risk) => {
+            cy.contains(risk).should('exist');
+        });
+
+        testPpeData.specialisedAreas.forEach((area) => {
+            cy.contains(area).should('exist');
+        });
+
+        testPpeData.assessmentProcedures.forEach((procedure) => {
+            cy.contains(procedure).should('exist');
+        });
     });
 });
