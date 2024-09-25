@@ -116,6 +116,27 @@ describe('UKAS or OPSS user assign MRA to CAB record via stand alone list on \'B
                 cy.contains(country).should('exist');
             });
         });
+
+        it('then it should bypass for legislative area scope of appointment where an MRA is in place ', function () {
+            const newLa = "Toys"
+            cy.loginAsOpssUser();
+            cy.ensureOn(this.draftUrl);
+            CabHelpers.editCabButton().click();
+            CabHelpers.editCabDetail('Legislative areas');
+            CabHelpers.addLegislativeAreaButton().click();
+            cy.contains('button', 'Continue without scope of appointment').should('exist');
+            cy.get("label").contains(newLa).click();
+            cy.contains('button', 'Continue without scope of appointment').click();
+            cy.get("label").contains('No').click();
+            cy.continue();
+            cy.continue();
+            cy.contains('.govuk-details__summary.provisional-la', newLa)
+                .within(() => {
+                    cy.get('strong.cab-status-tag.govuk-tag--green').should('have.text', 'MRA');
+                });
+            cy.logout();
+        });
+
     });
 
 })
