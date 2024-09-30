@@ -130,7 +130,22 @@ describe('PPE Product Test', () => {
         validatePpeDataOnSummaryPage(testPpeData);
         CabHelpers.editCabButton().click();
         cy.contains('a', 'Review').click();
-        cy.get('span').contains(`Personal protective equipment`).parent().next().contains('Review').click()
+        cy.get('span').contains(`Personal protective equipment`).parent().next().contains('Review').click();
+        testPpeData.productType.forEach((productType) => {
+            cy.contains(productType).should('exist');
+        });
+
+        testPpeData.risks.forEach((risk) => {
+            cy.contains(risk).should('exist');
+        });
+
+        testPpeData.specialisedAreas.forEach((area) => {
+            cy.contains(area).should('exist');
+        });
+
+        testPpeData.assessmentProcedures.forEach((procedure) => {
+            cy.contains(procedure).should('exist');
+        });
         cy.contains('label', 'Approve').click()
         cy.confirm()
         cy.ensureOn(this.draftUrl);
@@ -143,7 +158,22 @@ describe('PPE Product Test', () => {
         CabHelpers.editCabButton().click();
         validatePpeDataOnSummaryPage(testPpeData);
         cy.get('#reviewLa').click();
-        cy.get('span').contains(`Personal protective equipment`).parent().next().contains('Review').click()
+        cy.get('span').contains(`Personal protective equipment`).parent().next().contains('Review').click();
+        testPpeData.productType.forEach((productType) => {
+            cy.contains(productType).should('exist');
+        });
+
+        testPpeData.risks.forEach((risk) => {
+            cy.contains(risk).should('exist');
+        });
+
+        testPpeData.specialisedAreas.forEach((area) => {
+            cy.contains(area).should('exist');
+        });
+
+        testPpeData.assessmentProcedures.forEach((procedure) => {
+            cy.contains(procedure).should('exist');
+        });
         cy.contains('label', 'Approve').click()
         cy.confirm();
         setPublishType();
