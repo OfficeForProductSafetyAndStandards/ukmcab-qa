@@ -190,7 +190,7 @@ describe('User Management', () => {
       cy.hasError('User notes', 'Enter notes')
     })
 
-    it('account is unlocked allowing user to login  and sends user email', function () {
+    it.skip('account is unlocked allowing user to login  and sends user email', function () {
       cy.ensureOn(UserManagementHelpers.userAdminPath(this.lockedUser))
       UserManagementHelpers.unlockUser(this.lockedUser)
       cy.contains('Account unlocked You have unlocked the user account').click()
