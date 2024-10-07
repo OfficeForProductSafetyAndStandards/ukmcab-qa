@@ -1,4 +1,5 @@
-name: STAGE - Smoke Test
+name: "[STAGE] UKMCAB smoke tests"
+run-name: STAGE e2e test suite initiated by ${{ github.actor }} 🚀
 
 on:
   workflow_dispatch:
