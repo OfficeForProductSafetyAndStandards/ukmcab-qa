@@ -1,0 +1,25 @@
+name: STAGE - Smoke Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'release/**'
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Create cypress.env.json with secret config values stored in Github
+        run: |
+          echo '${{ secrets.STAGE_CONFIG }}' > cypress.env.json
+
+      - name: Cypress Run - Smoke Test
+        uses: cypress-io/github-action@v5.0.2
+        with:
+          browser: electron
+          spec: cypress/e2e/ukas/smoke-test.cy.js
+          config: baseUrl=https://ukmcab-stage.beis.gov.uk
