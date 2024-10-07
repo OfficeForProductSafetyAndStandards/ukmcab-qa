@@ -4,7 +4,7 @@ import * as EmailSubscriptionHelpers from "../../support/helpers/email-subscript
 import Cab from "../../support/domain/cab";
 import Constants from "../../support/domain/constants";
 
-describe("Request to Archive an LA and to Remove an LA", () => {
+describe("Smoke Test - Request to Archive an LA and to Remove an LA @smoke", () => {
     context("Archive an LA", function () {
         const uniqueId = Date.now();
         const name = `Test Cab ${uniqueId}`;

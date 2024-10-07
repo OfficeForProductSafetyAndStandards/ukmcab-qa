@@ -1,4 +1,4 @@
-name: "[STAGE] UKMCAB smoke tests"
+name: "[DEV] UKMCAB smoke tests"
 run-name: STAGE e2e test suite initiated by ${{ github.actor }} 🚀
 
 on:
@@ -23,4 +23,4 @@ jobs:
         with:
           browser: electron
           spec: cypress/e2e/ukas/smoke-test.cy.js,cypress/e2e/ukas/archive-la-and-remove-la.cy.js
-          config: baseUrl=https://ukmcab-stage.beis.gov.uk
+          config: baseUrl=https://ukmcab-dev.beis.gov.uk
