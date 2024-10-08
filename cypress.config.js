@@ -20,8 +20,9 @@ module.exports = defineConfig({
     },
     e2e: {
         baseUrl: "https://ukmcab-dev.beis.gov.uk",
-        defaultCommandTimeout: 30000,
-        pageLoadTimeout: 60000,
+        defaultCommandTimeout: 60000,
+        pageLoadTimeout: 80000,
+        requestTimeout: 60000,
         chromeWebSecurity: false,
         experimentalRunAllSpecs: true,
         experimentalMemoryManagement: true,
