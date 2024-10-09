@@ -49,7 +49,6 @@ describe('CAB profile cannot be edited message', () => {
 
         it('message is not display for OPSS Admin user after OGD user approval', function () {
             cy.loginAsOpssUser();
-            cy.ensureOn(CabHelpers.notificationUrlPath());
             cy.ensureOn(this.draftUrl);
             cy.contains("This CAB profile cannot be edited until it's been approved or declined.").should('not.exist');
             CabHelpers.editCabButton().should('exist');
