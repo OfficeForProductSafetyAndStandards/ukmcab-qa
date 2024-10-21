@@ -144,11 +144,11 @@ describe('UKMCAB Accessibility Tests ', function () {
             checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
             cy.ensureOn(userManagementPath());
             checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
-            cy.get('a.tab-item-title[href="/user-admin/list"]').click();
+            cy.get('a.govuk-tabs__tab[href="/user-admin/list"]').click();
             checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
-            cy.get('a.tab-item-title[href="/user-admin/list/locked"]').click();
+            cy.get('a.govuk-tabs__tab[href="/user-admin/list/locked"]').click();
             checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
-            cy.get('a.tab-item-title[href="/user-admin/list/archived"]').click();
+            cy.get('a.govuk-tabs__tab[href="/user-admin/list/archived"]').click();
             checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
             cy.ensureOn(userManagementList());
             checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
