@@ -278,7 +278,7 @@ describe('Creating a new CAB', () => {
 
         it('user can remove uploaded schedule without publish', function () {
             CabHelpers.uploadSchedules([{fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Machinery'}])
-            cy.get(`.govuk-radios__input`).click()
+            cy.get(`.govuk-radios__input`).click({ force: true })
             cy.contains('Remove').click()
             cy.contains('0 files uploaded')
             cy.contains('The product schedule has been removed.')
@@ -286,7 +286,7 @@ describe('Creating a new CAB', () => {
 
         it('user can remove uploaded schedule with no legislative area without publish', function () {
             CabHelpers.uploadSchedules([{fileName: 'dummy.pdf', label: 'My Label', legislativeArea: null}])
-            cy.get(`.govuk-radios__input`).click()
+            cy.get(`.govuk-radios__input`).click({ force: true })
             cy.contains('Remove').click()
             cy.contains('0 files uploaded')
             cy.contains('The product schedule has been removed.')
@@ -294,14 +294,14 @@ describe('Creating a new CAB', () => {
 
         it('user can use schedule uploaded file again', function () {
             CabHelpers.uploadSchedules([{fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Machinery'}])
-            cy.get(`.govuk-radios__input`).click()
+            cy.get(`.govuk-radios__input`).click({ force: true })
             cy.contains('Use file again').click()
             cy.contains('The file has been used again.')
         })
 
         it('user cannot archive file', function () {
             CabHelpers.uploadSchedules([{fileName: 'dummy.pdf', label: 'My Label', legislativeArea: 'Machinery'}])
-            cy.get(`.govuk-radios__input`).click()
+            cy.get(`.govuk-radios__input`).click({ force: true })
             cy.contains('Archive product schedule').should('not.exist')
         })
 
@@ -339,7 +339,7 @@ describe('Creating a new CAB', () => {
             cy.ensureOn(CabHelpers.cabProfilePage(this.cab))
             CabHelpers.editCabButton().click()
             CabHelpers.editCabDetail('Product schedules')
-            cy.get(`.govuk-radios__input`).click()
+            cy.get(`.govuk-radios__input`).click({ force: true })
             cy.contains('Archive product schedule').click()
             cy.get('label').contains('Archive').click()
             cy.contains('Confirm').click()
