@@ -9,7 +9,7 @@ describe('User account request', () => {
       id: uniqueId,
       firstname: `Automated ${uniqueId}`,
       lastname: 'Test',
-      contactEmail: uniqueId + '@ContactEmailAddress.com'
+      contactEmail: uniqueId + '@contactexample.test'
     }
     cy.wrap(user).as('user')
     cy.login(user)

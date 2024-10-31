@@ -313,7 +313,7 @@ describe('User Management', () => {
         id: uniqueId,
         firstname: `Automated ${uniqueId}`,
         lastname: 'Test',
-        contactEmail: uniqueId + '@ContactEmailAddress.com'
+        contactEmail: uniqueId + '@contact.example.test'
       }
       cy.wrap(user).as('user')
       cy.login(user)

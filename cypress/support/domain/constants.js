@@ -1,6 +1,6 @@
 class Constants {
   static get TestApprovedBodiesEmailAddress() {
-    return "test.approved.bodies@test.gov.uk";
+    return "test.approved.bodies@test.gov.test";
   }
 
   static ApprovedReason_UnarchiveAndPublishCAB(name) {

@@ -1,7 +1,7 @@
 export default class OGDUser {
 
   constructor({
-    email = `OgdUser${Date.now()}@ukmcab.gov.uk`,
+    email = `OgdUser${Date.now()}@ukmcab.gov.test`,
     password = 'Som3P255W0rd!',
     legislativeAreas = ['Cableway Installation', 'Ecodesign'],
     requestReason = 'Some reason'
