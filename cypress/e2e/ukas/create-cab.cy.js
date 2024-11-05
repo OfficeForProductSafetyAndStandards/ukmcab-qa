@@ -468,7 +468,7 @@ describe('Creating a new CAB', () => {
 
             // Edit contact details
             cloneCab.addressLine1 = 'Newbury house'
-            cloneCab.email = 'support@gov.uk'
+            cloneCab.email = 'support@gov.example.test'
             cloneCab.pointOfContactName = ''
             cloneCab.isPointOfContactPublicDisplay = true
             CabHelpers.editCabDetail('Contact details')

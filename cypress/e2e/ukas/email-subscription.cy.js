@@ -15,7 +15,7 @@ describe('Email subscription', function () {
         EmailSubscriptionHelpers.clearSubscriptions()
         EmailSubscriptionHelpers.clearFakeDateTime()
         EmailSubscriptionHelpers.turnOffBackgroundService()
-        cy.wrap(`testing${Date.now()}@dummy.gov.uk`).as('email')
+        cy.wrap(`testing${Date.now()}@gov.example.test`).as('email')
         cy.loginAsOpssUser()
         cy.ensureOn(CabHelpers.addCabPath())
         cy.wrap(Cab.build()).as('cab')
@@ -276,7 +276,7 @@ describe('Email subscription', function () {
             // change email address
             cy.contains('a', 'Change email address').click()
             cy.contains(`Your current email address is ${this.email}`)
-            cy.contains("What's your new email address?").next('input').type(`testing${Date.now()}@dummy.gov.uk`)
+            cy.contains("What's your new email address?").next('input').type(`testing${Date.now()}@gov.example.test`)
             cy.continue()
             cy.contains('h1', 'Check your email')
         })
