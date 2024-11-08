@@ -70,7 +70,7 @@ describe('Feedback form', () => {
       feedbackForm().contains('Thank you for your feedback')
       feedbackForm().contains('a', 'Provide more feedback about this page').click()
       feedbackForm().should('have.attr', 'open')
-      EmailHelpers.getLastUserEmail('test.feedback@test.gov.test').then(email => {
+      EmailHelpers.getLastUserEmail('test.feedback@test.gov.uk').then(email => {
         expect(email.isRecent).to.be.true
         expect(email.isFeedbackEmail).to.be.true
       })
