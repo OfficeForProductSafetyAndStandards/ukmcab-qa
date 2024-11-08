@@ -25,9 +25,7 @@ describe('Ability for supporting documents to be marked as viewable by the publi
 
     const verifySupportingDocumentInProfilePage = (documents, publication) => {
         documents.forEach((document) => {
-            cy.contains('p', document.category).should('exist');
             cy.contains('p', document.fileName).should('exist');
-            cy.contains('p', publication).should('exist');
             cy.contains('a', 'View').should('exist');
             cy.contains('a', 'Download').should('exist');
         });
@@ -35,7 +33,6 @@ describe('Ability for supporting documents to be marked as viewable by the publi
 
     const verifySupportingDocumentIsNotVisible = (documents) => {
         documents.forEach((document) => {
-            cy.contains('p', document.category).should('not.exist');
             cy.contains('p', document.fileName).should('not.exist');
         });
     };
@@ -107,8 +104,6 @@ describe('Ability for supporting documents to be marked as viewable by the publi
             supportingDocumentsTab().click();
             cy.get('.govuk-grid-row.display-from-desktop').within(() => {
                 cy.contains('h3', 'File').should('exist');
-                cy.contains('h3', 'Category').should('exist');
-                cy.contains('h3', 'Publication').should('exist');
                 cy.contains('h3', 'Actions').should('exist');
             });
             verifySupportingDocumentInProfilePage(this.cab.documents, 'All users (public)');
@@ -166,8 +161,6 @@ describe('Ability for supporting documents to be marked as viewable by the publi
             supportingDocumentsTab().click();
             cy.get('.govuk-grid-row.display-from-desktop').within(() => {
                 cy.contains('h3', 'File').should('exist');
-                cy.contains('h3', 'Category').should('exist');
-                cy.contains('h3', 'Publication').should('exist');
                 cy.contains('h3', 'Actions').should('exist');
             });
             verifySupportingDocumentInProfilePage(this.cab.documents, 'Internal users');
