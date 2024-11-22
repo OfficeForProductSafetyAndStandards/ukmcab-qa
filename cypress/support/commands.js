@@ -23,6 +23,7 @@ Cypress.Commands.add("loginAs", (user) => {
         url: "/account/qalogin",
         body: {
             userId: user.id,
+            password: Cypress.env('QA_LOGIN_PASS'),
         },
         form: true,
         ...basicAuthCreds(),

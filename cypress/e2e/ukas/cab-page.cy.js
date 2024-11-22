@@ -235,7 +235,7 @@ describe('CAB profile page', function () {
             // Assuming you have previously defined and wrapped 'cabs' using cy.wrap()
             // cy.contains(`Showing 1 - ${this.cab.auditLog.slice(0, 10).length} of ${this.cab.auditLog.length}`)
 
-            cy.log(`APproved user is: ${this.cab.auditLog.UserName}, ${this.cab.auditLog.UserRole}`)
+            cy.log(`Approved user is: ${this.cab.auditLog.UserName}, ${this.cab.auditLog.UserRole}`)
             let int = 0
             cy.wrap(Cypress._.orderBy(this.cab.auditLog, 'DateTime', 'desc').slice(0, 10)).each((logvalue, index) => {
                 if (logvalue.Action === "Saved") {
