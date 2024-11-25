@@ -8,3 +8,4 @@ cypress/reports
 /.vs
 /cypress/a11y-violations/
 /cypress/.vs
+cypress/fixtures/users.json
