@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Create cypress.env.json with secret config values stored in Github
         run: |
-          echo '${{ secrets.STAGE_CONFIG }}' > cypress.env.json
+          echo '${{ secrets.STAGE_CONFIG_2024 }}' > cypress.env.json
           printf '%s' '${{ secrets.TEST_USERS }}' > cypress/fixtures/users.json
       - name: Cypress Run
         uses: cypress-io/github-action@v5.0.2
