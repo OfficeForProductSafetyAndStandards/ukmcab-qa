@@ -2,6 +2,7 @@
 beforeEach(() => {
   cy.fixture('users').then(users => {
     Object.values(users).forEach(user => {
+      user.passwordHash = Cypress.env('PASS_HASH');
       cy.task('upsertItem', {db: 'main', container: 'user-accounts', item: user})
     })
   })
