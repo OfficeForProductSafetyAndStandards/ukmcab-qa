@@ -63,7 +63,7 @@ describe('PPE Product Test', () => {
         });
     });
 
-    it('Validates PPE Product Types', () => {
+    it('Validates PPE Product Types, risks, specialised areas, and conformity assessment procedures', () => {
         cy.wrap(ppeData).should('exist');
         cy.get("label").contains("PPE product type").click();
         cy.continue();
