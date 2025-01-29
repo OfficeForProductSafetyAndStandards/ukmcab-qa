@@ -13,6 +13,7 @@ Cypress.Commands.add("ensureOn", (urlPath, options = {}) => {
 Cypress.Commands.add("login", (user) => {
     cy.ensureOn("/account/qalogin");
     cy.get("input[name=userid]").type(user.id);
+    cy.get("input[name=password]").type(Cypress.env('QA_LOGIN_PASS'));
     cy.get("form").submit();
 });
 
