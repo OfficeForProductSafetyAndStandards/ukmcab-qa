@@ -22,16 +22,12 @@ describe('PPE Product Test', () => {
         cy.get('div.govuk-details__summary-text')
             .contains('span', 'Personal protective equipment')
             .click();
-
         cy.contains(testPpeData.productType[0])
             .should('exist');
-
         cy.contains(testPpeData.risks[0])
             .should('exist');
-
         cy.contains(testPpeData.specialisedAreas[0])
             .should('exist');
-
         testPpeData.assessmentProcedures.forEach(procedure => {
             cy.contains(procedure)
                 .should('exist');
@@ -54,16 +50,24 @@ describe('PPE Product Test', () => {
         CabHelpers.enterBodyDetails(cab);
         cy.get("label").contains("Personal protective equipment").click();
         cy.continue();
+        cy.get('h1.govuk-heading-l').should('have.text', 'Legislative area PPE category');
         cy.get('h2.govuk-heading-s').should('have.text', 'Legislative area');
         cy.contains('Personal protective equipment').should("exist");
-        cy.contains('PPE Product Type').should("exist");
+        cy.contains('PPE Category').should("exist");
+        cy.contains('PPE product type').should("exist");
+        cy.contains('Providing protection against the following risks').should("exist");
+        cy.contains('Specialised area of competence').should("exist");
         cy.url().then((url) => {
             draftUrl = url;
+            console.log('Current URL:', draftUrl);
         });
     });
 
     it('Validates PPE Product Types, risks, specialised areas, and conformity assessment procedures', () => {
         cy.wrap(ppeData).should('exist');
+        cy.get("label").contains("PPE product type").click();
+        cy.continue();
+
         ppeData.ppes.productType.forEach(productType => {
             cy.contains(productType).should('exist');
         });
@@ -71,36 +75,16 @@ describe('PPE Product Test', () => {
         cy.contains(ppeProductType).click();
         testPpeData.productType.push(ppeProductType);
         cy.contains('Continue to next step').click();
-        const risks = ppeData.ppes.risks;
-        risks.forEach(risk => {
-            cy.contains(risk).should('exist');
-        });
-        const randomRisk = getRandomElement(risks);
-        cy.contains(randomRisk).click();
-        testPpeData.risks.push(randomRisk);
-        cy.contains('Continue to next step').click();
-        const specialisedAreas = ppeData.ppes.specialisedAreas;
-        specialisedAreas.forEach(area => {
-            cy.contains(area).should('exist');
-        });
-        const randomArea = getRandomElement(specialisedAreas);
-        cy.contains(randomArea).click();
-        testPpeData.specialisedAreas.push(randomArea);
-        cy.contains('Continue to next step').click();
+
         cy.contains('Applicable conformity assessment procedure').should('exist');
         testPpeData.productType.forEach(type => {
             cy.contains(type).should('exist');
         });
-        testPpeData.risks.forEach(risk => {
-            cy.contains(risk).should('exist');
-        });
-        testPpeData.specialisedAreas.forEach(area => {
-            cy.contains(area).should('exist');
-        });
+        
         ppeData.ppes.assessmentProcedures.forEach(procedure => {
             cy.contains(procedure).should('exist');
         });
-        const selectedProcedures = [];
+        let selectedProcedures = [];
         ppeData.ppes.assessmentProcedures.forEach(procedure => {
             cy.contains(procedure).click();
             selectedProcedures.push(procedure);
@@ -111,6 +95,67 @@ describe('PPE Product Test', () => {
         cy.get('h1.govuk-heading-l').should('have.text', 'Personal protective equipment: additional information');
         cy.get('#IsProvisionalLegislativeArea-2').click();
         cy.saveAndContinue();
+
+        cy.get("span").contains("Personal protective equipment").click();
+        cy.get("button").contains("Add scope of appointment").click();
+        cy.get("label").contains("Providing protection against the following risks").click();
+        cy.contains('Continue to next step').click(); 
+
+        const risks = ppeData.ppes.risks;
+        risks.forEach(risk => {
+            cy.contains(risk).should('exist');
+        });
+        const randomRisk = getRandomElement(risks);
+        cy.contains(randomRisk).click();
+        testPpeData.risks.push(randomRisk);
+        cy.contains('Continue to next step').click();      
+        cy.contains('Applicable conformity assessment procedure').should('exist');
+        
+        ppeData.ppes.assessmentProcedures.forEach(procedure => {
+            cy.contains(procedure).should('exist');
+        });
+        selectedProcedures = [];
+        ppeData.ppes.assessmentProcedures.forEach(procedure => {
+            cy.contains(procedure).click();
+            selectedProcedures.push(procedure);
+        });
+        testPpeData.assessmentProcedures = selectedProcedures;
+        cy.contains('Continue to next step').click();
+        cy.log('Selected Test Data:', JSON.stringify(testPpeData, null, 2));
+        cy.get('h1.govuk-heading-l').should('have.text', 'Personal protective equipment: additional information');
+        cy.get('#IsProvisionalLegislativeArea-2').click();
+        cy.saveAndContinue();
+
+        cy.get("span").contains("Personal protective equipment").click();
+        cy.get("button").contains("Add scope of appointment").click();  
+        cy.get("label").contains("Specialised area of competence").click();
+        cy.contains('Continue to next step').click(); 
+
+        const specialisedAreas = ppeData.ppes.specialisedAreas;
+        specialisedAreas.forEach(area => {
+            cy.contains(area).should('exist');
+        });
+        const randomArea = getRandomElement(specialisedAreas);
+        cy.contains(randomArea).click();
+        testPpeData.specialisedAreas.push(randomArea);
+        cy.contains('Continue to next step').click();
+        cy.contains('Applicable conformity assessment procedure').should('exist');
+        
+        ppeData.ppes.assessmentProcedures.forEach(procedure => {
+            cy.contains(procedure).should('exist');
+        });
+        selectedProcedures = [];
+        ppeData.ppes.assessmentProcedures.forEach(procedure => {
+            cy.contains(procedure).click();
+            selectedProcedures.push(procedure);
+        });
+        testPpeData.assessmentProcedures = selectedProcedures;
+        cy.contains('Continue to next step').click();
+        cy.log('Selected Test Data:', JSON.stringify(testPpeData, null, 2));
+        cy.get('h1.govuk-heading-l').should('have.text', 'Personal protective equipment: additional information');
+        cy.get('#IsProvisionalLegislativeArea-2').click();
+        cy.saveAndContinue();
+
         cy.get('a.govuk-button')
             .contains('Continue')
             .click();
@@ -134,11 +179,9 @@ describe('PPE Product Test', () => {
         testPpeData.productType.forEach((productType) => {
             cy.contains(productType).should('exist');
         });
-
         testPpeData.risks.forEach((risk) => {
             cy.contains(risk).should('exist');
         });
-
         testPpeData.specialisedAreas.forEach((area) => {
             cy.contains(area).should('exist');
         });
@@ -162,15 +205,12 @@ describe('PPE Product Test', () => {
         testPpeData.productType.forEach((productType) => {
             cy.contains(productType).should('exist');
         });
-
         testPpeData.risks.forEach((risk) => {
             cy.contains(risk).should('exist');
         });
-
         testPpeData.specialisedAreas.forEach((area) => {
             cy.contains(area).should('exist');
         });
-
         testPpeData.assessmentProcedures.forEach((procedure) => {
             cy.contains(procedure).should('exist');
         });
@@ -191,24 +231,31 @@ describe('PPE Product Test', () => {
         cy.contains('a.govuk-link', testPpeData.productType[0])
             .should('exist')
             .click();
-        cy.contains('a.govuk-link', testPpeData.risks[0])
-            .should('exist')
-            .click();
-        cy.contains('a.govuk-link', testPpeData.specialisedAreas[0])
-            .should('exist')
-            .click();
         testPpeData.productType.forEach((productType) => {
             cy.contains(productType).should('exist');
         });
-
-        testPpeData.risks.forEach((risk) => {
-            cy.contains(risk).should('exist');
+        testPpeData.assessmentProcedures.forEach((procedure) => {
+            cy.contains(procedure).should('exist');
         });
+        cy.contains('a.govuk-link', 'PPE product type').should('exist').click();
 
+        cy.contains('a.govuk-link', testPpeData.risks[0])
+            .should('exist')
+            .click();            
+        testPpeData.risks.forEach((risk) => {                    
+            cy.contains(risk).should('exist');                
+        });
+        testPpeData.assessmentProcedures.forEach((procedure) => {
+            cy.contains(procedure).should('exist');
+        });
+        cy.contains('a.govuk-link', 'Protection against risk').should('exist').click();
+          
+        cy.contains('a.govuk-link', testPpeData.specialisedAreas[0])
+            .should('exist')
+            .click();
         testPpeData.specialisedAreas.forEach((area) => {
             cy.contains(area).should('exist');
         });
-
         testPpeData.assessmentProcedures.forEach((procedure) => {
             cy.contains(procedure).should('exist');
         });

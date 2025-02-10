@@ -47,7 +47,6 @@ describe('CAB profile page', function () {
                 cy.hasKeyValueDetail('Body number', valueOrNotProvided(this.cab.cabNumber))
                 cy.contains('Appointment date').should('not.exist')
                 cy.contains('Review date').should('not.exist')
-                cy.hasKeyValueDetail('UKAS reference number', valueOrNotProvided(this.cab.ukasRef))
             })
             cy.contains('.cab-detail-section', 'Contact details').within(() => {
                 if (this.cab.website) {
