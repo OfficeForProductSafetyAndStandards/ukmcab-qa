@@ -116,6 +116,7 @@ export const hasUserList = (users) => {
             cy.get('td:not(.user-table-cell__mobile)').eq(1).should('have.attr', 'title', user.lastname)
             cy.get('td:not(.user-table-cell__mobile)').eq(2).should('have.attr', 'title', user.contactEmail)
             const userGroup = user.role.toLowerCase() === "opss_ogd" ? "OPSS (OGD)" : user.role.toUpperCase();
+            userGroup = user.role.toLowerCase() === "dluhc" ? "MHCLG" : user.role.toUpperCase();
             cy.get('td:not(.user-table-cell__mobile)').eq(3).should('contain', userGroup)
             cy.get('td:not(.user-table-cell__mobile)').eq(4).should('contain', user.lastLogon?.format('DD/MM/YYYY HH:mm') ?? 'None')
             // cy.get('td:not(.user-table-cell__mobile)').eq(5).contains('a', 'View').and('has.attr', 'href', userAdminPath(user))
