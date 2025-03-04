@@ -30,6 +30,7 @@ describe('User account request', () => {
       cy.ensureOn(UserManagementHelpers.userApprovePath(account))
       AccountRequestHelpers.approveRequest()
       cy.logout()
+      // TODO: Add password
       cy.login({ id: account.subjectId })
     })
   })
