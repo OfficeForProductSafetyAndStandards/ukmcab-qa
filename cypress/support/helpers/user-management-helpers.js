@@ -50,7 +50,7 @@ const Actions = {
 }
 
 const getUsersByQuerySpec = (querySpec) => {
-    return cy.task('executeQuery', {db: 'main', container: 'user-accounts', querySpec: querySpec}).then(results => {
+    return cy.task('executeQuery', { db: 'main', container: 'user-accounts', querySpec: querySpec }).then(results => {
         return results.resources.map(userRecord => new User(userRecord))
     })
 }
@@ -60,7 +60,7 @@ export const getUsers = () => {
 }
 
 export const seedAccountRequest = () => {
-    cy.task('upsertItem', {db: 'main', container: 'user-account-requests', item: UserAccountRequest.build()})
+    cy.task('upsertItem', { db: 'main', container: 'user-account-requests', item: UserAccountRequest.build() })
 }
 
 export const getAccountRequests = () => {
@@ -87,14 +87,14 @@ export const getRequestAccount = (name) => {
 
 export const getApprovedAccount = (name) => {
     const querySpec = `SELECT * FROM c where c.firstName = '${name}'`
-    return cy.task('executeQuery', {db: 'main', container: 'user-accounts', querySpec: querySpec}).then(results => {
+    return cy.task('executeQuery', { db: 'main', container: 'user-accounts', querySpec: querySpec }).then(results => {
         return results.resources.map(item => new UserAccount(item))
     })
 }
 
 export const getCabUpdateStatus = (name) => {
     const querySpec = `SELECT * FROM c where c.Name = '${name}'`
-    return cy.task('executeQuery', {db: 'main', container: 'cab-documents', querySpec: querySpec}).then(results => {
+    return cy.task('executeQuery', { db: 'main', container: 'cab-documents', querySpec: querySpec }).then(results => {
         return results.resources
             .map(item => new CabDocument(item))
             .filter(doc => doc.name === name);
@@ -115,13 +115,39 @@ export const hasUserList = (users) => {
             cy.get('td:not(.user-table-cell__mobile)').eq(0).should('have.attr', 'title', user.firstname)
             cy.get('td:not(.user-table-cell__mobile)').eq(1).should('have.attr', 'title', user.lastname)
             cy.get('td:not(.user-table-cell__mobile)').eq(2).should('have.attr', 'title', user.contactEmail)
-            let userGroup = user.role.toLowerCase() === "opss_ogd" ? "OPSS (OGD)" : user.role.toUpperCase();
-            userGroup = user.role.toLowerCase() === "dluhc" ? "MHCLG" : user.role.toUpperCase();
+            const userGroup = getUserGroup(user.role);
             cy.get('td:not(.user-table-cell__mobile)').eq(3).should('contain', userGroup)
             cy.get('td:not(.user-table-cell__mobile)').eq(4).should('contain', user.lastLogon?.format('DD/MM/YYYY HH:mm') ?? 'None')
             // cy.get('td:not(.user-table-cell__mobile)').eq(5).contains('a', 'View').and('has.attr', 'href', userAdminPath(user))
         })
     })
+}
+
+function getUserGroup(role) {
+    switch (role.toLowerCase()) {
+        case 'opss_ogd':
+            return 'OPSS (OGD)'
+        case 'dluhc':
+            return 'MHCLG'
+        default:
+            return role.toUpperCase();
+    }
+}
+
+export const addPasswordToUserAccount = (account) => {
+    getApprovedAccount(account.firstname)
+        .then(approvedUser => {            
+            const newUser = {
+                ...approvedUser[0]._sourceData,
+                passwordHash: Cypress.env('PASS_HASH')
+            }
+            return cy.wrap(newUser)
+        }).then(user => {
+            cy.task('upsertItem', { db: 'main', container: 'user-accounts', item: user })
+                .then(res => {
+                    expect(res).to.have.property('id', account.subjectId)
+                })
+        })
 }
 
 export const
