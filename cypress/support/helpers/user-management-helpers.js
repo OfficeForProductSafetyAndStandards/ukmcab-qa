@@ -116,6 +116,7 @@ export const hasUserList = (users) => {
             cy.get('td:not(.user-table-cell__mobile)').eq(1).should('have.attr', 'title', user.lastname)
             cy.get('td:not(.user-table-cell__mobile)').eq(2).should('have.attr', 'title', user.contactEmail)
             const userGroup = getUserGroup(user.role);
+            cy.get('td:not(.user-table-cell__mobile)').should('have.length.greaterThan', 3)
             cy.get('td:not(.user-table-cell__mobile)').eq(3).should('contain', userGroup)
             cy.get('td:not(.user-table-cell__mobile)').eq(4).should('contain', user.lastLogon?.format('DD/MM/YYYY HH:mm') ?? 'None')
             // cy.get('td:not(.user-table-cell__mobile)').eq(5).contains('a', 'View').and('has.attr', 'href', userAdminPath(user))
@@ -126,9 +127,9 @@ export const hasUserList = (users) => {
 function getUserGroup(role) {
     switch (role.toLowerCase()) {
         case 'opss_ogd':
-            return 'OPSS (OGD)'
+            return 'OPSS (OGD)';
         case 'dluhc':
-            return 'MHCLG'
+            return 'MHCLG';
         default:
             return role.toUpperCase();
     }
