@@ -1,5 +1,5 @@
 import * as CabHelpers from '../../support/helpers/cab-helpers'
-import {date, valueOrNotProvided} from "../../support/helpers/formatters"
+import { date, valueOrNotProvided } from "../../support/helpers/formatters"
 
 describe('Draft management', function () {
 
@@ -142,28 +142,26 @@ describe('Draft management', function () {
     });
 
     it('should click on pagination page link 2 and verify "Previous" and "Next" links if they exist', () => {
-        cy.get('ul.pagination-links').within(() => {
-            cy.get('li.pagination-page-link a').contains('2').then(($link) => {
-                if ($link.length > 0) {
-                    cy.wrap($link).click();
-                }
-            });
-        });
-        cy.get('ul.pagination-links').within(() => {
-            cy.get('li.pagination-link-item').contains('Previous').then(($prev) => {
-                if ($prev.length > 0) {
-                    cy.wrap($prev).should('exist');
-                }
-            });
+        cy.get('ul.pagination-links').then(($pagination) => {
+            if ($pagination.find('li.pagination-page-link a').filter(':contains("2")').length > 0) {
 
-            cy.get('li.pagination-link-item').contains('Next').then(($next) => {
-                if ($next.length > 0) {
-                    cy.wrap($next).should('exist');
-                }
-            });
+                cy.get('ul.pagination-links li.pagination-page-link a').contains('2').click();
+
+                cy.get('ul.pagination-links li.pagination-link-item').contains('Previous').should('exist');
+                cy.get('ul.pagination-links li.pagination-link-item').then($items => {
+                    const $next = $items.filter((_, el) => Cypress.$(el).text().trim() === 'Next');
+                    if ($next.length > 0) {
+                        cy.wrap($next).should('exist').should('be.visible');
+                    } else {
+                        cy.log('Next link does not exist probaly because there are less than 21 items');
+                    }
+                });               
+            } else {
+                cy.get('ul.pagination-links li.pagination-link-item').contains('Previous').should('not.exist');
+                cy.get('ul.pagination-links li.pagination-link-item').contains('Next').should('not.exist');
+            }
         });
     });
-
 
     it('should verify that all sorters are present in the table head', () => {
         sorters.forEach((sorter, index) => {
@@ -173,7 +171,7 @@ describe('Draft management', function () {
         });
     });
 
-// disabling as failing due to potential caching
+    // disabling as failing due to potential caching
     it.skip('displays correct CAB order upon sorting by any of the sortable columns', function () {
         cy.log('CAB name Asc sort')
         cy.get('thead th a').eq(0).click()
@@ -256,4 +254,4 @@ describe('Draft management', function () {
             })
         })
     })
-})
+});

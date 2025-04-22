@@ -277,8 +277,29 @@ describe('User Management', () => {
         expect(_email.isRecent).to.be.true
         expect(_email.isAccountRequestApprovedEmail('OPSS')).to.be.true
       })
-      cy.login({ id: this.pendingRequest.subjectId })
-      shouldBeLoggedIn()
+      const account =
+        UserManagementHelpers.getApprovedAccount(this.pendingRequest.firstname)
+          .then(approvedUser => {
+            const approvedccount = approvedUser.find(r => r.id === this.pendingRequest.subjectId)
+            if (!approvedccount) {
+              throw new Error('No pending account request found')
+            }
+            const newUser = {
+              ...approvedccount._sourceData,
+              passwordHash: Cypress.env('PASS_HASH')
+            }
+            return cy.wrap(newUser)
+          }).then(user => {
+            cy.task('upsertItem', { db: 'main', container: 'user-accounts', item: user })
+              .then(res => {
+                expect(res).to.have.property('id', user.id) 
+              })
+          }).then(account => {
+            cy.login({ id: account.id })
+            shouldBeLoggedIn()
+            cy.logout()
+            cy.task('deleteItem', { db: 'main', container: 'user-accounts', id: account.id, partitionKey: account.id });
+          })
     })
 
     it('can not be approved without assigning a user group', function () {
@@ -360,6 +381,12 @@ describe('User Management', () => {
             })
           })
         })
+
+        UserManagementHelpers.addPasswordToUserAccount(account);
+        cy.login({ id: account.subjectId });
+        cy.logout();
+        cy.task('deleteItem', { db: 'main', container: 'user-accounts', id: account.subjectId, partitionKey: account.subjectId });
+
       })
     })
   })

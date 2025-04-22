@@ -164,7 +164,7 @@ describe('Validate construction products from JSON file on demand', () => {
         cy.loginAsOpssUser();
         cy.ensureOn(this.draftUrl)
         validateProductDetails(testProduct);
-        cy.contains('Pending approval from DLUHC').should("exist");
+        cy.contains('Pending approval from MHCLG').should("exist");
 
     });
 

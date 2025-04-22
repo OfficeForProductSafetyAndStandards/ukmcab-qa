@@ -27,11 +27,17 @@ describe('User account request', () => {
     cy.loginAsOpssUser()
     UserManagementHelpers.getRequestAccount(this.user.firstname).then(createdUser => {
       const account = createdUser.find(r => r.isPending())
+      if (!account) {
+        throw new Error('No pending account request found')
+      }
       cy.ensureOn(UserManagementHelpers.userApprovePath(account))
       AccountRequestHelpers.approveRequest()
       cy.logout()
-      // TODO: Add password
-      cy.login({ id: account.subjectId })
+
+      UserManagementHelpers.addPasswordToUserAccount(account);
+      cy.login({ id: account.subjectId });
+      cy.logout();
+      cy.task('deleteItem', { db: 'main', container: 'user-accounts', id: account.subjectId, partitionKey: account.subjectId });
     })
   })
 

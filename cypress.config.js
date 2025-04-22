@@ -26,7 +26,7 @@ module.exports = defineConfig({
         chromeWebSecurity: false,
         experimentalRunAllSpecs: true,
         experimentalMemoryManagement: true,
-        //numTestsKeptInMemory: 1,
+        numTestsKeptInMemory: 1,
         setupNodeEvents(on, config) {
             require("cypress-mochawesome-reporter/plugin")(on);
             const endpoint = config.env.DB_URL;
