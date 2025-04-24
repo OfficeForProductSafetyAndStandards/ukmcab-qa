@@ -29,6 +29,8 @@ module.exports = defineConfig({
         numTestsKeptInMemory: 1,
         setupNodeEvents(on, config) {
             require("cypress-mochawesome-reporter/plugin")(on);
+            global.AbortController = global.AbortController || require('abort-controller');
+            console.log('AbortController:', typeof global.AbortController);
             const endpoint = config.env.DB_URL;
             const key = config.env.DB_KEY;
             const client = new CosmosClient({endpoint, key});
