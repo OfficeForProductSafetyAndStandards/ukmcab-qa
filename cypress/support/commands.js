@@ -52,7 +52,10 @@ Cypress.Commands.add("loginAsOpssOgdUser", () => {
 // TODO: OTHER USERS YET TO COME
 
 Cypress.Commands.add("logout", () => {
-    header().find("a").contains("Sign out").click();
+    cy.get('ul#navigation')
+        .find('a.govuk-service-navigation__link:visible')
+        .contains('Sign out')
+        .click();
 });
 
 Cypress.Commands.add("continue", () => {
