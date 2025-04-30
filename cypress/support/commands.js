@@ -52,7 +52,10 @@ Cypress.Commands.add("loginAsOpssOgdUser", () => {
 // TODO: OTHER USERS YET TO COME
 
 Cypress.Commands.add("logout", () => {
-    header().find("a").contains("Sign out").click();
+    cy.get('ul#navigation')
+        .find('a.govuk-service-navigation__link:visible')
+        .contains('Sign out')
+        .click();
 });
 
 Cypress.Commands.add("continue", () => {
@@ -88,7 +91,7 @@ Cypress.Commands.add("getSearchResults", (keywords, options = {}) => {
         },
         url:
             Cypress.env("AZURE_SEARCH_URL") +
-            "/indexes/ukmcab-search-index-v4-1/docs/search?api-version=2020-06-30",
+            "/indexes/ukmcab-search-index-v5-7/docs/search?api-version=2020-06-30",
         body: {
             search: keywords,
             queryType: "full",

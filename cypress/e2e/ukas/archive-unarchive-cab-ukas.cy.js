@@ -393,10 +393,10 @@ describe("Request to Unarchive a CAB", () => {
             CabHelpers.ukasRequestToUnarchiveAndSaveAsDraftCab(name);
         });
 
-        it("OPSS declines request to unarchive and save as draft", function () {
+        it("OPSS declines request to un-archive and save as draft", function () {
             cy.loginAsOpssUser();
             cy.ensureOn(CabHelpers.cabProfileUrlPathByCabName(name));
-            cy.contains(`${this.ukasUser.firstname} ${this.ukasUser.lastname} from ${this.ukasUser.role.toUpperCase()} has requested that this CAB is unarchived and saved as draft for the following reason:`);
+            cy.contains(`${this.ukasUser.firstname} ${this.ukasUser.lastname} from ${this.ukasUser.role.toUpperCase()} has requested that this CAB is un-archived and saved as draft for the following reason:`);
             cy.get("a").contains("Decline").click();
             cy.get("#Reason").type(
                 "E2E TEST - OPSS declined UKAS request to unarchive and save as draft"
@@ -404,14 +404,14 @@ describe("Request to Unarchive a CAB", () => {
             cy.get("button").contains("Decline").click();
         });
 
-        it("sent email to UKAS that request to unarchive and save as draft has been declined", function () {
+        it("sent email to UKAS that request to un-archive and save as draft has been declined", function () {
             EmailSubscriptionHelpers.assertDeclineRequestToUnarchiveAndSaveAsDraftEmailIsSent(
                 this.ukasUser.email,
                 name
             );
         });
 
-        it("UKAS receives notification for declined request to unarchive and save as draft CAB", function () {
+        it("UKAS receives notification for declined request to un-archive and save as draft CAB", function () {
             cy.loginAsUkasUser();
             cy.ensureOn(CabHelpers.notificationCompletedUrlPath());
             cy.get('#tab_completed').click();

@@ -132,7 +132,10 @@ describe('UKMCAB Accessibility Tests ', function () {
         it('should check accessibility', () => {
             cy.loginAsOpssUser();
             cy.ensureOn(CabHelpers.serviceManagementPath());
-            cy.get('a.govuk-header__link').contains('Search').click();
+            cy.get('ul#navigation')
+                .find('a.govuk-service-navigation__link:visible')
+                .contains('Search')
+                .click();
             checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
             cy.ensureOn(helpPath());
             checkAccessibility(wcag21aaStandardOption, terminalAndCsvLog);
