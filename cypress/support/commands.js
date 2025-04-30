@@ -91,7 +91,7 @@ Cypress.Commands.add("getSearchResults", (keywords, options = {}) => {
         },
         url:
             Cypress.env("AZURE_SEARCH_URL") +
-            "/indexes/ukmcab-search-index-v4-1/docs/search?api-version=2020-06-30",
+            "/indexes/ukmcab-search-index-v5-7/docs/search?api-version=2020-06-30",
         body: {
             search: keywords,
             queryType: "full",
