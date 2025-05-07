@@ -1,5 +1,5 @@
 name: "[DEV] UKMCAB smoke tests"
-run-name: STAGE smoke test suite initiated by ${{ github.actor }} 🚀
+run-name: STAGE smoke test suite initiated by ${{ github.actor }}
 
 on:
   workflow_dispatch:
@@ -16,11 +16,23 @@ jobs:
 
       - name: Create cypress.env.json with secret config values stored in Github
         run: |
-          echo '${{ secrets.DEV_CONFIG }}' > cypress.env.json
+          echo '${{ secrets.DEV_CONFIG_2024 }}' > cypress.env.json
+          printf '%s' '${{ secrets.TEST_USERS }}' > cypress/fixtures/users.json
 
       - name: Cypress Run - Smoke Test
         uses: cypress-io/github-action@v5.0.2
         with:
           browser: electron
           spec: cypress/e2e/ukas/smoke-test.cy.js,cypress/e2e/ukas/archive-la-and-remove-la.cy.js
-#          config: baseUrl=https://ukmcab-dev.beis.gov.uk
+      #         config: baseUrl=https://ukmcab-dev.beis.gov.uk
+
+      - name: Upload artifacts if test fails
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: cypress-report
+          path: cypress/reports
+
+      - name: Clean up env files
+        run: |
+          rm cypress.env.json
