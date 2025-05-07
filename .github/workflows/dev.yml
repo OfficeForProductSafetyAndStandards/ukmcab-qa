@@ -6,6 +6,9 @@ on:
 jobs:
   regression:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -27,3 +30,4 @@ jobs:
         run: |
           rm cypress.env.json
           rm cypress/fixtures/users.json
+  
